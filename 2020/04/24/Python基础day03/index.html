@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Python基础day03 | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python基础">
+    <meta name="description" content="验证码# 代入验证码项目，输入姓名密码之后有空格也不会报错 username &#x3D; input(&quot;请输入姓名:&quot;).strip() passworrd &#x3D; input(&quot;请输入密码:&quot;).strip() code &#x3D; &#39;AeTrd&#39;.upper() your_code &#x3D; input(&quot;请输入验证码:&quot;).upper() i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基础day03">
+<meta property="og:url" content="https://www.missf.top/2020/04/24/Python%E5%9F%BA%E7%A1%80day03/index.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="验证码# 代入验证码项目，输入姓名密码之后有空格也不会报错 username &#x3D; input(&quot;请输入姓名:&quot;).strip() passworrd &#x3D; input(&quot;请输入密码:&quot;).strip() code &#x3D; &#39;AeTrd&#39;.upper() your_code &#x3D; input(&quot;请输入验证码:&quot;).upper() i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-24T10:14:29.000Z">
+<meta property="article:modified_time" content="2020-04-24T13:04:22.186Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="Python基础">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><script src="/js/prism.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python基础day03</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Python基础day03</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-24T10:14:29.000Z" itemprop="datePublished" class="page-time">
+  2020-04-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#验证码"><span class="post-toc-number">1.</span> <span class="post-toc-text">验证码</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#将一行字符串竖着打印"><span class="post-toc-number">2.</span> <span class="post-toc-text">将一行字符串竖着打印</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#猜数字"><span class="post-toc-number">3.</span> <span class="post-toc-text">猜数字</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#计算器"><span class="post-toc-number">4.</span> <span class="post-toc-text">计算器</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#列表"><span class="post-toc-number">5.</span> <span class="post-toc-text">列表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么需要列表"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">为什么需要列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是列表"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">什么是列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表取值"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">列表取值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表的增加"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">列表的增加</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表的删除"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">列表的删除</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表的修改"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">列表的修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表的查询"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">列表的查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表的其他操作"><span class="post-toc-number">5.8.</span> <span class="post-toc-text">列表的其他操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表的嵌套"><span class="post-toc-number">5.9.</span> <span class="post-toc-text">列表的嵌套</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#元组"><span class="post-toc-number">6.</span> <span class="post-toc-text">元组</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#字典"><span class="post-toc-number">7.</span> <span class="post-toc-text">字典</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#回顾数据类型"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">回顾数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字典的增加"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">字典的增加</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字典的删除"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">字典的删除</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字典的修改"><span class="post-toc-number">7.4.</span> <span class="post-toc-text">字典的修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字典的查询"><span class="post-toc-number">7.5.</span> <span class="post-toc-text">字典的查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字典的其他操作"><span class="post-toc-number">7.6.</span> <span class="post-toc-text">字典的其他操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字典的嵌套联系"><span class="post-toc-number">7.7.</span> <span class="post-toc-text">字典的嵌套联系</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将字典数据格式化输出"><span class="post-toc-number">7.8.</span> <span class="post-toc-text">将字典数据格式化输出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#返回一个新的字典"><span class="post-toc-number">7.9.</span> <span class="post-toc-text">返回一个新的字典</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据类型的补充"><span class="post-toc-number">7.10.</span> <span class="post-toc-text">数据类型的补充</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将索引为奇数位的元素删除"><span class="post-toc-number">7.11.</span> <span class="post-toc-text">将索引为奇数位的元素删除</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将字典中键含有k元素的键值对删除"><span class="post-toc-number">7.12.</span> <span class="post-toc-text">将字典中键含有k元素的键值对删除</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#enumerate"><span class="post-toc-number">7.13.</span> <span class="post-toc-text">enumerate()</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Python基础day03"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python基础day03</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-24 18:14:29" datetime="2020-04-24T10:14:29.000Z"  itemprop="datePublished">2020-04-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h1><pre><code># 代入验证码项目，输入姓名密码之后有空格也不会报错
+username = input(&quot;请输入姓名:&quot;).strip()
+passworrd = input(&quot;请输入密码:&quot;).strip()
+code = &#39;AeTrd&#39;.upper()
+your_code = input(&quot;请输入验证码:&quot;).upper()
+if your_code == code:
+    if username == &#39;alex&#39; and passworrd == &#39;sb&#39;:
+        print(&#39;登录成功&#39;)
+    else:
+        print(&#39;用户名或者密码错误&#39;)
+else:
+    print(&#39;验证码不正确&#39;)</code></pre><h1 id="将一行字符串竖着打印"><a href="#将一行字符串竖着打印" class="headerlink" title="将一行字符串竖着打印"></a>将一行字符串竖着打印</h1><pre><code># while循环
+t = &#39;荒原饮露cchkskhdiqwuey&#39;
+s = len(t)      # 先统计字符串的长度
+# print(s)
+index = 0       # 设定一个索引值
+while index &lt; s:    # 如果索引值小于变量s则进入循环
+    print(t[index])     # 从0开始打印字符串的索引，直到index&lt;s不成立退出循环
+    index += 1      # index每次自增1
+
+# for循环
+t = &#39;荒原饮露cchkskhdiqwuey&#39;
+for i in t:
+    print(i)    # 还可以进行拼接，print(i+&#39;lo&#39;)</code></pre><h1 id="猜数字"><a href="#猜数字" class="headerlink" title="猜数字"></a>猜数字</h1><pre><code># 猜数字,只有猜对了才会退出
+num = 66
+while True:
+    cai = int(input(&quot;请输入你要猜的数字:&quot;))
+    if cai &gt; num:
+        print(&quot;猜的数字大了！&quot;)
+    elif cai &lt; num:
+        print(&quot;猜的数字小了&quot;)
+    else:
+        print(&quot;猜对了！&quot;)
+        break
+
+# 三次猜测不对就退出
+num = 66
+i = 0
+while i &lt; 3:
+    j = int(input(&quot;请输入数字:&quot;))
+    if j &gt; num:
+        print(&quot;数字大了!&quot;)
+    elif j &lt; num:
+        print(&quot;数字小了!&quot;)
+    else:
+        print(&quot;猜对了!&quot;)
+        break
+    i += 1</code></pre><h1 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h1><pre><code># 方式一
+content = input(&quot;请输入内容:&quot;).strip()   # 将输入的字符串，去掉前后两端的空格
+plus_index = content.find(&#39;+&#39;)  # 找到加号位置，并返回加号的索引数
+num1 = content[:plus_index].strip()     # 取加号前面的区域并且去掉空格
+num2 = content[plus_index+1:]       # 取加号后面的区域也去掉空格
+sum3 = int(num1) + int(num2)    # 将取到的无空格值相加
+print(sum3)
+
+# 方式二
+content = input(&quot;请输入内容:&quot;).strip()   # 将输入的字符串，进行去前后两端的空格
+li = content.split(&#39;+&#39;)     # 将字符串转换为列表，指定以+进行分割
+print(li)    
+[&#39;15  &#39;, &#39;    16&#39;]        # 将得到的元素相加
+sum1 = int(li[0]) + int(li[1])      # 将字符串类型的两个元素强制转换为int，会去掉空格
+print(sum1)</code></pre><h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="为什么需要列表"><a href="#为什么需要列表" class="headerlink" title="为什么需要列表"></a>为什么需要列表</h2><ul>
+<li>字符串如果长度过于长取值时会很费劲，取出来的数据是字符串类型，使用不方便</li>
+<li>字符串有长度限制(只能存储少量的字符串类型的数据)</li>
+<li>基于以上原因Python提供了一个另外的数据类型:容器类数据类型</li>
+</ul>
+<h2 id="什么是列表"><a href="#什么是列表" class="headerlink" title="什么是列表"></a>什么是列表</h2><ul>
+<li>列表能存储大量的、不同的数据类型，列表存放什么数据类型，取出来之后还是什么数据类型</li>
+<li>列表可以存放的数据类型:数字，字符串，布尔值，小列表，元组，字典，集合，对象</li>
+<li>32位Python的限制是 536870912</li>
+<li>64位Python的限制是 1152921504606846975</li>
+<li>列表是有序的、有索引值的、可切片、方便取值</li>
+</ul>
+<h2 id="列表取值"><a href="#列表取值" class="headerlink" title="列表取值"></a>列表取值</h2><pre><code># 取第一个元素
+sl = [&#39;alex&#39;,&#39;荒原&#39;,&#39;154&#39;]
+sl1 = print(sl[0],type(sl))    # 输出索引和索引类型
+print(sl1)    # alex &lt;class &#39;list&#39;&gt; 定义列表时是字符串
+
+sl = [&#39;alex&#39;,&#39;荒原&#39;,&#39;154&#39;]
+sl1 = print(sl[0:2])    # 0 1 2，顾首不顾尾，只取前两个元素
+print(sl1)    # [&#39;alex&#39;, &#39;荒原&#39;]
+
+# 反向取值
+sl = [&#39;alex&#39;,&#39;荒原&#39;,&#39;154&#39;]
+sl1 = print(sl[-1:-4:-1])
+print(sl1)    # [&#39;154&#39;, &#39;荒原&#39;, &#39;alex&#39;]</code></pre><h2 id="列表的增加"><a href="#列表的增加" class="headerlink" title="列表的增加"></a>列表的增加</h2><pre><code>sl.append(&quot;abc&quot;)    # 增加abc元素
+print(sl)
+
+sl.append(True)        # 增加布尔值
+print(sl)
+
+name_list = []        # 空列表
+while True:        # 如果不执行break,则一直执行while True
+    username = input(&quot;请输入姓名:&quot;).strip()        # 用户输入字符串
+    if username.upper() == &#39;Q&#39;:break        # 如果输入是q，无论大小写都执行break
+    name_list.append(username)        # 判断到不是q则增加到列表
+print(name_list)
+
+# 插入
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+lk.insert(1,&#39;yu&#39;)    # 在索引1的位置，插入&#39;yu&#39;,索引从零开始 
+print(lk)
+[&#39;mjk&#39;, &#39;yu&#39;, &#39;ctr&#39;, &#39;tpo&#39;, 100]
+
+# 迭代者追加
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+lk.extend(&#39;abc&#39;)
+print(lk)
+[&#39;mjk&#39;, &#39;ctr&#39;, &#39;tpo&#39;, 100, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+lk.extend([&#39;asd&#39;,&#39;cvf&#39;,&#39;cdd&#39;])
+print(lk)
+[&#39;mjk&#39;, &#39;ctr&#39;, &#39;tpo&#39;, 100, &#39;asd&#39;, &#39;cvf&#39;, &#39;cdd&#39;]</code></pre><h2 id="列表的删除"><a href="#列表的删除" class="headerlink" title="列表的删除"></a>列表的删除</h2><pre><code># 按照索引去删除
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+ret = lk.pop(1)        # 删除索引为1的元素
+print(lk)
+[&#39;mjk&#39;, &#39;tpo&#39;, 100]
+
+# 按照元素去删除
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+lk.remove(&#39;tpo&#39;)    # 指定删除那个
+print(lk)
+[&#39;mjk&#39;,&#39;ctr&#39;,100].
+
+# 清空列表
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+lk.clear()
+print(lk)
+[]
+
+# del
+1.按照索引删除单个元素
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+del lk[0]
+print(lk)
+[&#39;ctr&#39;,&#39;tpo&#39;,100]
+2.按照切片删除一部分元素
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100]
+del lk[:2]
+print(lk)
+[&#39;tpo&#39;, 100]
+3.按照切片（步长）删除一部分元素
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100,&#39;cff&#39;,&#39;ioo&#39;,&#39;tyy&#39;]
+s = lk[:5:2]    # 取区域为0-5，步长为2
+print(s)
+[&#39;mjk&#39;, &#39;tpo&#39;, &#39;cff&#39;]
+
+del lk[:5:2]    # 取区域为0-5，步长为2，这些元素全部删除
+print(lk)
+[&#39;ctr&#39;, 100, &#39;ioo&#39;, &#39;tyy&#39;]</code></pre><h2 id="列表的修改"><a href="#列表的修改" class="headerlink" title="列表的修改"></a>列表的修改</h2><pre><code># 利用索引修改
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100,&#39;cff&#39;,&#39;ioo&#39;,&#39;tyy&#39;]
+lk[0] = &#39;we&#39;        # 利用索引定义要修改的元素的位置
+print(lk)
+
+# 利用切片修改
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100,&#39;cff&#39;,&#39;ioo&#39;,&#39;tyy&#39;]
+lk[:2] = &#39;op&#39;
+print(lk)
+[&#39;o&#39;, &#39;p&#39;, &#39;tpo&#39;, 100, &#39;cff&#39;, &#39;ioo&#39;, &#39;tyy&#39;]
+
+# 利用切片+步长修改
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100,&#39;cff&#39;,&#39;ioo&#39;,&#39;tyy&#39;]
+lk[:4:2] = &#39;op&#39;        # 注意步长的个数和修改后的字符串个数
+print(lk)
+[&#39;o&#39;, &#39;ctr&#39;, &#39;p&#39;, 100, &#39;cff&#39;, &#39;ioo&#39;, &#39;tyy&#39;]</code></pre><h2 id="列表的查询"><a href="#列表的查询" class="headerlink" title="列表的查询"></a>列表的查询</h2><pre><code># 按照索引查询
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100,&#39;cff&#39;,&#39;ioo&#39;,&#39;tyy&#39;]
+print(lk[1])        # 打印一个
+# for 循环
+for i in lk:
+    print(i)    # 输出列表所有元素</code></pre><h2 id="列表的其他操作"><a href="#列表的其他操作" class="headerlink" title="列表的其他操作"></a>列表的其他操作</h2><pre><code># 计算列表元素的总个数
+lk = [&#39;mjk&#39;,&#39;ctr&#39;,&#39;tpo&#39;,100,&#39;cff&#39;,&#39;ioo&#39;,&#39;tyy&#39;,&#39;cff&#39;]
+print(len(lk))
+8
+# 计算某个元素出现的个数
+print(lk.count(&#39;cff&#39;))
+2
+# 通过元素找索引，找到第一个返回，找不到就报错
+print(lk.index(&#39;ctr&#39;))
+1
+# 从小到大排列
+fg = [2,9,4,6,7,1,8]
+fg.sort()
+print(fg)
+[1, 2, 4, 6, 7, 8, 9]
+# 从大到小排列
+fg.sort(reverse=True)
+print(fg)
+[9, 8, 7, 6, 4, 2, 1]
+# 列表翻转
+fg = [2,9,4,6,7,1,8]
+fg.reverse()
+print(fg)
+# 英文字符排序，按照元素首字母的ASCLL码的大小排序
+fg = [&#39;dfg&#39;,&#39;arfd&#39;,&#39;wer&#39;,&#39;fgv&#39;]
+fg.sort()
+print(fg)
+[&#39;arfd&#39;, &#39;dfg&#39;, &#39;fgv&#39;, &#39;wer&#39;]</code></pre><h2 id="列表的嵌套"><a href="#列表的嵌套" class="headerlink" title="列表的嵌套"></a>列表的嵌套</h2><pre><code>ll = [1,2,&#39;taibai&#39;,[1,&#39;alex&#39;,3,]]    # 列表里面有嵌套的小列表
+# 将taibai改成大写
+ll[2] = ll[2].upper()
+print(ll)
+# 往小列表追加元素&#39;老男孩教育&#39;
+ll[3] = ll.append(&#39;老男孩教育&#39;)
+print(ll)
+# 将alex改成alexsb
+ll[3][1] = ll[3][1] + &#39;sb&#39;
+print(ll)
+
+# 打印嵌套列表元素
+lj = [&#39;wedi&#39;,&#39;lko&#39;,&#39;cjd&#39;,[&#39;dkd&#39;,&#39;oto&#39;],&#39;top&#39;]
+for i in lj:
+    if type(i) == list:        # 加个判断如果某个元素类型为list，则再循环一遍，打印出来
+        for o in i:
+            print(o)
+    else:        # 否则正常打印
+        print(i)</code></pre><h1 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h1><p>用来存放一些重要的信息，放在列表中不安全，需要一个容器类的数据类型，比如：个人信息，密码等。元组不能修改，但是元组里面的列表可以修改。</p>
+<pre><code>tu = (1,&#39;alex&#39;,True,[1,2,3])    # 定义一个元组
+tu[-1][2] = &#39;12&#39;    # 往列表里面追加元素
+print(tu)
+(1, &#39;alex&#39;, True, [1, 2, &#39;12&#39;])
+# 存放一些重要数据时，需要用元组存放</code></pre><h1 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h1><p>列表如果存储大量的数据，查询速度相对较慢，因为列表存储的数据一般没有什么关联性。针对这个问题，Python提供了一个基础数据类型：字典(dict)</p>
+<h2 id="回顾数据类型"><a href="#回顾数据类型" class="headerlink" title="回顾数据类型"></a>回顾数据类型</h2><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>容器型数据类型</td>
+<td>list，tuple，dict，set</td>
+</tr>
+<tr>
+<td>非容器型数据类型</td>
+<td>str，bool，int</td>
+</tr>
+<tr>
+<td>可变数据类型（不可哈希）</td>
+<td>list，dict，set</td>
+</tr>
+<tr>
+<td>不可变数据类型（可哈希）</td>
+<td>str，bool，int，tuple</td>
+</tr>
+</tbody></table>
+<p>字典是由键值对形式存储的数据类型，字典的键必须是不可变的数据类型，唯一不重复的，字典的值可以是任意数据类型或者对象。基于字典的键是不可变的，字典的键会通过一种哈希算法，将键的值换算成内存地址，所以字典的查询速度非常快。字典在Python3.6之前是无序的，在3.6及以后字典会按照字典创建时的顺序排列。字典可以存储大量关联性数据。</p>
+<h2 id="字典的增加"><a href="#字典的增加" class="headerlink" title="字典的增加"></a>字典的增加</h2><pre><code>dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}     # 用字典定义三个键值对
+dic[&#39;dfgh&#39;] = 150   # 没有则添加这个键值对
+dic[&#39;age&#39;] = 28     # 有age这个键就将值覆盖为28
+print(dic)
+{&#39;name&#39;: &#39;barry&#39;, &#39;age&#39;: 28, &#39;sex&#39;: &#39;man&#39;, &#39;dfgh&#39;: 150}
+
+dic.setdefault(&#39;port&#39;)      # 没有这个键值对就会添加并赋值为空
+dic.setdefault(&#39;name&#39;,&#39;yiyi&#39;)       # 有name这个值则不修改，没有则增加
+print(dic)
+{&#39;name&#39;: &#39;barry&#39;, &#39;age&#39;: 18, &#39;sex&#39;: &#39;man&#39;, &#39;port&#39;: None}</code></pre><h2 id="字典的删除"><a href="#字典的删除" class="headerlink" title="字典的删除"></a>字典的删除</h2><pre><code># pop 通过键去删除键值对
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+ret = dic.pop(&#39;sex&#39;)
+print(dic)
+{&#39;name&#39;: &#39;barry&#39;, &#39;age&#39;: 18}
+
+# 删除一个不存在的键就会报错
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}        
+ret1 = dic.pop(&#39;name2&#39;)
+
+# 为了程序能执行下去，想要不报错的话，可以添加一个返回值
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+ty = dic.pop(&#39;re&#39;,&#39;没有此键&#39;)
+print(ty)
+没有此键
+
+# clear 清空
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+dic.clear()
+print(dic)
+{}
+
+# popitem 删除最后一个键值对，3.5之前是随机删除，3.6删除最后一个键值对
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+lo = dic.popitem()
+print(dic)
+{&#39;name&#39;: &#39;barry&#39;, &#39;age&#39;: 18}
+
+# 删除整个字典
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+del dic
+print(dic)</code></pre><h2 id="字典的修改"><a href="#字典的修改" class="headerlink" title="字典的修改"></a>字典的修改</h2><pre><code># 改
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+dic[&#39;age&#39;] = 28        #重新定义age键的值
+print(dic)
+
+# update 更新
+dic1 = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+dic2 = {&#39;name&#39;:&#39;nji&#39;,&#39;age&#39;:&#39;18&#39;,&#39;id&#39;:&#39;001&#39;}
+dic2.update(dic1)    #将dic1字典中的键值对覆盖添加到dic2，dic1不变
+print(dic2)
+{&#39;name&#39;: &#39;barry&#39;, &#39;age&#39;: 18, &#39;id&#39;: &#39;001&#39;, &#39;sex&#39;: &#39;man&#39;}
+
+# update 正常添加
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+dic.update(weight=150,high=175)        #一次添加多个键值对
+print(dic)
+{&#39;name&#39;: &#39;barry&#39;, &#39;age&#39;: 18, &#39;sex&#39;: &#39;man&#39;, &#39;weight&#39;: 150, &#39;high&#39;: 175}</code></pre><h2 id="字典的查询"><a href="#字典的查询" class="headerlink" title="字典的查询"></a>字典的查询</h2><pre><code># 查
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+print(dic[&#39;name&#39;])  # 按键查对应的值，没有此键会报错
+barry
+
+tr = dic.get(&#39;age1&#39;,&#39;没有此键&#39;)        # 定义没有此键时的返回值
+print(tr)
+没有此键</code></pre><h2 id="字典的其他操作"><a href="#字典的其他操作" class="headerlink" title="字典的其他操作"></a>字典的其他操作</h2><pre><code>dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;man&#39;}
+print(dic.keys())
+dict_keys([&#39;name&#39;, &#39;age&#39;, &#39;sex&#39;])
+print(dic.values())
+dict_values([&#39;barry&#39;, 18, &#39;man&#39;])
+print(dic.items())
+dict_items([(&#39;name&#39;, &#39;barry&#39;), (&#39;age&#39;, 18), (&#39;sex&#39;, &#39;man&#39;)])
+
+# for循环得到的是keys值
+for i in dic:
+    print(i)
+name
+age
+sex</code></pre><h2 id="字典的嵌套联系"><a href="#字典的嵌套联系" class="headerlink" title="字典的嵌套联系"></a>字典的嵌套联系</h2><pre><code># 字典的嵌套练习
+dic = {
+    &#39;l1&#39;:[&#39;alex&#39;, &#39;太白&#39;],
+    &#39;id&#39;:3,
+    1:{
+        &#39;data&#39;: 20181225,
+        &#39;place&#39;: &#39;深圳校区&#39;,
+        &#39;class&#39;: &#39;python3期&#39;,
+        &#39;name_list&#39;: [&#39;awq&#39;, &#39;xx&#39;],
+    }
+}
+# 1.给小列表[&#39;alex&#39;, &#39;太白&#39;] alex后面插入一个字符串，&#39;aaa&#39;
+dic[&#39;l1&#39;].insert(1,&#39;aaa&#39;)
+print(dic)
+
+# 2.将id对应的3变成1
+dic[&#39;id&#39;] = 1
+
+# 3.将1对应的字典的data的值变成20181224
+dic[1][&#39;data&#39;] = 20181224
+print(dic)
+
+# 4.将name_list对应的awq全部变成大写
+dic[1][&#39;name_list&#39;][0] = dic[1][&#39;name_list&#39;][0].swapcase()
+print(dic)
+
+# 5.将name_list对应的xx删除
+dic[1][&#39;name_list&#39;].pop(1)
+print(dic)</code></pre><h2 id="将字典数据格式化输出"><a href="#将字典数据格式化输出" class="headerlink" title="将字典数据格式化输出"></a>将字典数据格式化输出</h2><pre><code># 格式化输出
+msg = &#39;我叫%s,我身高%s，年龄%s&#39; % (&#39;ed&#39;,180,23)
+print(msg)
+# 将字典数据格式化输出
+dic = {&#39;name&#39;:&#39;barry&#39;,&#39;age&#39;:18,&#39;sex&#39;:&#39;男&#39;}
+mk = &#39;我叫%(name)s,今年%(age)s,性别%(sex)s&#39; % dic
+print(mk)</code></pre><h2 id="返回一个新的字典"><a href="#返回一个新的字典" class="headerlink" title="返回一个新的字典"></a>返回一个新的字典</h2><pre><code># 返回一个新的字典，键从可迭代对象里面获取，值不变
+dic1 = dict.fromkeys(&#39;top&#39;,&#39;ed&#39;)
+dic2 = dict.fromkeys([&#39;lop&#39;],&#39;努力&#39;)
+print(dic1)
+{&#39;t&#39;: &#39;ed&#39;, &#39;o&#39;: &#39;ed&#39;, &#39;p&#39;: &#39;ed&#39;}
+print(dic2)
+{&#39;lop&#39;: &#39;努力&#39;}
+
+dicu = dict.fromkeys([1,2,3],[&#39;alex&#39;])
+print(dicu)
+{1: [&#39;alex&#39;], 2: [&#39;alex&#39;], 3: [&#39;alex&#39;]}
+# 坑:值如果是一个可变的数据类型，那么所有的值都是一个内存地址
+dicu[1].append(000)
+print(dicu)
+{1: [&#39;alex&#39;, 0], 2: [&#39;alex&#39;, 0], 3: [&#39;alex&#39;, 0]}
+# 给dicu[1]这个列表赋值000，所有列表的值都是000，因为列表所有的值都指向一个内存地址</code></pre><h2 id="数据类型的补充"><a href="#数据类型的补充" class="headerlink" title="数据类型的补充"></a>数据类型的补充</h2><pre><code># 数据类型的补充
+str ---&gt; list split
+list ---&gt; str join
+0,&#39;&#39;,[],{},(),set()  ---&gt; bool:false
+
+# 列表和元组的互换
+# list &lt;---&gt; tuple
+jk = [1,2,3]
+yu = tuple(jk)
+print(yu)
+uy = list(yu)
+print(uy)
+
+# dict ---&gt; list
+dico = {&#39;name&#39;:&#39;kasha&#39;,&#39;ui&#39;:&#39;io&#39;}
+print(list(dico))
+[&#39;name&#39;, &#39;ui&#39;]
+
+# dict ---&gt; tuple
+dich = {&#39;name&#39;:&#39;yu&#39;,&#39;age&#39;:15}
+print(tuple(dich))
+(&#39;name&#39;, &#39;age&#39;)
+
+# 元组中只有一个元素并且没有逗号，则它不是元组，它与元素数据类型相同
+t1 = (1,)
+t2 = (&#39;al&#39;,)
+t3 = ([1,2,3],)
+print(t1,t2,t3)
+(1,) (&#39;al&#39;,) ([1, 2, 3],)
+
+t1 = (1)
+t2 = (&#39;al&#39;)
+t3 = ([1,2,3])
+print(t1,t2,t3)
+1 al [1, 2, 3]</code></pre><h2 id="将索引为奇数位的元素删除"><a href="#将索引为奇数位的元素删除" class="headerlink" title="将索引为奇数位的元素删除"></a>将索引为奇数位的元素删除</h2><pre><code># 将索引为奇数位的元素删除,列表是不等长的
+# 方法一
+li = [11,36,56,48,79,45,21,65]
+del li[1::2]    # 1-所有，步长为2
+print(li)
+
+# 方法二
+li = [11,36,56,48,79,45,21,65]
+new_li = []     # 定义一个空列表
+for index in range(len(li)):   # 循环
+    if index % 2 == 0:       # 如果能被2整除
+        new_li.append(li[index])    # 如果能整除，就加入到new_li列表里面，这样索引是奇数位的元素就被删除了
+li = new_li
+print(li)
+
+# 方法三
+li = [11,36,56,48,79,45,21,65]
+for index in range(len(li)-1,-1,-1):
+    if index % 2 == 1:
+        li.pop(index)
+print(li)</code></pre><h2 id="将字典中键含有k元素的键值对删除"><a href="#将字典中键含有k元素的键值对删除" class="headerlink" title="将字典中键含有k元素的键值对删除"></a>将字典中键含有k元素的键值对删除</h2><pre><code># 将字典中键含有k元素的键值对删除
+dict = {&#39;ko&#39;:&#39;ty&#39;,&#39;df&#39;:54,&#39;13k&#39;:&#39;hu&#39;,&#39;jl&#39;:&#39;lp&#39;}     # 循环列表时不能改变字典的大小
+lo = []     # 定义一个空的列表
+for i in dict:      # 将字典循环给i，赋值时是只将key赋值
+    if &#39;k&#39; in i:    # 如果k存在于i中
+       lo.append(i)    # 则把这些有k元素的键值对添加到lo这个空字典
+for y in lo:    # 将lo字典循环给y
+    dict.pop(y)     # 通过键去删除键值对
+print(dict)</code></pre><h2 id="enumerate"><a href="#enumerate" class="headerlink" title="enumerate()"></a>enumerate()</h2><pre><code># enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中
+s1 = &quot;Hello&quot;
+for i,y in enumerate(s1,start=1):
+    print(i,y)
+1 H
+2 e
+3 l
+4 l
+5 o
+
+s2 = [&quot;top&quot;,&quot;jun&quot;,&quot;mid&quot;,&quot;adc&quot;,&quot;sup&quot;]
+for i,j in enumerate(s2,start=1):
+    print(i,j)
+1 top
+2 jun
+3 mid
+4 adc
+5 su</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-24T13:04:22.186Z" itemprop="dateUpdated">2020-04-24 21:04:22</time>
+</span><br>
+
+
+        
+        这里可以给作者写留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/04/24/Python%E5%9F%BA%E7%A1%80day03/" target="_blank" rel="external">https://www.missf.top/2020/04/24/Python%E5%9F%BA%E7%A1%80day03/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python%E5%9F%BA%E7%A1%80/" rel="tag">Python基础</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/04/24/Python%E5%9F%BA%E7%A1%80day02/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Python基础day02</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                4.2k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
