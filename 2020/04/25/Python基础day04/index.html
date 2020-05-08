@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Python基础day04 | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python基础">
+    <meta name="description" content="基础数据类型补充判断数值是否相等top1 &#x3D; &#39;alex&#39; top2 &#x3D; &#39;alex&#39; print(top1 &#x3D;&#x3D; top2) True 内存地址# 打印mem会先找到mem的内存地址，然后再找到内存地址指向的数据 mem &#x3D; &#39;mk&#39; print(id(mem)) 170332332864 判断内存地址是否相同f &#x3D; [1,2,3] g &#x3D; [1,2,3] print(f &#x3D;&#x3D; g)   # T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基础day04">
+<meta property="og:url" content="https://www.missf.top/2020/04/25/Python%E5%9F%BA%E7%A1%80day04/index.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="基础数据类型补充判断数值是否相等top1 &#x3D; &#39;alex&#39; top2 &#x3D; &#39;alex&#39; print(top1 &#x3D;&#x3D; top2) True 内存地址# 打印mem会先找到mem的内存地址，然后再找到内存地址指向的数据 mem &#x3D; &#39;mk&#39; print(id(mem)) 170332332864 判断内存地址是否相同f &#x3D; [1,2,3] g &#x3D; [1,2,3] print(f &#x3D;&#x3D; g)   # T">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-25T10:21:29.000Z">
+<meta property="article:modified_time" content="2020-05-08T02:46:20.098Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="Python基础">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python基础day04</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Python基础day04</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-25T10:21:29.000Z" itemprop="datePublished" class="page-time">
+  2020-04-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础数据类型补充"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础数据类型补充</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断数值是否相等"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">判断数值是否相等</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内存地址"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">内存地址</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断内存地址是否相同"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">判断内存地址是否相同</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码块"><span class="post-toc-number">2.</span> <span class="post-toc-text">代码块</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#小数据池"><span class="post-toc-number">3.</span> <span class="post-toc-text">小数据池</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编码进阶"><span class="post-toc-number">4.</span> <span class="post-toc-text">编码进阶</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ASCII"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">ASCII</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Unicode"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Unicode</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#utf-8"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">utf-8</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#gbk"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">gbk</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bytes类型"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">bytes类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据类型转换"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">数据类型转换</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#深浅拷贝"><span class="post-toc-number">5.</span> <span class="post-toc-text">深浅拷贝</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#浅拷贝"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">浅拷贝</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#深拷贝"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">深拷贝</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#深拷贝和浅拷贝的区别"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">深拷贝和浅拷贝的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#深拷贝和浅拷贝的需要注意的点"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">深拷贝和浅拷贝的需要注意的点</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Python基础day04"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python基础day04</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-25 18:21:29" datetime="2020-04-25T10:21:29.000Z"  itemprop="datePublished">2020-04-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="基础数据类型补充"><a href="#基础数据类型补充" class="headerlink" title="基础数据类型补充"></a>基础数据类型补充</h1><h2 id="判断数值是否相等"><a href="#判断数值是否相等" class="headerlink" title="判断数值是否相等"></a>判断数值是否相等</h2><pre class="line-numbers language-python"><code class="language-python">top1 <span class="token operator">=</span> <span class="token string">'alex'</span>
+top2 <span class="token operator">=</span> <span class="token string">'alex'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>top1 <span class="token operator">==</span> top2<span class="token punctuation">)</span>
+<span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内存地址"><a href="#内存地址" class="headerlink" title="内存地址"></a>内存地址</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 打印mem会先找到mem的内存地址，然后再找到内存地址指向的数据</span>
+mem <span class="token operator">=</span> <span class="token string">'mk'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>id<span class="token punctuation">(</span>mem<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token number">170332332864</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="判断内存地址是否相同"><a href="#判断内存地址是否相同" class="headerlink" title="判断内存地址是否相同"></a>判断内存地址是否相同</h2><pre class="line-numbers language-python"><code class="language-python">f <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+g <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f <span class="token operator">==</span> g<span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f <span class="token keyword">is</span> g<span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># False</span>
+<span class="token comment" spellcheck="true"># 判断的是两个对象的内存地址是否相同,虽然f的值等于g，但是内存地址却不是指向同一个</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>数据类型</strong></th>
+<th><strong>可变/不可变</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>整型</td>
+<td>不可变</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>不可变</td>
+</tr>
+<tr>
+<td>元组</td>
+<td>不可变</td>
+</tr>
+<tr>
+<td>列表</td>
+<td>可变</td>
+</tr>
+<tr>
+<td>集合</td>
+<td>可变</td>
+</tr>
+<tr>
+<td>字典</td>
+<td>可变</td>
+</tr>
+</tbody></table>
+<h1 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h1><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 代码块</span>
+代码全都是基于代码块去运行的，一个文件就是一个代码块，不同的文件就是不同的代码块
+
+<span class="token comment" spellcheck="true"># 代码块的缓存机制</span>
+Python在执行同一个代码块的初始化对象的命令时，会检查其值是否已经存在，
+如果存在，会将其重用，如果有同样的记录那么它会重复使用这个字典中的值，
+但是要注意的是，只有在同一个代码块下，才会实现这个缓存机制
+满足此机制的数据类型<span class="token punctuation">:</span>int str bool
+优点：节省内存，提升性能<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="小数据池"><a href="#小数据池" class="headerlink" title="小数据池"></a>小数据池</h1><p>Python自动将-5~256的整数进行了缓存，当你将这些整数赋值给变量时，并不会重新创建对象，而是使用已经创建好的缓存对象。python会将一定规则的字符串在字符串驻留池中，创建一份，当你将这些字符串赋值给变量时，并不会重新创建对象， 而是使用在字符串驻留池中创建好的对象。</p>
+<ol>
+<li>小数据(又称驻留机制、驻存机制)</li>
+<li>能够应用于不同的代码块</li>
+<li>适应的数据类型:int str bool</li>
+<li>int:-5 ~ 256</li>
+<li>str:一定条件下的str满足小数据池</li>
+<li>bool:全部</li>
+<li>优点:节省内存 提升性能</li>
+</ol>
+<h1 id="编码进阶"><a href="#编码进阶" class="headerlink" title="编码进阶"></a>编码进阶</h1><p>不同的编码之间不能互相识别（会出现报错或者乱码），文字通过网络传输，或者硬盘存储不能使用Unicode编码方式。</p>
+<h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><pre class="line-numbers language-python"><code class="language-python">早期的密码本，英文字母，数字，特殊字符
+<span class="token number">8</span>位<span class="token punctuation">(</span>bit<span class="token punctuation">)</span> <span class="token operator">==</span> 1byte
+在ascll码中<span class="token punctuation">,</span><span class="token number">8</span>位bit表示一个字节表示一个字符
+hello  <span class="token operator">=</span>  <span class="token number">01101000</span> <span class="token number">01100101</span> <span class="token number">01100111</span> <span class="token number">0110011</span> <span class="token number">01100101</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h2><pre class="line-numbers language-python"><code class="language-python">万国码包含全世界所有的文字
+<span class="token number">32</span>位bit表示<span class="token number">4</span>个字节表示一个字符
+a<span class="token punctuation">:</span><span class="token number">10001000</span> <span class="token number">00010010</span> <span class="token number">00100000</span> <span class="token number">00010010</span>
+中<span class="token punctuation">:</span><span class="token number">00000000</span> <span class="token number">10010010</span> <span class="token number">00000000</span> <span class="token number">10010010</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="utf-8"><a href="#utf-8" class="headerlink" title="utf-8"></a>utf-8</h2><pre class="line-numbers language-python"><code class="language-python">最少用<span class="token number">8</span>位表示一个字符
+a<span class="token punctuation">:</span><span class="token number">01000010</span><span class="token punctuation">,</span><span class="token number">8</span>位bit表示一个字节表示一个字符
+欧洲文字<span class="token punctuation">:</span><span class="token number">00000010</span> <span class="token number">00100000</span>    <span class="token number">16</span>位bit表示两个字节表示一个字符
+中国文字<span class="token punctuation">:</span><span class="token number">00000010</span> <span class="token number">00000010</span> <span class="token number">00000010</span> <span class="token number">24</span>位bit表示三个字节表示一个字符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="gbk"><a href="#gbk" class="headerlink" title="gbk"></a>gbk</h2><pre class="line-numbers language-python"><code class="language-python">最包含英文和自己国家的语言
+a<span class="token punctuation">:</span><span class="token number">00000010</span>     <span class="token number">8</span>位bit表示一个字节表示一个字符
+中<span class="token punctuation">:</span><span class="token number">00000010</span> <span class="token number">0000001016</span>     <span class="token number">16</span>位bit表示两个字节表示一个字符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>在Python3x环境下，唯独str类型的内部编码方式是Unicode，</p>
+</blockquote>
+<blockquote>
+<p>所以Python3x中的字符串不能用于直接的网络传输和文件存储</p>
+</blockquote>
+<blockquote>
+<p>补充一个数据类型：bytes类型，与str类型是海尔兄弟，</p>
+</blockquote>
+<blockquote>
+<p>bytes内部编码方式为非Unicode，bytes类型能用于网络传输和文件存储，还拥有str的其他特性</p>
+</blockquote>
+<blockquote>
+<p>但是bytes中文是16进制表示，看不懂，所以常用的还是str类型</p>
+</blockquote>
+<h2 id="bytes类型"><a href="#bytes类型" class="headerlink" title="bytes类型"></a>bytes类型</h2><pre class="line-numbers language-python"><code class="language-python">b1 <span class="token operator">=</span> <span class="token string">'alex'</span>
+b2 <span class="token operator">=</span> b<span class="token string">'alex'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b1<span class="token punctuation">,</span>type<span class="token punctuation">(</span>b1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+alex <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'str'</span><span class="token operator">></span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b2<span class="token punctuation">,</span>type<span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+b<span class="token string">'alex'</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'bytes'</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># str ---> gbk</span>
+s0 <span class="token operator">=</span> <span class="token string">'荒原饮露'</span>
+b1 <span class="token operator">=</span> s0<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'gbk'</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 编码，将字符串转换为gbk</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b1<span class="token punctuation">)</span>
+b<span class="token string">'\xbb\xc4\xd4\xad\xd2\xfb\xc2\xb6'</span>    <span class="token comment" spellcheck="true"># 可以看到 一个中文两个字节</span>
+y2 <span class="token operator">=</span> b1<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'gbk'</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 解码</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>y2<span class="token punctuation">)</span>
+荒原饮露
+
+<span class="token comment" spellcheck="true"># str ---> utf-8</span>
+s2 <span class="token operator">=</span> <span class="token string">'努力奋斗'</span>
+b2 <span class="token operator">=</span> s2<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span>
+b<span class="token string">'\xe5\x8a\xaa\xe5\x8a\x9b\xe5\xa5\x8b\xe6\x96\x97'</span>    <span class="token comment" spellcheck="true"># 一个中文三个字节</span>
+b3 <span class="token operator">=</span> b2<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b3<span class="token punctuation">)</span>
+努力奋斗
+
+<span class="token comment" spellcheck="true"># gbk ---> utf-8</span>
+si <span class="token operator">=</span> <span class="token string">'编码'</span>
+s1 <span class="token operator">=</span> si<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'gbk'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span>
+b<span class="token string">'\xb1\xe0\xc2\xeb'</span> <span class="token comment" spellcheck="true"># 得到gbk编码的bytes类型</span>
+<span class="token number">1</span> <span class="token operator">=</span> s1<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'gbk'</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 解码再加密</span>
+b2 <span class="token operator">=</span> b1<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span>
+b<span class="token string">'\xe7\xbc\x96\xe7\xa0\x81'</span>    <span class="token comment" spellcheck="true"># utf-8编码的bytes类型</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h1><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 赋值运算</span>
+jk <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+yu <span class="token operator">=</span> jk        <span class="token comment" spellcheck="true"># yu变量和jk变量都指向同一个内存地址</span>
+yu<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token number">789</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 修改这个列表的时候，两个变量的值都被修改</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>jk<span class="token punctuation">,</span>yu<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">789</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">789</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><pre class="line-numbers language-python"><code class="language-python">lo <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'de'</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">'er'</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+ko <span class="token operator">=</span> lo<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># ko拷贝lo的列表，得到一样的数据，但是浅copy只会拷贝内存中的第一层数据</span>
+
+lo<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">'lp'</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># lo往列表追加一个元素lp</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>id<span class="token punctuation">(</span>lo<span class="token punctuation">)</span><span class="token punctuation">,</span>lo<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>id<span class="token punctuation">(</span>ko<span class="token punctuation">)</span><span class="token punctuation">,</span>ko<span class="token punctuation">)</span>
+<span class="token number">205292790408</span> <span class="token punctuation">[</span><span class="token string">'de'</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'er'</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'lp'</span><span class="token punctuation">]</span>        
+<span class="token number">205293284808</span> <span class="token punctuation">[</span><span class="token string">'de'</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'er'</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># 可以看到两个列表的内存地址都是不一样的，往lo列表追加lp元素，ko列表是没有跟随lo列表追加lp元素的</span>
+
+lo<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">'io'</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 往lo列表的小列表里面追加io元素</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>lo<span class="token punctuation">,</span>ko<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token string">'de'</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'er'</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'io'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'lp'</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token string">'de'</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'er'</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'io'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># 可以看到，lo和ko列表的小列表都被追加了io元素，简而言之，列表里面的小列表里面的元素是共用的。ko拷贝lo的列表，只会拷贝lo外层列表，而不会拷贝lo的内层列表，lo外层列表发生改变ko不会跟随，但是lo内层列表发生改变ko会跟随，复制一个列表时，lo = ['de',15,['er',4,2]]，de和15元素的地址发生改变，['er',4,2]小列表的元素还是指向原来的地址</span>
+
+<span class="token comment" spellcheck="true"># 全切片是浅copy</span>
+ki <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'cf'</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">'ijni'</span><span class="token punctuation">,</span><span class="token string">'678'</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">90</span><span class="token punctuation">]</span>
+ji <span class="token operator">=</span> ki<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+ki<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">'mk'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>ki<span class="token punctuation">,</span>ji<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token string">'cf'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'ijni'</span><span class="token punctuation">,</span> <span class="token string">'678'</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token string">'mk'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token string">'cf'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'ijni'</span><span class="token punctuation">,</span> <span class="token string">'678'</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token string">'mk'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 深copy会在内存中对原列表以及列表里面的可变的数据类型重新创建一份，而列表中不可变得数据类型还是沿用原来的</span>
+<span class="token keyword">import</span> copy
+lo <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'fr'</span><span class="token punctuation">,</span><span class="token string">'ty'</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">'rt'</span><span class="token punctuation">,</span><span class="token string">'km'</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">45</span><span class="token punctuation">]</span>
+ko <span class="token operator">=</span> copy<span class="token punctuation">.</span>deepcopy<span class="token punctuation">(</span>lo<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>lo<span class="token punctuation">,</span>ko<span class="token punctuation">)</span>
+
+lo<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>lo<span class="token punctuation">,</span>ko<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token string">'fr'</span><span class="token punctuation">,</span> <span class="token string">'ty'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rt'</span><span class="token punctuation">,</span> <span class="token string">'km'</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token string">'fr'</span><span class="token punctuation">,</span> <span class="token string">'ty'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rt'</span><span class="token punctuation">,</span> <span class="token string">'km'</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token string">'fr'</span><span class="token punctuation">,</span> <span class="token string">'ty'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rt'</span><span class="token punctuation">,</span> <span class="token string">'km'</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token string">'test'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token string">'fr'</span><span class="token punctuation">,</span> <span class="token string">'ty'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rt'</span><span class="token punctuation">,</span> <span class="token string">'km'</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">]</span>        <span class="token comment" spellcheck="true"># 往lo小列表追加元素，ko的小列表的元素不是指向原来的地址，ko的小列表元素没有被改</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="深拷贝和浅拷贝的区别"><a href="#深拷贝和浅拷贝的区别" class="headerlink" title="深拷贝和浅拷贝的区别"></a>深拷贝和浅拷贝的区别</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 以下所有的内容都是基于内存地址来说的。</span>
+<span class="token comment" spellcheck="true"># 可变数据类型：当该数据类型的对应变量的值发生了改变，那么它对应的内存地址不发生改变，对于这种数据类型，就称可变数据类型</span>
+<span class="token comment" spellcheck="true"># 不可变数据类型：当该数据类型的对应变量的值发生了改变，那么它对应的内存地址也会发生改变，对于这种数据类型，就称不可变数据类型</span>
+<span class="token comment" spellcheck="true"># 总结：不可变数据类型更改后地址发生改变，可变数据类型更改地址不发生改变</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="深拷贝和浅拷贝的需要注意的点"><a href="#深拷贝和浅拷贝的需要注意的点" class="headerlink" title="深拷贝和浅拷贝的需要注意的点"></a>深拷贝和浅拷贝的需要注意的点</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 在浅拷贝时，拷贝出来的新对象的地址和原对象是不一样的，但是新对象里面的可变元素（如列表）的地址和原对象里的可变元素的地址是相同的，也就是说浅拷贝它拷贝的是浅层次的数据结构（不可变元素），对象里的可变元素作为深层次的数据结构并没有被拷贝到新地址里面去，而是和原对象里的可变元素指向同一个地址，所以在新对象或原对象里对这个可变元素做修改时，两个对象是同时改变的，但是深拷贝不会这样，这个是浅拷贝相对于深拷贝最根本的区别</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-08T02:46:20.098Z" itemprop="dateUpdated">2020-05-08 10:46:20</time>
+</span><br>
+
+
+        
+        这里可以给作者写留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/04/25/Python%E5%9F%BA%E7%A1%80day04/" target="_blank" rel="external">https://www.missf.top/2020/04/25/Python%E5%9F%BA%E7%A1%80day04/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python%E5%9F%BA%E7%A1%80/" rel="tag">Python基础</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/04/26/Python%E5%9F%BA%E7%A1%80day05/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Python基础day05</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/04/24/Python%E5%9F%BA%E7%A1%80day03/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Python基础day03</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                2k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

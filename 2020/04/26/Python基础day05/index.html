@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Python基础day05 | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python基础">
+    <meta name="description" content="Python文件操作全部读取file1 &#x3D; open(r&quot;d:\java_restart2.sh&quot;,encoding&#x3D;&quot;utf-8&quot;,mode&#x3D;&quot;r&quot;)        # 文件路径，文件编码，操作方式 content &#x3D; file1.read()        # 将读取到文件的内容复制给content print(content)        # 打印文件的内容 读取n个字符file1 &#x3D; o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基础day05">
+<meta property="og:url" content="https://www.missf.top/2020/04/26/Python%E5%9F%BA%E7%A1%80day05/index.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="Python文件操作全部读取file1 &#x3D; open(r&quot;d:\java_restart2.sh&quot;,encoding&#x3D;&quot;utf-8&quot;,mode&#x3D;&quot;r&quot;)        # 文件路径，文件编码，操作方式 content &#x3D; file1.read()        # 将读取到文件的内容复制给content print(content)        # 打印文件的内容 读取n个字符file1 &#x3D; o">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-26T05:21:29.000Z">
+<meta property="article:modified_time" content="2020-05-08T02:46:45.348Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="Python基础">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python基础day05</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Python基础day05</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-26T05:21:29.000Z" itemprop="datePublished" class="page-time">
+  2020-04-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Python文件操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">Python文件操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全部读取"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">全部读取</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#读取n个字符"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">读取n个字符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#按行读取"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">按行读取</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#返回列表"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">返回列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for循环读取"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">for循环读取</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#读取文件的方式"><span class="post-toc-number">2.</span> <span class="post-toc-text">读取文件的方式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#写入文件的方式"><span class="post-toc-number">3.</span> <span class="post-toc-text">写入文件的方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写入空文件"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">写入空文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写入多行"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">写入多行</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#追加文件内容"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">追加文件内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#读写非文字类文件"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">读写非文字类文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#读写模式"><span class="post-toc-number">4.</span> <span class="post-toc-text">读写模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#先读后写"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">先读后写</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#调整光标写入"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">调整光标写入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#强制保存"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">强制保存</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断文件句柄是否可读可写"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">判断文件句柄是否可读可写</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#按照字节调整光标位置"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">按照字节调整光标位置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#截取文件"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">截取文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#with-open操作方式"><span class="post-toc-number">5.</span> <span class="post-toc-text">with open操作方式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于文件的修改"><span class="post-toc-number">6.</span> <span class="post-toc-text">关于文件的修改</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Python基础day05"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python基础day05</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-26 13:21:29" datetime="2020-04-26T05:21:29.000Z"  itemprop="datePublished">2020-04-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Python文件操作"><a href="#Python文件操作" class="headerlink" title="Python文件操作"></a>Python文件操作</h1><h2 id="全部读取"><a href="#全部读取" class="headerlink" title="全部读取"></a>全部读取</h2><pre class="line-numbers language-python"><code class="language-python">file1 <span class="token operator">=</span> open<span class="token punctuation">(</span>r<span class="token string">"d:\java_restart2.sh"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r"</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 文件路径，文件编码，操作方式</span>
+content <span class="token operator">=</span> file1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 将读取到文件的内容复制给content</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 打印文件的内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="读取n个字符"><a href="#读取n个字符" class="headerlink" title="读取n个字符"></a>读取n个字符</h2><pre class="line-numbers language-python"><code class="language-python">file1 <span class="token operator">=</span> open<span class="token punctuation">(</span>r<span class="token string">"d:\java_restart2.sh"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r"</span><span class="token punctuation">)</span>
+content <span class="token operator">=</span> file1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="按行读取"><a href="#按行读取" class="headerlink" title="按行读取"></a>按行读取</h2><pre class="line-numbers language-python"><code class="language-python">file1 <span class="token operator">=</span> open<span class="token punctuation">(</span>r<span class="token string">"d:\java_restart2.sh"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r"</span><span class="token punctuation">)</span>
+content <span class="token operator">=</span> file1<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="返回列表"><a href="#返回列表" class="headerlink" title="返回列表"></a>返回列表</h2><pre class="line-numbers language-python"><code class="language-python">file1 <span class="token operator">=</span> open<span class="token punctuation">(</span>r<span class="token string">"d:\java_restart2.sh"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r"</span><span class="token punctuation">)</span>
+content <span class="token operator">=</span> file1<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 返回一个列表，用原文件的每一行作为列表的每一个元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="for循环读取"><a href="#for循环读取" class="headerlink" title="for循环读取"></a>for循环读取</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 读取大文件时逐行读取防止内存崩溃，涉及到迭代器</span>
+file1 <span class="token operator">=</span> open<span class="token punctuation">(</span>r<span class="token string">"d:\java_restart2.sh"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r"</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> line <span class="token keyword">in</span> file1<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>line<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+file1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="读取文件的方式"><a href="#读取文件的方式" class="headerlink" title="读取文件的方式"></a>读取文件的方式</h1><ul>
+<li><code>read()</code> 全部读取</li>
+<li><code>read(n)</code> 读取n个字符</li>
+<li><code>readline()</code> 按行读取</li>
+<li><code>readlines()</code> 返回一个列表，列表的元素是原文件的每一行数据</li>
+<li><code>for循环读取</code> 读取大文件时逐行读取防止内存崩溃</li>
+</ul>
+<h1 id="写入文件的方式"><a href="#写入文件的方式" class="headerlink" title="写入文件的方式"></a>写入文件的方式</h1><h2 id="写入空文件"><a href="#写入空文件" class="headerlink" title="写入空文件"></a>写入空文件</h2><pre class="line-numbers language-python"><code class="language-python">f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 打开文件句柄</span>
+content <span class="token operator">=</span> f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊"</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 写入操作</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 关闭文件句柄</span>
+<span class="token comment" spellcheck="true"># 如果写入文件不存在，open()将自动创建它</span>
+<span class="token comment" spellcheck="true"># 如果文件已存在已有内容，会清空再写入</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="写入多行"><a href="#写入多行" class="headerlink" title="写入多行"></a>写入多行</h2><pre class="line-numbers language-python"><code class="language-python">f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 加换行符</span>
+f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊\n"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊\n"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 在打开一个文件句柄后，可以重新写入多次而不被清空，只有在文件句柄被关闭后，下一次写入才会被清空</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="追加文件内容"><a href="#追加文件内容" class="headerlink" title="追加文件内容"></a>追加文件内容</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 没有文件创建文件追加内容，有此文件则在原文件的末尾追加新内容</span>
+f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"a"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊\n"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"我也不知道写什么啊\n"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="读写非文字类文件"><a href="#读写非文字类文件" class="headerlink" title="读写非文字类文件"></a>读写非文字类文件</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 音视频或者图片类型的文件，以bytes读取和写入</span>
+f3 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"tr.jpg"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"rb"</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 用rb模式打开一张图片</span>
+content <span class="token operator">=</span> f3<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 以bytes读取原图片数据</span>
+f4 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"ting.jpg"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"wb"</span><span class="token punctuation">)</span>
+f4<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 将数据写到一个新文件图片</span>
+f3<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+f4<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="读写模式"><a href="#读写模式" class="headerlink" title="读写模式"></a>读写模式</h1><h2 id="先读后写"><a href="#先读后写" class="headerlink" title="先读后写"></a>先读后写</h2><pre class="line-numbers language-python"><code class="language-python">f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r+"</span><span class="token punctuation">)</span>
+content <span class="token operator">=</span> f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 读取内容</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"alex"</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 写入内容，这里是以追加的方式写入，不会清空文件内容</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="调整光标写入"><a href="#调整光标写入" class="headerlink" title="调整光标写入"></a>调整光标写入</h2><pre class="line-numbers language-python"><code class="language-python">f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r+"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 将光标调整到最前</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"jkl"</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 在最前面写入jkl，会将原来前面的三个字符替换掉</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+f1<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 将光标调到最后面</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"ooo"</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 在下一行写入ooo</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="强制保存"><a href="#强制保存" class="headerlink" title="强制保存"></a>强制保存</h2><pre class="line-numbers language-python"><code class="language-python">f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r+"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"TES.123"</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>flush<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#强制保存，相当于Crtl + s</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="判断文件句柄是否可读可写"><a href="#判断文件句柄是否可读可写" class="headerlink" title="判断文件句柄是否可读可写"></a>判断文件句柄是否可读可写</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># readable writeable</span>
+f2 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 写入模式</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f2<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 读取会报错</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f2<span class="token punctuation">.</span>readable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 由于是写入模式不能读</span>
+<span class="token boolean">False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f2<span class="token punctuation">.</span>writable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="按照字节调整光标位置"><a href="#按照字节调整光标位置" class="headerlink" title="按照字节调整光标位置"></a>按照字节调整光标位置</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># tell seek</span>
+f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file2"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
+ret <span class="token operator">=</span> f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 读取文件，光标会移动到下一行</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f1<span class="token punctuation">.</span>tell<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 获取当前文件指针的位置</span>
+f1<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 移动指针到指定的位置</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 从指针位置往后读取</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="截取文件"><a href="#截取文件" class="headerlink" title="截取文件"></a>截取文件</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># truncate 只能在可写的模式下截取原文件，只能从头截取</span>
+f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"r+"</span><span class="token punctuation">)</span>
+ret <span class="token operator">=</span> f1<span class="token punctuation">.</span>truncate<span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 截取文件的前12个字节,文件其他内容会被清空，只保留截取到的字节</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+f1<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+中华人民
+<span class="token comment" spellcheck="true"># utf-8编码下，一个中文字符等于三个字节，如果是截取4个字节会报错</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="with-open操作方式"><a href="#with-open操作方式" class="headerlink" title="with open操作方式"></a>with open操作方式</h1><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 1.自动关闭文件句柄</span>
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"file4"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f1<span class="token punctuation">:</span>
+    content <span class="token operator">=</span> f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 2.同一语句可操作创建多个文件句柄</span>
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f1<span class="token punctuation">,</span>open<span class="token punctuation">(</span><span class="token string">"file2"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f2<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 对file1进行读取操作</span>
+    f2<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"777"</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"># 对file2进行写入操作</span>
+
+<span class="token comment" spellcheck="true"># 3.with open 可能引起IO错误的操作</span>
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f1<span class="token punctuation">:</span>
+    f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 打开文件句柄f1进行读取操作，文件句柄自动关闭</span>
+    <span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"file1"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f2<span class="token punctuation">:</span>
+        f1<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"777"</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 又打开文件句柄f2进行写操作，如果文件句柄f1没有及时关闭又打开了f2文件句柄程序就会报错</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="关于文件的修改"><a href="#关于文件的修改" class="headerlink" title="关于文件的修改"></a>关于文件的修改</h1><p>文件的数据都是存放在硬盘上的，因此只存在覆盖，不存在修改一说，我们平时看到的修改文件，都是模拟出来的效果，修改file5文件中的Alex字符为Sb，并且将原文件复制为新文件file.bak，删除原文件，修改新文件的名字为file5，修改速度非常快，根本看不到生成的file5.bak文件，具体的说有两种实现方式</p>
+<ol>
+<li>将硬盘存放的该文件的内容全部加载到内存，在内存中是可以修改的，修改完毕后，再由内存覆盖到硬盘</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># file5文件内容</span>
+Alex是个屌丝，即使Alex有特斯拉也还是屌丝
+你们真逗，Alex再牛逼，也掩饰不了资深屌丝的气息
+
+<span class="token keyword">import</span> os
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"file5"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f1<span class="token punctuation">,</span>open<span class="token punctuation">(</span><span class="token string">"file5.bak"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f2<span class="token punctuation">:</span>
+<span class="token comment" spellcheck="true"># 打开两个文件句柄，f1只读，f2可写</span>
+    old_content <span class="token operator">=</span> f1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 将f1内容赋值给old_content</span>
+    new_content <span class="token operator">=</span> old_content<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"Alex"</span><span class="token punctuation">,</span><span class="token string">"Sb"</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 将Alex替换为Sb的数据赋值给new_content</span>
+    f2<span class="token punctuation">.</span>write<span class="token punctuation">(</span>new_content<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 将新数据写入f2</span>
+os<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token string">"file5"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 删除文件file5</span>
+os<span class="token punctuation">.</span>rename<span class="token punctuation">(</span><span class="token string">"file5.bak"</span><span class="token punctuation">,</span><span class="token string">"file5"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 将新文件命名为file5</span>
+<span class="token comment" spellcheck="true"># 只样有一个不好的地方，old_content = f1.read()这里是一次性将文件加载到内存中的</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>将硬盘存放的该文件的内容一行一行地读入内存，修改完毕就写入新文件，最后用新文件覆盖源文件</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">"file5"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f1<span class="token punctuation">,</span>open<span class="token punctuation">(</span><span class="token string">"file5.bak"</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>mode<span class="token operator">=</span><span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f2<span class="token punctuation">:</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> f1<span class="token punctuation">:</span>    
+        new_line <span class="token operator">=</span> line<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"Sb"</span><span class="token punctuation">,</span><span class="token string">"Alex"</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 将一行的数据替换完成赋值给新的一行</span>
+        f2<span class="token punctuation">.</span>write<span class="token punctuation">(</span>new_line<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 逐行写入</span>
+os<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token string">"file5"</span><span class="token punctuation">)</span>
+os<span class="token punctuation">.</span>rename<span class="token punctuation">(</span><span class="token string">"file5.bak"</span><span class="token punctuation">,</span><span class="token string">"file5"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 不会将文件一次加载到内存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-08T02:46:45.348Z" itemprop="dateUpdated">2020-05-08 10:46:45</time>
+</span><br>
+
+
+        
+        这里可以给作者写留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/04/26/Python%E5%9F%BA%E7%A1%80day05/" target="_blank" rel="external">https://www.missf.top/2020/04/26/Python%E5%9F%BA%E7%A1%80day05/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python%E5%9F%BA%E7%A1%80/" rel="tag">Python基础</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/04/27/Python%E5%9F%BA%E7%A1%80day06/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Python基础day06</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/04/25/Python%E5%9F%BA%E7%A1%80day04/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Python基础day04</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                1.6k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
