@@ -52,7 +52,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec2510dc2a9a83be56769bd.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec26162c2a9a83be5ac20ab.jpg">
 <meta property="article:published_time" content="2020-05-18T07:42:59.000Z">
-<meta property="article:modified_time" content="2020-05-19T13:00:51.699Z">
+<meta property="article:modified_time" content="2020-05-20T03:35:25.668Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="coding">
 <meta property="article:tag" content="持续集成">
@@ -209,7 +209,7 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="coding介绍"><a href="#coding介绍" class="headerlink" title="coding介绍"></a>coding介绍</h1><p>在说到持续集成这方面，相信所有做运维的小伙伴都知道Jenkins，就是那个拿着托盘的老头子。但是说到coding，可能很多人都没听说过。什么是coding呢？<strong>coding涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，提升软件交付质量与速度。</strong>这是来自官网的介绍，下面就让我们一起学习coding吧！</p>
-<h1 id="第一次接触coding"><a href="#第一次接触coding" class="headerlink" title="第一次接触coding"></a>第一次接触coding</h1><p>在去年的七月份，我有幸参加了腾讯的<strong><code>724</code></strong>运维分享日，就在那时候接触到了coding。</p>
+<h1 id="第一次接触coding"><a href="#第一次接触coding" class="headerlink" title="第一次接触coding"></a>第一次接触coding</h1><p>在去年的七月份，我有幸参加了腾讯的<strong>724</strong>运维分享日，就在那时候接触到了coding。</p>
 <p>这是腾讯滨海大厦四楼，现在看着还历历在目，但是当年的<strong>sz number one</strong>却散落在天涯！</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -292,9 +292,10 @@
             </figure>
 
 <p>将若依自带的两个SQL文件导入到ry数据库</p>
-<h2 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h2><pre><code>git init
+<h2 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h2><pre class="line-numbers language-shell"><code class="language-shell">git init
 git add .
-git commit -m &quot;第一次提交&quot;</code></pre><h2 id="配置coding-SSH秘钥"><a href="#配置coding-SSH秘钥" class="headerlink" title="配置coding SSH秘钥"></a>配置coding SSH秘钥</h2><p>在Windows电脑生成ssh密钥对，然后将id_rsa.pub公钥添加到coding SSH公钥</p>
+git commit -m "第一次提交"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="配置coding-SSH秘钥"><a href="#配置coding-SSH秘钥" class="headerlink" title="配置coding SSH秘钥"></a>配置coding SSH秘钥</h2><p>在Windows电脑生成ssh密钥对，然后将id_rsa.pub公钥添加到coding SSH公钥</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -312,8 +313,9 @@ git commit -m &quot;第一次提交&quot;</code></pre><h2 id="配置coding-SSH�
             </figure>
 
 <p><strong><code>注意:</code></strong> 如果已经在coding配置了ssh秘钥，git添加远程仓库的时候不要使用https的地址，不然还是会提示需要输入coding的账号密码</p>
-<pre><code>git remote add origin git@e.coding.net:missf/RuoYi.git    # 配置了SSH秘钥的，一定要填写项目的git地址
-git push -u origin master    # 这样推送时就不需要输入账号密码啦</code></pre><figure class="image-bubble">
+<pre class="line-numbers language-shell"><code class="language-shell">git remote add origin git@e.coding.net:missf/RuoYi.git    # 配置了SSH秘钥的，一定要填写项目的git地址
+git push -u origin master    # 这样推送时就不需要输入账号密码啦<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="https://pic.imgdb.cn/item/5ec24554c2a9a83be557070c.jpg" alt="" title="">
@@ -364,58 +366,59 @@ git push -u origin master    # 这样推送时就不需要输入账号密码啦<
             </figure>
 
 <p>这里附上完整Jenkinsfile</p>
-<pre><code>pipeline {
+<pre class="line-numbers language-shell"><code class="language-shell">pipeline {
   agent any
   stages {
-    stage(&#39;检出&#39;) {
+    stage('检出') {
       steps {
-        checkout([$class: &#39;GitSCM&#39;, branches: [[name: env.GIT_BUILD_REF]],
+        checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]],
         userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
       }
     }
-    stage(&#39;构建&#39;) {
+    stage('构建') {
       steps {
-        echo &#39;构建中...&#39;
-        sh &#39;java -version&#39;
-        sh &#39;mvn package&#39;
-        echo &#39;构建完成.&#39;
+        echo '构建中...'
+        sh 'java -version'
+        sh 'mvn package'
+        echo '构建完成.'
       }
     }
-    stage(&#39;压缩jar包&#39;) {
+    stage('压缩jar包') {
       steps {
-        echo &#39;压缩中...&#39;
-        sh &#39;cd /root/workspace/ruoyi-admin/target/ &amp;&amp; tar -zcf /tmp/ruoyi-admin.tar.gz ruoyi-admin.jar&#39;
-        echo &#39;压缩完成.&#39;
+        echo '压缩中...'
+        sh 'cd /root/workspace/ruoyi-admin/target/ && tar -zcf /tmp/ruoyi-admin.tar.gz ruoyi-admin.jar'
+        echo '压缩完成.'
       }
     }
-    stage(&#39;部署&#39;) {
+    stage('部署') {
       steps {
-        echo &#39;部署中...&#39;
+        echo '部署中...'
         script {
           def remote = [:]
-          remote.name = &#39;java-server&#39;
+          remote.name = 'java-server'
           remote.allowAnyHosts = true
-          remote.host = &quot;${env.REMOTE_HOST}&quot;
+          remote.host = "${env.REMOTE_HOST}"
           remote.port = 50312
-          remote.user = &quot;${env.REMOTE_USER_NAME}&quot;
+          remote.user = "${env.REMOTE_USER_NAME}"
 
           // 把「CODING 凭据管理」中的「凭据 ID」填入 credentialsId，而 id_rsa 无需修改 
-          withCredentials([sshUserPrivateKey(credentialsId: &quot;${env.REMOTE_CRED}&quot;, keyFileVariable: &#39;id_rsa&#39;)]) {
+          withCredentials([sshUserPrivateKey(credentialsId: "${env.REMOTE_CRED}", keyFileVariable: 'id_rsa')]) {
             remote.identityFile = id_rsa
 
             // SSH 上传文件到服务器
-            sshPut remote: remote, from: &#39;/tmp/ruoyi-admin.tar.gz&#39;, into: &#39;/tmp/&#39;
+            sshPut remote: remote, from: '/tmp/ruoyi-admin.tar.gz', into: '/tmp/'
             // 解压缩
-            sshCommand remote: remote,  sudo: false, command: &quot;tar -zxf /tmp/ruoyi-admin.tar.gz -C /home/ruoyi/&quot;
+            sshCommand remote: remote,  sudo: false, command: "tar -zxf /tmp/ruoyi-admin.tar.gz -C /home/ruoyi/"
             // 执行Java应用启停脚本
-            sshCommand remote: remote,  sudo: true, command: &quot;sh /home/ruoyi/start.sh stop &amp;&amp; sh /home/ruoyi/start.sh start&quot;
+            sshCommand remote: remote,  sudo: true, command: "sh /home/ruoyi/start.sh stop && sh /home/ruoyi/start.sh start"
           }
         }
-        echo &#39;部署完成&#39;
+        echo '部署完成'
       }
     }
   }
-}</code></pre><h2 id="触发规则"><a href="#触发规则" class="headerlink" title="触发规则"></a>触发规则</h2><p>本地仓库推送代码到master分支时就会自动触发持续集成任务</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="触发规则"><a href="#触发规则" class="headerlink" title="触发规则"></a>触发规则</h2><p>本地仓库推送代码到master分支时就会自动触发持续集成任务</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -450,7 +453,7 @@ git push -u origin master    # 这样推送时就不需要输入账号密码啦<
                 <div class="image-caption"></div>
             </figure>
 
-<h2 id="服务器的启停脚本"><a href="#服务器的启停脚本" class="headerlink" title="服务器的启停脚本"></a>服务器的启停脚本</h2><pre><code>[root@java-server ~]# cd /home/ruoyi/
+<h2 id="服务器的启停脚本"><a href="#服务器的启停脚本" class="headerlink" title="服务器的启停脚本"></a>服务器的启停脚本</h2><pre class="line-numbers language-shell"><code class="language-shell">[root@java-server ~]# cd /home/ruoyi/
 [root@java-server ruoyi]# ll
 total 65080
 drwxr-xr-x 2 root root     4096 May 18 10:18 logs
@@ -463,38 +466,39 @@ drwxr-xr-x 2 root root     4096 May 18 10:18 logs
 
 WORKSPACE=/home/ruoyi
 
-if [ -d &quot;${WORKSPACE}&quot; ]; then
+if [ -d "${WORKSPACE}" ]; then
     cd ${WORKSPACE}
 else
-    echo &quot;${WORKSPACE} directory does not exist&quot;
+    echo "${WORKSPACE} directory does not exist"
     exit 1
 fi
 
-APP_NAME=&#39;ruoyi-admin.jar&#39;
+APP_NAME='ruoyi-admin.jar'
 
-USE_JAVA_HOME=&#39;/usr/local/jdk1.8.0_211&#39;
+USE_JAVA_HOME='/usr/local/jdk1.8.0_211'
 
-JVM_OPTS=&#39;-Xms512m -Xmx512m&#39;
+JVM_OPTS='-Xms512m -Xmx512m'
 
-CONFIG_OPTS=&#39;&#39;
+CONFIG_OPTS=''
 
-if [ $1 == &#39;start&#39; ]; then
-    echo &#39;start service &#39;$APP_NAME
-    nohup java -jar ${JVM_OPTS} ${APP_NAME} &gt; ${WORKSPACE}/nohup.out 2&gt;&amp;1 &amp;
-elif [ $1 == &#39;stop&#39; ]; then
-    echo &#39;stop service &#39;$APP_NAME
-    PID=$(ps -ef | grep -v grep | grep ${APP_NAME} | awk &#39;{print $2}&#39;)
+if [ $1 == 'start' ]; then
+    echo 'start service '$APP_NAME
+    nohup java -jar ${JVM_OPTS} ${APP_NAME} > ${WORKSPACE}/nohup.out 2>&1 &
+elif [ $1 == 'stop' ]; then
+    echo 'stop service '$APP_NAME
+    PID=$(ps -ef | grep -v grep | grep ${APP_NAME} | awk '{print $2}')
     if [ -z ${PID} ]; then
-        echo ${APP_NAME} &#39; had stopped&#39;
+        echo ${APP_NAME} ' had stopped'
     else
         kill ${PID}
         sleep 2
         if [ $? -ne 0 ]; then
-        echo ${APP_NAME} &#39; stop failed&#39;
+        echo ${APP_NAME} ' stop failed'
         exit 1
         fi
     fi
-fi</code></pre><h1 id="查看持续集成的效果"><a href="#查看持续集成的效果" class="headerlink" title="查看持续集成的效果"></a>查看持续集成的效果</h1><figure class="image-bubble">
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="查看持续集成的效果"><a href="#查看持续集成的效果" class="headerlink" title="查看持续集成的效果"></a>查看持续集成的效果</h1><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="https://pic.imgdb.cn/item/5ec26162c2a9a83be5ac20ab.jpg" alt="" title="">
@@ -508,7 +512,7 @@ fi</code></pre><h1 id="查看持续集成的效果"><a href="#查看持续集成
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-05-19T13:00:51.699Z" itemprop="dateUpdated">2020-05-19 21:00:51</time>
+    最后更新时间：<time datetime="2020-05-20T03:35:25.668Z" itemprop="dateUpdated">2020-05-20 11:35:25</time>
 </span><br>
 
 
@@ -549,9 +553,9 @@ fi</code></pre><h1 id="查看持续集成的效果"><a href="#查看持续集成
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2020/05/10/ansible%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95/" id="post-next" class="post-nav-link">
+      <a href="/2020/05/12/ansible%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ansible主机清单(4)</h4>
+        <h4 class="title">ansible模块学习(5)</h4>
       </a>
     </div>
   
@@ -702,7 +706,7 @@ fi</code></pre><h1 id="查看持续集成的效果"><a href="#查看持续集成
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                1.2k
+                1.1k
             
         </span>
     </div>

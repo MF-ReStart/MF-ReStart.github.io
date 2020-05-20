@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>ansible模块学习(5) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ansible,自动化运维">
+    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​   ansible模块学习command模块ansible的默认模块，可以不用-m指定，-a是command的参数 ansible all -m command -a &quot;hostname&quot; 10.10.110.122 | CHANGED | rc&#x3D;0 &gt;&gt; localhost.localdomain 10.10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible模块学习(5)">
+<meta property="og:url" content="https://www.missf.top/2020/05/12/ansible%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​   ansible模块学习command模块ansible的默认模块，可以不用-m指定，-a是command的参数 ansible all -m command -a &quot;hostname&quot; 10.10.110.122 | CHANGED | rc&#x3D;0 &gt;&gt; localhost.localdomain 10.10">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-12T03:12:59.000Z">
+<meta property="article:modified_time" content="2020-05-20T03:45:03.487Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="ansible">
+<meta property="article:tag" content="自动化运维">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ansible模块学习(5)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ansible模块学习(5)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-12T03:12:59.000Z" itemprop="datePublished" class="page-time">
+  2020-05-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible模块学习"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible模块学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#command模块"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">command模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shell模块"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">shell模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#copy模块"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">copy模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#file模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">file模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fetch模块"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">fetch模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#blockinfile模块"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">blockinfile模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lineinfile模块"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">lineinfile模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#find模块"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">find模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#replace模块"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">replace模块</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ansible模块学习"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ansible模块学习(5)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-12 11:12:59" datetime="2020-05-12T03:12:59.000Z"  itemprop="datePublished">2020-05-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
+<p>​ </p>
+</blockquote>
+<h1 id="ansible模块学习"><a href="#ansible模块学习" class="headerlink" title="ansible模块学习"></a>ansible模块学习</h1><h2 id="command模块"><a href="#command模块" class="headerlink" title="command模块"></a>command模块</h2><p>ansible的默认模块，可以不用-m指定，-a是command的参数</p>
+<pre><code>ansible all -m command -a &quot;hostname&quot;
+10.10.110.122 | CHANGED | rc=0 &gt;&gt;
+localhost.localdomain
+10.10.110.123 | CHANGED | rc=0 &gt;&gt;
+localhost.localdomain</code></pre><p>command模块不支持调用<code>$HOME</code>这样的变量，还有像<code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>;</code>, <code>&amp;</code>这些都将不可用，但是command 模块更安全，因为他不受用户环境的影响。 也很大的避免了潜在的shell注入风险。</p>
+<h2 id="shell模块"><a href="#shell模块" class="headerlink" title="shell模块"></a>shell模块</h2><p>shell 模块可以帮助我们在远程主机上执行命令。与command模块不同的是，shell模块在远程主机中执行命令时，会经过远程主机上的 <code>/bin/sh</code> 程序处理，能够使用<code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>;</code>, <code>&amp;</code>这些符号和环境变量。</p>
+<ul>
+<li></li>
+</ul>
+<h2 id="copy模块"><a href="#copy模块" class="headerlink" title="copy模块"></a>copy模块</h2><p>copy模块的作用就是将Control node的文件拷贝到Managed nodes</p>
+<ul>
+<li><code>scr:</code> 用于指定控制节点上被copy的文件或目录</li>
+<li><code>dest:</code> 用于指定文件将被拷贝到管理节点的路径，dest为必须参数</li>
+<li><code>content:</code> 当不使用src指定拷贝的文件时，可以使用content直接指定文件内容，src与content两个参数必有其一</li>
+<li><code>force:</code> 当管理节点的目标路径存在同名文件，并且两个文件内容不同，是否强制覆盖，可选值有yes和no，默认值为yes</li>
+<li><code>backup:</code> 当管理节点的目标路径存在同名文件，并且两个文件内容不同，是否对管理节点的文件进行备份，可选值有yes和no</li>
+<li><code>owner:</code> 指定文件拷贝到管理节点后的属主，但是管理节点上必须有对应的用户</li>
+<li><code>group:</code> 指定文件拷贝到管理节点后的属组，但是管理节点上必须有对应的组</li>
+<li><code>mode:</code> 指定文件拷贝到管理节点后的权限，可以使用mode=0644表示，也使用mode=u+x表示</li>
+</ul>
+<p>将控制节点的/etc/hosts文件复制到管理节点的/root目录下，如果管理节点的/root目录已经存在文件，则会默认覆盖</p>
+<pre><code>ansible all -m copy -a &quot;src=/etc/hosts dest=/root/&quot;
+# 如无意外这里你看到的字体颜色是黄色的，这是成功执行并且状态发生了改变的</code></pre><p>复制文件，指定文件的属主和属组，需要注意的是管理节点必须存在对应的用户和组</p>
+<pre><code>ansible all -m copy -a &quot;src=/etc/hosts dest=/tmp/ owner=mwj group=mwj&quot;</code></pre><p>复制文件，如果管理节点的目标路径已存在同名文件且内容不相同，则对管理节点的文件先进行备份，再把控制节点的文件复制到管理节点</p>
+<pre><code>ansible all -m copy -a &quot;src=/etc/hosts dest=/tmp/ backup=yes&quot;
+# 在返回的结果列表能看到: &quot;backup_file&quot;: &quot;/tmp/hosts.15575.2020-05-12@22:28:50~&quot;
+# ansibel是用哈希值去校验两个文件的内容是否一致的 </code></pre><h2 id="file模块"><a href="#file模块" class="headerlink" title="file模块"></a>file模块</h2><p>file模块可以完成对文件增删查改的基本操作</p>
+<ul>
+<li><code>path:</code> 用于指定要操作的文件或目录，必须参数</li>
+<li><code>state:</code> ansible无法从<code>path=/test/a/b</code>得知我们想要创建目录还是文件，所以需要使用state参数配和path来声明操作的类型<ul>
+<li><code>state=directory</code> 创建的是目录</li>
+<li><code>state=touch</code> 创建的是文件</li>
+<li><code>state=link</code> 创建的是软连接文件</li>
+<li><code>state=hard</code> 创建的是硬链接文件</li>
+<li><code>state=absent</code> 删除文件或者目录，absent意为”缺席”</li>
+</ul>
+</li>
+<li><code>src:</code> 当state设置为link或者hard时，我们必须指明软硬链链接到哪个文件，通过src参数即可指定链接源</li>
+<li><code>force:</code> 当state=link的时候，可配合force=yes参数强制创建链接文件，但是强制创建会有两种情况<ul>
+<li><code>情况一:</code> 当要创建的链接文件所指向的源文件并不存在时，使用此参数可以先强制创建出链接文件</li>
+<li><code>情况二:</code> 当要创建链接文件的路径中已经存在与链接文件同名的文件时，将force设置为yes，会将同名文件覆盖为链接文件</li>
+</ul>
+</li>
+<li><code>owner:</code> 用于指定被操作文件或目录的属主</li>
+<li><code>group:</code> 用于指定被操作文件或目录的属组</li>
+<li><code>mdoe:</code> 用于指定被操作文件或目录的权限，使用mode=755，设置特殊权限则可以使用mode=4700</li>
+<li><code>recurse:</code> 当要操作的对象为目录，将recurse设置为yes，可以递归的修改目录中文件的属性</li>
+</ul>
+<p>在管理节点上创建一个名为testdir的目录，如果目录已存在则不进行任何操作</p>
+<pre><code>ansible all -m file -a &quot;path=/testdir/ state=directory&quot;</code></pre><p>在管理节点上创建一个名为testfile的文件，如果文件已存在则会更新文件的时间戳</p>
+<pre><code>ansible all -m file -a &quot;path=/testdir/testfile state=touch&quot;</code></pre><p>在管理节点创建一个名为/testdir/linkfile的链接文件，链接的源文件/testdir/testfile已存在</p>
+<pre><code>ansible all -m file -a &quot;path=/testdir/linkfile state=link src=/testdir/testfile&quot;</code></pre><p>在管理节点上删除指定的文件或目录</p>
+<pre><code>ansible all -m file -a &quot;path=/testdir/testfile state=absent&quot;</code></pre><h2 id="fetch模块"><a href="#fetch模块" class="headerlink" title="fetch模块"></a>fetch模块</h2><p>从管理节点拉取文件到控制节点</p>
+<ul>
+<li><code>dest:</code> 用来存放从管理节点拉取到的文件</li>
+<li><code>src:</code> 管理节点被拉取的文件，必须是文件不能是目录</li>
+<li><code>flat:</code> 默认为no，会将拉取到控制节点的文件以hostname/file的命名存放在dest目录，如果为yes，则直接按文件名存放</li>
+<li><code>Validate_checksum:</code> 拉取文件之后进行MD5检查</li>
+</ul>
+<p>拉取管理节点的/etc/hosts文件到控制节点的/data/目录</p>
+<pre><code>ansible all -m fetch -a &quot;src=/etc/hosts dest=/data/&quot;
+# 这里flat默认为no，所以拉取之后存放的方式是这样的
+tree /data/
+/data/
+├── 10.10.110.122
+│   └── etc
+│       └── hosts
+└── 10.10.110.123
+    └── etc
+        └── hosts
+
+ansible all -m fetch -a &quot;src=/etc/hosts dest=/data/ flat=yes&quot;    # flat=yes是直接按文件名存放
+tree /data/
+/data/
+└── hosts    # 只有一个hosts文件是因为第一个hosts被覆盖掉了</code></pre><h2 id="blockinfile模块"><a href="#blockinfile模块" class="headerlink" title="blockinfile模块"></a>blockinfile模块</h2><p>blockinfile模块可以帮助我们在指定的文件中插入”一段文本”，这段文本是被标记过的，我们在这段文本上做了记号，以便在以后的操作中可以通过”标记”找到这段文本，然后修改或者删除它</p>
+<ul>
+<li><code>path:</code> 指定要操作的文件</li>
+<li><code>block:</code> 此参数用于指定我们想要插入的那”一段文本”，此参数有一个别名叫”content”，使用content或block的作用是相同的</li>
+<li><code>marker:</code> 自定义开始和结束的标记，marker=#{mark}test:开始为# BEGIN test，结束为# END test</li>
+<li><code>insertafter:</code> 在插入一段文本时，默认会在文件的末尾插入文本，如果你想要将文本插入在某一行的后面，可以使用此参数指定对应的行</li>
+<li><code>insertbefore:</code> 在插入一段文本时，默认会在文件的末尾插入文本，如果你想要将文本插入在某一行的前面，可以使用此参数指定对应的行</li>
+<li><code>backup:</code> 是否在修改文件之前对文件进行备份</li>
+<li><code>create:</code> 当要操作的文件并不存在时，是否创建对应的文件</li>
+</ul>
+<p>在管理节点的/testdir/rc.local文件末尾插入一行systemctl start mariadb</p>
+<pre><code>ansible all -m blockinfile -a &#39;path=/testdir/rc.local block=&quot;systemctl start mariadb&quot;&#39;</code></pre><p>自定义插入的开始和结束的标记</p>
+<pre><code>ansible all -m blockinfile -a &#39;path=/testdir/rc.local block=&quot;systemctl restart mysqld\nnginx -s reload&quot; marker=&quot;#{mark} serivce to start&quot;&#39;
+# 查看被插入的文本
+#BEGIN serivce to start
+systemctl restart mysqld
+nginx -s reload
+#END serivce to start</code></pre><p>使用create参数，如果指定的文件不存在则创建它</p>
+<pre><code>ansible all -m blockinfile -a &#39;path=/testdir/date block=&quot;今天是5月12号\n汶川地震12周年&quot; marker=&quot;#{mark} 日期记录&quot; create=yes&#39;</code></pre><p>使用backup参数，可以在操作修改文件之前对文件进行备份</p>
+<pre><code>ansible all -m blockinfile -a &#39;path=/testdir/date block=&quot;今天是5月12号\n汶川地震12周年&quot; marker=&quot;#{mark} 日期记录&quot; backup=yes&#39;</code></pre><h2 id="lineinfile模块"><a href="#lineinfile模块" class="headerlink" title="lineinfile模块"></a>lineinfile模块</h2><p>我们可以借助lineinfile模块，确保”某一行文本”存在于指定的文件中，还可以根据正则表达式替换”某一行文本”</p>
+<ul>
+<li><code>path:</code> 指定要操作的文件</li>
+<li><code>line:</code> 使用此参数指定文本内容</li>
+<li><code>regexp:</code> 使用正则表达式匹配对应的行</li>
+<li><code>state:</code> 当想要删除对应的文本时，需要将state参数的值设置为absent</li>
+<li><code>backrefs:</code> 开启后向引用，line参数中就能对regexp参数中的分组进行后向引用了</li>
+<li><code>insertafter参数:</code> 借助insertafter参数可以将文本插入到“指定的行”之后</li>
+<li><code>insertbefore参数:</code> 借助insertbefore参数可以将文本插入到“指定的行”之前</li>
+<li><code>backup:</code> 是否在修改文件之前对文件进行备份</li>
+<li><code>create:</code> 当要操作的文件并不存在时，是否创建对应的文件</li>
+</ul>
+<p>确保”test lineinfile”这行文本存在于/testdir/date文件中，如果存在则不做任何操作，如果不存在则在末尾插入</p>
+<pre><code>ansible all -m lineinfile -a &#39;path=/testdir/date line=&quot;test lineinfile&quot;&#39;</code></pre><p>根据正则表达式替换”某一行”，如果多行能够匹配正则，只有最后匹配的行才会被替换，如果没有匹配到则会在末尾插入line的内容</p>
+<pre><code>ansible all -m lineinfile -a &#39;path=/testdir/date regexp=&quot;^test&quot; line=&quot;被替换后的内容&quot;&#39;</code></pre><p>根据正则匹配删除对应的行，如果文件多行都与正则匹配，则删除多行</p>
+<pre><code>ansible all -m lineinfile -a &#39;path=/testdir/date regexp=&quot;^#.*-$&quot; state=absent&#39;    # 删除#开头-结尾中间有任意个字符的行</code></pre><h2 id="find模块"><a href="#find模块" class="headerlink" title="find模块"></a>find模块</h2><p>find模块可以帮助我们在管理节点中查找符合条件的文件，就像find命令一样</p>
+<ul>
+<li><code>paths:</code> 必须参数，指定在哪个目录中查找文件，可以指定多个路径，路径间用逗号隔开</li>
+<li><code>recurse:</code> 默认只会在指定的目录中查找文件，当recurse参数设置为yes时，表示会递归的查找文件</li>
+<li><code>hidden:</code> 默认不会去查找隐藏文件，只有当hidden参数的值设置为yes时才会查找隐藏文件</li>
+<li><code>file_type:</code> 默认只会根据条件查找”文件”，可以通过file_type指定文件类型，any | directory | file | link</li>
+<li><code>patterns:</code> 使用此参数指定需要查找的文件名称，支持使用shell(比如通配符)或者正则表达式去匹配文件名称</li>
+<li><code>use_regex:</code> 当use_regex设置为yes时，表示使用python正则解析patterns参数中的表达式</li>
+<li><code>contains:</code> 使用此参数可以根据文章内容查找文件，此参数的值为一个正则表达式</li>
+<li><code>age:</code> 用此参数可以根据时间范围查找文件，默认以文件的mtime为标准与指定的时间进行对比</li>
+<li><code>age_stamp:</code> 文件的时间属性中有三个时间种类:atime、ctime、mtime，当我们根据时间范围查找文件时，可以指定以哪个时间种类为准</li>
+<li><code>size:</code> 使用此参数可以根据文件大小查找文件</li>
+<li><code>get_checksum:</code> 当有符合查找条件的文件被找到时，会同时返回对应文件的sha1校验码</li>
+</ul>
+<p>在管理节点的/etc目录中查找包含www字符串的文件，不进行递归并忽略隐藏文件</p>
+<pre><code>ansible all -m find -a &#39;paths=/etc contains=&quot;.*www.*&quot;&#39;</code></pre><p>在管理节点的/etc目录查找以.sh结尾的文件，包括隐藏文件并进行递归查找</p>
+<pre><code>ansible all -m find -a &#39;paths=/etc patterns=&quot;*.sh&quot; hidden=yes recurse=yes&#39;</code></pre><p>在管理节点的/etc目录查找链接文件，包括隐藏文件并进行递归查找</p>
+<pre><code>ansible all -m find -a &#39;paths=/etc file_type=link hidden=yes recurse=yes&#39;</code></pre><p>在管理节点的/etc目录查找以.sh结尾的文件，只不过patterns对应的表达式为正则表达式，包括所有文件类型</p>
+<pre><code>ansible all -m find -a &#39;paths=/etc patterns=&quot;\*.sh&quot; file_type=any use_regex=yes&#39;</code></pre><p>在管理节点的/etc目录递归查找mtime在4天以内的文件</p>
+<pre><code>ansible all -m find -a &#39;paths=/etc age=-4d recurse=yes&#39;</code></pre><p>在管理节点的/etc目录递归查找大于2G的文件</p>
+<pre><code>ansible all -m find -a &#39;paths=/etc size=2g recurse=yes&#39;</code></pre><p>在管理节点的/etc目录递归查找.conf结尾的文件，并且返回符合条件的文件的sha1校验码</p>
+<pre><code>ansible all -m find -a &#39;paths=/etc patterns=&quot;*.conf&quot; recurse=yes get_checksum=yes&#39;</code></pre><h2 id="replace模块"><a href="#replace模块" class="headerlink" title="replace模块"></a>replace模块</h2><p>replace模块可以根据我们指定的正则表达式替换文件中的字符串，文件中所有被正则匹配到的字符串都会被替换</p>
+<ul>
+<li><code>path:</code> 必须参数，指定要操作的文件，别名:dest | destfile | name</li>
+<li><code>regexp:</code> 必须参数，指定一个python正则表达式，文件中与正则匹配的字符串将会被替换</li>
+<li><code>replace:</code> 指定最终要替换成的字符串</li>
+<li><code>backup:</code> 是否在修改文件之前对文件进行备份，最好设置为yes</li>
+</ul>
+<p>将管理主机的/testdir/date文件中所有的ansible替换为saltstack，操作前进行文件备份</p>
+<pre><code>ansible all -m replace -a &#39;path=/testdir/date regexp=&quot;ansible&quot; replace=saltstack backup=yes&#39;</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-20T03:45:03.487Z" itemprop="dateUpdated">2020-05-20 11:45:03</time>
+</span><br>
+
+
+        
+        这里可以给作者写留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/05/12/ansible%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0/" target="_blank" rel="external">https://www.missf.top/2020/05/12/ansible%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/05/18/%E4%BD%BF%E7%94%A8coding%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90Java%E9%A1%B9%E7%9B%AE/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用coding持续集成Java项目</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/05/10/ansible%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ansible主机清单(4)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                3.3k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
