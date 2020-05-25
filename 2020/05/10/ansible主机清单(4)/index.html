@@ -15,7 +15,7 @@
     
     
     
-    <title>ansible介绍(1) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <title>ansible主机清单(4) | 荒原饮露 | 青春不是隔岸观火啊</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -24,19 +24,17 @@
     <meta name="keywords" content="ansible,自动化运维">
     <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ansible介绍(1)">
-<meta property="og:url" content="https://www.missf.top/2020/05/07/ansible%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:title" content="ansible主机清单(4)">
+<meta property="og:url" content="https://www.missf.top/2020/05/10/ansible%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95(4)/index.html">
 <meta property="og:site_name" content="荒原饮露">
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5eb61cb0c2a9a83be555278f.png">
-<meta property="article:published_time" content="2020-05-07T08:12:59.000Z">
-<meta property="article:modified_time" content="2020-05-25T01:57:24.525Z">
+<meta property="article:published_time" content="2020-05-10T02:12:59.000Z">
+<meta property="article:modified_time" content="2020-05-25T01:57:56.324Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5eb61cb0c2a9a83be555278f.png">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -118,7 +116,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">ansible介绍(1)</div>
+        <div class="flex-col header-title ellipsis">ansible主机清单(4)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -136,11 +134,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">ansible介绍(1)</h1>
+        <h1 class="title">ansible主机清单(4)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-05-07T08:12:59.000Z" itemprop="datePublished" class="page-time">
-  2020-05-07
+                <time datetime="2020-05-10T02:12:59.000Z" itemprop="datePublished" class="page-time">
+  2020-05-10
 </time>
 
 
@@ -161,18 +159,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的目标"><span class="post-toc-number">2.</span> <span class="post-toc-text">Ansible的目标</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的应用场景"><span class="post-toc-number">3.</span> <span class="post-toc-text">Ansible的应用场景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的工作原理"><span class="post-toc-number">4.</span> <span class="post-toc-text">Ansible的工作原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对节点主机的要求"><span class="post-toc-number">5.</span> <span class="post-toc-text">对节点主机的要求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的概念"><span class="post-toc-number">6.</span> <span class="post-toc-text">Ansible的概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制节点-Control-node"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">控制节点(Control node)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#管理节点-Managed-nodes"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">管理节点(Managed nodes)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主机清单-Inventory"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">主机清单(Inventory)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模块-Modules"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">模块(Modules)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务-Tasks"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">任务(Tasks)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#剧本-Playbooks"><span class="post-toc-number">6.6.</span> <span class="post-toc-text">剧本(Playbooks)</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#认识主机清单"><span class="post-toc-number">1.</span> <span class="post-toc-text">认识主机清单</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#主机清单示例"><span class="post-toc-number">2.</span> <span class="post-toc-text">主机清单示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ini和yaml格式对比"><span class="post-toc-number">3.</span> <span class="post-toc-text">ini和yaml格式对比</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#默认组"><span class="post-toc-number">4.</span> <span class="post-toc-text">默认组</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#主机变量和组变量"><span class="post-toc-number">5.</span> <span class="post-toc-text">主机变量和组变量</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用多个主机清单"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用多个主机清单</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用-ssh-秘钥连接主机"><span class="post-toc-number">7.</span> <span class="post-toc-text">使用 ssh 秘钥连接主机</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-ansible介绍"
+<article id="post-ansible主机清单(4)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">ansible介绍(1)</h1>
+        <h1 class="post-card-title">ansible主机清单(4)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-05-07 16:12:59" datetime="2020-05-07T08:12:59.000Z"  itemprop="datePublished">2020-05-07</time>
+            <time class="post-time" title="2020-05-10 10:12:59" datetime="2020-05-10T02:12:59.000Z"  itemprop="datePublished">2020-05-10</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
@@ -191,45 +189,87 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="Ansible介绍"><a href="#Ansible介绍" class="headerlink" title="Ansible介绍"></a>Ansible介绍</h1><p>Ansible 是2012年推出的一种通用自动化工具，ansible也是我接触的第一个自动化运维工具，ansible可以帮助我们完成一些批量任务，或者完成一些经常性的重复工作，在服务器集群场景下，ansible是我们运维的利器，Ansible 在2015年时被Redhat公司收购。Ansible是用Python编写的，它使用SSH在不同的机器上执行命令。Ansible是无代理的，这使得入手更容易。您只需要在相关机器上安装SSH和Python。Ansible使用声明式YAML语言”playbook”将一组主机(“hosts”)映射到定义明确的角色。</p>
-<p>也许你会说，我写个shell脚本不也一样能实现批量服务器的管理吗？这里我想说的是，ansible支持一些优秀的特性:</p>
-<ul>
-<li>支持幂等性</li>
-<li>No Agent</li>
-<li>支持palybook实现复杂的任务</li>
-<li>使用yaml语言</li>
-</ul>
-<p>先来说说什么是<strong>幂等性</strong>，假如我要在目标主机安装Nginx，但是我不确定这个主机是否已经安装了Nginx，当使用ansible完成这个任务时，问题就会变得简单，如果目标主机已经安装Nginx，则ansible不会进行任何操作，如果目标主机未安装Nginx，ansible才会开始工作，ansible是<strong>以导向为结果</strong>的，我们指定一个状态，ansible就会自动判断，把服务器的状态调整为我们指定的状态，我多次执行，结果都是一样的，这就是幂等性。</p>
-<p>使用zabbix监控一百台服务器，这一百台服务器都需要安装zabbix  agent，但是ansible是不需要在管理节点上安装客户端代理程序的，因为它基于ssh工作，只要Control node能通过ssh连接到Managed nodes就能通过ansible管理对应的管理节点了，还有就是ansible的控制节点不用单独启动服务，能直接运行命令。</p>
-<h1 id="Ansible的目标"><a href="#Ansible的目标" class="headerlink" title="Ansible的目标"></a>Ansible的目标</h1><p><strong>实现一切自动化</strong></p>
-<h1 id="Ansible的应用场景"><a href="#Ansible的应用场景" class="headerlink" title="Ansible的应用场景"></a>Ansible的应用场景</h1><ul>
-<li>自动化部署应用</li>
-<li>自动化管理配置</li>
-<li>自动化的持续交付</li>
-<li>自动化的云服务管理</li>
-<li>自动化网络设备管理</li>
-</ul>
-<h1 id="Ansible的工作原理"><a href="#Ansible的工作原理" class="headerlink" title="Ansible的工作原理"></a>Ansible的工作原理</h1><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5eb61cb0c2a9a83be555278f.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h1 id="认识主机清单"><a href="#认识主机清单" class="headerlink" title="认识主机清单"></a>认识主机清单</h1><p>Ansible可同时操作属于一个组的多台主机， 组和主机之间的关系通过 <code>inventory</code> 文件配置. 默认的文件路径为 <code>/etc/ansible/hosts</code>，执行命令的时候使用 <code>-i</code> 参数即可指定主机清单。</p>
+<h1 id="主机清单示例"><a href="#主机清单示例" class="headerlink" title="主机清单示例"></a>主机清单示例</h1><p>主机清单文件主要有 <strong>ini</strong> 和 <strong>yaml</strong> 格式两种语法格式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mail.example.com       # 定义主机fqdn地址, 需要已经与控制节点ssh互信
+localhost ansible_connection=local  # ansible_connection可以定义连接类型, local是在本地执行,默认是smart
 
-<p>安装ansible到管理节点，定义好主机清单，编写好palybook，就能运行ansible批量管理管理节点。步骤如下:</p>
-<ol>
-<li>在控制节点上安装ansible</li>
-<li>配置主机清单: 将被控节点的连接信息配置到主机清单中</li>
-<li>定义playbook: 指定运行主机和执行任务</li>
-</ol>
-<h1 id="对节点主机的要求"><a href="#对节点主机的要求" class="headerlink" title="对节点主机的要求"></a>对节点主机的要求</h1><p>通常我们使用 ssh 与节点通信，默认使用 sftp. 如果 sftp 不可用，可在 ansible.cfg 配置文件中配置成 scp 的方式. 在节点上也需要安装Python 2（2.6或更高版本）或Python 3（3.5或更高版本）</p>
-<h1 id="Ansible的概念"><a href="#Ansible的概念" class="headerlink" title="Ansible的概念"></a>Ansible的概念</h1><h2 id="控制节点-Control-node"><a href="#控制节点-Control-node" class="headerlink" title="控制节点(Control node)"></a>控制节点(Control node)</h2><p>任何装有Ansible的机器可称为 <strong>控制节点</strong> 。 您可以从任何控制节点运行命令和剧本，并调用<code>/usr/bin/ansible</code>或<code>/usr/bin/ansible-playbook</code>命令，您可以将任何安装了Python的计算机用作控制节点,笔记本电脑,共享桌面和服务器都可以运行Ansible。 但是不能将Windows计算机用作控制节点。您也可以有多个控制节点。</p>
-<h2 id="管理节点-Managed-nodes"><a href="#管理节点-Managed-nodes" class="headerlink" title="管理节点(Managed nodes)"></a>管理节点(Managed nodes)</h2><p>使用Ansible管理的网络设备或服务器可称为 <strong>管理节点</strong>。 受管节点有时也称为 <strong>主机</strong> 。 受管节点上是不需要安装Ansible的。</p>
-<h2 id="主机清单-Inventory"><a href="#主机清单-Inventory" class="headerlink" title="主机清单(Inventory)"></a>主机清单(Inventory)</h2><p>托管节点的列表。库存文件有时也称为主机文件。您的目录可以为每个托管节点指定诸如IP地址之类的信息。库存还可以组织托管节点，创建和嵌套组，以便于扩展。</p>
-<h2 id="模块-Modules"><a href="#模块-Modules" class="headerlink" title="模块(Modules)"></a>模块(Modules)</h2><p>Ansible执行的具体代码。每个模块都有特定的用途，从管理特定类型数据库的用户到管理特定类型网络设备上的VLAN接口。您可以使用任务调用单个模块，也可以调用剧本中的几个不同模块。</p>
-<h2 id="任务-Tasks"><a href="#任务-Tasks" class="headerlink" title="任务(Tasks)"></a>任务(Tasks)</h2><p>Ansible的行动单位。tasks包含一组由module组成的任务列表, 您可以使用特别的命令一次性执行单个任务。</p>
-<h2 id="剧本-Playbooks"><a href="#剧本-Playbooks" class="headerlink" title="剧本(Playbooks)"></a>剧本(Playbooks)</h2><p>保存了已排序的任务列表，因此可以按此顺序重复运行这些任务。剧本可以包括变量和任务。剧本是用 <strong>YAML</strong> 编写的，易于阅读、编写、共享和理解。</p>
+host4 ansible_host=10.10.110.123 ansible_port=50312 ansible_user=root ansible_password=12345 # 指定别名，定义主机ssh连接信息
+
+www[1:50].example.com # 定义 1-50范围内的主机
+www-[a:d].example.com # 定义 a-d 范围内的主机
+
+[dbservers]
+three.example.com  ansible_python_interpreter=/usr/local/bin/python3  # 定义python执行ansible，这个是指定被控节点的python
+192.168.77.123  ansible_ruby_interpreter=/usr/bin/ruby.1.9.3  # 定义ruby执行文件
+
+webservers:vars] # 定义webservers组的变量
+ntp_server=ntp.example.com
+proxy=proxy.example.com
+
+[server:children] # 定义server组的子成员，执行server组时，webservers和dbservers组内的管理节点也会执行
+webservers
+dbservers
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="ini和yaml格式对比"><a href="#ini和yaml格式对比" class="headerlink" title="ini和yaml格式对比"></a>ini和yaml格式对比</h1><pre class="line-numbers language-shell"><code class="language-shell"># 先写出ini风格
+[dbserver]
+db1 ansible_host=10.10.110.122 ansible_port=22 ansible_user=root ansible_password=0
+
+[webserver]
+web1 ansible_host=10.10.110.123 ansible_port=22 ansible_user=root ansible_password=0
+
+[server:children]
+dbserver
+webserver
+# 定义子组成员时，需要children关键字
+
+# 和上面一样的配置，这是yaml风格的写法
+all:
+  children:
+    server:
+      children:
+        dbserver:
+          hosts:
+            10.10.110.122
+        webserver:
+          hosts:
+            10.10.110.123<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>yaml格式配置的还是挺复杂的，可读性也差，建议使用<code>ini</code>方式来设置主机清单。</p>
+</blockquote>
+<h1 id="默认组"><a href="#默认组" class="headerlink" title="默认组"></a>默认组</h1><p>在主机清单中，ansible会自动的生成两个组。</p>
+<ul>
+<li><strong>all</strong> 所有的主机</li>
+<li><strong>ungrouped</strong> 包含没有组的主机</li>
+</ul>
+<p>尽管这两个组是永远存在的，但也有可能是隐藏的，不会出现group_names之类的组列表中。</p>
+<h1 id="主机变量和组变量"><a href="#主机变量和组变量" class="headerlink" title="主机变量和组变量"></a>主机变量和组变量</h1><p>如果你不想在主机清单中定义主机的变量或者组的变量，ansible还支持在特定的目录中定义变量，变量文件必须以yaml语法定义。</p>
+<p>默认在<strong>/etc/ansible/host_vars/</strong> 目录中定义主机变量，文件名称以主机名称命名，结束可以用”.yml”,”.yaml”,”.json”三种格式。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cat /etc/ansible/host_vars/db1
+ntp_server: acme.example.org
+database_server: storage.example.org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>默认在 <code>/etc/ansible/group_vars/</code> 目录中定义组变量，文件名称以组名称命名，结束可以用”.yml”,”.yaml”,”.json”三种格式。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cat /etc/ansible/group_vars/dbserver
+ntp_server: acme.example.org
+database_server: storage.example.org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>变量优先级问题，如果在各个环节都设置了变量，到底哪个变量生效呢？优先顺序，all最低，host最高:</p>
+<ul>
+<li>all group</li>
+<li>parent group</li>
+<li>child group</li>
+<li>host</li>
+</ul>
+<h1 id="使用多个主机清单"><a href="#使用多个主机清单" class="headerlink" title="使用多个主机清单"></a>使用多个主机清单</h1><p>在命令参数中，使用多个 <code>-i</code> 就可以指定多个主机清单</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible all -i staging -i production -m ping
+ansible all -i /tmp/staging -i /tmp/production -m ping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="使用-ssh-秘钥连接主机"><a href="#使用-ssh-秘钥连接主机" class="headerlink" title="使用 ssh 秘钥连接主机"></a>使用 ssh 秘钥连接主机</h1><pre class="line-numbers language-shell"><code class="language-shell"># 生成秘钥
+ssh-keygen -t rsa
+
+# 发送公钥文件到管理节点
+ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@10.10.110.122
+
+# 现在主机清单里不用再填写账号密码了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
         </div>
 
@@ -238,12 +278,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-05-25T01:57:24.525Z" itemprop="dateUpdated">2020-05-25 09:57:24</time>
+    最后更新时间：<time datetime="2020-05-25T01:57:56.324Z" itemprop="dateUpdated">2020-05-25 09:57:56</time>
 </span><br>
 
 
         
-        这里可以给作者写留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/05/07/ansible%E4%BB%8B%E7%BB%8D/" target="_blank" rel="external">https://www.missf.top/2020/05/07/ansible%E4%BB%8B%E7%BB%8D/</a>
+        这里可以给作者写留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/05/10/ansible%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95(4)/" target="_blank" rel="external">https://www.missf.top/2020/05/10/ansible%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95(4)/</a>
         
     </div>
     
@@ -277,18 +317,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2020/05/08/ansible%E5%AE%89%E8%A3%85/" id="post-prev" class="post-nav-link">
+      <a href="/2020/05/12/ansible%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0(5)/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">ansible安装(2)</h4>
+        <h4 class="title">ansible模块学习(5)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2020/04/28/Python%E5%9F%BA%E7%A1%80day07/" id="post-next" class="post-nav-link">
+      <a href="/2020/05/09/ansible%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B(3)/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Python基础day07</h4>
+        <h4 class="title">ansible快速开始(3)</h4>
       </a>
     </div>
   
@@ -439,7 +479,7 @@
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                1.2k
+                807
             
         </span>
     </div>
