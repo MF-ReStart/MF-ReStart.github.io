@@ -22,15 +22,15 @@
     
     
     <meta name="keywords" content="ansible,自动化运维">
-    <meta name="description" content="ansible的循环我们在编写playbook的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。ansible一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible提供了两个用于创建循环的关键字: loop和with_&lt;lookup&gt;，Ansible 2.5中添加了loop，但它还不是with">
+    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ansible的循环(11)">
 <meta property="og:url" content="https://www.missf.top/post/167e62f3.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="ansible的循环我们在编写playbook的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。ansible一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible提供了两个用于创建循环的关键字: loop和with_&lt;lookup&gt;，Ansible 2.5中添加了loop，但它还不是with">
+<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-01T02:47:20.000Z">
-<meta property="article:modified_time" content="2020-06-02T07:51:22.028Z">
+<meta property="article:modified_time" content="2020-06-02T08:01:08.341Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -185,7 +185,11 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="ansible的循环"><a href="#ansible的循环" class="headerlink" title="ansible的循环"></a>ansible的循环</h1><p>我们在编写playbook的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。ansible一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible提供了两个用于创建循环的关键字: loop和with_&lt;lookup&gt;，Ansible 2.5中添加了loop，但它还不是with_&lt;lookup&gt;的完全替代品。在官方推荐使用loop，但我们现在还可以在大多数用例中使用with_&lt;lookup&gt;，但是随着loop语法的不断改进，with_&lt;lookup&gt;以后可能会失效。</p>
+            <blockquote>
+<p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
+<p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
+</blockquote>
+<h1 id="ansible的循环"><a href="#ansible的循环" class="headerlink" title="ansible的循环"></a>ansible的循环</h1><p>我们在编写playbook的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。ansible一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible提供了两个用于创建循环的关键字: loop和with_&lt;lookup&gt;，Ansible 2.5中添加了loop，但它还不是with_&lt;lookup&gt;的完全替代品。在官方推荐使用loop，但我们现在还可以在大多数用例中使用with_&lt;lookup&gt;，但是随着loop语法的不断改进，with_&lt;lookup&gt;以后可能会失效。</p>
 <h2 id="循环一个自定义列表"><a href="#循环一个自定义列表" class="headerlink" title="循环一个自定义列表"></a>循环一个自定义列表</h2><p>使用with_items关键字创建一个循环，with_items会把列表的每一条信息，单独放到item变量里面，然后循环打印每次item变量的值</p>
 <pre><code># 方式1
 ---
@@ -477,7 +481,7 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-02T07:51:22.028Z" itemprop="dateUpdated">2020-06-02 15:51:22</time>
+    最后更新时间：<time datetime="2020-06-02T08:01:08.341Z" itemprop="dateUpdated">2020-06-02 16:01:08</time>
 </span><br>
 
 
