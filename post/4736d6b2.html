@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>ansible的变量(10) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ansible,自动化运维">
+    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible的变量(10)">
+<meta property="og:url" content="https://www.missf.top/post/4736d6b2.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-28T02:13:41.000Z">
+<meta property="article:modified_time" content="2020-06-02T06:38:56.283Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="ansible">
+<meta property="article:tag" content="自动化运维">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ansible的变量(10)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ansible的变量(10)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-28T02:13:41.000Z" itemprop="datePublished" class="page-time">
+  2020-05-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的变量"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#变量定义规则"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">变量定义规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在playbook中使用变量"><span class="post-toc-number">2.</span> <span class="post-toc-text">在playbook中使用变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用块序列化语法定义变量"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">使用块序列化语法定义变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用属性的方式定义变量"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">使用属性的方式定义变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引入文件内的变量"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">引入文件内的变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#变量与setup模块"><span class="post-toc-number">3.</span> <span class="post-toc-text">变量与setup模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看从管理节点收集到的所有相关信息"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">查看从管理节点收集到的所有相关信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看管理节点的内存使用情况"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">查看管理节点的内存使用情况</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在管理节点创建自定义变量"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">在管理节点创建自定义变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#变量与debug模块"><span class="post-toc-number">4.</span> <span class="post-toc-text">变量与debug模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#playbook中使用debug模块"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">playbook中使用debug模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#运行playbook模块查看信息"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">运行playbook模块查看信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用debug模块输出变量信息"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">使用debug模块输出变量信息</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#注册变量"><span class="post-toc-number">5.</span> <span class="post-toc-text">注册变量</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#变量与用户交互信息"><span class="post-toc-number">6.</span> <span class="post-toc-text">变量与用户交互信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通过命令行传入变量"><span class="post-toc-number">7.</span> <span class="post-toc-text">通过命令行传入变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#执行playbook时传入变量"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">执行playbook时传入变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#json格式传入变量"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">json格式传入变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#执行playbook时传入变量文件"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">执行playbook时传入变量文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在主机清单中配置变量"><span class="post-toc-number">8.</span> <span class="post-toc-text">在主机清单中配置变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主机变量"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">主机变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主机组变量"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">主机组变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#set-fact定义变量"><span class="post-toc-number">9.</span> <span class="post-toc-text">set_fact定义变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#set-fact定义变量的特殊性"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">set_fact定义变量的特殊性</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#内置变量"><span class="post-toc-number">10.</span> <span class="post-toc-text">内置变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内置变量ansible-version"><span class="post-toc-number">10.1.</span> <span class="post-toc-text">内置变量ansible_version</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内置变量hostvars"><span class="post-toc-number">10.2.</span> <span class="post-toc-text">内置变量hostvars</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内置变量inventory-hostname"><span class="post-toc-number">10.3.</span> <span class="post-toc-text">内置变量inventory_hostname</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内置变量inventory-hostname-short"><span class="post-toc-number">10.4.</span> <span class="post-toc-text">内置变量inventory_hostname_short</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内置变量play-hosts"><span class="post-toc-number">10.5.</span> <span class="post-toc-text">内置变量play_hosts</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内置变量inventory-dir"><span class="post-toc-number">10.6.</span> <span class="post-toc-text">内置变量inventory_dir</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ansible的变量(10)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ansible的变量(10)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-28 10:13:41" datetime="2020-05-28T02:13:41.000Z"  itemprop="datePublished">2020-05-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
+<p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
+</blockquote>
+<h1 id="ansible的变量"><a href="#ansible的变量" class="headerlink" title="ansible的变量"></a>ansible的变量</h1><p>在ansible中使用变量，能让我们的工作变得更加灵活。</p>
+<h2 id="变量定义规则"><a href="#变量定义规则" class="headerlink" title="变量定义规则"></a>变量定义规则</h2><ul>
+<li><strong>变量名应该由字母、数字、下划线组成</strong></li>
+<li><strong>变量名需要以字母开头</strong></li>
+<li><strong>ansible内置的关键字不能作为变量名</strong></li>
+</ul>
+<h1 id="在playbook中使用变量"><a href="#在playbook中使用变量" class="headerlink" title="在playbook中使用变量"></a>在playbook中使用变量</h1><p>使用vars关键字定义名为package1值为nginx的变量，在task中使用进行调用</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">package1</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task1
+    <span class="token key atrule">yum</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"{{ package1 }}"</span>
+      <span class="token key atrule">state</span><span class="token punctuation">:</span> installed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="使用块序列化语法定义变量"><a href="#使用块序列化语法定义变量" class="headerlink" title="使用块序列化语法定义变量"></a>使用块序列化语法定义变量</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">vars</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">testvar1</span><span class="token punctuation">:</span> a1
+  <span class="token punctuation">-</span> <span class="token key atrule">testvar2</span><span class="token punctuation">:</span> b2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="使用属性的方式定义变量"><a href="#使用属性的方式定义变量" class="headerlink" title="使用属性的方式定义变量"></a>使用属性的方式定义变量</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nginx</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 定义两个变量</span>
+      <span class="token key atrule">conf80</span><span class="token punctuation">:</span> /etc/nginx/conf.d/80.conf    
+      <span class="token key atrule">conf8080</span><span class="token punctuation">:</span> /etc/nginx/conf.d/8080.conf
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task1
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"{{ nginx.conf80 }}"</span>    <span class="token comment" spellcheck="true"># 第一种调用方法</span>
+      <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task2
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"{{ nginx['conf8080']}}"</span>    <span class="token comment" spellcheck="true"># 第二种调用方法</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>注意:</strong> 如果引用变量时，变量处于开头的位置，那么变量必须要用双引号引起来，否则语法会报错</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task2
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"{{ nginx['conf8080']}}"</span>    <span class="token comment" spellcheck="true"># 引用这种变量处于开头位置的必须使用引号引起来</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task2
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> /root/<span class="token punctuation">{</span><span class="token punctuation">{</span> nginx<span class="token punctuation">[</span><span class="token string">'conf8080'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">}</span>    <span class="token comment" spellcheck="true"># 这样的不用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="引入文件内的变量"><a href="#引入文件内的变量" class="headerlink" title="引入文件内的变量"></a>引入文件内的变量</h2><p>创建nginx_vars.yaml文件，直接在文件中以自己喜欢的方式定义变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">testvar1</span><span class="token punctuation">:</span> zxc
+<span class="token key atrule">testvar2</span><span class="token punctuation">:</span> qwe
+
+<span class="token punctuation">-</span> <span class="token key atrule">testvar3</span><span class="token punctuation">:</span> rty
+<span class="token punctuation">-</span> <span class="token key atrule">testvar4</span><span class="token punctuation">:</span> poi
+
+<span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+  <span class="token key atrule">conf1</span><span class="token punctuation">:</span> /usr/local/nginx/conf/nginx1.conf
+  <span class="token key atrule">conf2</span><span class="token punctuation">:</span> /usr/local/nginx/conf/nginx2.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在playbook中以vars_files关键字引入文件中的变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>        <span class="token comment" spellcheck="true"># vars关键字和vars_files关键字可以同时使用</span>
+  <span class="token punctuation">-</span> /root/vars.yaml
+  <span class="token key atrule">vars_files</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> /playbook/nginx_vars.yaml
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task1
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"{{ nginx.conf80 }}"</span>
+      <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task2
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"{{ nginx['conf8080']}}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="变量与setup模块"><a href="#变量与setup模块" class="headerlink" title="变量与setup模块"></a>变量与setup模块</h1><p>前面我们说过在执行playbook的时候，默认都会运行一个名为<strong>Gathering Facts</strong>的任务，这个任务会收集管理节点的相关信息(例如管理节点的IP地址，主机名，系统版本，硬件配置等信息)，这些被收集到的信息都会保存在对应的变量中，我们想要使用这些信息时，可以获取对应的变量，从而使用这些信息。关于setup模块具体查看前面ansible模块学习。</p>
+<h2 id="查看从管理节点收集到的所有相关信息"><a href="#查看从管理节点收集到的所有相关信息" class="headerlink" title="查看从管理节点收集到的所有相关信息"></a>查看从管理节点收集到的所有相关信息</h2><pre class="line-numbers language-shell"><code class="language-shell">ansible all -m setup
+# 由于返回信息的比较多，这里不作示例<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="查看管理节点的内存使用情况"><a href="#查看管理节点的内存使用情况" class="headerlink" title="查看管理节点的内存使用情况"></a>查看管理节点的内存使用情况</h2><pre class="line-numbers language-shell"><code class="language-shell">ansible all -m setup -a 'filter=ansible_memory_mb'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="在管理节点创建自定义变量"><a href="#在管理节点创建自定义变量" class="headerlink" title="在管理节点创建自定义变量"></a>在管理节点创建自定义变量</h2><p>除了ansible默认收集的信息以外，我们还能够在管理节点写入一些自定义变量，这些自定义变量也是可以被setup模块收集到。</p>
+<p>首先在管理节点创建自定义变量的文件hello.fact，此类文件必须以*.fact命名</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 管理节点
+mkdir -p /etc/ansible/facts.d
+vim /etc/ansible/facts.d/hello.fact
+[info]
+name: mwj
+age: 24
+
+# 控制节点
+ansible dbserver -m setup -a "filter=ansible_local"        # 使用ansible_local关键字过滤信息得到管理节点的自定义变量
+10.10.110.122 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_local": {
+            "hello": {
+                "info": {
+                    "age": "24", 
+                    "name": "mwj"
+                }
+            }
+        }, 
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>注意:</strong> 管理节点上的hello.fact文件必须不是可执行文件，不然这个文件不会被成功读取，具体可查看ansible官方文档有详细说明。</p>
+<p>在管理节点的/etc/ansible/facts.d/这个目录是使用ansible_local关键字过滤时的默认路径，如果想要自定义路径可以使用fact_path关键字定义</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -m setup -a "fact_path=/tmp/facts.d/"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="变量与debug模块"><a href="#变量与debug模块" class="headerlink" title="变量与debug模块"></a>变量与debug模块</h1><p>debug模块是帮我们进行调试的，可以把对我们有用的信息输出到控制台上，以便能够定位问题。</p>
+<h2 id="playbook中使用debug模块"><a href="#playbook中使用debug模块" class="headerlink" title="playbook中使用debug模块"></a>playbook中使用debug模块</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> touch file
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> /tmp/debug.txt
+      <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> debug demo
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> this is debug info<span class="token punctuation">,</span>File created successfully<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="运行playbook模块查看信息"><a href="#运行playbook模块查看信息" class="headerlink" title="运行playbook模块查看信息"></a>运行playbook模块查看信息</h2><p>如下图所示，在touch文件之后会输出我们定义好的debug信息</p>
+<pre class="line-numbers language-shell"><code class="language-shell">PLAY [all] ***********************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************
+ok: [dbserver]
+ok: [webserver]
+
+TASK [touch file] ****************************************************************************************************************
+changed: [webserver]
+changed: [dbserver]
+
+TASK [debug demo] ****************************************************************************************************************
+ok: [webserver] => {
+    "msg": "this is debug info,File created successfully"
+}
+ok: [dbserver] => {
+    "msg": "this is debug info,File created successfully"
+}
+
+PLAY RECAP ***********************************************************************************************************************
+dbserver                   : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+webserver                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="使用debug模块输出变量信息"><a href="#使用debug模块输出变量信息" class="headerlink" title="使用debug模块输出变量信息"></a>使用debug模块输出变量信息</h2><p>debug模块除了能够使用msg参数输出自定义的信息，还能够使用var参数直接输出变量中的信息</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">testvar</span><span class="token punctuation">:</span> this is a debug variable
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> debug demo
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">var</span><span class="token punctuation">:</span> testvar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用debug模块的msg参数一样可以打印变量信息</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> debug demo
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"Remote host memory information: {{ ansible_memory_mb }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行结果如下</p>
+<pre class="line-numbers language-shell"><code class="language-shell">PLAY [all] ***********************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************
+ok: [dbserver]
+ok: [webserver]
+
+TASK [debug demo] ****************************************************************************************************************
+ok: [webserver] => {
+    "msg": "Remote host memory information: {u'real': {u'total': 216, u'used': 213, u'free': 3}, u'swap': {u'cached': 0, u'total': 1023, u'free': 1022, u'used': 1}, u'nocache': {u'used': 163, u'free': 53}}"
+}
+ok: [dbserver] => {
+    "msg": "Remote host memory information: {u'real': {u'total': 216, u'used': 212, u'free': 4}, u'swap': {u'cached': 0, u'total': 1023, u'free': 1013, u'used': 10}, u'nocache': {u'used': 170, u'free': 46}}"
+}
+
+PLAY RECAP ***********************************************************************************************************************
+dbserver                   : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+webserver                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ansible_memory_mb其中其实包含了 “nocache”、”real”、 “swap”三个部分的信息，我们只想获得”real”部分的信息，在playbook中引用变量时可以使用如下示例:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"Remote host memory information: {{ ansible_memory_mb.real }}"</span>
+<span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"Remote host memory information: {{ ansible_memory_mb['real'] }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="注册变量"><a href="#注册变量" class="headerlink" title="注册变量"></a>注册变量</h1><p>ansible的模块运行之后都会返回一些<strong>返回值</strong>，只是默认情况下，这些<strong>返回值</strong>并不会显示而已，我们可以把这些返回值写入到某个变量中，这样我们就能够通过引用对应的变量从而获取到这些返回值了，这种将模块的返回值写入到变量中的方法被称为<strong>注册变量</strong>。</p>
+<p>下面这个playbook有两个任务，第一个任务使用shell模块执行了一条命令，然后在这个任务下使用register注册了一个testvar的变量，第二个任务是使用debug模块的var参数打印这个变量，最后输出shell模块的返回值。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> test shell
+    <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token string">"echo test > /tmp/test"</span>
+    <span class="token key atrule">register</span><span class="token punctuation">:</span> testvar
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> shell module return values
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">var</span><span class="token punctuation">:</span> testvar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>playbook执行的结果如下图，返回的是一个json格式的数据，我们还可以使用<strong>&lt;!–￼11–&gt;</strong>或者<strong>&lt;!–￼12–&gt;</strong>指定key来获取某一项特定的值</p>
+<pre class="line-numbers language-shell"><code class="language-shell">PLAY [dbserver] ******************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************
+ok: [dbserver]
+
+TASK [test shell] ****************************************************************************************************************
+changed: [dbserver]
+
+TASK [shell module return values] ************************************************************************************************
+ok: [dbserver] => {
+    "testvar": {
+        "changed": true, 
+        "cmd": "echo test > /tmp/test", 
+        "delta": "0:00:00.025987", 
+        "end": "2020-06-02 22:34:36.185101", 
+        "failed": false, 
+        "rc": 0, 
+        "start": "2020-06-02 22:34:36.159114", 
+        "stderr": "", 
+        "stderr_lines": [], 
+        "stdout": "", 
+        "stdout_lines": []
+    }
+}
+
+PLAY RECAP ***********************************************************************************************************************
+dbserver                   : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果你想要查看模块对应的返回值，可以先查找官方手册，但并不是所有模块的官方手册中都对模块的返回值进行了描述，你可以自己去官网查看模块的返回值，这些返回值不仅仅能够用于输出，通常我们会利用到这些返回值，比如通过模块的返回值决定之后的一些动作，所以注册变量在playbook中还是会被经常用到的，在之后的文章中我们会给出示例。</p>
+<h1 id="变量与用户交互信息"><a href="#变量与用户交互信息" class="headerlink" title="变量与用户交互信息"></a>变量与用户交互信息</h1><p>在运行shell脚本时，有些时候需要用户输入信息，脚本再根据用户输入的信息决定下一步的动作，这种交互是必须的。我们也可以在playbook中实现这种交互，首先提示用户输入信息，然后将用户输入的信息存放到指定的变量中，当我们需要使用这些信息时，只要引用对应的变量即可。</p>
+<p>下面我们使用vars_prompt关键字定义了两个变量，变量名为别为your_name和your_age，变量下面是提示用户输入时的信息</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars_prompt</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"your_name"</span>
+      <span class="token key atrule">prompt</span><span class="token punctuation">:</span> <span class="token string">"what is your name"</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span> <span class="token punctuation">:</span> <span class="token string">"your_age"</span>
+      <span class="token key atrule">prompt</span><span class="token punctuation">:</span> <span class="token string">"how old are you"</span>
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> output  vars
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> your name is <span class="token punctuation">{</span><span class="token punctuation">{</span>your_name<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>you are <span class="token punctuation">{</span><span class="token punctuation">{</span>your_age<span class="token punctuation">}</span><span class="token punctuation">}</span> years old.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>playbook执行如下图，提示用户输入信息时默认是不显示信息的，这和输入密码的场景类似</p>
+<pre class="line-numbers language-shell"><code class="language-shell">what is your name: 
+how old are you: 
+
+PLAY [dbserver] ******************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************
+ok: [dbserver]
+
+TASK [output  vars] **************************************************************************************************************
+ok: [dbserver] => {
+    "msg": "your name is mwj,you are 24 years old."
+}
+
+PLAY RECAP ***********************************************************************************************************************
+dbserver                   : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果想要用户输入信息时显示信息内容，可以将private参数设置为no</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars_prompt</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"your_name"</span>
+      <span class="token key atrule">prompt</span><span class="token punctuation">:</span> <span class="token string">"what is your name"</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span> <span class="token punctuation">:</span> <span class="token string">"your_age"</span>
+      <span class="token key atrule">prompt</span><span class="token punctuation">:</span> <span class="token string">"how old are you"</span>
+      <span class="token key atrule">private</span><span class="token punctuation">:</span> no    <span class="token comment" spellcheck="true"># 显示用户输入的内容</span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> output  vars
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> your name is <span class="token punctuation">{</span><span class="token punctuation">{</span>your_name<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>you are <span class="token punctuation">{</span><span class="token punctuation">{</span>your_age<span class="token punctuation">}</span><span class="token punctuation">}</span> years old.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们还可以为提示信息设置默认值，如果用户不输入任何信息就将默认值赋予变量，如果用户输入信息，就把输入的信息赋值给变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars_prompt</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"your_name"</span>
+    <span class="token key atrule">prompt</span><span class="token punctuation">:</span> <span class="token string">"what is your name\n"</span>
+    <span class="token key atrule">private</span><span class="token punctuation">:</span> no
+    <span class="token key atrule">default</span><span class="token punctuation">:</span> mike
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> output  vars
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> your name is <span class="token punctuation">{</span><span class="token punctuation">{</span>your_name<span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面playbook的执行过程如下，中括号内的内容是我们设置的默认值，如果用户直接回车那就将中括号内的内容直接赋值给变量</p>
+<pre class="line-numbers language-shell"><code class="language-shell">what is your name
+ [mike]: mwj
+
+PLAY [dbserver] ******************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************
+ok: [dbserver]
+
+TASK [output  vars] **************************************************************************************************************
+ok: [dbserver] => {
+    "msg": "your name is mwj"
+}
+
+PLAY RECAP ***********************************************************************************************************************
+dbserver                   : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="通过命令行传入变量"><a href="#通过命令行传入变量" class="headerlink" title="通过命令行传入变量"></a>通过命令行传入变量</h1><p>我们可以在执行playbook时直接传入需要使用到的变量。编写一个playbook，打印一个passwd的变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"passing in variables from the command line"</span>
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ passwd }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="执行playbook时传入变量"><a href="#执行playbook时传入变量" class="headerlink" title="执行playbook时传入变量"></a>执行playbook时传入变量</h2><pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --extra-vars "passwd=mdf123456" passwd.yaml
+# --extra-vars参数可以简写成-e，还可以一次性传入多个变量，用空格隔开
+ansible-playbook -e "passwd=mdf123456 username=ewe" passwd.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>注意:</strong> 如果playbook中并没有定义passwd变量，在执行playbook时也没有传入passwd变量，则会报错。如果在playbook中事先定义好了passwd变量，在执行时再次传入名字相同的变量，最终还是以传入的变量值为准，命令行传入的变量的优先级要高于playbook中的变量。</p>
+<p>不仅ansible-playbook可以使用-e传递变量，ansible命令行一样可以，在执行ad-hoc命令时可以使用下面的方法传入变量</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -e "name=mwj" -m shell -a "echo my name in {{ name }}"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="json格式传入变量"><a href="#json格式传入变量" class="headerlink" title="json格式传入变量"></a>json格式传入变量</h2><p>除了以键值对的方式传入变量，我们还可以传入json格式的变量</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook passwd.yaml -e '{"username":"mwj","passwd":"123456"}'
+ansible-playbook passwd.yaml -e '{"countlist":["one","two","three","four"]}'    # {{countlist[0]}}或{{countlist.0}}引用变量<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="执行playbook时传入变量文件"><a href="#执行playbook时传入变量文件" class="headerlink" title="执行playbook时传入变量文件"></a>执行playbook时传入变量文件</h2><p>编写变量文件，可以是json格式或者yaml格式的文件</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">namevar</span><span class="token punctuation">:</span> mwj
+<span class="token key atrule">countlist</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> one
+<span class="token punctuation">-</span> two
+<span class="token punctuation">-</span> three
+<span class="token punctuation">-</span> four<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>playbook内容调用变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbderver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"name"</span>
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+    <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ namevar }} {{ countlist[0] }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>命令行传入对应的文件，使用<strong>@</strong>符号加上变量文件的路径，变量文件中的所有变量都可以在playbook中引用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook test.yaml -e '@/ansible/var1'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="在主机清单中配置变量"><a href="#在主机清单中配置变量" class="headerlink" title="在主机清单中配置变量"></a>在主机清单中配置变量</h1><p>在主机清单中，可以配置我们的管理节点，也可以将部分管理节点分为一组，其实，在配置清单时还可以为主机或主机组设置变量</p>
+<h2 id="主机变量"><a href="#主机变量" class="headerlink" title="主机变量"></a>主机变量</h2><p>在主机清单中配置变量时，可以同时为管理节点配置对应的变量，当操作这个主机时，即可直接使用对应的变量，而其他主机不能引用到这个变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># ini风格</span>
+dbserver ansible_host=10.1.1.70 name<span class="token punctuation">:</span> mwj age<span class="token punctuation">:</span> <span class="token number">24</span>
+
+<span class="token comment" spellcheck="true"># yaml风格</span>
+<span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">server</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">dbserver</span><span class="token punctuation">:</span>
+          <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> 10.10.110.122
+          <span class="token key atrule">ansible_port</span><span class="token punctuation">:</span> <span class="token number">22</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> mwj
+          <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">24</span>
+        <span class="token key atrule">webserver</span><span class="token punctuation">:</span>
+          <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> 10.10.110.123
+          <span class="token key atrule">ansible_port</span><span class="token punctuation">:</span> <span class="token number">22</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以在命令行引用主机变量，也可以在playbook中引用主机变量</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -m shell -a 'echo {{name}}'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>使用层级关系定义更复杂的主机变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">server</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">dbserver</span><span class="token punctuation">:</span>
+          <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> 10.10.110.122
+          <span class="token key atrule">ansible_port</span><span class="token punctuation">:</span> <span class="token number">22</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> 
+            <span class="token key atrule">n1</span><span class="token punctuation">:</span> mike
+            <span class="token key atrule">n2</span><span class="token punctuation">:</span> masha
+            <span class="token key atrule">n3</span><span class="token punctuation">:</span> laki
+<span class="token comment" spellcheck="true"># 引用时使用{{ name.n1 }}或{{ name['n1'] }}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="主机组变量"><a href="#主机组变量" class="headerlink" title="主机组变量"></a>主机组变量</h2><p> 在主机清单中，我们可以将多个主机分为一组，这样方便我们同时去操作同一组的管理节点，我们可以为这个主机组定义变量，组内的所有主机都可以使用</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># ini风格</span>
+<span class="token punctuation">[</span>webserver<span class="token punctuation">]</span>
+web01 ansible_host<span class="token punctuation">:</span> 10.10.110.121
+web02 ansible_host<span class="token punctuation">:</span> 10.10.110.122
+web03 ansible_host<span class="token punctuation">:</span> 10.10.110.123
+
+<span class="token punctuation">[</span>webserver<span class="token punctuation">:</span>vars<span class="token punctuation">]</span>
+path="/usr/local/nginx/html/"
+user="root"
+
+<span class="token comment" spellcheck="true"># yaml格式</span>
+<span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">server</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">dbserver</span><span class="token punctuation">:</span>
+          <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> 10.10.110.122
+          <span class="token key atrule">ansible_port</span><span class="token punctuation">:</span> <span class="token number">22</span>
+        <span class="token key atrule">webserver</span><span class="token punctuation">:</span>
+          <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> 10.10.110.123
+          <span class="token key atrule">ansible_port</span><span class="token punctuation">:</span> <span class="token number">22</span>
+      <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+        <span class="token key atrule">user</span><span class="token punctuation">:</span> <span class="token string">"root"</span>
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/usr/local/nginx/html/"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="set-fact定义变量"><a href="#set-fact定义变量" class="headerlink" title="set_fact定义变量"></a>set_fact定义变量</h1><p>set_fact是一个模块，我们可以通过set_fact模块在tasks中定义变量testvar1，然后打印这个变量</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">set_fact</span><span class="token punctuation">:</span>
+      <span class="token key atrule">testvar1</span><span class="token punctuation">:</span> mid
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ testvar1 }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="set-fact定义变量的特殊性"><a href="#set-fact定义变量的特殊性" class="headerlink" title="set_fact定义变量的特殊性"></a>set_fact定义变量的特殊性</h2><p>通过set_fact模块创建的变量还有一个特殊性，过set_fact创建的变量就像主机上的facts信息一样，可以在之后的play中被引用。而我们使用vars关键字创建的变量则不能被其他playbook所引用到。</p>
+<p>下面这个playbook有两个play，第一个play中有两个变量分别是ts1和ts2，它们分别用vars和set_fact定义，只有使用set_fact定义的ts2变量，才能被下面这个play所引用，而使用vars定义的ts1变量则不能被下面的play所引用。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">ts1</span><span class="token punctuation">:</span> team1
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">set_fact</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ts2</span><span class="token punctuation">:</span> team2
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ ts1 }}---{{ ts2 }}"</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> get ts1    <span class="token comment" spellcheck="true"># 这里引用会报错</span>
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span> 
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ ts1 }}"</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> get ts2
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ ts2 }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>注意:</strong> set_fact变量类似于管理节点的全局变量，可以跨play获取变量，注册变量也能被之后的play所引用。</p>
+<h1 id="内置变量"><a href="#内置变量" class="headerlink" title="内置变量"></a>内置变量</h1><p>除了我们各种各样的定义变量之外，ansible还有一些内置的变量供我们使用，这些内置变量的变量名是被ansible所保留的，我们定义变量时不能使用这些变量名。</p>
+<h2 id="内置变量ansible-version"><a href="#内置变量ansible-version" class="headerlink" title="内置变量ansible_version"></a>内置变量ansible_version</h2><p>查看ansible的版本</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible all -m debug -a 'msg={{ansible_version}}'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="内置变量hostvars"><a href="#内置变量hostvars" class="headerlink" title="内置变量hostvars"></a>内置变量hostvars</h2><p>hostvars可以帮助我们在操作当前管理节点时获取到其他管理节点中的信息。下面playbook有两个play，第一个没有任何task，只是将webserver主机的信息收集起来，供后面的play调用。第二个play则是使用了debug模块打印了webserver的内置变量hostvars，输出了webserver的IP地址，这就是在操作dbserver管理节点时获取了webserver管理节点的信息。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"gather facts of webserver"</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"get facts webserver"</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ hostvars['webserver'].ansible_ens32.ipv4 }}"</span>
+
+<span class="token comment" spellcheck="true"># 如果没有第一个play，在执行时调用[Gathering Facts]任务，将webserver的信息收集起来，后面dbserver调用这个变量就会报错</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内置变量inventory-hostname"><a href="#内置变量inventory-hostname" class="headerlink" title="内置变量inventory_hostname"></a>内置变量inventory_hostname</h2><p>通过inventory_hostname变量可以获取到管理节点的当前主机名称，注意这个不是指Linux系统的主机名，而是对应管理节点在控制节点的主机清单中的配置名称。</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 主机清单
+[abc]
+10.10.110.122
+dbserver ansible_host: 10.10.110.123<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用内置变量inventory_hostname获取各个主机的对应的主机名</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible abc -m debug -a 'msg={{inventory_hostname}}'
+10.10.110.122 | SUCCESS => {
+    "msg": "10.10.110.122"    
+}
+dbserver | SUCCESS => {
+    "msg": "dbserver"
+}
+# 定义是IP则返回IP，定义是别名则返回别名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内置变量inventory-hostname-short"><a href="#内置变量inventory-hostname-short" class="headerlink" title="内置变量inventory_hostname_short"></a>内置变量inventory_hostname_short</h2><p>与内置变量inventory_hostname类似，通过inventory_hostname_short也可以获取当前play操作的管理节点在清单中对应的名称，但是这个名称更加简短，</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[abc]
+10.10.110.122
+dbserver.com ansible_host=10.10.110.123<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>按上面主机清单的配置，我们可以使用inventory_hostname_short获取到管理节点的简短名称</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible all -m debug -a 'msg={{inventory_hostname_short}}'
+10.10.110.122 | SUCCESS => {
+    "msg": "10"
+}
+dbserver.com | SUCCESS => {
+    "msg": "dbserver"
+}
+# 可以看到无论是IP还是主机名，inventory_hostname_short都会取得主机名中第一个"."之前的字符作为主机的简短名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内置变量play-hosts"><a href="#内置变量play-hosts" class="headerlink" title="内置变量play_hosts"></a>内置变量play_hosts</h2><p>通过内置变量play_hosts可以获取到当前play所操作的所有管理节点的主机名列表</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> 10.10.110.122<span class="token punctuation">,</span>dbserver.com
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> debug
+    <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ play_hosts }}"</span>
+
+<span class="token comment" spellcheck="true"># 返回的是所操作的所有管理节点的主机名列表</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>10.10.110.122<span class="token punctuation">]</span> =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"10.10.110.122"</span><span class="token punctuation">,</span> 
+        <span class="token string">"dbserver.com"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver.com<span class="token punctuation">]</span> =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"10.10.110.122"</span><span class="token punctuation">,</span> 
+        <span class="token string">"dbserver.com"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内置变量inventory-dir"><a href="#内置变量inventory-dir" class="headerlink" title="内置变量inventory_dir"></a>内置变量inventory_dir</h2><p>我们可以通过inventory_dir变量获取到ansible主机中清单文件的存放路径</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible all -m debug -a 'msg={{inventory_dir}}'
+10.10.110.122 | SUCCESS => {
+    "msg": "/etc/ansible"
+}
+dbserver.com | SUCCESS => {
+    "msg": "/etc/ansible"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-06-02T06:38:56.283Z" itemprop="dateUpdated">2020-06-02 14:38:56</time>
+</span><br>
+
+
+        
+        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，请我喝咖啡吧！
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/167e62f3.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ansible的循环(11)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/dd3a7968.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ansible的tags(9)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                4.1k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
