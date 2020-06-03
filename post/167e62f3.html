@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-01T02:47:20.000Z">
-<meta property="article:modified_time" content="2020-06-02T08:01:08.341Z">
+<meta property="article:modified_time" content="2020-06-03T08:37:38.280Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -164,7 +164,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的循环"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的循环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环一个自定义列表"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">循环一个自定义列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义稍微复杂的列表"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">定义稍微复杂的列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用循环创建多个文件"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">利用循环创建多个文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用循环多次调用模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">利用循环多次调用模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#打印序列中的序列"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">打印序列中的序列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#元素对齐合并"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">元素对齐合并</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#元素两两组合"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">元素两两组合</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的循环"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的循环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环一个自定义列表"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">循环一个自定义列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义稍微复杂的列表"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">定义稍微复杂的列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用循环创建多个文件"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">利用循环创建多个文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用循环多次调用模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">利用循环多次调用模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#打印序列中的序列"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">打印序列中的序列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#元素对齐合并"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">元素对齐合并</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#元素两两组合"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">元素两两组合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表元素添加索引编号"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">列表元素添加索引编号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生成数字序列"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">生成数字序列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#输出更简单的连续序列"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">输出更简单的连续序列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#返回一个随机数"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">返回一个随机数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用循环去操作字典"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">使用循环去操作字典</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -194,7 +194,7 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="ansible的循环"><a href="#ansible的循环" class="headerlink" title="ansible的循环"></a>ansible的循环</h1><p>我们在编写playbook的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。ansible一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible提供了两个用于创建循环的关键字: loop和with_&lt;lookup&gt;，Ansible 2.5中添加了loop，但它还不是with_&lt;lookup&gt;的完全替代品。在官方推荐使用loop，但我们现在还可以在大多数用例中使用with_&lt;lookup&gt;，但是随着loop语法的不断改进，with_&lt;lookup&gt;以后可能会失效。</p>
+<h1 id="ansible的循环"><a href="#ansible的循环" class="headerlink" title="ansible的循环"></a>ansible的循环</h1><p>我们在编写playbook的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。ansible一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible提供了两个用于创建循环的关键字: loop和with_&lt;lookup&gt;，ansible 2.5中添加了loop，但它还不是with_&lt;lookup&gt;的完全替代品。在官方推荐使用loop，但我们现在还可以在大多数用例中使用with_&lt;lookup&gt;，但是随着loop语法的不断改进，with_&lt;lookup&gt;以后可能会失效。</p>
 <h2 id="循环一个自定义列表"><a href="#循环一个自定义列表" class="headerlink" title="循环一个自定义列表"></a>循环一个自定义列表</h2><p>使用with_items关键字创建一个循环，with_items会把列表的每一条信息，单独放到item变量里面，然后循环打印每次item变量的值</p>
 <pre><code># 方式1
 ---
@@ -476,9 +476,133 @@ changed: [dbserver] =&gt; (item=[u&#39;dir3&#39;, u&#39;sofm&#39;])
 changed: [dbserver] =&gt; (item=[u&#39;dir3&#39;, u&#39;bin&#39;])
 
 PLAY RECAP ***********************************************************************************************************************
-dbserver                   : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+dbserver                   : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   </code></pre><h2 id="列表元素添加索引编号"><a href="#列表元素添加索引编号" class="headerlink" title="列表元素添加索引编号"></a>列表元素添加索引编号</h2><p>使用with_indexed_items关键字可以为列表的每一个元素添加索引编号，索引编号从0开始，我们可以在出来列表每一项元素的时候获取到索引编号</p>
+<pre><code>---
+- hosts: dbserver
+  remote_user: root
+  tasks:
+  - debug:
+      msg: &#39;index is {{ item[0] }},value is {{ item[1] }}&#39;
+    with_indexed_items:
+    - index1
+    - index2
+    - index3
 
-</code></pre>
+ok: [dbserver] =&gt; (item=[0, u&#39;index1&#39;]) =&gt; {
+    &quot;msg&quot;: &quot;index is 0,value is index1&quot;
+}
+ok: [dbserver] =&gt; (item=[1, u&#39;index2&#39;]) =&gt; {
+    &quot;msg&quot;: &quot;index is 1,value is index2&quot;
+}
+ok: [dbserver] =&gt; (item=[2, u&#39;index3&#39;]) =&gt; {
+    &quot;msg&quot;: &quot;index is 2,value is index3&quot;
+}</code></pre><h2 id="生成数字序列"><a href="#生成数字序列" class="headerlink" title="生成数字序列"></a>生成数字序列</h2><p>假如需要在管理节点创建dir2,dir4,dir6这样的目录，我们该如何使用循环去创建呢，这里就需要使用到with_sequence这个关键字去生成数字序列。debug模块被调用了4次，从2开始，到8结束，每一次增加2(步长)，看到这是不是有了Python的感觉呢？</p>
+<pre><code>---
+- hosts: dbserver
+  remote_user: root
+  tasks:
+  - debug:
+      msg: &#39;{{ item }}&#39;
+    with_sequence:
+      start=2
+      end=8
+      stride=2
+
+ok: [dbserver] =&gt; (item=2) =&gt; {
+    &quot;msg&quot;: &quot;2&quot;
+}
+ok: [dbserver] =&gt; (item=4) =&gt; {
+    &quot;msg&quot;: &quot;4&quot;
+}
+ok: [dbserver] =&gt; (item=6) =&gt; {
+    &quot;msg&quot;: &quot;6&quot;
+}
+ok: [dbserver] =&gt; (item=8) =&gt; {
+    &quot;msg&quot;: &quot;8&quot;
+}</code></pre><p>创建dir2,dir4,dir6这样不连续的目录</p>
+<pre><code>---
+- hosts: dbserver
+  remote_user: root
+  tasks:
+  - file:
+      path: /dir{{ item }}
+      state: directory
+    with_sequence:
+      start=2
+      end=6
+      stride=2</code></pre><h2 id="输出更简单的连续序列"><a href="#输出更简单的连续序列" class="headerlink" title="输出更简单的连续序列"></a>输出更简单的连续序列</h2><pre><code>---
+- hosts: dbserver
+  remote_user: root
+  tasks:
+  - debug:
+      msg: &#39;{{ item }}&#39;
+    with_sequence:
+      count=5</code></pre><p><strong>注意:</strong> 当我们不指定start的值时，start的值默认为1，但是当end的值小于start时则必须指定stride，而且stride的值必须是负数</p>
+<h2 id="返回一个随机数"><a href="#返回一个随机数" class="headerlink" title="返回一个随机数"></a>返回一个随机数</h2><p>使用with_random_choice这个关键字可以让我们从一个列表的多个值中随机返回一个值</p>
+<pre><code>---
+- hosts: dbserver
+  remote_user: root
+  tasks:
+  - debug:
+      msg: &#39;{{ item }}&#39;
+    with_random_choice:
+    - qwe
+    - rtd
+    - fdv
+    - oki
+
+ok: [dbserver] =&gt; (item=oki) =&gt; {
+    &quot;msg&quot;: &quot;oki&quot;    # 随机返回列表中的一个值
+}</code></pre><h2 id="使用循环去操作字典"><a href="#使用循环去操作字典" class="headerlink" title="使用循环去操作字典"></a>使用循环去操作字典</h2><p>这里我们学习一个叫with_dict的字典关键字，下面来看看字典的使用场景。</p>
+<p>定义一个users变量，users有两个用户，我们使用with_dict关键字处理这个字典格式的变量</p>
+<pre><code>---
+- hosts: dbserver
+  remote_user: root
+  vars:
+    users:    
+      alix: feom
+      boo: mair
+  tasks:
+  - debug:
+      msg: &#39;{{ item }}&#39;
+    with_dict: &#39;{{ users }}&#39;
+
+ok: [dbserver] =&gt; (item={&#39;value&#39;: u&#39;feom&#39;, &#39;key&#39;: u&#39;alix&#39;}) =&gt; {
+    &quot;msg&quot;: {
+        &quot;key&quot;: &quot;alix&quot;,         # users变量经过with_dict处理之后，键值对分别被放入key和value关键字中
+        &quot;value&quot;: &quot;feom&quot;
+    }
+}
+ok: [dbserver] =&gt; (item={&#39;value&#39;: u&#39;mair&#39;, &#39;key&#39;: u&#39;boo&#39;}) =&gt; {
+    &quot;msg&quot;: {
+        &quot;key&quot;: &quot;boo&quot;,     # 我们可以通过key关键字和value关键字分别获取到字典中键值对的键和值
+        &quot;value&quot;: &quot;mair&quot;
+    }
+}</code></pre><p>字典定义和取值</p>
+<pre><code>---
+- hosts: dbserver
+  remote_user: root
+  vars:
+    users:
+      alix:
+        name: feom
+        gender: female
+        phone: 155464615
+      boo:
+        name: mair
+        gender: male
+        phone: 179444684
+  tasks:
+  - debug:
+      msg: &#39;{{ item }} alix phone is {{ item.value.phone }}&#39;    # 使用item.value.phone的方法取某一项的值
+    with_dict: &#39;{{ users }}&#39;
+
+ok: [dbserver] =&gt; (item={&#39;value&#39;: {u&#39;gender&#39;: u&#39;female&#39;, u&#39;name&#39;: u&#39;feom&#39;, u&#39;phone&#39;: 155464615}, &#39;key&#39;: u&#39;alix&#39;}) =&gt; {
+    &quot;msg&quot;: &quot;{&#39;key&#39;: u&#39;alix&#39;, &#39;value&#39;: {u&#39;gender&#39;: u&#39;female&#39;, u&#39;name&#39;: u&#39;feom&#39;, u&#39;phone&#39;: 155464615}} alix phone \\n is 155464615&quot;
+}
+ok: [dbserver] =&gt; (item={&#39;value&#39;: {u&#39;gender&#39;: u&#39;male&#39;, u&#39;name&#39;: u&#39;mair&#39;, u&#39;phone&#39;: 179444684}, &#39;key&#39;: u&#39;boo&#39;}) =&gt; {
+    &quot;msg&quot;: &quot;{&#39;key&#39;: u&#39;boo&#39;, &#39;value&#39;: {u&#39;gender&#39;: u&#39;male&#39;, u&#39;name&#39;: u&#39;mair&#39;, u&#39;phone&#39;: 179444684}} alix phone \\n is 179444684&quot;
+}</code></pre>
         </div>
 
         <blockquote class="post-copyright">
@@ -486,12 +610,12 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-02T08:01:08.341Z" itemprop="dateUpdated">2020-06-02 16:01:08</time>
+    最后更新时间：<time datetime="2020-06-03T08:37:38.280Z" itemprop="dateUpdated">2020-06-03 16:37:38</time>
 </span><br>
 
 
         
-        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，请我喝咖啡吧！
+        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，那就请我喝咖啡吧！
         
     </div>
     
@@ -680,7 +804,7 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                1.8k
+                2.7k
             
         </span>
     </div>
