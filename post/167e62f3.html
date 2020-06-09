@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-01T02:47:20.000Z">
-<meta property="article:modified_time" content="2020-06-08T03:13:33.888Z">
+<meta property="article:modified_time" content="2020-06-09T01:26:38.065Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -356,7 +356,7 @@ ansible<span class="token punctuation">-</span>playbook item.yaml
                 <span class="token key atrule">"failed"</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span class="token punctuation">,</span> 
                 <span class="token key atrule">"invocation"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> 这里省略<span class="token punctuation">...</span><span class="token punctuation">...</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>先使用循环重复的调用了shell模块，然后将shell模块每次执行后的返回值注册到了变量returnvalue中，之后，在使用debug模块时，通过返回值results获取到了之前每次执行shell模块的返回值（shell每次执行后的返回值已经被放入到item变量中），最后又通过返回值stdout获取到了每次shell模块执行后的标准输出</p>
+<p>先使用循环重复的调用了shell模块，然后将shell模块每次执行后的返回值注册到了变量returnvalue中，之后，在使用debug模块时，通过返回值results获取到了之前每次执行shell模块的返回值(shell每次执行后的返回值已经被放入到item变量中)，最后又通过返回值stdout获取到了每次shell模块执行后的标准输出</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -764,7 +764,7 @@ ntp<span class="token punctuation">:</span>x<span class="token punctuation">:</s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-08T03:13:33.888Z" itemprop="dateUpdated">2020-06-08 11:13:33</time>
+    最后更新时间：<time datetime="2020-06-09T01:26:38.065Z" itemprop="dateUpdated">2020-06-09 09:26:38</time>
 </span><br>
 
 
@@ -805,7 +805,7 @@ ntp<span class="token punctuation">:</span>x<span class="token punctuation">:</s
     <div class="waves-block waves-effect prev">
       <a href="/post/3d533130.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">ansible的循环(12)</h4>
+        <h4 class="title">ansible的条件判断(12)</h4>
       </a>
     </div>
   
