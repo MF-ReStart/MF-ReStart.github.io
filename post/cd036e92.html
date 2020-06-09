@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-12T03:12:59.000Z">
-<meta property="article:modified_time" content="2020-06-02T07:51:22.016Z">
+<meta property="article:modified_time" content="2020-06-08T08:34:48.830Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -690,11 +690,11 @@ nginx -s reload
 <pre class="line-numbers language-shell"><code class="language-shell">ansible all -m user -a 'name=mis generate_ssh_key=yes ssh_key_passphrase="123456" ssh_key_type=dsa'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h1 id="group模块"><a href="#group模块" class="headerlink" title="group模块"></a>group模块</h1><p>group模块可以帮助我们在管理节点上管理用户组</p>
 <ul>
-<li><p><strong>name:</strong> 必须参数，用于指定要操作的组名称</p>
+<li><p><strong>name:</strong> 用于指定操作的服务名称，例如name=nginx</p>
 </li>
-<li><p><strong>state:</strong> 用于指定组的状态，present | absent，设置为absent时表示为删除组</p>
+<li><p><strong>state:</strong> 用户指定服务的状态，可用值有started | stopped | restarted | reloaded</p>
 </li>
-<li><p><strong>gid:</strong> 可以指定组的gid</p>
+<li><p><strong>enabled:</strong> 用于指定是否将服务设置为开机启动项，设置为yes则表示开机启动，设置为no表示不会开机启动</p>
 <p>确保管理节点上存在mkd组，如果没有则创建，如果已存在则不做任何操作</p>
 </li>
 </ul>
@@ -736,7 +736,7 @@ nginx -s reload
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-02T07:51:22.016Z" itemprop="dateUpdated">2020-06-02 15:51:22</time>
+    最后更新时间：<time datetime="2020-06-08T08:34:48.830Z" itemprop="dateUpdated">2020-06-08 16:34:48</time>
 </span><br>
 
 

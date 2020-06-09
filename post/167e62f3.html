@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-01T02:47:20.000Z">
-<meta property="article:modified_time" content="2020-06-06T07:19:51.280Z">
+<meta property="article:modified_time" content="2020-06-08T03:13:33.888Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -164,7 +164,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的循环"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的循环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#标准循环"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">标准循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义稍微复杂的列表"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">定义稍微复杂的列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用循环创建多个文件"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">利用循环创建多个文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用循环多次调用模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">利用循环多次调用模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#打印序列中的序列"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">打印序列中的序列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#元素对齐合并"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">元素对齐合并</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#元素两两组合"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">元素两两组合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#列表元素添加索引编号"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">列表元素添加索引编号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生成数字序列"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">生成数字序列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#输出更简单的连续序列"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">输出更简单的连续序列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#返回一个随机值"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">返回一个随机值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用循环去操作字典"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">使用循环去操作字典</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字典定义和取值"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">字典定义和取值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#每一项子元素作为整体"><span class="post-toc-number">1.14.</span> <span class="post-toc-text">每一项子元素作为整体</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环控制节点的文件"><span class="post-toc-number">1.15.</span> <span class="post-toc-text">循环控制节点的文件</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的循环"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的循环</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#标准循环"><span class="post-toc-number">2.</span> <span class="post-toc-text">标准循环</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义稍微复杂的列表"><span class="post-toc-number">3.</span> <span class="post-toc-text">定义稍微复杂的列表</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用循环创建多个文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">利用循环创建多个文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用循环多次调用模块"><span class="post-toc-number">5.</span> <span class="post-toc-text">利用循环多次调用模块</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#打印序列中的序列"><span class="post-toc-number">6.</span> <span class="post-toc-text">打印序列中的序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#元素对齐合并"><span class="post-toc-number">7.</span> <span class="post-toc-text">元素对齐合并</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#元素两两组合"><span class="post-toc-number">8.</span> <span class="post-toc-text">元素两两组合</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#列表元素添加索引编号"><span class="post-toc-number">9.</span> <span class="post-toc-text">列表元素添加索引编号</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#生成数字序列"><span class="post-toc-number">10.</span> <span class="post-toc-text">生成数字序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输出更简单的连续序列"><span class="post-toc-number">11.</span> <span class="post-toc-text">输出更简单的连续序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#返回一个随机值"><span class="post-toc-number">12.</span> <span class="post-toc-text">返回一个随机值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用循环去操作字典"><span class="post-toc-number">13.</span> <span class="post-toc-text">使用循环去操作字典</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#字典定义和取值"><span class="post-toc-number">14.</span> <span class="post-toc-text">字典定义和取值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遍历每一项子元素"><span class="post-toc-number">15.</span> <span class="post-toc-text">遍历每一项子元素</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#获取控制节点的文件内容"><span class="post-toc-number">16.</span> <span class="post-toc-text">获取控制节点的文件内容</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#匹配控制节点的文件"><span class="post-toc-number">17.</span> <span class="post-toc-text">匹配控制节点的文件</span></a></li></ol>
         </nav>
     </aside>
 
@@ -195,7 +195,7 @@
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
 <h1 id="ansible的循环"><a href="#ansible的循环" class="headerlink" title="ansible的循环"></a>ansible的循环</h1><p>我们在编写playbook的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。ansible一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible提供了两个用于创建循环的关键字: loop和with_&lt;lookup&gt;，ansible 2.5中添加了loop，但它还不是with_&lt;lookup&gt;的完全替代品。在官方推荐使用loop，但我们现在还可以在大多数用例中使用with_&lt;lookup&gt;，但是随着loop语法的不断改进，with_&lt;lookup&gt;以后可能会失效。</p>
-<h2 id="标准循环"><a href="#标准循环" class="headerlink" title="标准循环"></a>标准循环</h2><p>使用with_items关键字创建一个循环的列表，with_items会把列表的每一条信息，单独放到item变量里面，然后循环打印每次item变量的值</p>
+<h1 id="标准循环"><a href="#标准循环" class="headerlink" title="标准循环"></a>标准循环</h1><p>使用with_items关键字创建一个循环的列表，with_items会把列表的每一条信息，单独放到item变量里面，然后循环打印每次item变量的值</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 方式1</span>
 <span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -252,7 +252,7 @@
   <span class="token key atrule">with_items</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> server1
     <span class="token punctuation">-</span> server2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="定义稍微复杂的列表"><a href="#定义稍微复杂的列表" class="headerlink" title="定义稍微复杂的列表"></a>定义稍微复杂的列表</h2><p>自定义列表中的每一个键值对都是一个对象，我们可以通过对象的属性对应的”键”，获取到对应的”值”，执行下面的playbook之后，mm和nn都会被输出</p>
+<h1 id="定义稍微复杂的列表"><a href="#定义稍微复杂的列表" class="headerlink" title="定义稍微复杂的列表"></a>定义稍微复杂的列表</h1><p>自定义列表中的每一个键值对都是一个对象，我们可以通过对象的属性对应的”键”，获取到对应的”值”，执行下面的playbook之后，mm和nn都会被输出</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -270,7 +270,7 @@ ansible<span class="token punctuation">-</span>playbook item.yaml    <span class
 <span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=<span class="token punctuation">{</span><span class="token key atrule">u'age'</span><span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">,</span> <span class="token key atrule">u'name'</span><span class="token punctuation">:</span> u'nn'<span class="token punctuation">}</span>) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
     <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"nn"</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="利用循环创建多个文件"><a href="#利用循环创建多个文件" class="headerlink" title="利用循环创建多个文件"></a>利用循环创建多个文件</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 没学习循环之前可能这样创建多个文件</span>
+<h1 id="利用循环创建多个文件"><a href="#利用循环创建多个文件" class="headerlink" title="利用循环创建多个文件"></a>利用循环创建多个文件</h1><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 没学习循环之前可能这样创建多个文件</span>
 <span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -305,7 +305,7 @@ ansible<span class="token punctuation">-</span>playbook item.yaml    <span class
       <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">'{{ item }}'</span>
       <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
     <span class="token key atrule">with_items</span><span class="token punctuation">:</span> <span class="token string">'{{ dirs }}'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="利用循环多次调用模块"><a href="#利用循环多次调用模块" class="headerlink" title="利用循环多次调用模块"></a>利用循环多次调用模块</h2><p>不使用循环的情况下调用模块，返回的信息是这样的</p>
+<h1 id="利用循环多次调用模块"><a href="#利用循环多次调用模块" class="headerlink" title="利用循环多次调用模块"></a>利用循环多次调用模块</h1><p>不使用循环的情况下调用模块，返回的信息是这样的</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -369,7 +369,7 @@ ansible<span class="token punctuation">-</span>playbook item.yaml
   <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
       <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">'{{ item.stdout }}'</span>
     <span class="token key atrule">with_items</span><span class="token punctuation">:</span> <span class="token string">'{{ returnvalue.results}}'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="打印序列中的序列"><a href="#打印序列中的序列" class="headerlink" title="打印序列中的序列"></a>打印序列中的序列</h2><p>with_items块序列下面有一个自定义列表[1,2,3]，执行playbook会循环打印[1,2,3]列表里的每一个值</p>
+<h1 id="打印序列中的序列"><a href="#打印序列中的序列" class="headerlink" title="打印序列中的序列"></a>打印序列中的序列</h1><p>with_items块序列下面有一个自定义列表[1,2,3]，执行playbook会循环打印[1,2,3]列表里的每一个值</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -441,7 +441,7 @@ ansible<span class="token punctuation">-</span>playbook item.yaml
         <span class="token number">6</span>
     <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="元素对齐合并"><a href="#元素对齐合并" class="headerlink" title="元素对齐合并"></a>元素对齐合并</h2><p>with_together可以将两个列表中的元素对齐合并，如果两个列表元素不一致，缺少的元素值为null</p>
+<h1 id="元素对齐合并"><a href="#元素对齐合并" class="headerlink" title="元素对齐合并"></a>元素对齐合并</h1><p>with_together可以将两个列表中的元素对齐合并，如果两个列表元素不一致，缺少的元素值为null</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -470,7 +470,7 @@ ansible<span class="token punctuation">-</span>playbook item.yaml
         <span class="token string">"c"</span>
     <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="元素两两组合"><a href="#元素两两组合" class="headerlink" title="元素两两组合"></a>元素两两组合</h2><p><strong>需求:</strong> 我们需要创建三个目录，这三个目录下面都有相同的子目录，我们使用ansible-playbook的方式去循环创建，需要用到with_cartesian这个关键字</p>
+<h1 id="元素两两组合"><a href="#元素两两组合" class="headerlink" title="元素两两组合"></a>元素两两组合</h1><p><strong>需求:</strong> 我们需要创建三个目录，这三个目录下面都有相同的子目录，我们使用ansible-playbook的方式去循环创建，需要用到with_cartesian这个关键字</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 需要创建的目录结构如下:</span>
 dir1/sofm    dir1/bin
 dir2/sofm    dir2/bin
@@ -502,7 +502,7 @@ changed: [dbserver] => (item=[u'dir3', u'bin'])
 
 PLAY RECAP ***********************************************************************************************************************
 dbserver                   : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="列表元素添加索引编号"><a href="#列表元素添加索引编号" class="headerlink" title="列表元素添加索引编号"></a>列表元素添加索引编号</h2><p>使用with_indexed_items关键字可以为列表的每一个元素添加索引编号，索引编号从0开始，我们可以在出来列表每一项元素的时候获取到索引编号</p>
+<h1 id="列表元素添加索引编号"><a href="#列表元素添加索引编号" class="headerlink" title="列表元素添加索引编号"></a>列表元素添加索引编号</h1><p>使用with_indexed_items关键字可以为列表的每一个元素添加索引编号，索引编号从0开始，我们可以在出来列表每一项元素的时候获取到索引编号</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -523,7 +523,7 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
 <span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> u'index3'<span class="token punctuation">]</span>) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
     <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"index is 2,value is index3"</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="生成数字序列"><a href="#生成数字序列" class="headerlink" title="生成数字序列"></a>生成数字序列</h2><p>假如需要在管理节点创建dir2,dir4,dir6这样的目录，我们该如何使用循环去创建呢，这里就需要使用到with_sequence这个关键字去生成数字序列。debug模块被调用了4次，从2开始，到8结束，每一次增加2(步长)，看到这是不是有了Python的感觉呢？</p>
+<h1 id="生成数字序列"><a href="#生成数字序列" class="headerlink" title="生成数字序列"></a>生成数字序列</h1><p>假如需要在管理节点创建dir2,dir4,dir6这样的目录，我们该如何使用循环去创建呢，这里就需要使用到with_sequence这个关键字去生成数字序列。debug模块被调用了4次，从2开始，到8结束，每一次增加2(步长)，看到这是不是有了Python的感觉呢？</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -559,7 +559,7 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
       start=2
       end=6
       stride=2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="输出更简单的连续序列"><a href="#输出更简单的连续序列" class="headerlink" title="输出更简单的连续序列"></a>输出更简单的连续序列</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<h1 id="输出更简单的连续序列"><a href="#输出更简单的连续序列" class="headerlink" title="输出更简单的连续序列"></a>输出更简单的连续序列</h1><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
   <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
@@ -568,7 +568,7 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
     <span class="token key atrule">with_sequence</span><span class="token punctuation">:</span>
       count=5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>注意:</strong> 当我们不指定start的值时，start的值默认为1，但是当end的值小于start时则必须指定stride，而且stride的值必须是负数</p>
-<h2 id="返回一个随机值"><a href="#返回一个随机值" class="headerlink" title="返回一个随机值"></a>返回一个随机值</h2><p>使用with_random_choice这个关键字可以让我们从一个列表的多个值中随机返回一个值</p>
+<h1 id="返回一个随机值"><a href="#返回一个随机值" class="headerlink" title="返回一个随机值"></a>返回一个随机值</h1><p>使用with_random_choice这个关键字可以让我们从一个列表的多个值中随机返回一个值</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -584,7 +584,7 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
 <span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=oki) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
     <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"oki"</span>    <span class="token comment" spellcheck="true"># 随机返回列表中的一个值</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="使用循环去操作字典"><a href="#使用循环去操作字典" class="headerlink" title="使用循环去操作字典"></a>使用循环去操作字典</h2><p>这里我们学习一个叫with_dict的字典关键字，下面来看看字典的使用场景。</p>
+<h1 id="使用循环去操作字典"><a href="#使用循环去操作字典" class="headerlink" title="使用循环去操作字典"></a>使用循环去操作字典</h1><p>这里我们学习一个叫with_dict的字典关键字，下面来看看字典的使用场景。</p>
 <p>定义一个users变量，users有两个用户，我们使用with_dict关键字处理这个字典格式的变量</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -610,7 +610,7 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
         <span class="token key atrule">"value"</span><span class="token punctuation">:</span> <span class="token string">"mair"</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="字典定义和取值"><a href="#字典定义和取值" class="headerlink" title="字典定义和取值"></a>字典定义和取值</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<h1 id="字典定义和取值"><a href="#字典定义和取值" class="headerlink" title="字典定义和取值"></a>字典定义和取值</h1><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
   <span class="token key atrule">vars</span><span class="token punctuation">:</span>
@@ -634,65 +634,128 @@ dbserver                   : ok=2    changed=1    unreachable=0    failed=0    s
 <span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=<span class="token punctuation">{</span><span class="token key atrule">'value'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">u'gender'</span><span class="token punctuation">:</span> u'male'<span class="token punctuation">,</span> <span class="token key atrule">u'name'</span><span class="token punctuation">:</span> u'mair'<span class="token punctuation">,</span> <span class="token key atrule">u'phone'</span><span class="token punctuation">:</span> <span class="token number">179444684</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token key atrule">'key'</span><span class="token punctuation">:</span> u'boo'<span class="token punctuation">}</span>) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
     <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> "<span class="token punctuation">{</span><span class="token key atrule">'key'</span><span class="token punctuation">:</span> u'boo'<span class="token punctuation">,</span> <span class="token key atrule">'value'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">u'gender'</span><span class="token punctuation">:</span> u'male'<span class="token punctuation">,</span> <span class="token key atrule">u'name'</span><span class="token punctuation">:</span> u'mair'<span class="token punctuation">,</span> <span class="token key atrule">u'phone'</span><span class="token punctuation">:</span> <span class="token number">179444684</span><span class="token punctuation">}</span><span class="token punctuation">}</span> alix phone \\n is 179444684"
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="每一项子元素作为整体"><a href="#每一项子元素作为整体" class="headerlink" title="每一项子元素作为整体"></a>每一项子元素作为整体</h2><p>users变量列表中有两个块序列，这两个块序列分别代表两个用户，bob和alice，变量users经过with_subelements处理时还指定一个hobby属性，hobby属性正是users变量中每个用户的子属性</p>
-<pre><code>---
-- hosts: dbserver
-  remote_user: root
-  vars:
-    users:
-    - name: bob
-      gender: male
-      hobby:
-        - skateboard
-        - videogame
-    - name: alice
-      gender: female
-      hobby:
-        - music
-    - name: qwe
-      hobby:
-        - da
-  tasks:
-  - debug:
-      msg: &quot;{{ item }}&quot;
-    with_subelements:
-    - &quot;{{ users }}&quot;
-    - hobby</code></pre><p>上面的playbook执行后得到如下结果，我们在使用with_subelements处理变量users是指定的hobby属性，hobby属性中的每一个子元素都被当做一个整体，而其他的子元素作为另一个整体，组成了键值对</p>
-<pre><code>ok: [dbserver] =&gt; (item=[{u&#39;gender&#39;: u&#39;male&#39;, u&#39;name&#39;: u&#39;bob&#39;}, u&#39;skateboard&#39;]) =&gt; {
-    &quot;msg&quot;: [
-        {
-            &quot;gender&quot;: &quot;male&quot;, 
-            &quot;name&quot;: &quot;bob&quot;
-        }, 
-        &quot;skateboard&quot;
-    ]
-}
-ok: [dbserver] =&gt; (item=[{u&#39;gender&#39;: u&#39;male&#39;, u&#39;name&#39;: u&#39;bob&#39;}, u&#39;videogame&#39;]) =&gt; {
-    &quot;msg&quot;: [
-        {
-            &quot;gender&quot;: &quot;male&quot;, 
-            &quot;name&quot;: &quot;bob&quot;
-        }, 
-        &quot;videogame&quot;
-    ]
-}
-ok: [dbserver] =&gt; (item=[{u&#39;gender&#39;: u&#39;female&#39;, u&#39;name&#39;: u&#39;alice&#39;}, u&#39;music&#39;]) =&gt; {
-    &quot;msg&quot;: [
-        {
-            &quot;gender&quot;: &quot;female&quot;, 
-            &quot;name&quot;: &quot;alice&quot;
-        }, 
-        &quot;music&quot;
-    ]
-}
-ok: [dbserver] =&gt; (item=[{u&#39;name&#39;: u&#39;qwe&#39;}, u&#39;da&#39;]) =&gt; {
-    &quot;msg&quot;: [
-        {
-            &quot;name&quot;: &quot;qwe&quot;
-        }, 
-        &quot;da&quot;
-    ]
-}</code></pre><h2 id="循环控制节点的文件"><a href="#循环控制节点的文件" class="headerlink" title="循环控制节点的文件"></a>循环控制节点的文件</h2><p>我想要获取控制节点上的几个文件的内容，那么可以使用with_file关键字，循环获取到文件的内容</p>
+<h1 id="遍历每一项子元素"><a href="#遍历每一项子元素" class="headerlink" title="遍历每一项子元素"></a>遍历每一项子元素</h1><p>users变量列表中有两个块序列，这两个块序列分别代表两个用户，bob和alice，变量users经过with_subelements处理时还指定一个hobby属性，hobby属性正是users变量中每个用户的子属性</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">users</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> bob
+      <span class="token key atrule">gender</span><span class="token punctuation">:</span> male
+      <span class="token key atrule">hobby</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> skateboard
+        <span class="token punctuation">-</span> videogame
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> alice
+      <span class="token key atrule">gender</span><span class="token punctuation">:</span> female
+      <span class="token key atrule">hobby</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> music
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> qwe
+      <span class="token key atrule">hobby</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> da
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ item }}"</span>
+    <span class="token key atrule">with_subelements</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token string">"{{ users }}"</span>
+    <span class="token punctuation">-</span> hobby<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的playbook执行后得到如下结果，我们在使用with_subelements处理变量users时指定了hobby属性，hobby属性中的每一个子元素都被当做一个整体，而其他的子元素作为另一个整体，组成了键值对</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token key atrule">u'gender'</span><span class="token punctuation">:</span> u'male'<span class="token punctuation">,</span> <span class="token key atrule">u'name'</span><span class="token punctuation">:</span> u'bob'<span class="token punctuation">}</span><span class="token punctuation">,</span> u'skateboard'<span class="token punctuation">]</span>) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token key atrule">"gender"</span><span class="token punctuation">:</span> <span class="token string">"male"</span><span class="token punctuation">,</span> 
+            <span class="token key atrule">"name"</span><span class="token punctuation">:</span> <span class="token string">"bob"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        <span class="token string">"skateboard"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token key atrule">u'gender'</span><span class="token punctuation">:</span> u'male'<span class="token punctuation">,</span> <span class="token key atrule">u'name'</span><span class="token punctuation">:</span> u'bob'<span class="token punctuation">}</span><span class="token punctuation">,</span> u'videogame'<span class="token punctuation">]</span>) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token key atrule">"gender"</span><span class="token punctuation">:</span> <span class="token string">"male"</span><span class="token punctuation">,</span> 
+            <span class="token key atrule">"name"</span><span class="token punctuation">:</span> <span class="token string">"bob"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        <span class="token string">"videogame"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token key atrule">u'gender'</span><span class="token punctuation">:</span> u'female'<span class="token punctuation">,</span> <span class="token key atrule">u'name'</span><span class="token punctuation">:</span> u'alice'<span class="token punctuation">}</span><span class="token punctuation">,</span> u'music'<span class="token punctuation">]</span>) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token key atrule">"gender"</span><span class="token punctuation">:</span> <span class="token string">"female"</span><span class="token punctuation">,</span> 
+            <span class="token key atrule">"name"</span><span class="token punctuation">:</span> <span class="token string">"alice"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        <span class="token string">"music"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token key atrule">u'name'</span><span class="token punctuation">:</span> u'qwe'<span class="token punctuation">}</span><span class="token punctuation">,</span> u'da'<span class="token punctuation">]</span>) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token key atrule">"name"</span><span class="token punctuation">:</span> <span class="token string">"qwe"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        <span class="token string">"da"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="获取控制节点的文件内容"><a href="#获取控制节点的文件内容" class="headerlink" title="获取控制节点的文件内容"></a>获取控制节点的文件内容</h1><p>我想要获取控制节点上的几个文件的内容，那么可以使用with_file关键字，循环获取到文件的内容，这里hosts指定的是dbserver这个管理节点，但是无论管理节点写的是什么都不影响，因为我们读取的是管理节点的文件</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">'{{ item }}'</span>
+    <span class="token key atrule">with_file</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> /etc/passwd
+    <span class="token punctuation">-</span> /etc/hosts
+
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=root<span class="token punctuation">:</span>x<span class="token punctuation">:</span>0<span class="token punctuation">:</span>0<span class="token punctuation">:</span>root<span class="token punctuation">:</span>/root<span class="token punctuation">:</span>/bin/bash
+bin<span class="token punctuation">:</span>x<span class="token punctuation">:</span>1<span class="token punctuation">:</span>1<span class="token punctuation">:</span>bin<span class="token punctuation">:</span>/bin<span class="token punctuation">:</span>/sbin/nologin
+daemon<span class="token punctuation">:</span>x<span class="token punctuation">:</span>2<span class="token punctuation">:</span>2<span class="token punctuation">:</span>daemon<span class="token punctuation">:</span>/sbin<span class="token punctuation">:</span>/sbin/nologin
+adm<span class="token punctuation">:</span>x<span class="token punctuation">:</span>3<span class="token punctuation">:</span>4<span class="token punctuation">:</span>adm<span class="token punctuation">:</span>/var/adm<span class="token punctuation">:</span>/sbin/nologin
+lp<span class="token punctuation">:</span>x<span class="token punctuation">:</span>4<span class="token punctuation">:</span>7<span class="token punctuation">:</span>lp<span class="token punctuation">:</span>/var/spool/lpd<span class="token punctuation">:</span>/sbin/nologin
+sync<span class="token punctuation">:</span>x<span class="token punctuation">:</span>5<span class="token punctuation">:</span>0<span class="token punctuation">:</span>sync<span class="token punctuation">:</span>/sbin<span class="token punctuation">:</span>/bin/sync
+shutdown<span class="token punctuation">:</span>x<span class="token punctuation">:</span>6<span class="token punctuation">:</span>0<span class="token punctuation">:</span>shutdown<span class="token punctuation">:</span>/sbin<span class="token punctuation">:</span>/sbin/shutdown
+halt<span class="token punctuation">:</span>x<span class="token punctuation">:</span>7<span class="token punctuation">:</span>0<span class="token punctuation">:</span>halt<span class="token punctuation">:</span>/sbin<span class="token punctuation">:</span>/sbin/halt
+mail<span class="token punctuation">:</span>x<span class="token punctuation">:</span>8<span class="token punctuation">:</span>12<span class="token punctuation">:</span>mail<span class="token punctuation">:</span>/var/spool/mail<span class="token punctuation">:</span>/sbin/nologin
+operator<span class="token punctuation">:</span>x<span class="token punctuation">:</span>11<span class="token punctuation">:</span>0<span class="token punctuation">:</span>operator<span class="token punctuation">:</span>/root<span class="token punctuation">:</span>/sbin/nologin
+games<span class="token punctuation">:</span>x<span class="token punctuation">:</span>12<span class="token punctuation">:</span>100<span class="token punctuation">:</span>games<span class="token punctuation">:</span>/usr/games<span class="token punctuation">:</span>/sbin/nologin
+ftp<span class="token punctuation">:</span>x<span class="token punctuation">:</span>14<span class="token punctuation">:</span>50<span class="token punctuation">:</span>FTP User<span class="token punctuation">:</span>/var/ftp<span class="token punctuation">:</span>/sbin/nologin
+nobody<span class="token punctuation">:</span>x<span class="token punctuation">:</span>99<span class="token punctuation">:</span>99<span class="token punctuation">:</span>Nobody<span class="token punctuation">:</span>/<span class="token punctuation">:</span>/sbin/nologin
+systemd<span class="token punctuation">-</span>network<span class="token punctuation">:</span>x<span class="token punctuation">:</span>192<span class="token punctuation">:</span>192<span class="token punctuation">:</span>systemd Network Management<span class="token punctuation">:</span>/<span class="token punctuation">:</span>/sbin/nologin
+dbus<span class="token punctuation">:</span>x<span class="token punctuation">:</span>81<span class="token punctuation">:</span>81<span class="token punctuation">:</span>System message bus<span class="token punctuation">:</span>/<span class="token punctuation">:</span>/sbin/nologin
+polkitd<span class="token punctuation">:</span>x<span class="token punctuation">:</span>999<span class="token punctuation">:</span>998<span class="token punctuation">:</span>User for polkitd<span class="token punctuation">:</span>/<span class="token punctuation">:</span>/sbin/nologin
+sshd<span class="token punctuation">:</span>x<span class="token punctuation">:</span>74<span class="token punctuation">:</span>74<span class="token punctuation">:</span>Privilege<span class="token punctuation">-</span>separated SSH<span class="token punctuation">:</span>/var/empty/sshd<span class="token punctuation">:</span>/sbin/nologin
+postfix<span class="token punctuation">:</span>x<span class="token punctuation">:</span>89<span class="token punctuation">:</span>89<span class="token punctuation">:</span><span class="token punctuation">:</span>/var/spool/postfix<span class="token punctuation">:</span>/sbin/nologin
+ntp<span class="token punctuation">:</span>x<span class="token punctuation">:</span>38<span class="token punctuation">:</span>38<span class="token punctuation">:</span><span class="token punctuation">:</span>/etc/ntp<span class="token punctuation">:</span>/sbin/nologin) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"root:x:0:0:root:/root:/bin/bash\nbin:x:1:1:bin:/bin:/sbin/nologin\ndaemon:x:2:2:daemon:/sbin:/sbin/nologin\nadm:x:3:4:adm:/var/adm:/sbin/nologin\nlp:x:4:7:lp:/var/spool/lpd:/sbin/nologin\nsync:x:5:0:sync:/sbin:/bin/sync\nshutdown:x:6:0:shutdown:/sbin:/sbin/shutdown\nhalt:x:7:0:halt:/sbin:/sbin/halt\nmail:x:8:12:mail:/var/spool/mail:/sbin/nologin\noperator:x:11:0:operator:/root:/sbin/nologin\ngames:x:12:100:games:/usr/games:/sbin/nologin\nftp:x:14:50:FTP User:/var/ftp:/sbin/nologin\nnobody:x:99:99:Nobody:/:/sbin/nologin\nsystemd-network:x:192:192:systemd Network Management:/:/sbin/nologin\ndbus:x:81:81:System message bus:/:/sbin/nologin\npolkitd:x:999:998:User for polkitd:/:/sbin/nologin\nsshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin\npostfix:x:89:89::/var/spool/postfix:/sbin/nologin\nntp:x:38:38::/etc/ntp:/sbin/nologin"</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+<span class="token punctuation">:</span><span class="token punctuation">:</span>1         localhost localhost.localdomain localhost6 localhost6.localdomain6) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\n::1         localhost localhost.localdomain localhost6 localhost6.localdomain6"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="匹配控制节点的文件"><a href="#匹配控制节点的文件" class="headerlink" title="匹配控制节点的文件"></a>匹配控制节点的文件</h1><p>我们可以通过通配符去匹配控制节点上的文件，这里需要使用到with_fileglob这个关键字。注意with_fileglob只能是匹配到文件</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">'{{ item }}'</span>
+    <span class="token key atrule">with_fileglob</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> /etc/*
+    <span class="token punctuation">-</span> /tmp/*        <span class="token comment" spellcheck="true"># 这里写成/dir/的话是匹配不到文件的，需要使用*通配符</span>
+
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=/etc/fstab) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"/etc/fstab"</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=/etc/crypttab) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"/etc/crypttab"</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=/etc/mtab) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"/etc/mtab"</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=/etc/resolv.conf) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"/etc/resolv.conf"</span>
+<span class="token punctuation">}</span>
+<span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=/etc/magic) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"/etc/magic"</span>
+<span class="token punctuation">}</span><span class="token punctuation">...</span><span class="token punctuation">...</span>    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
         </div>
 
@@ -701,7 +764,7 @@ ok: [dbserver] =&gt; (item=[{u&#39;name&#39;: u&#39;qwe&#39;}, u&#39;da&#39;]) =
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-06T07:19:51.280Z" itemprop="dateUpdated">2020-06-06 15:19:51</time>
+    最后更新时间：<time datetime="2020-06-08T03:13:33.888Z" itemprop="dateUpdated">2020-06-08 11:13:33</time>
 </span><br>
 
 
@@ -737,7 +800,14 @@ ok: [dbserver] =&gt; (item=[{u&#39;name&#39;: u&#39;qwe&#39;}, u&#39;da&#39;]) =
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/3d533130.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ansible的循环(12)</h4>
+      </a>
+    </div>
   
 
   
@@ -895,7 +965,7 @@ ok: [dbserver] =&gt; (item=[{u&#39;name&#39;: u&#39;qwe&#39;}, u&#39;da&#39;]) =
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                2.7k
+                3.1k
             
         </span>
     </div>
