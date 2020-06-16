@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.missf.top/"/>
-  <updated>2020-06-16T10:31:06.195Z</updated>
+  <updated>2020-06-16T10:32:40.383Z</updated>
   <id>https://www.missf.top/</id>
   
   <author>
@@ -21,15 +21,16 @@
     <link href="https://www.missf.top/post/ce2c2968.html"/>
     <id>https://www.missf.top/post/ce2c2968.html</id>
     <published>2020-06-16T07:00:10.000Z</published>
-    <updated>2020-06-16T10:31:06.195Z</updated>
+    <updated>2020-06-16T10:32:40.383Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="配置镜像加速"><a href="#配置镜像加速" class="headerlink" title="配置镜像加速"></a>配置镜像加速</h1><h1 id="镜像与容器的联系"><a href="#镜像与容器的联系" class="headerlink" title="镜像与容器的联系"></a>镜像与容器的联系</h1><h1 id="镜像存储核心技术-联合文件系统-UnionFS"><a href="#镜像存储核心技术-联合文件系统-UnionFS" class="headerlink" title="镜像存储核心技术:联合文件系统(UnionFS)"></a>镜像存储核心技术:联合文件系统(UnionFS)</h1><h1 id="镜像存储核心技术-写时复制-COW"><a href="#镜像存储核心技术-写时复制-COW" class="headerlink" title="镜像存储核心技术:写时复制(COW)"></a>镜像存储核心技术:写时复制(COW)</h1><h1 id="镜像常用管理命令"><a href="#镜像常用管理命令" class="headerlink" title="镜像常用管理命令"></a>镜像常用管理命令</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="配置镜像加速"><a href="#配置镜像加速" class="headerlink" title="配置镜像加速"></a>配置镜像加速</h1><p> 得到</p><h1 id="镜像与容器的联系"><a href="#镜像与容器的联系" class="headerlink" title="镜像与容器的联系"></a>镜像与容器的联系</h1><h1 id="镜像存储核心技术-联合文件系统-UnionFS"><a href="#镜像存储核心技术-联合文件系统-UnionFS" class="headerlink" title="镜像存储核心技术:联合文件系统(UnionFS)"></a>镜像存储核心技术:联合文件系统(UnionFS)</h1><h1 id="镜像存储核心技术-写时复制-COW"><a href="#镜像存储核心技术-写时复制-COW" class="headerlink" title="镜像存储核心技术:写时复制(COW)"></a>镜像存储核心技术:写时复制(COW)</h1><h1 id="镜像常用管理命令"><a href="#镜像常用管理命令" class="headerlink" title="镜像常用管理命令"></a>镜像常用管理命令</h1>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;配置镜像加速&quot;&gt;&lt;a href=&quot;#配置镜像加速&quot; class=&quot;headerlink&quot; title=&quot;配置镜像加速&quot;&gt;&lt;/a&gt;配置镜像加速&lt;/h1&gt;&lt;h1 id=&quot;镜像与容器的联系&quot;&gt;&lt;a href=&quot;#镜像与容器的联系&quot; class=&quot;headerlink&quot; 
+        &lt;h1 id=&quot;配置镜像加速&quot;&gt;&lt;a href=&quot;#配置镜像加速&quot; class=&quot;headerlink&quot; title=&quot;配置镜像加速&quot;&gt;&lt;/a&gt;配置镜像加速&lt;/h1&gt;&lt;p&gt; 得到&lt;/p&gt;
+&lt;h1 id=&quot;镜像与容器的联系&quot;&gt;&lt;a href=&quot;#镜像与容器的联系&quot; class=&quot;h
       
     
     </summary>
