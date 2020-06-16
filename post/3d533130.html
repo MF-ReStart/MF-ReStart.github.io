@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-08T10:27:28.000Z">
-<meta property="article:modified_time" content="2020-06-09T02:35:18.211Z">
+<meta property="article:modified_time" content="2020-06-15T03:26:39.230Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -164,7 +164,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的条件判断"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的条件判断</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单示例"><span class="post-toc-number">2.</span> <span class="post-toc-text">简单示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配合循环进行判断"><span class="post-toc-number">3.</span> <span class="post-toc-text">配合循环进行判断</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#条件判断通配符"><span class="post-toc-number">4.</span> <span class="post-toc-text">条件判断通配符</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#逻辑运算符"><span class="post-toc-number">5.</span> <span class="post-toc-text">逻辑运算符</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#逻辑运算和分组示例"><span class="post-toc-number">6.</span> <span class="post-toc-text">逻辑运算和分组示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#判断模块执行返回的信息"><span class="post-toc-number">7.</span> <span class="post-toc-text">判断模块执行返回的信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#跳过执行遇到的错误"><span class="post-toc-number">8.</span> <span class="post-toc-text">跳过执行遇到的错误</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#条件判断与tests"><span class="post-toc-number">9.</span> <span class="post-toc-text">条件判断与tests</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#判断变量的tests"><span class="post-toc-number">10.</span> <span class="post-toc-text">判断变量的tests</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#判断执行结果的tests"><span class="post-toc-number">11.</span> <span class="post-toc-text">判断执行结果的tests</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的条件判断"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的条件判断</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单示例"><span class="post-toc-number">2.</span> <span class="post-toc-text">简单示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配合循环进行判断"><span class="post-toc-number">3.</span> <span class="post-toc-text">配合循环进行判断</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#条件判断通配符"><span class="post-toc-number">4.</span> <span class="post-toc-text">条件判断通配符</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#逻辑运算符"><span class="post-toc-number">5.</span> <span class="post-toc-text">逻辑运算符</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#逻辑运算和分组示例"><span class="post-toc-number">6.</span> <span class="post-toc-text">逻辑运算和分组示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#判断模块执行返回的信息"><span class="post-toc-number">7.</span> <span class="post-toc-text">判断模块执行返回的信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#跳过执行遇到的错误"><span class="post-toc-number">8.</span> <span class="post-toc-text">跳过执行遇到的错误</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#条件判断与tests"><span class="post-toc-number">9.</span> <span class="post-toc-text">条件判断与tests</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断变量的tests"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">判断变量的tests</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断执行结果的tests"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">判断执行结果的tests</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断路径的tests"><span class="post-toc-number">9.3.</span> <span class="post-toc-text">判断路径的tests</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断字符串的tests"><span class="post-toc-number">9.4.</span> <span class="post-toc-text">判断字符串的tests</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断整除的tests"><span class="post-toc-number">9.5.</span> <span class="post-toc-text">判断整除的tests</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#条件判断与block"><span class="post-toc-number">10.</span> <span class="post-toc-text">条件判断与block</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#block与rescue的错误处理"><span class="post-toc-number">10.1.</span> <span class="post-toc-text">block与rescue的错误处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#block和always的错误处理"><span class="post-toc-number">10.2.</span> <span class="post-toc-text">block和always的错误处理</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#条件判断与错误处理"><span class="post-toc-number">11.</span> <span class="post-toc-text">条件判断与错误处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用条件判断去控制fail模块的执行"><span class="post-toc-number">11.1.</span> <span class="post-toc-text">利用条件判断去控制fail模块的执行</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#failed-when关键字"><span class="post-toc-number">11.2.</span> <span class="post-toc-text">failed_when关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#failed-changed关键字"><span class="post-toc-number">11.3.</span> <span class="post-toc-text">failed_changed关键字</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -344,8 +344,8 @@ echo $<span class="token punctuation">?</span>
 <span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> <span class="token punctuation">{</span>
     <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"file exist"</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="判断变量的tests"><a href="#判断变量的tests" class="headerlink" title="判断变量的tests"></a>判断变量的tests</h1><ul>
-<li>*<em>defined : *</em>判断变量是否已经定义，已经定义则返回真</li>
+<h2 id="判断变量的tests"><a href="#判断变量的tests" class="headerlink" title="判断变量的tests"></a>判断变量的tests</h2><ul>
+<li><strong>defined:</strong>判断变量是否已经定义，已经定义则返回真</li>
 <li><strong>undefind:</strong> 判断变量是否已经定义，未定义则返回真</li>
 <li><strong>none:</strong> 判断变量值是否为空，如果变量已经定义，但是变量值为空，则返回真</li>
 </ul>
@@ -364,12 +364,156 @@ echo $<span class="token punctuation">?</span>
     <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
         <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">'The variable is defined, but there is no value'</span>
       <span class="token key atrule">when</span><span class="token punctuation">:</span> h2 is none<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="判断执行结果的tests"><a href="#判断执行结果的tests" class="headerlink" title="判断执行结果的tests"></a>判断执行结果的tests</h1><ul>
+<h2 id="判断执行结果的tests"><a href="#判断执行结果的tests" class="headerlink" title="判断执行结果的tests"></a>判断执行结果的tests</h2><ul>
 <li>*<em>success 或 succeeded: *</em>通过任务的返回信息判断任务的执行状态，任务执行成功则返回真</li>
 <li><strong>failure 或 failed:</strong> 通过任务的返回信息判断任务的执行状态，任务执行失败则返回真</li>
 <li><strong>change 或 changed:</strong> 通过任务的返回信息判断任务的执行状态，任务执行状态为changed则返回真</li>
 <li><strong>skip 或 skipped:</strong> 通过任务的返回信息判断任务的执行状态，当任务没有满足条件而被跳过执行时，则返回真</li>
 </ul>
+<p>使用shell模块执行一条命令，并且使用register将返回值存进returnmsg变量，如果命令执行报错就跳过继续往下执行，下面再判断这个变量的执行结果</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token string">"ls /etc/hosts"</span>
+    <span class="token key atrule">register</span><span class="token punctuation">:</span> returnmsg
+    <span class="token key atrule">ignore_errors</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"success"</span>
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> returnmsg is success
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"failed"</span>
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> returnmsg is failure
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"changed"</span>
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> returnmsg is changed
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"skip"</span>
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> <span class="token string">"returnmsg is skip"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="判断路径的tests"><a href="#判断路径的tests" class="headerlink" title="判断路径的tests"></a>判断路径的tests</h2><ul>
+<li><strong>file:</strong> 判断路径是否是一个文件，如果是则返回真</li>
+<li><strong>directory:</strong> 判断路径是否是一个目录，如果是则返回真</li>
+<li><strong>link:</strong> 判断路径是否是一个软链接，如果是则返回真</li>
+<li><strong>mount:</strong> 判断路径是否是一个挂载点，如果是则返回真</li>
+<li><strong>exists:</strong> 判断路径是否存在，如果存在则返回真</li>
+</ul>
+<h2 id="判断字符串的tests"><a href="#判断字符串的tests" class="headerlink" title="判断字符串的tests"></a>判断字符串的tests</h2><ul>
+<li><strong>lower:</strong> 判断包含字母的字符串中的字母是否是纯小写，如果是则返回真</li>
+<li><strong>upper:</strong> 判断包含字母的字符串中的字母是否是纯大写，如果是则返回真</li>
+</ul>
+<h2 id="判断整除的tests"><a href="#判断整除的tests" class="headerlink" title="判断整除的tests"></a>判断整除的tests</h2><ul>
+<li><strong>even:</strong> 判断数值是否是偶数，如果是则返回真</li>
+<li><strong>odd:</strong> 判断数值是否是奇数，如果是则返回真</li>
+<li><strong>divisibleby(num):</strong> 判断是否可以整除指定的数值，如果可以整除则返回真</li>
+</ul>
+<h1 id="条件判断与block"><a href="#条件判断与block" class="headerlink" title="条件判断与block"></a>条件判断与block</h1><p>想要在条件成立时，执行多个任务，我们不需要在每个任务中都加入判断条件，我们可以使用block关键字将多个任务整合成一个块</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token string">"ls /loo"</span>
+    <span class="token key atrule">ignore_errors</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">block</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 这个block块有两个任务</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span> 
+          <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"run command failed"</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">file</span><span class="token punctuation">:</span>
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/oo"</span>
+          <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> 2 <span class="token punctuation">></span> 1        <span class="token comment" spellcheck="true"># 条件成立就执行block块的任务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="block与rescue的错误处理"><a href="#block与rescue的错误处理" class="headerlink" title="block与rescue的错误处理"></a>block与rescue的错误处理</h2><p>我们在处理某些复杂的任务时，需要使用到错误处理的判断，使我们的playbook更加灵活。例如我需要执行多个任务，这多个任务中只要有一个执行失败，就会触发错误处理，执行我们提前定义好的救援任务进行补救</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">block</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token string">"ls /123"</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+          <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"tcodmf"</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">file</span><span class="token punctuation">:</span>
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/loo"</span>
+          <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
+    <span class="token key atrule">rescue</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+          <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"error"</span>    <span class="token comment" spellcheck="true"># 只要block块里面的三个任务有一个执行失败就会执行rescue定义好的任务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="block和always的错误处理"><a href="#block和always的错误处理" class="headerlink" title="block和always的错误处理"></a>block和always的错误处理</h2><p>如果block中的任务执行出错，那么就会执行rescue中的任务，如果block中的任务执行没有出错，那么rescue中的任务就不会执行，但是always中的任务是无论如何都会执行的，不管block中的内容是否出错</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">block</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+          <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"echo 123"</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">command</span><span class="token punctuation">:</span> cat /etc/hosts <span class="token punctuation">|</span> wc <span class="token punctuation">-</span>l        <span class="token comment" spellcheck="true"># command模块不能执行带特殊字符的命令，第一次出错</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+          <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"echo 456"</span>
+
+    <span class="token key atrule">rescue</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+          <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"echo error1"</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">command</span><span class="token punctuation">:</span> cat /etc/hosts <span class="token punctuation">|</span> wc <span class="token punctuation">-</span>l        <span class="token comment" spellcheck="true"># command模块不能执行带特殊字符的命令，第二次出错</span>
+
+    <span class="token key atrule">always</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+          <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"echo error2"</span>    <span class="token comment" spellcheck="true"># 最后执行always</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="条件判断与错误处理"><a href="#条件判断与错误处理" class="headerlink" title="条件判断与错误处理"></a>条件判断与错误处理</h1><p>我们有时候需要在判断条件成立时，执行退出的指令，使playbook中断执行，这里我们需要使用到fail模块。我们知道，在执行playbook时，如果playbook中的任意一个任务执行失败，playbook都会终止执行，而fail模块就是天生用来执行失败的模块。只要playbook中执行fail模块，playbook就会认为有任务执行失败了。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"123"</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"456"</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">fail</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 执行fail模块中断playbook执行,后面的任务不再执行</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"789"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用fail模块终止playbook，默认打印”Failed as requested from task”的错误提示，这个我们可以自定义fail模块的错误提示</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"123"</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"456"</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">fail</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"stop operation playbook"</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"789"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="利用条件判断去控制fail模块的执行"><a href="#利用条件判断去控制fail模块的执行" class="headerlink" title="利用条件判断去控制fail模块的执行"></a>利用条件判断去控制fail模块的执行</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token string">"echo 'This is a string for testing--error'"</span>
+    <span class="token key atrule">register</span><span class="token punctuation">:</span> return_value    <span class="token comment" spellcheck="true"># 取到shell模块执行的返回值</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">fail</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"stop operation playbook"</span>
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> <span class="token string">"'error' in return_value.stdout"</span>    <span class="token comment" spellcheck="true"># 判断字符串是否存在于return_value.stdout这个输出信息</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"playbook has stopped"</span>    <span class="token comment" spellcheck="true"># 由于fail模块执行而中断playbook,这个将不会执行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="failed-when关键字"><a href="#failed-when关键字" class="headerlink" title="failed_when关键字"></a>failed_when关键字</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"123456"</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token string">"echo 'This is a string for testing--error'"</span>
+    <span class="token key atrule">register</span><span class="token punctuation">:</span> return_value
+    <span class="token key atrule">failed_when</span><span class="token punctuation">:</span> <span class="token string">'"error" in return_value.stdout'</span>    <span class="token comment" spellcheck="true"># 如果条件成立,那么failed_when就会提示所对应的shell模块执行失败</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"654321"</span>        <span class="token comment" spellcheck="true"># 不会被打印</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="failed-changed关键字"><a href="#failed-changed关键字" class="headerlink" title="failed_changed关键字"></a>failed_changed关键字</h2><p>正常情况下，debug模块正常执行的情况下只能是”ok”状态，我们可以使用failed_changed关键字改变执行后的状态定义为changed</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"test message"</span>
+    <span class="token key atrule">changed_when</span><span class="token punctuation">:</span> 2 <span class="token punctuation">></span> 1
+
+<span class="token key atrule">changed</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"test message"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
         </div>
 
@@ -378,7 +522,7 @@ echo $<span class="token punctuation">?</span>
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-09T02:35:18.211Z" itemprop="dateUpdated">2020-06-09 10:35:18</time>
+    最后更新时间：<time datetime="2020-06-15T03:26:39.230Z" itemprop="dateUpdated">2020-06-15 11:26:39</time>
 </span><br>
 
 
@@ -414,7 +558,14 @@ echo $<span class="token punctuation">?</span>
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/40656090.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ansible的过滤器(13)</h4>
+      </a>
+    </div>
   
 
   
@@ -572,7 +723,7 @@ echo $<span class="token punctuation">?</span>
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                1.1k
+                2.2k
             
         </span>
     </div>
