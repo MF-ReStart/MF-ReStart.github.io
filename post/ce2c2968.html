@@ -27,16 +27,16 @@
     
     
     <meta name="keywords" content="Docker,容器技术,云计算">
-    <meta name="description" content="什么是镜像镜像是一个分层存储的文件 镜像就是一个软件的运行环境 一个镜像可以重复使用，创建无数个容器 一个不包含Linux内核而又精简的Linux操作系统 镜像是一种标准化的交付，镜像内包含代码以及软件的运行环境 配置镜像加速阿里云为每一个开通容器镜像服务的用户免费提供一个镜像加速地址 # 配置镜像加速 tee &#x2F;etc&#x2F;docker&#x2F;daemon.json 镜像 save &amp; load如">
+    <meta name="description" content="什么是镜像镜像是一个分层存储的文件 镜像就是一个软件的运行环境 一个镜像可以重复使用，创建无数个容器 一个不包含Linux内核而又精简的Linux操作系统 镜像是一种标准化的交付，镜像内包含代码以及软件的运行环境 配置镜像加速阿里云为每一个开通容器镜像服务的用户免费提供一个镜像加速地址 # 配置镜像加速 tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt; EOF {     &quot;regist">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker镜像管理(2)">
 <meta property="og:url" content="https://www.missf.top/post/ce2c2968.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="什么是镜像镜像是一个分层存储的文件 镜像就是一个软件的运行环境 一个镜像可以重复使用，创建无数个容器 一个不包含Linux内核而又精简的Linux操作系统 镜像是一种标准化的交付，镜像内包含代码以及软件的运行环境 配置镜像加速阿里云为每一个开通容器镜像服务的用户免费提供一个镜像加速地址 # 配置镜像加速 tee &#x2F;etc&#x2F;docker&#x2F;daemon.json 镜像 save &amp; load如">
+<meta property="og:description" content="什么是镜像镜像是一个分层存储的文件 镜像就是一个软件的运行环境 一个镜像可以重复使用，创建无数个容器 一个不包含Linux内核而又精简的Linux操作系统 镜像是一种标准化的交付，镜像内包含代码以及软件的运行环境 配置镜像加速阿里云为每一个开通容器镜像服务的用户免费提供一个镜像加速地址 # 配置镜像加速 tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt; EOF {     &quot;regist">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ee9acc8a240b370e3c19f7e.jpg">
 <meta property="article:published_time" content="2020-06-16T07:00:10.000Z">
-<meta property="article:modified_time" content="2020-06-17T08:05:08.586Z">
+<meta property="article:modified_time" content="2020-06-19T06:05:13.825Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -200,7 +200,7 @@
 <p>镜像是一种标准化的交付，镜像内包含代码以及软件的运行环境</p>
 <h1 id="配置镜像加速"><a href="#配置镜像加速" class="headerlink" title="配置镜像加速"></a>配置镜像加速</h1><p>阿里云为每一个开通容器镜像服务的用户免费提供一个镜像加速地址</p>
 <pre class="line-numbers language-shell"><code class="language-shell"># 配置镜像加速
-tee /etc/docker/daemon.json <<EOF
+tee /etc/docker/daemon.json << EOF
 {
     "registry-mirrors": ["https://265wemgl.mirror.aliyuncs.com"]
 }
@@ -235,7 +235,7 @@ drwx------ 2 root root    142 Jun 17 19:09 l<span aria-hidden="true" class="line
 <p>Docker 中使用的 AUFS（AnotherUnionFS）就是一种联合文件系统。 AUFS 支持为每一个成员目录（类似 Git 的分支）设定只读（readonly）、读写（readwrite）和写出（whiteout-able）权限, 同时 AUFS 里有一个类似分层的概念, 对只读权限的分支可以逻辑上进行增量地修改(不影响只读部分的)。</p>
 <p>Docker 目前支持的联合文件系统包括 OverlayFS , AUFS , Btrfs , VFS , ZFS 和 DeviceMapper 。</p>
 <h1 id="镜像存储核心技术-写时复制-COW"><a href="#镜像存储核心技术-写时复制-COW" class="headerlink" title="镜像存储核心技术:写时复制(COW)"></a>镜像存储核心技术:写时复制(COW)</h1><p>docker镜像由多个只读层叠加而成，启动容器时，docker会加载只读镜像层并在镜像层顶部添加一个读写层。如果运行中的容器修改了一个已存在的文件，那么该文件将会从只读层复制到读写层，该文件的只读版本任然存在，只是已经被读写层中该文件的副本所隐藏，这就是写时复制机制。</p>
-<h1 id="镜像常用管理命令"><a href="#镜像常用管理命令" class="headerlink" title="镜像常用管理命令"></a>镜像常用管理命令</h1><pre class="line-numbers language-shell"><code class="language-shell"># 列出镜像
+<h1 id="镜像常用管理命令"><a href="#镜像常用管理命令" class="headerlink" title="镜像常用管理命令"></a>镜像常用管理命令</h1><pre class="line-numbers language-shell"><code class="language-shell"># 列出镜像,-a显示所有镜像
 docker image ls
 
 # 在当前目录通过Dockerfile构建镜像
@@ -291,7 +291,7 @@ load:将tar归档文件导入为镜像<span aria-hidden="true" class="line-numbe
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-17T08:05:08.586Z" itemprop="dateUpdated">2020-06-17 16:05:08</time>
+    最后更新时间：<time datetime="2020-06-19T06:05:13.825Z" itemprop="dateUpdated">2020-06-19 14:05:13</time>
 </span><br>
 
 
@@ -327,7 +327,14 @@ load:将tar归档文件导入为镜像<span aria-hidden="true" class="line-numbe
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/39a5b294.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker容器管理(3)</h4>
+      </a>
+    </div>
   
 
   
@@ -485,7 +492,7 @@ load:将tar归档文件导入为镜像<span aria-hidden="true" class="line-numbe
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                290
+                310
             
         </span>
     </div>
