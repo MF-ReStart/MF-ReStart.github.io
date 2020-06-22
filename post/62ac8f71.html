@@ -35,7 +35,7 @@
 <meta property="og:description" content="ansible的jinja2模板我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的IP地址，这时候就需要使用到ansible的jinja2模板去分发动态的配置文件。我们先创建一份模板文件，将IP配置部分使用ansible变量进行替换，然后使用template模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点。 下面我们以安装redis为示例">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-22T01:52:52.000Z">
-<meta property="article:modified_time" content="2020-06-22T06:27:37.223Z">
+<meta property="article:modified_time" content="2020-06-22T10:44:19.851Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -164,7 +164,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的jinja2模板"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的jinja2模板</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的jinja2模板"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的jinja2模板</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#jinja2语法"><span class="post-toc-number">2.</span> <span class="post-toc-text">jinja2语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#变量-amp-表达式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">变量&amp;表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">控制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#执行命令时传入变量"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">执行命令时传入变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#if"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">if</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">for</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制空白"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">控制空白</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -202,6 +202,91 @@ bind {{ ansible_host }}     # 将默认的127.0.0.1改为管理节点本机的IP
   <span class="token punctuation">-</span> <span class="token key atrule">template</span><span class="token punctuation">:</span>
       <span class="token key atrule">src</span><span class="token punctuation">:</span> /root/playbook/redis.conf    <span class="token comment" spellcheck="true"># 控制节点上的模板文件,定义好变量,通过template模块进行渲染</span>
       <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/redis.conf        <span class="token comment" spellcheck="true"># 管理节点上这个文件将被控制节点上的模板文件所替换</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="jinja2语法"><a href="#jinja2语法" class="headerlink" title="jinja2语法"></a>jinja2语法</h1><p>Ansible使用<a href="https://jinja.palletsprojects.com/" target="_blank" rel="noopener">Jinja2</a>模板来启用动态表达式和对变量的访问，就是说ansible使用Jinja模板对含有动态表达式和变量的文件进行解析个渲染。</p>
+<h2 id="变量-amp-表达式"><a href="#变量-amp-表达式" class="headerlink" title="变量&amp;表达式"></a>变量&amp;表达式</h2><p>可以使用点.来访问变量的属性，也可以使用下标语法[]，下面2种方式效果是一样的</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> foo.bar <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+<span class="token punctuation">{</span><span class="token punctuation">{</span> foo<span class="token punctuation">[</span><span class="token string">'bar'</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true"># 如果变量或属性不存在，会返回一个未定义值。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>除了变量， {{}} 中还可以包含一些表达式</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> 1 == 1 <span class="token punctuation">}</span><span class="token punctuation">}</span>    
+<span class="token punctuation">{</span><span class="token punctuation">{</span> 2 <span class="token tag">!=</span> 3 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> 2 <span class="token punctuation">></span> 3 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> 4 &lt;= 3 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true"># 根据对应的表达式返回true或false</span>
+
+<span class="token punctuation">{</span><span class="token punctuation">{</span> 3 + 2 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> 3 <span class="token punctuation">-</span> <span class="token number">4 </span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> 3 * 5 <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> 2 ** 3 <span class="token punctuation">}</span><span class="token punctuation">}</span>    <span class="token comment" spellcheck="true"># 2的3次方</span>
+<span class="token comment" spellcheck="true"># 根据算术运算返回结果</span>
+
+<span class="token comment" spellcheck="true"># 字符串、数值、列表、元组、字典、布尔值等数据类型均可在"{{  }}"使用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h2><p>用来装载控制语句，比如 if 控制结构，for循环控制结构</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% for item in seq %<span class="token punctuation">}</span>
+```
+
+<span class="token comment" spellcheck="true">## 注释</span>
+
+要把模板中一行的部分注释掉
+
+```yaml
+<span class="token punctuation">{</span><span class="token comment" spellcheck="true"># 这是被注释的内容 #}</span>
+```
+
+<span class="token comment" spellcheck="true">## 转义</span>
+
+简单的使用单引号('')进行转义，对于较大的段落，使用raw进行转义
+
+```yaml
+<span class="token punctuation">{</span>% raw %<span class="token punctuation">}</span>
+     &lt;ul<span class="token punctuation">></span>
+     <span class="token punctuation">{</span>% for item in seq %<span class="token punctuation">}</span>
+         &lt;li<span class="token punctuation">></span><span class="token punctuation">{</span><span class="token punctuation">{</span> item <span class="token punctuation">}</span><span class="token punctuation">}</span>&lt;/li<span class="token punctuation">></span>
+     <span class="token punctuation">{</span>% endfor %<span class="token punctuation">}</span>
+     &lt;/ul<span class="token punctuation">></span>
+ <span class="token punctuation">{</span>% endraw %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="执行命令时传入变量"><a href="#执行命令时传入变量" class="headerlink" title="执行命令时传入变量"></a>执行命令时传入变量</h2><pre class="line-numbers language-shell"><code class="language-shell">cat /root/test.j2
+my blog is {{ site }}
+
+ansible dbserver -m template -e "site=missf.top" -a "src=/root/test.j2 dest=/opt/test"
+
+cat /opt/test
+my blog is missf.top<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% if num <span class="token punctuation">></span> 3 %<span class="token punctuation">}</span>
+gtfr derew pllu
+<span class="token punctuation">{</span>% endif %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使用template模板进行渲染</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -m template -e "num=4" -a "src=/root/test.j2 dest=/opt/test"
+
+# 渲染后的输出结果
+cat /opt/test
+gtfr derew pllu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><p>jinja2模板的for语法示例</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% if num <span class="token punctuation">></span> 3 %<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>% for i in <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">]</span> %<span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> i <span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span>% endfor %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用template模板进行渲染</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -m template -a "src=/root/test.j2 dest=/opt/test"
+
+# 渲染后的输出结果
+cat /opt/test
+5
+65
+7
+23<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="控制空白"><a href="#控制空白" class="headerlink" title="控制空白"></a>控制空白</h2><p>从for循环的结果看出，使用template模板进行渲染时不会去处理空格或者换行符，在开始或结束放置一个减号(-)，可以移除块前或块后的空白</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% for i in <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">]</span> <span class="token punctuation">-</span>%<span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> i <span class="token punctuation">}</span><span class="token punctuation">}</span>        <span class="token comment" spellcheck="true"># 这里可以使用{{ i }}{{' '}}定义分割符</span>
+<span class="token punctuation">{</span>%<span class="token punctuation">-</span> endfor %<span class="token punctuation">}</span>
+
+ansible dbserver <span class="token punctuation">-</span>m template <span class="token punctuation">-</span>a "src=/root/test.j2 dest=/opt/test"
+
+cat /opt/test
+565723        <span class="token comment" spellcheck="true"># 将换行符和空白都移除了</span>
+5 65 7 23    <span class="token comment" spellcheck="true"># 定义分割符的效果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    我要去重新学习梳理Docker了，Ansible就先到这里吧！等到啥时候有空，再重启吧。</p>
 
         </div>
 
@@ -210,7 +295,7 @@ bind {{ ansible_host }}     # 将默认的127.0.0.1改为管理节点本机的IP
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-22T06:27:37.223Z" itemprop="dateUpdated">2020-06-22 14:27:37</time>
+    最后更新时间：<time datetime="2020-06-22T10:44:19.851Z" itemprop="dateUpdated">2020-06-22 18:44:19</time>
 </span><br>
 
 
@@ -404,7 +489,7 @@ bind {{ ansible_host }}     # 将默认的127.0.0.1改为管理节点本机的IP
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                303
+                887
             
         </span>
     </div>
