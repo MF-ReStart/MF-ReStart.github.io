@@ -20,19 +20,25 @@
     
     
     
-    <title>Categories: ansible | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <title>ansible的jinja2模板(16) | 荒原饮露 | 青春不是隔岸观火啊</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="荒原饮露">
-<meta property="og:url" content="https://www.missf.top/categories/ansible/page/2/index.html">
+    <meta name="keywords" content="ansible,自动化运维">
+    <meta name="description" content="ansible的jinja2模板我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的IP地址，这时候就需要使用到ansible的jinja2模板去分发动态的配置文件。我们先创建一份模板文件，将IP配置部分使用ansible变量进行替换，然后使用template模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点。 下面我们以安装redis为示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible的jinja2模板(16)">
+<meta property="og:url" content="https://www.missf.top/post/62ac8f71.html">
 <meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="ansible的jinja2模板我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的IP地址，这时候就需要使用到ansible的jinja2模板去分发动态的配置文件。我们先创建一份模板文件，将IP配置部分使用ansible变量进行替换，然后使用template模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点。 下面我们以安装redis为示例">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T01:52:52.000Z">
+<meta property="article:modified_time" content="2020-06-22T06:27:37.223Z">
 <meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="ansible">
+<meta property="article:tag" content="自动化运维">
 <meta name="twitter:card" content="summary">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
@@ -50,7 +56,7 @@
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu"  >
+    <aside id="menu" class="hide" >
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -90,7 +96,7 @@
               </a>
             </li>
         
-            <li class="waves-block waves-effect active">
+            <li class="waves-block waves-effect">
               <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
@@ -115,7 +121,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Categories: ansible</div>
+        <div class="flex-col header-title ellipsis">ansible的jinja2模板(16)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -130,275 +136,207 @@
         
     </div>
 </header>
-<header class="content-header categories-header">
+<header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Categories: ansible</h1>
+        <h1 class="title">ansible的jinja2模板(16)</h1>
         <h5 class="subtitle">
+            
+                <time datetime="2020-06-22T01:52:52.000Z" itemprop="datePublished" class="page-time">
+  2020-06-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
+
             
         </h5>
     </div>
 
     
-<div class="tabs-bar container">
-    <nav class="tags-list">
-        <a href="/categories" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
-            ">全部</a>
-        
-
-            <a href="/categories/Hello-World/" style="-webkit-order:4;order:4" class="tags-list-item waves-effect waves-button waves-light">Hello World</a>
-
-        
-
-            <a href="/categories/Docker/" style="-webkit-order:5;order:5" class="tags-list-item waves-effect waves-button waves-light">Docker</a>
-
-        
-
-            <a href="/categories/Python/" style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light">Python</a>
-
-        
-
-            <a href="/categories/ansible/" style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light active">ansible</a>
-
-        
-
-            <a href="/categories/coding/" style="-webkit-order:2;order:2" class="tags-list-item waves-effect waves-button waves-light">coding</a>
-
-        
-
-            <a href="/categories/%E8%8D%92%E5%8E%9F%E9%A5%AE%E9%9C%B2/" style="-webkit-order:3;order:3" class="tags-list-item waves-effect waves-button waves-light">荒原饮露</a>
-
-        
-    </nav>
-    <!-- PC show more-->
-    <div class="tags-list-more">
-        <a href="javascript:;" onclick="BLOG.tabBar(this)" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
-    </div>
-</div>
-
 
 
 </header>
 
-<div class="container body-wrap fade">
+
+<div class="container body-wrap">
     
-            <div class="waterfall">
-          
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的jinja2模板"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的jinja2模板</span></a></li></ol>
+        </nav>
+    </aside>
 
-            <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2020-05-23 16:37:52" datetime="2020-05-23T08:37:52.000Z"  itemprop="datePublished">2020-05-23</time>
 
-      
+<article id="post-ansible的jinja2模板(16)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ansible的jinja2模板(16)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-06-22 09:52:52" datetime="2020-06-22T01:52:52.000Z"  itemprop="datePublished">2020-06-22</time>
+
+            
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
 
 
 
-    </div>
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="ansible的jinja2模板"><a href="#ansible的jinja2模板" class="headerlink" title="ansible的jinja2模板"></a>ansible的jinja2模板</h1><p>我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的IP地址，这时候就需要使用到ansible的jinja2模板去分发动态的配置文件。我们先创建一份模板文件，将IP配置部分使用ansible变量进行替换，然后使用template模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点。</p>
+<p>下面我们以安装redis为示例，为不同的管理节点分发动态配置文件</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cat /etc/redis/conf/redis.conf
+bind {{ ansible_host }}     # 将默认的127.0.0.1改为管理节点本机的IP，这样就能生成各自的管理节点的配置文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>准备模板配置文件之后，下面就来编写一个playbook，完成模板配置文件的渲染和分发</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">template</span><span class="token punctuation">:</span>
+      <span class="token key atrule">src</span><span class="token punctuation">:</span> /root/playbook/redis.conf    <span class="token comment" spellcheck="true"># 控制节点上的模板文件,定义好变量,通过template模块进行渲染</span>
+      <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/redis.conf        <span class="token comment" spellcheck="true"># 管理节点上这个文件将被控制节点上的模板文件所替换</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
     
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/post/b39d16c2.html">ansible的yaml基本语法(6)</a>
-    </h3>
-  
-
-
-
-    
-    <div class="post-footer">
+    <div class="content">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
+<span class="post-time">
+    最后更新时间：<time datetime="2020-06-22T06:27:37.223Z" itemprop="dateUpdated">2020-06-22 14:27:37</time>
+</span><br>
 
+
+        
+        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，那就请我喝咖啡吧！
+        
     </div>
     
-  </article>
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
 </div>
 
-        
-
-            <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2020-05-12 11:12:59" datetime="2020-05-12T03:12:59.000Z"  itemprop="datePublished">2020-05-12</time>
-
-      
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
 
 
-
-    </div>
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/post/cd036e92.html">ansible模块学习(5)</a>
-    </h3>
-  
-
-
-
-    
-    <div class="post-footer">
-        
+        <div class="post-footer">
+            
 	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
 
+
+            
+
+
+        </div>
     </div>
+
     
-  </article>
-</div>
-
-        
-
-            <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2020-05-10 10:12:59" datetime="2020-05-10T02:12:59.000Z"  itemprop="datePublished">2020-05-10</time>
-
-      
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
-
-
-
-    </div>
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/post/334c7279.html">ansible主机清单(4)</a>
-    </h3>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
-
-
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
-
-    </div>
-    
-  </article>
-</div>
-
-        
-
-            <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2020-05-09 09:12:59" datetime="2020-05-09T01:12:59.000Z"  itemprop="datePublished">2020-05-09</time>
-
-      
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
-
-
-
-    </div>
-    
-
-
   
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/post/bf783834.html">ansible快速开始(3)</a>
-    </h3>
+    <div class="waves-block waves-effect next">
+      <a href="/post/fa9ef74f.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ansible的include(15)</h4>
+      </a>
+    </div>
   
-
-
-
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
-
-    </div>
-    
-  </article>
-</div>
-
-        
-
-            <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2020-05-08 11:12:59" datetime="2020-05-08T03:12:59.000Z"  itemprop="datePublished">2020-05-08</time>
-
-      
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
-
-
-
-    </div>
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/post/3ebd0a7f.html">ansible安装(2)</a>
-    </h3>
-  
-
-
-
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
-
-    </div>
-    
-  </article>
-</div>
-
-        
-
-            <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2020-05-07 16:12:59" datetime="2020-05-07T08:12:59.000Z"  itemprop="datePublished">2020-05-07</time>
-
-      
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ansible/">ansible</a></li></ul>
-
-
-
-    </div>
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/post/c55d25e0.html">ansible介绍(1)</a>
-    </h3>
-  
-
-
-
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/" rel="tag">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
-
-    </div>
-    
-  </article>
-</div>
-
-        
-            </div>
-        
-    
-<nav id="page-nav">
-    <div class="inner">
-    <a class="extend prev" rel="prev" href="/categories/ansible/">上一页</a><a class="page-number" href="/categories/ansible/">1</a><span class="page-number current">2</span>
-    </div>
 </nav>
 
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
 </div>
 
+
+
+</div>
 
         <footer class="footer">
     <div class="bottom">
@@ -466,7 +404,7 @@
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                49.8k
+                303
             
         </span>
     </div>
@@ -486,7 +424,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
 <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
 
 
 </script>

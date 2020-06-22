@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-08T10:27:28.000Z">
-<meta property="article:modified_time" content="2020-06-15T03:26:39.230Z">
+<meta property="article:modified_time" content="2020-06-19T09:02:27.283Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -194,8 +194,8 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="ansible的条件判断"><a href="#ansible的条件判断" class="headerlink" title="ansible的条件判断"></a>ansible的条件判断</h1><p>绝大数语言中，都使用&quot;if&quot;作为条件判断的方法，而在ansible中，条件判断使用关键字&quot;when&quot;</p>
-<h1 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h1><p>使用when关键字指明条件是: ansible_distribution == &quot;CentOS&quot;，这里的ansible_distribution是facts信息中的一个key，我们在调用ansible_distribution变量时并没有为它添加<code>{{}}</code>，这是在when关键字中引用变量时，不需要加<code>{{}}</code>。如果ansible_distribution == &quot;CentOS&quot;这个条件成立，那么就调用debug模块，打印msg的内容，如果不成立则不执行debug模块。</p>
+<h1 id="ansible的条件判断"><a href="#ansible的条件判断" class="headerlink" title="ansible的条件判断"></a>ansible的条件判断</h1><p>绝大数语言中，都使用if作为条件判断的方法，而在ansible中，条件判断使用关键字when。</p>
+<h1 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h1><p>使用when关键字指明条件是: ansible_distribution == “CentOS”，这里的ansible_distribution是facts信息中的一个key，我们在调用ansible_distribution变量时并没有为它添加<code>{{}}</code>，这是在when关键字中引用变量时，不需要加<code>{{}}</code>。如果ansible_distribution == &quot;CentOS&quot;这个条件成立，那么就调用debug模块，打印msg的内容，如果不成立则不执行debug模块。</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 简单示例</span>
 <span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -298,15 +298,15 @@
   <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> touch file1
     <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token string">"touch /file1"</span>
-    <span class="token key atrule">register</span><span class="token punctuation">:</span> returnmsg1
+    <span class="token key atrule">register</span><span class="token punctuation">:</span> returnmsg
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> debug file1
     <span class="token key atrule">debug</span><span class="token punctuation">:</span>
       <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"Command execution successful"</span>
-    <span class="token key atrule">when</span><span class="token punctuation">:</span> returnmsg1.rc == 0
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> returnmsg.rc == 0        <span class="token comment" spellcheck="true"># 命令执行成功的返回值中rc的值为0</span>
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> debug file2
     <span class="token key atrule">debug</span><span class="token punctuation">:</span>
       <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"Command execution failed"</span>
-    <span class="token key atrule">when</span><span class="token punctuation">:</span> returnmsg1.rc <span class="token tag">!=</span> 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token key atrule">when</span><span class="token punctuation">:</span> returnmsg.rc <span class="token tag">!=</span> 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="跳过执行遇到的错误"><a href="#跳过执行遇到的错误" class="headerlink" title="跳过执行遇到的错误"></a>跳过执行遇到的错误</h1><p>有些时候我们的tasks执行到一半时，遇到错误之后就不再继续往下执行了，我们可以使用ignore_errors关键字去跳过这个错误，让剧本继续往下执行</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -522,7 +522,7 @@ echo $<span class="token punctuation">?</span>
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-15T03:26:39.230Z" itemprop="dateUpdated">2020-06-15 11:26:39</time>
+    最后更新时间：<time datetime="2020-06-19T09:02:27.283Z" itemprop="dateUpdated">2020-06-19 17:02:27</time>
 </span><br>
 
 

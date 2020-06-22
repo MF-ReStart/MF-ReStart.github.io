@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-01T02:47:20.000Z">
-<meta property="article:modified_time" content="2020-06-09T01:26:38.065Z">
+<meta property="article:modified_time" content="2020-06-20T06:42:47.646Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -164,7 +164,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的循环"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的循环</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#标准循环"><span class="post-toc-number">2.</span> <span class="post-toc-text">标准循环</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义稍微复杂的列表"><span class="post-toc-number">3.</span> <span class="post-toc-text">定义稍微复杂的列表</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用循环创建多个文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">利用循环创建多个文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用循环多次调用模块"><span class="post-toc-number">5.</span> <span class="post-toc-text">利用循环多次调用模块</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#打印序列中的序列"><span class="post-toc-number">6.</span> <span class="post-toc-text">打印序列中的序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#元素对齐合并"><span class="post-toc-number">7.</span> <span class="post-toc-text">元素对齐合并</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#元素两两组合"><span class="post-toc-number">8.</span> <span class="post-toc-text">元素两两组合</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#列表元素添加索引编号"><span class="post-toc-number">9.</span> <span class="post-toc-text">列表元素添加索引编号</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#生成数字序列"><span class="post-toc-number">10.</span> <span class="post-toc-text">生成数字序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输出更简单的连续序列"><span class="post-toc-number">11.</span> <span class="post-toc-text">输出更简单的连续序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#返回一个随机值"><span class="post-toc-number">12.</span> <span class="post-toc-text">返回一个随机值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用循环去操作字典"><span class="post-toc-number">13.</span> <span class="post-toc-text">使用循环去操作字典</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#字典定义和取值"><span class="post-toc-number">14.</span> <span class="post-toc-text">字典定义和取值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遍历每一项子元素"><span class="post-toc-number">15.</span> <span class="post-toc-text">遍历每一项子元素</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#获取控制节点的文件内容"><span class="post-toc-number">16.</span> <span class="post-toc-text">获取控制节点的文件内容</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#匹配控制节点的文件"><span class="post-toc-number">17.</span> <span class="post-toc-text">匹配控制节点的文件</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的循环"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的循环</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#标准循环"><span class="post-toc-number">2.</span> <span class="post-toc-text">标准循环</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义稍微复杂的列表"><span class="post-toc-number">3.</span> <span class="post-toc-text">定义稍微复杂的列表</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用循环创建多个文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">利用循环创建多个文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#利用循环多次调用模块"><span class="post-toc-number">5.</span> <span class="post-toc-text">利用循环多次调用模块</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#打印序列中的序列"><span class="post-toc-number">6.</span> <span class="post-toc-text">打印序列中的序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#元素对齐合并"><span class="post-toc-number">7.</span> <span class="post-toc-text">元素对齐合并</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#元素两两组合"><span class="post-toc-number">8.</span> <span class="post-toc-text">元素两两组合</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#列表元素添加索引编号"><span class="post-toc-number">9.</span> <span class="post-toc-text">列表元素添加索引编号</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#生成数字序列"><span class="post-toc-number">10.</span> <span class="post-toc-text">生成数字序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输出更简单的连续序列"><span class="post-toc-number">11.</span> <span class="post-toc-text">输出更简单的连续序列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#返回一个随机值"><span class="post-toc-number">12.</span> <span class="post-toc-text">返回一个随机值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用循环去操作字典"><span class="post-toc-number">13.</span> <span class="post-toc-text">使用循环去操作字典</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#字典定义和取值"><span class="post-toc-number">14.</span> <span class="post-toc-text">字典定义和取值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遍历每一项子元素"><span class="post-toc-number">15.</span> <span class="post-toc-text">遍历每一项子元素</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#获取控制节点的文件内容"><span class="post-toc-number">16.</span> <span class="post-toc-text">获取控制节点的文件内容</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#匹配控制节点的文件"><span class="post-toc-number">17.</span> <span class="post-toc-text">匹配控制节点的文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的loop循环"><span class="post-toc-number">18.</span> <span class="post-toc-text">ansible的loop循环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#loop标准循环"><span class="post-toc-number">18.1.</span> <span class="post-toc-text">loop标准循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#loop循环安装软件"><span class="post-toc-number">18.2.</span> <span class="post-toc-text">loop循环安装软件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#loop批量创建用户"><span class="post-toc-number">18.3.</span> <span class="post-toc-text">loop批量创建用户</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -756,6 +756,40 @@ ntp<span class="token punctuation">:</span>x<span class="token punctuation">:</s
 <span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> (item=/etc/magic) =<span class="token punctuation">></span> <span class="token punctuation">{</span>
     <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"/etc/magic"</span>
 <span class="token punctuation">}</span><span class="token punctuation">...</span><span class="token punctuation">...</span>    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="ansible的loop循环"><a href="#ansible的loop循环" class="headerlink" title="ansible的loop循环"></a>ansible的loop循环</h1><p>在2.5版本之前的ansible中，大多数人习惯使用”with_X”风格的关键字操作循环，从2.6版本开始，官方开始推荐使用”loop”关键字代替”with_X”风格的关键字。现在就来聊聊这种新的方式，以便能够更好的从老版本的使用习惯过渡过来。</p>
+<h2 id="loop标准循环"><a href="#loop标准循环" class="headerlink" title="loop标准循环"></a>loop标准循环</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
+      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ item }}"</span>
+    <span class="token key atrule">loop</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> abc
+      <span class="token punctuation">-</span> cde<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="loop循环安装软件"><a href="#loop循环安装软件" class="headerlink" title="loop循环安装软件"></a>loop循环安装软件</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install packages
+      <span class="token key atrule">yum</span><span class="token punctuation">:</span> 
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"{{ item }}"</span>
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> latest
+      <span class="token key atrule">loop</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> rsync
+        <span class="token punctuation">-</span> sl
+        <span class="token punctuation">-</span> psmisc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="loop批量创建用户"><a href="#loop批量创建用户" class="headerlink" title="loop批量创建用户"></a>loop批量创建用户</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"add user"</span>
+      <span class="token key atrule">user</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"{{ item.name }}"</span>
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+        <span class="token key atrule">groups</span><span class="token punctuation">:</span> <span class="token string">"{{ item.groups }}"</span>
+      <span class="token key atrule">loop</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">,</span><span class="token key atrule">groups</span><span class="token punctuation">:</span> <span class="token string">"root"</span><span class="token punctuation">}</span>
+        <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"cde"</span><span class="token punctuation">,</span><span class="token key atrule">groups</span><span class="token punctuation">:</span> <span class="token string">"root"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
         </div>
 
@@ -764,7 +798,7 @@ ntp<span class="token punctuation">:</span>x<span class="token punctuation">:</s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-09T01:26:38.065Z" itemprop="dateUpdated">2020-06-09 09:26:38</time>
+    最后更新时间：<time datetime="2020-06-20T06:42:47.646Z" itemprop="dateUpdated">2020-06-20 14:42:47</time>
 </span><br>
 
 
@@ -965,7 +999,7 @@ ntp<span class="token punctuation">:</span>x<span class="token punctuation">:</s
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                3.1k
+                3.3k
             
         </span>
     </div>
