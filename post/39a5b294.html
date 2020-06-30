@@ -35,7 +35,7 @@
 <meta property="og:description" content="创建容器常用选项   选项 描述    -i, –interactive 交互式   -t, –tty 分配一个伪终端   -d, –detach 运行容器到后台   -e, –env 设置环境变量   -p, –publish list 发布容器端口到主机   -P, –publish-all 发布容器所有EXPOSE的端口到宿主机随机端口   –name string 指定容器名称   -h,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-17T08:23:38.000Z">
-<meta property="article:modified_time" content="2020-06-19T06:05:05.312Z">
+<meta property="article:modified_time" content="2020-06-24T02:11:32.827Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -468,14 +468,14 @@ docker container rm -f $(docker container ls -q)<span aria-hidden="true" class="
 </tr>
 </tbody></table>
 <h2 id="资源控制在容器中的实际位置"><a href="#资源控制在容器中的实际位置" class="headerlink" title="资源控制在容器中的实际位置"></a>资源控制在容器中的实际位置</h2><pre class="line-numbers language-shell"><code class="language-shell">ll /sys/fs/cgroup/"资源名"/docker/"容器ID"/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="Docker核心组件之间关系"><a href="#Docker核心组件之间关系" class="headerlink" title="Docker核心组件之间关系"></a>Docker核心组件之间关系</h1><p>我们使用docker client运行一个容器，其实容器运行时底层是需要依赖一系列的组件的。主要有docker client、docker daemon、containerd、container-shim、runC。</p>
+<h1 id="Docker核心组件之间关系"><a href="#Docker核心组件之间关系" class="headerlink" title="Docker核心组件之间关系"></a>Docker核心组件之间关系</h1><p>我们使用docker client运行一个容器，其实容器运行时底层是需要依赖一系列组件的，我们完全可以通过调用这些组件去启动一个容器，而不使用docker引擎的方式去启动。主要的组件有docker client、docker daemon、containerd、container-shim、runC。</p>
 <h2 id="docker-client"><a href="#docker-client" class="headerlink" title="docker client"></a>docker client</h2><p>docker客户端程序，负责发送用户的请求给docker daemon。</p>
 <h2 id="docker-daemon"><a href="#docker-daemon" class="headerlink" title="docker daemon"></a>docker daemon</h2><p>docker daemon守护进程，也称docker engine，负责处理docker client的请求，并返回处理结果。</p>
 <h2 id="containerd"><a href="#containerd" class="headerlink" title="containerd"></a>containerd</h2><p>containerd是一个工业级标准的容器运行时，它强调简单性、健壮性和可移植性。Containerd可以在宿主机中管理完整的容器生命周期:容器镜像的传输和存储、容器的执行和管理、存储和网络等。为docker daemon提供接口去管理容器，docker对容器的管理和操作基本都是通过containerd完成的。但是要注意的是:containerd被设计成嵌入到一个更大的系统中，而不是直接由开发人员或终端用户使用。</p>
 <h2 id="container-shim"><a href="#container-shim" class="headerlink" title="container-shim"></a>container-shim</h2><p>container-shim是containerd的组件，是容器的运行时载体，我们在docker宿主机上看到的shim也正是代表着一个个通过调用containerd启动的docker容器。</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ps axf | grep docker -A 1
 10191 ?        Sl     0:01  \_ containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/4dffa5d5861899400770d6470618e4e051c5f1bf0c53034999b13821fc3fe93f -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
- 10208 ?        Ss     0:00      \_ nginx: master process nginx -g daemon off;
+10208 ?        Ss     0:00      \_ nginx: master process nginx -g daemon off;
 --
 4215 ?        Ssl    2:06 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="runC"><a href="#runC" class="headerlink" title="runC"></a>runC</h2><p>RunC 是一个轻量级的工具，它是用来运行容器的。我们可以认为它就是个命令行小工具，可以不用通过 docker 引擎，直接运行容器。事实上runC 是标准化的产物，它根据 OCI 标准来创建和运行容器。而 <a href="https://www.opencontainers.org/" target="_blank" rel="noopener">OCI(Open Container Initiative)</a>组织，旨在围绕容器格式和运行时制定一个开放的工业化标准。</p>
@@ -487,7 +487,7 @@ docker container rm -f $(docker container ls -q)<span aria-hidden="true" class="
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-19T06:05:05.312Z" itemprop="dateUpdated">2020-06-19 14:05:05</time>
+    最后更新时间：<time datetime="2020-06-24T02:11:32.827Z" itemprop="dateUpdated">2020-06-24 10:11:32</time>
 </span><br>
 
 
