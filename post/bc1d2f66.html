@@ -36,7 +36,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ef9619814195aa5940901bf.jpg">
 <meta property="article:published_time" content="2020-06-23T01:49:44.000Z">
-<meta property="article:modified_time" content="2020-06-30T05:44:55.023Z">
+<meta property="article:modified_time" content="2020-06-30T07:50:26.333Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -442,9 +442,7 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 -A DOCKER -d 172.17.0.2/32 ! -i docker0 -o docker0 -p tcp -m tcp --dport 80 -j ACCEPT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这两条规则将访问宿主机的80端口的流量转发到了172.17.0.2的80端口上(即真正提供服务的docker容器的IP+端口)，所以外界访问docker容器是通过iptables做DNAT(目的地址转换)实现的</p>
 <h1 id="etcd和flannel实现docker跨主机通信"><a href="#etcd和flannel实现docker跨主机通信" class="headerlink" title="etcd和flannel实现docker跨主机通信"></a>etcd和flannel实现docker跨主机通信</h1><p>flannel是一种基于overlay网络的跨主机容器网络解决方案，也就是将TCP数据包封装在另一种网络包里面进行路由转发和通信，flannel是CoreOS团队针对Kubernetes设计的一个网络规划服务，让集群中的不同节点主机创建的容器都具有全集群唯一的虚拟ip地址，flannel使用go语言编写。</p>
-<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>flannel为每个host分配一个subnet，容器从这个subnet中分配ip，这些ip可以在host间路由，容器间无需使用nat和端口映射即可实现跨主机通信</p>
-<p>每个subnet都是从一个更大的ip池中划分的，flannel会在每个主机上运行一个叫flanneld的agent，其职责就是从池子中分配subnet</p>
-<p>etcd相当于一个数据库，flannel使用etcd存放网络配置、已分配的subnet、host的IP等信息</p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>flannel为每个host分配一个subnet，容器从这个subnet中分配ip，这些ip可以在host间路由，容器间无需使用nat和端口映射即可实现跨主机通信。每个subnet都是从一个更大的ip池中划分的，flannel会在每个主机上运行一个叫flanneld的agent，其职责就是从池子中分配subnet。etcd相当于一个数据库，flannel使用etcd存放网络配置、已分配的subnet、host的IP等信息</p>
 <h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><table>
 <thead>
 <tr>
@@ -460,14 +458,14 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 <td>etcd、flannel、docker</td>
 <td>CentOS7.7.1908</td>
 <td>3.10.0-1062.el7.x86_64</td>
-<td>Docker version 19.03.12</td>
+<td>19.03.12</td>
 </tr>
 <tr>
 <td>10.10.110.151(slave)</td>
 <td>flannel、docker</td>
 <td>CentOS7.7.1908</td>
 <td>3.10.0-1062.el7.x86_64</td>
-<td>Docker version 19.03.12</td>
+<td>19.03.12</td>
 </tr>
 </tbody></table>
 <h2 id="master节点配置"><a href="#master节点配置" class="headerlink" title="master节点配置"></a>master节点配置</h2><h3 id="安装配置etcd"><a href="#安装配置etcd" class="headerlink" title="安装配置etcd"></a>安装配置etcd</h3><pre class="line-numbers language-shell"><code class="language-shell">yum install -y etcd        # 安装etcd,由于不配置etcd集群,所以只在10.10.110.150节点安装etcd就行了
@@ -592,7 +590,7 @@ PING 172.17.98.2 (172.17.98.2): 56 data bytes
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-30T05:44:55.023Z" itemprop="dateUpdated">2020-06-30 13:44:55</time>
+    最后更新时间：<time datetime="2020-06-30T07:50:26.333Z" itemprop="dateUpdated">2020-06-30 15:50:26</time>
 </span><br>
 
 
