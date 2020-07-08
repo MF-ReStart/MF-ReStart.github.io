@@ -20,22 +20,22 @@
     
     
     
-    <title>Docker容器数据持久化(4) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <title>Docker企业级镜像仓库Harbor(7) | 荒原饮露 | 青春不是隔岸观火啊</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Docker,容器技术,云计算">
-    <meta name="description" content="容器数据持久化的三种方式由于容器的镜像分层机制，我们在容器里面创建文件或者修改文件，结果都会保存在容器的可读写层中，一旦容器被销毁，那么这个读写层也会随着容器销毁而消失。而且当一个容器需要和其他容器的读写层进行数据交互时，也会显得非常困难。于是在将容器数据持久化到宿主机方面，docker为我们提供了三种持久化的方式。 volumesvolumes由docker负责创建、管理。用户可以显式的调用命令">
+    <meta name="description" content="Harbor 概述Harbor是由VMWare公司开源的容器镜像仓库。事实上，Harbor是在Docker Registry上进行了相应的企业级扩展，从而获得了更加广泛的应用，这些新的企业级特性包括：管理用户界面，基于角色的访问控制 ，AD&#x2F;LDAP集成以及审计日志等，足以满足基本企业需求。 Harbor 官网 Harbor GitHub 地址 Harbor 部署条件服务器硬件配置最低要求:CPU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker容器数据持久化(4)">
-<meta property="og:url" content="https://www.missf.top/post/a7b8d397.html">
+<meta property="og:title" content="Docker企业级镜像仓库Harbor(7)">
+<meta property="og:url" content="https://www.missf.top/post/d46af348.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="容器数据持久化的三种方式由于容器的镜像分层机制，我们在容器里面创建文件或者修改文件，结果都会保存在容器的可读写层中，一旦容器被销毁，那么这个读写层也会随着容器销毁而消失。而且当一个容器需要和其他容器的读写层进行数据交互时，也会显得非常困难。于是在将容器数据持久化到宿主机方面，docker为我们提供了三种持久化的方式。 volumesvolumes由docker负责创建、管理。用户可以显式的调用命令">
+<meta property="og:description" content="Harbor 概述Harbor是由VMWare公司开源的容器镜像仓库。事实上，Harbor是在Docker Registry上进行了相应的企业级扩展，从而获得了更加广泛的应用，这些新的企业级特性包括：管理用户界面，基于角色的访问控制 ，AD&#x2F;LDAP集成以及审计日志等，足以满足基本企业需求。 Harbor 官网 Harbor GitHub 地址 Harbor 部署条件服务器硬件配置最低要求:CPU">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-19T02:14:10.000Z">
-<meta property="article:modified_time" content="2020-07-08T03:57:13.634Z">
+<meta property="article:published_time" content="2020-07-08T05:33:50.000Z">
+<meta property="article:modified_time" content="2020-07-08T09:13:21.816Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -122,7 +122,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Docker容器数据持久化(4)</div>
+        <div class="flex-col header-title ellipsis">Docker企业级镜像仓库Harbor(7)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -140,11 +140,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Docker容器数据持久化(4)</h1>
+        <h1 class="title">Docker企业级镜像仓库Harbor(7)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-06-19T02:14:10.000Z" itemprop="datePublished" class="page-time">
-  2020-06-19
+                <time datetime="2020-07-08T05:33:50.000Z" itemprop="datePublished" class="page-time">
+  2020-07-08
 </time>
 
 
@@ -165,18 +165,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器数据持久化的三种方式"><span class="post-toc-number">1.</span> <span class="post-toc-text">容器数据持久化的三种方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#volumes"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">volumes</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bind-mounts"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">bind mounts</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tmpfs"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">tmpfs</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#volumes-和-bind-mounts-的使用场景和区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">volumes 和 bind mounts 的使用场景和区别</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Harbor-概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">Harbor 概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Harbor-部署条件"><span class="post-toc-number">2.</span> <span class="post-toc-text">Harbor 部署条件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务器硬件配置"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">服务器硬件配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#软件"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">软件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装方式"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">安装方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker-compose安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">docker-compose安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载二进制文件"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">下载二进制文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置二进制文件"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">配置二进制文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#harbor-HTTP部署"><span class="post-toc-number">4.</span> <span class="post-toc-text">harbor HTTP部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载Harbor安装包"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">下载Harbor安装包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解压安装包"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">解压安装包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改配置文件"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">修改配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部署Harbor"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">部署Harbor</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Docker容器数据持久化(4)"
+<article id="post-Dockerfile企业级镜像仓库Harbor(7)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Docker容器数据持久化(4)</h1>
+        <h1 class="post-card-title">Docker企业级镜像仓库Harbor(7)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-06-19 10:14:10" datetime="2020-06-19T02:14:10.000Z"  itemprop="datePublished">2020-06-19</time>
+            <time class="post-time" title="2020-07-08 13:33:50" datetime="2020-07-08T05:33:50.000Z"  itemprop="datePublished">2020-07-08</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
@@ -191,63 +191,25 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="容器数据持久化的三种方式"><a href="#容器数据持久化的三种方式" class="headerlink" title="容器数据持久化的三种方式"></a>容器数据持久化的三种方式</h1><p>由于容器的镜像分层机制，我们在容器里面创建文件或者修改文件，结果都会保存在容器的可读写层中，一旦容器被销毁，那么这个读写层也会随着容器销毁而消失。而且当一个容器需要和其他容器的读写层进行数据交互时，也会显得非常困难。于是在将容器数据持久化到宿主机方面，docker为我们提供了三种持久化的方式。</p>
-<h2 id="volumes"><a href="#volumes" class="headerlink" title="volumes"></a>volumes</h2><p>volumes由docker负责创建、管理。用户可以显式的调用命令docker volume create创建volume，也可以通过container、service的启动隐式创建。</p>
-<p>docker创建的volumes本质上还是宿主机文件系统中的一个目录，一个volumes可以供多个容器使用，即使没有容器使用此volumes，它也不会自动删除，除非用户明确删除它</p>
-<p>如果用户显式创建volumes则需要给它一个名称，如果是隐式创建volumes则docker会为它分配一个在宿主机范围内唯一的名字</p>
-<p>通过使用第三方提供的volume driver，用户可以将数据持久到远程主机或者云存储中，也就是说存储空间可以不由宿主机提供。</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 创建volumes
-docker volume create nginx_volumes
+            <h1 id="Harbor-概述"><a href="#Harbor-概述" class="headerlink" title="Harbor 概述"></a>Harbor 概述</h1><p>Harbor是由VMWare公司开源的容器镜像仓库。事实上，Harbor是在Docker Registry上进行了相应的企业级扩展，从而获得了更加广泛的应用，这些新的企业级特性包括：管理用户界面，基于角色的访问控制 ，AD/LDAP集成以及审计日志等，足以满足基本企业需求。</p>
+<p><a href="https://goharbor.io/" target="_blank" rel="noopener">Harbor 官网</a></p>
+<p><a href="https://github.com/goharbor/harbor/releases" target="_blank" rel="noopener">Harbor GitHub 地址</a></p>
+<h1 id="Harbor-部署条件"><a href="#Harbor-部署条件" class="headerlink" title="Harbor 部署条件"></a>Harbor 部署条件</h1><h2 id="服务器硬件配置"><a href="#服务器硬件配置" class="headerlink" title="服务器硬件配置"></a>服务器硬件配置</h2><p>最低要求:CPU2核/内存4G/硬盘40GB</p>
+<p>推荐:CPU4核/内存8G/硬盘160GB</p>
+<h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><p>Docker 17.06版本+ </p>
+<p>Docker Compose 1.18版本+</p>
+<h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><p>在线安装:从Docker Hub下载Harbor相关镜像，因此安装软件包非常小 </p>
+<p>离线安装:安装包包含部署的相关镜像，因此安装包比较大</p>
+<h1 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker-compose安装"></a>docker-compose安装</h1><h2 id="下载二进制文件"><a href="#下载二进制文件" class="headerlink" title="下载二进制文件"></a>下载二进制文件</h2><pre><code>https://github.com/docker/compose/releases    # docker-compose下载地址
+# 下载docker-compose-Linux-x86_64这个二进制文件</code></pre><h2 id="配置二进制文件"><a href="#配置二进制文件" class="headerlink" title="配置二进制文件"></a>配置二进制文件</h2><pre><code>mv docker-compose-Linux-x86_64 /usr/bin/docker-compose
+chmod +x /usr/bin/docker-compose
+docker-compose --help  # 安装完成</code></pre><h1 id="harbor-HTTP部署"><a href="#harbor-HTTP部署" class="headerlink" title="harbor HTTP部署"></a>harbor HTTP部署</h1><h2 id="下载Harbor安装包"><a href="#下载Harbor安装包" class="headerlink" title="下载Harbor安装包"></a>下载Harbor安装包</h2><pre><code>wget https://github.com/goharbor/harbor/releases/download/v2.0.1/harbor-offline-installer-v2.0.1.tgz</code></pre><h2 id="解压安装包"><a href="#解压安装包" class="headerlink" title="解压安装包"></a>解压安装包</h2><pre><code>tar xf harbor-offline-installer-v2.0.1.tgz</code></pre><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><pre><code>cp harbor.yml.tmpl harbor.yml
 
-# 查看volumes
-docker volume ls
-
-# 查看卷详细信息
-docker volume inspect nginx_volumes 
-[
-    {
-        "CreatedAt": "2020-06-19T18:47:49+08:00",
-        "Driver": "local",
-        "Labels": {},
-        "Mountpoint": "/var/lib/docker/volumes/nginx_volumes/_data",    # 这是volumes在宿主机上的真实路径
-        "Name": "nginx_volumes",
-        "Options": {},
-        "Scope": "local"
-    }
-]
-
-# 清理volumes
-docker volume rm nginx_volumes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>将nginx容器的html目录映射到宿主机的nginx_volumes目录</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 创建数据持久化的容器,如果卷不存在则自动创建
-docker container run -itd --name "nginx1" -p 80:80 -v nginx_volumes:/usr/share/nginx/html nginx:1.17    # -v方式
-docker container run -itd --name "nginx1" -p 80:80 --mount src=nginx_volumes,dst=/usr/share/nginx/html nginx:1.17 # --mount方式
-
-# 查看nginx_volumes在宿主机的真实目录
-ll /var/lib/docker/volumes/nginx_volumes/_data
-total 8
--rw-r--r-- 1 root root 494 Apr 14 22:19 50x.html    # 这时候nginx容器内部的文件已经被映射到宿主机上了
--rw-r--r-- 1 root root 612 Apr 14 22:19 index.html
-
-# 修改宿主机上的index.html文件
-echo "<title>nginx_volumes test </title>" > /var/lib/docker/volumes/nginx_volumes/_data/index.html
-
-# 访问宿主机的80端口(前面启动容器时将容器的80端口绑定到宿主机的80端了)
-curl 10.10.110.150
-<title>nginx_volumes test </title>    # nginx容器内的文件确实被修改成功<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="bind-mounts"><a href="#bind-mounts" class="headerlink" title="bind mounts"></a>bind mounts</h2><p>bind mounts本质上是容器共享宿主机文件系统，比如docker将宿主机的/etc/resov.conf文件bind mount到容器里，两者会使用相同的dns服务器。</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 创建容器,将宿主机的/nginx/app绑定到容器的/usr/share/nginx/html目录 
-docker container run -itd --name "nginx1" --mount type=bind,src=/nginx/app,dst=/usr/share/nginx/html nginx:1.17
-docker container run -itd --name "nginx1" -v /nginx/app:/usr/share/nginx/html nginx:1.17
-# 查看宿主机和容器的目录
-ls /nginx/app
-docker exec -it nginx1 ls /usr/share/nginx/html        
-# 两个目录都为空,这是因为bind mounts是将宿主机的目录绑定到容器的目录,容器目录已有的内容会被隐藏(bind mounts以宿主机目录为主)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><code>注意: 如果源文件或源目录不存在，则不会自动创建。如果容器目录为非空目录，则容器目录现有内容会被宿主机目录内容所隐藏。</code></p>
-<h2 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h2><p>出于安全原因，或者容器性能优化的原因有时候不需要容器的数据长久保存时可以使用这种方式。将容器数据挂载存储在宿主机的内存中，避免写入容器可写层，提高容器性能。</p>
-<h1 id="volumes-和-bind-mounts-的使用场景和区别"><a href="#volumes-和-bind-mounts-的使用场景和区别" class="headerlink" title="volumes 和 bind mounts 的使用场景和区别"></a>volumes 和 bind mounts 的使用场景和区别</h1><p>volumes适合多个容器需要共享数据、将数据保存到远程主机或云上等场景。bind mounts适合将宿主机的系统配置文件共享给容器。volumes是将容器内部的数据映射到宿主机对应的volumes目录，如果容器内部是一个非空目录，volumes目录也是一个非空目录，那么两个目录的文件会合并。而bind mounts是将宿主机上任意位置的目录或文件挂载到容器中，如果宿主机的目录非空，那么容器目录的数据将会被宿主机目录的数据隐藏，容器内的数据要卸除挂载后才会恢复。</p>
-<p>Bind mounts和volumes都可以通过使用标志-v或–volume来挂载到容器中，只是格式有些许不同。然而，在Docker17.06及其以上版本中，我们推荐使用–mount来对容器或服务进行这三种方式的挂载，因为这种格式更加清晰。</p>
-
+vim harbor.yml
+hostname: reg.missf.com        # 修改Harbor默认域名
+https:     # 先注释https相关配置
+harbor_admin_password: MF-yihan        # 修改Harbor的密码</code></pre><h2 id="部署Harbor"><a href="#部署Harbor" class="headerlink" title="部署Harbor"></a>部署Harbor</h2><pre><code>./prepare    # 做一系列的准备工作
+./install.sh    # 利用docker-compose拉取一系列的镜像</code></pre>
         </div>
 
         <blockquote class="post-copyright">
@@ -255,7 +217,7 @@ docker exec -it nginx1 ls /usr/share/nginx/html
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-08T03:57:13.634Z" itemprop="dateUpdated">2020-07-08 11:57:13</time>
+    最后更新时间：<time datetime="2020-07-08T09:13:21.816Z" itemprop="dateUpdated">2020-07-08 17:13:21</time>
 </span><br>
 
 
@@ -291,21 +253,14 @@ docker exec -it nginx1 ls /usr/share/nginx/html
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/post/de181bd8.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">ansible的lookups插件(14)</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/39a5b294.html" id="post-next" class="post-nav-link">
+      <a href="/post/44241b5a.html" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Docker容器管理(3)</h4>
+        <h4 class="title">Dockerfile定制容器镜像(6)</h4>
       </a>
     </div>
   
@@ -456,7 +411,7 @@ docker exec -it nginx1 ls /usr/share/nginx/html
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                1.2k
+                371
             
         </span>
     </div>
