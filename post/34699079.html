@@ -35,7 +35,7 @@
 <meta property="og:description" content="Docker Compose 概述Compose是用于定义和运行多容器的工具，通过Compose可以使用YAML文件来配置容器。然后使用一个命令就可以从配置中创建并启动所有服务。其实在刚学习Docker时我就想过，如果我是LNMP架构容器化项目，因为每次都要一个个容器的启动，是否有必要将启停多个容器的命令写成一个shell脚本呢。现在学到Docker Compose，才知道根本没有这个必要，我们现">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-10T06:27:09.000Z">
-<meta property="article:modified_time" content="2020-07-10T11:21:44.703Z">
+<meta property="article:modified_time" content="2020-07-13T03:31:56.461Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -165,7 +165,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Docker-Compose-概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">Docker Compose 概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux-安装-Compose"><span class="post-toc-number">2.</span> <span class="post-toc-text">Linux 安装 Compose</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Compose-常用选项与命令"><span class="post-toc-number">3.</span> <span class="post-toc-text">Compose 常用选项与命令</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker-compose-编排"><span class="post-toc-number">4.</span> <span class="post-toc-text">docker-compose 编排</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Docker-Compose-概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">Docker Compose 概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux-安装-Compose"><span class="post-toc-number">2.</span> <span class="post-toc-text">Linux 安装 Compose</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker-compose-yaml配置文件参数"><span class="post-toc-number">3.</span> <span class="post-toc-text">docker-compose.yaml配置文件参数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#build"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">build</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#context"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">context</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dockerfile"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">dockerfile</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#image"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">image</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#command"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">command</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#container-name"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">container_name</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#environment"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">environment</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#networks"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">networks</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ports"><span class="post-toc-number">3.9.</span> <span class="post-toc-text">ports</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#expose"><span class="post-toc-number">3.10.</span> <span class="post-toc-text">expose</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#extra-hosts"><span class="post-toc-number">3.11.</span> <span class="post-toc-text">extra_hosts</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#volumes"><span class="post-toc-number">3.12.</span> <span class="post-toc-text">volumes</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#restart"><span class="post-toc-number">3.13.</span> <span class="post-toc-text">restart</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#hostname"><span class="post-toc-number">3.14.</span> <span class="post-toc-text">hostname</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Compose-常用选项与命令"><span class="post-toc-number">4.</span> <span class="post-toc-text">Compose 常用选项与命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#up"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">up</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#build-1"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">build</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ps"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">ps</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#logs"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">logs</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rm"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">rm</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#scale"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">scale</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#down"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">down</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#start-stop-restart"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">start&#x2F;stop&#x2F;restart</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker-compose编排lnmp容器"><span class="post-toc-number">5.</span> <span class="post-toc-text">docker-compose编排lnmp容器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#docker-compose目录设计"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">docker-compose目录设计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#docker-compose-yaml"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">docker-compose.yaml</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker-compose编排nginx反向代理tomcat集群"><span class="post-toc-number">6.</span> <span class="post-toc-text">docker-compose编排nginx反向代理tomcat集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#docker-compose目录设计-1"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">docker-compose目录设计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#docker-compose-yaml-1"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">docker-compose.yaml</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -199,8 +199,248 @@
 <li>docker-compose启动并管理整个应用程序生命周期</li>
 </ul>
 <h1 id="Linux-安装-Compose"><a href="#Linux-安装-Compose" class="headerlink" title="Linux 安装 Compose"></a>Linux 安装 Compose</h1><p>其实前面我们在学校Harbor时已经安装过docker-compose，这是一个使用python开发的编排工具，下载可能会比较慢(你应该知道怎么做了吧…)</p>
-<pre><code>curl -L &quot;https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)&quot;  -o /usr/bin/docker-compose
-chmod +x /usr/bin/docker-compose</code></pre><h1 id="Compose-常用选项与命令"><a href="#Compose-常用选项与命令" class="headerlink" title="Compose 常用选项与命令"></a>Compose 常用选项与命令</h1><h1 id="docker-compose-编排"><a href="#docker-compose-编排" class="headerlink" title="docker-compose 编排"></a>docker-compose 编排</h1>
+<pre class="line-numbers language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>L "https<span class="token punctuation">:</span>//github.com/docker/compose/releases/download/1.26.0/docker<span class="token punctuation">-</span>compose<span class="token punctuation">-</span>$(uname <span class="token punctuation">-</span>s)<span class="token punctuation">-</span>$(uname <span class="token punctuation">-</span>m)"  <span class="token punctuation">-</span>o /usr/bin/docker<span class="token punctuation">-</span>compose
+chmod +x /usr/bin/docker<span class="token punctuation">-</span>compose<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="docker-compose-yaml配置文件参数"><a href="#docker-compose-yaml配置文件参数" class="headerlink" title="docker-compose.yaml配置文件参数"></a>docker-compose.yaml配置文件参数</h1><h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><p>使用docker-compose启动容器服务除了可以基于指定的镜像，还可以基于一份Dockerfile，在使用up启动时执行构建镜像的任务，这个构建标签就是build。Compose将会利用它自动构建这个镜像，然后使用这个镜像启动服务容器。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">version<span class="token punctuation">:</span><span class="token string">"3.7"</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web</span><span class="token punctuation">:</span>
+    context<span class="token punctuation">:</span>./web
+    dockerfile<span class="token punctuation">:</span>Dockerfile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="context"><a href="#context" class="headerlink" title="context"></a>context</h2><p>context选项可以是Dockerfile的文件路径，也可以是到链接到git仓库的url。当提供的值是相对路径时，它被解析为相对于撰写文件的路径，此目录也是发送到Docker守护进程的context</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">build</span><span class="token punctuation">:</span>
+  context<span class="token punctuation">:</span>./dir<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="dockerfile"><a href="#dockerfile" class="headerlink" title="dockerfile"></a>dockerfile</h2><p>使用此dockerfile文件来构建，必须使用context指定构建路径</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">build</span><span class="token punctuation">:</span>
+  context<span class="token punctuation">:</span>.    <span class="token comment" spellcheck="true"># 知道dockerfile必须要有构建路径,.表示当前路径</span>
+  dockerfile<span class="token punctuation">:</span>Dockerfile<span class="token punctuation">-</span>alternate<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>指定docker-compose启动容器服务的镜像，可以是存储仓库、标签以及镜像ID，如果镜像不存在，Compose会自动拉去镜像</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">image</span><span class="token punctuation">:</span> redis
+<span class="token key atrule">image</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">:</span><span class="token number">14.04</span>
+<span class="token key atrule">image</span><span class="token punctuation">:</span> tutum/influxdb
+<span class="token key atrule">image</span><span class="token punctuation">:</span> example<span class="token punctuation">-</span>registry.com<span class="token punctuation">:</span>4000/postgresql
+<span class="token key atrule">image</span><span class="token punctuation">:</span> a4bc65fd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><p>覆盖容器启动后默认执行的命令</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">command<span class="token punctuation">:</span>bundle exec thin <span class="token punctuation">-</span>p 3000
+command<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">"bundle"</span><span class="token punctuation">,</span><span class="token string">"exec"</span><span class="token punctuation">,</span><span class="token string">"thin"</span><span class="token punctuation">,</span><span class="token string">"-p"</span><span class="token punctuation">,</span><span class="token string">"3000"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="container-name"><a href="#container-name" class="headerlink" title="container_name"></a>container_name</h2><p>指定容器名称，由于容器名称是唯一的，如果指定自定义名称，则无法使用scale</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">container_name<span class="token punctuation">:</span>my<span class="token punctuation">-</span>web<span class="token punctuation">-</span>container<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h2><p>添加环境变量，可以使用数组或字典。这个标签的作用是设置镜像变量，它可以保存变量到镜像里面，类似ENV指令一样会把变量一直保存在镜像、容器中</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">environment</span><span class="token punctuation">:</span>
+  RACK_ENV<span class="token punctuation">:</span>development
+  SHOW<span class="token punctuation">:</span><span class="token string">'true'</span>
+  <span class="token key atrule">SESSION_SECRET</span><span class="token punctuation">:</span>
+
+<span class="token key atrule">environment</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span>RACK_ENV=development
+  <span class="token punctuation">-</span>SHOW=true
+  <span class="token punctuation">-</span>SESSION_SECRET<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="networks"><a href="#networks" class="headerlink" title="networks"></a>networks</h2><p>加入指定网络</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">networks</span><span class="token punctuation">:</span> 
+  <span class="token punctuation">-</span> lnmp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="ports"><a href="#ports" class="headerlink" title="ports"></a>ports</h2><p>映射端口</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span><span class="token string">"3000"</span>
+  <span class="token punctuation">-</span><span class="token string">"3000-3005"</span>
+  <span class="token punctuation">-</span><span class="token string">"8000:8000"</span>
+  <span class="token punctuation">-</span><span class="token string">"9090-9091:8080-8081"</span>
+  <span class="token punctuation">-</span><span class="token string">"49100:22"</span>
+  <span class="token punctuation">-</span><span class="token string">"127.0.0.1:8001:8001"</span>
+  <span class="token punctuation">-</span><span class="token string">"127.0.0.1:5000-5010:5000-5010"</span>        <span class="token comment" spellcheck="true"># 指定IP+端口的话只会监听ipv4的地址</span>
+  <span class="token punctuation">-</span><span class="token string">"6060:6060/udp"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="expose"><a href="#expose" class="headerlink" title="expose"></a>expose</h2><p>暴露端口，但不映射到宿主机，只被连接的服务访问。这个标签与Dockerfile中的EXPOSE指令一样，用于指定暴露的端口，实际上docker-compose.yml的端口映射还得ports这样的标签</p>
+<h2 id="extra-hosts"><a href="#extra-hosts" class="headerlink" title="extra_hosts"></a>extra_hosts</h2><p>添加主机名的标签，就是往/etc/hosts文件中添加一些记录，与Docker客户端中的–add-host类似</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">extra_hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span><span class="token string">"www.missf.top:124.156.205.241"</span>
+  <span class="token punctuation">-</span><span class="token string">"mf_missf.gitee.io:212.64.62.174"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="volumes"><a href="#volumes" class="headerlink" title="volumes"></a>volumes</h2><p>挂载一个目录或者一个已存在的数据卷容器</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
+  <span class="token punctuation">-</span> /opt/data<span class="token punctuation">:</span>/var/lib/mysql        <span class="token comment" spellcheck="true"># 挂载宿主机的/opt/data目录到容器的/var/lib/mysql</span>
+  <span class="token punctuation">-</span> datavolume<span class="token punctuation">:</span>/var/lib/mysq    <span class="token comment" spellcheck="true"># 将容器的/var/lib/mysq挂载到datavolume数据卷</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="restart"><a href="#restart" class="headerlink" title="restart"></a>restart</h2><p>默认值为 no ，即在任何情况下都不会重新启动容器。当值为 always 时，容器总是重新启动。当值为on-failure时，当出现on-failure报错容器退出时，容器重新启动。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">restart</span><span class="token punctuation">:</span> <span class="token string">"no"</span>
+<span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+<span class="token key atrule">restart</span><span class="token punctuation">:</span> on<span class="token punctuation">-</span>failure
+<span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<span class="token punctuation">-</span>stopped<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h2><p>定义容器主机名</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">hostname</span><span class="token punctuation">:</span> foo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="Compose-常用选项与命令"><a href="#Compose-常用选项与命令" class="headerlink" title="Compose 常用选项与命令"></a>Compose 常用选项与命令</h1><h2 id="up"><a href="#up" class="headerlink" title="up"></a>up</h2><p>该命令十分强大，它将尝试自动完成包括构建镜像，创建服务，启动服务，并关联服务相关容器的一系列操作</p>
+<p>up选项如下:</p>
+<ul>
+<li>-d: 在后台运行服务容器</li>
+<li>–force-recreate: 强制重新创建容器，不能与–no-recreate同时使用</li>
+<li>–no-recreate: 如果容器已经存在了，则不重新创建，不能与–force-recreate同时使用</li>
+<li>-no-build: 不自动构建缺失的服务镜像</li>
+<li>–no-deps: 不启动服务所链接的容器</li>
+</ul>
+<h2 id="build-1"><a href="#build-1" class="headerlink" title="build"></a>build</h2><p>可以随时在项目目录下运行docker-compose build来重新构建服务</p>
+<p>build选项如下:</p>
+<ul>
+<li>–force-rm: 删除构建过程中的临时容器</li>
+<li>–no-cache: 构建镜像过程中不使用cache(这将加长构建过程)</li>
+<li>–pull: 始终尝试通过pull来获取更新版本的镜像</li>
+</ul>
+<h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><p>列出项目中目前的所有容器</p>
+<p>ps选项如下:</p>
+<ul>
+<li>-q: 只打印容器的ID信息</li>
+</ul>
+<h2 id="logs"><a href="#logs" class="headerlink" title="logs"></a>logs</h2><p>查看服务容器的输出，默认情况下，docker-compose将对不同的服务输出使用不同的颜色来区分</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker-compose logs [选项]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h2><p>删除所有(停止状态的)服务容器，推荐先执行docker-compose stop命令来停止容器</p>
+<p>rm选项如下:</p>
+<ul>
+<li>-f/–force: 强制直接删除，包括非停止状态的容器。一般尽量不要使用该选项</li>
+<li>-v: 删除容器所挂载的数据卷</li>
+</ul>
+<h2 id="scale"><a href="#scale" class="headerlink" title="scale"></a>scale</h2><p>设置指定服务运行的容器个数</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker-compose scale web=3 db=2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="down"><a href="#down" class="headerlink" title="down"></a>down</h2><p>删除容器、网络</p>
+<h2 id="start-stop-restart"><a href="#start-stop-restart" class="headerlink" title="start/stop/restart"></a>start/stop/restart</h2><p>启动/停止/重启服务</p>
+<h1 id="docker-compose编排lnmp容器"><a href="#docker-compose编排lnmp容器" class="headerlink" title="docker-compose编排lnmp容器"></a>docker-compose编排lnmp容器</h1><h2 id="docker-compose目录设计"><a href="#docker-compose目录设计" class="headerlink" title="docker-compose目录设计"></a>docker-compose目录设计</h2><pre class="line-numbers language-shell"><code class="language-shell">tree /docker-compose_lnmp/
+/docker-compose_lnmp/
+├── docker-compose.yaml
+├── mysql
+│   └── start
+├── nginx
+│   ├── Dockerfile
+│   ├── nginx-1.16.1.tar.gz
+│   ├── nginx.conf
+│   ├── php.conf
+│   └── start
+└── php
+    ├── Dockerfile
+    ├── php-7.4.0.tar.gz
+    ├── php-fpm.conf
+    ├── php.ini
+    ├── start
+    └── www.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">php</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> php
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./php
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmp"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"nginx:/usr/local/nginx/html"</span>
+
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./nginx
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"80:80"</span>
+      <span class="token punctuation">-</span> <span class="token string">"443:443"</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmp"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"nginx:/usr/local/nginx/html/"</span>
+
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> mysql
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">5.7</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"53306:3306"</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmp"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"mysql:/var/lib/mysql/"</span>
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>character<span class="token punctuation">-</span>set<span class="token punctuation">-</span>server=utf8mb4
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> mwj123456
+      <span class="token key atrule">MYSQL_DATABASE</span><span class="token punctuation">:</span> wordpress
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">lnmp</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>        <span class="token comment" spellcheck="true"># 把php代码放到这个数据卷的目录下</span>
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="docker-compose编排nginx反向代理tomcat集群"><a href="#docker-compose编排nginx反向代理tomcat集群" class="headerlink" title="docker-compose编排nginx反向代理tomcat集群"></a>docker-compose编排nginx反向代理tomcat集群</h1><h2 id="docker-compose目录设计-1"><a href="#docker-compose目录设计-1" class="headerlink" title="docker-compose目录设计"></a>docker-compose目录设计</h2><pre class="line-numbers language-shell"><code class="language-shell">tree /docker-compose_lnmt/
+/docker-compose_lnmt/
+├── docker-compose.yaml
+├── nginx
+│   ├── Dockerfile
+│   ├── nginx-1.16.1.tar.gz
+│   ├── nginx.conf
+│   ├── start
+│   └── tomcat.conf
+└── tomcat
+    ├── apache-tomcat-8.5.57.tar.gz
+    ├── Dockerfile
+    ├── jdk-8u211-linux-x64.tar.gz
+    └── start<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="docker-compose-yaml-1"><a href="#docker-compose-yaml-1" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h2><pre class="line-numbers language-yaml"><code class="language-yaml">cat docker<span class="token punctuation">-</span>compose.yaml 
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./nginx
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"80:80"</span>
+      <span class="token punctuation">-</span> <span class="token string">"443:443"</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmt"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"webapps:/usr/local/tomcat/webapps/"</span>
+
+  <span class="token key atrule">tomcat1</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> tomcat1
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./tomcat
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmt"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"webapps:/usr/local/tomcat/webapps/"</span>
+
+  <span class="token key atrule">tomcat2</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> tomcat2
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./tomcat
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmt"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"webapps:/usr/local/tomcat/webapps/"</span>
+
+  <span class="token key atrule">tomcat3</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> tomcat3
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> ./tomcat
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmt"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"webapps:/usr/local/tomcat/webapps/"</span>
+
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> mysql
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">5.7</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"53306:3306"</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"lnmt"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"mysql:/var/lib/mysql/"</span>
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>character<span class="token punctuation">-</span>set<span class="token punctuation">-</span>server=utf8mb4
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> mwj123456
+      <span class="token key atrule">MYSQL_DATABASE</span><span class="token punctuation">:</span> test
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">webapps</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>    <span class="token comment" spellcheck="true"># 把war包放到这个数据卷的目录下,就会自动解压</span>
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">lnmt</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -208,7 +448,7 @@ chmod +x /usr/bin/docker-compose</code></pre><h1 id="Compose-常用选项与命�
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-10T11:21:44.703Z" itemprop="dateUpdated">2020-07-10 19:21:44</time>
+    最后更新时间：<time datetime="2020-07-13T03:31:56.461Z" itemprop="dateUpdated">2020-07-13 11:31:56</time>
 </span><br>
 
 
@@ -402,7 +642,7 @@ chmod +x /usr/bin/docker-compose</code></pre><h1 id="Compose-常用选项与命�
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                335
+                1.8k
             
         </span>
     </div>
