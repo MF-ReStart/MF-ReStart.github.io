@@ -36,7 +36,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ef9619814195aa5940901bf.jpg">
 <meta property="article:published_time" content="2020-06-23T01:49:44.000Z">
-<meta property="article:modified_time" content="2020-07-08T06:57:21.804Z">
+<meta property="article:modified_time" content="2020-07-14T01:20:15.112Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -167,7 +167,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器的四种网络模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">容器的四种网络模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bridge-模式"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">bridge 模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#host模式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">host模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#none模式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">none模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#container模式"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">container模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器虚拟网卡和docker0网桥的veth-pair配对"><span class="post-toc-number">2.</span> <span class="post-toc-text">容器虚拟网卡和docker0网桥的veth pair配对</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器网络访问原理图"><span class="post-toc-number">3.</span> <span class="post-toc-text">容器网络访问原理图</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器网络实现的核心技术-iptables"><span class="post-toc-number">4.</span> <span class="post-toc-text">容器网络实现的核心技术: iptables</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源IP地址变换规则"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">源IP地址变换规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目标IP地址变换规则"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">目标IP地址变换规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#etcd-和-flannel-实现-docker-跨主机通信"><span class="post-toc-number">5.</span> <span class="post-toc-text">etcd 和 flannel 实现 docker 跨主机通信</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现原理"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">实现原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验环境"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">实验环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#master节点配置"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">master节点配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装配置etcd"><span class="post-toc-number">5.3.1.</span> <span class="post-toc-text">安装配置etcd</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装配置flannel"><span class="post-toc-number">5.3.2.</span> <span class="post-toc-text">安装配置flannel</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#slave节点配置"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">slave节点配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装配置flannel-1"><span class="post-toc-number">5.4.1.</span> <span class="post-toc-text">安装配置flannel</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置docker使用flannel的网络"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">配置docker使用flannel的网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#master节点"><span class="post-toc-number">5.5.1.</span> <span class="post-toc-text">master节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#slave节点配置-1"><span class="post-toc-number">5.5.2.</span> <span class="post-toc-text">slave节点配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看宿主机的IP变化"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">查看宿主机的IP变化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#master节点-1"><span class="post-toc-number">5.6.1.</span> <span class="post-toc-text">master节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#slave节点"><span class="post-toc-number">5.6.2.</span> <span class="post-toc-text">slave节点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在两个节点创建容器相互ping验证"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">在两个节点创建容器相互ping验证</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#master节点-2"><span class="post-toc-number">5.7.1.</span> <span class="post-toc-text">master节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#slave节点-1"><span class="post-toc-number">5.7.2.</span> <span class="post-toc-text">slave节点</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器的四种网络模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">容器的四种网络模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bridge-模式"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">bridge 模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#host模式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">host模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#none模式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">none模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#container模式"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">container模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器虚拟网卡和docker0网桥的veth-pair配对"><span class="post-toc-number">2.</span> <span class="post-toc-text">容器虚拟网卡和docker0网桥的veth pair配对</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器网络访问原理图"><span class="post-toc-number">3.</span> <span class="post-toc-text">容器网络访问原理图</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#容器网络实现的核心技术-iptables"><span class="post-toc-number">4.</span> <span class="post-toc-text">容器网络实现的核心技术: iptables</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源IP地址变换规则"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">源IP地址变换规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目标IP地址变换规则"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">目标IP地址变换规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#etcd-和-flannel-实现-docker-跨主机通信"><span class="post-toc-number">5.</span> <span class="post-toc-text">etcd 和 flannel 实现 docker 跨主机通信</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现原理"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">实现原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验环境"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">实验环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#master节点配置"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">master节点配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#slave节点配置"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">slave节点配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置docker使用flannel的网络"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">配置docker使用flannel的网络</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看宿主机的IP变化"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">查看宿主机的IP变化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在两个节点创建容器相互ping验证"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">在两个节点创建容器相互ping验证</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -193,7 +193,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="容器的四种网络模式"><a href="#容器的四种网络模式" class="headerlink" title="容器的四种网络模式"></a>容器的四种网络模式</h1><h2 id="bridge-模式"><a href="#bridge-模式" class="headerlink" title="bridge 模式"></a>bridge 模式</h2><p>当启动docker进程之后，docker会默认创建一个名为docker0的虚拟网桥，创建容器时如果不指定网络，默认就是添加到这个网桥中。这样docker主机上的所有容器都可以通过交换机的方式连接在一个二层网络中。创建容器时，docker会先创建容器的虚拟网卡，容器的虚拟网卡去连接docker主机的docker0虚拟网桥，相当于用一根网线将容器和docker主机连接起来。虚拟网卡连接到docker0子网后，由docker0虚拟网桥分配IP给容器的虚拟网卡使用，并设置docker0虚拟网桥的IP地址为容器的默认网关。除了docker启动时默认创建的bridge默认网络，我们还可以自定义bridge网络。相比默认的具备内部DNS发现，bridge网络模式还可以通过容器名去实现容器之间的网络通信。</p>
+            <h1 id="容器的四种网络模式"><a href="#容器的四种网络模式" class="headerlink" title="容器的四种网络模式"></a>容器的四种网络模式</h1><h2 id="bridge-模式"><a href="#bridge-模式" class="headerlink" title="bridge 模式"></a>bridge 模式</h2><p>当启动docker进程之后，docker会默认创建一个名为docker0的虚拟网桥，创建容器时如果不指定网络，默认就是添加到这个网桥中。这样docker主机上的所有容器都可以通过交换机的方式连接在一个二层网络中。创建容器时，docker会先创建容器的虚拟网卡，容器的虚拟网卡去连接docker主机的docker0虚拟网桥，相当于用一根网线将容器和docker主机连接起来。虚拟网卡连接到docker0子网后，由docker0虚拟网桥分配IP给容器的虚拟网卡使用，并设置docker0虚拟网桥的IP地址为容器的默认网关。除了docker启动时默认创建的bridge默认网络，我们还可以自定义bridge网络。相比默认的具备内部DNS发现，bridge网络模式还可以通过容器名去实现容器之间的网络通信</p>
 <p>查看docker宿主机上的docker0虚拟网桥，默认网段是172.17.0.1，安装docker之后默认创建的</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ip a s docker0
 3: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
@@ -298,7 +298,7 @@ ping 98efd7fb3c63    # 如果启动容器时不指定自定义的网桥,那就�
 PING 98efd7fb3c63 (172.18.0.2) 56(84) bytes of data.
 64 bytes from app1.webserver (172.18.0.2): icmp_seq=1 ttl=64 time=0.402 ms
 64 bytes from app1.webserver (172.18.0.2): icmp_seq=2 ttl=64 time=0.100 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="host模式"><a href="#host模式" class="headerlink" title="host模式"></a>host模式</h2><p>如果启动容器时指定host模式，那么这个容器将不会获得一个独立的Network namespace，而是和宿主机共用一个Network namespace。容器不会虚拟出自己的网卡，而是使用宿主机的IP和端口。这种无需NAT转换的网络模式无需再映射容器与宿主机之间的端口，在提高网络传输性能的同时，造成了网络环境隔离性弱化。容器之间不再拥有隔离独立的网络，docker host上已使用的端口就不能再用了。</p>
+<h2 id="host模式"><a href="#host模式" class="headerlink" title="host模式"></a>host模式</h2><p>如果启动容器时指定host模式，那么这个容器将不会获得一个独立的Network namespace，而是和宿主机共用一个Network namespace。容器不会虚拟出自己的网卡，而是使用宿主机的IP和端口。这种无需NAT转换的网络模式无需再映射容器与宿主机之间的端口，在提高网络传输性能的同时，造成了网络环境隔离性弱化。容器之间不再拥有隔离独立的网络，docker host上已使用的端口就不能再用了</p>
 <p>启动一个nginx容器，再查看宿主机上的80端口是否被使用</p>
 <pre class="line-numbers language-shell"><code class="language-shell">docker container run -itd --name "host_nginx" --network=host nginx:1.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>查看宿主机上的80端口是否被nginx容器所使用</p>
@@ -346,7 +346,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 0  bytes 0 (0.0 B)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="none模式"><a href="#none模式" class="headerlink" title="none模式"></a>none模式</h2><p>容器启动时指定none模式是获取独立的Network namespace，但不为容器进行任何网络配置。容器内部只有loopback网络设备不会再有其他的网络资源，将网络创建的责任完全交给用户。作为 Docker 开发者，才能在这基础做其他无限多可能的网络定制开发，这种方式可以实现更加灵活复杂的网络，同时也体现了Docker设计理念的开放。</p>
+<h2 id="none模式"><a href="#none模式" class="headerlink" title="none模式"></a>none模式</h2><p>容器启动时指定none模式是获取独立的Network namespace，但不为容器进行任何网络配置。容器内部只有loopback网络设备不会再有其他的网络资源，将网络创建的责任完全交给用户。作为 Docker 开发者，才能在这基础做其他无限多可能的网络定制开发，这种方式可以实现更加灵活复杂的网络，同时也体现了Docker设计理念的开放</p>
 <p>启动一个none模式的容器</p>
 <pre class="line-numbers language-shell"><code class="language-shell">docker container run -itd --name "none_centos" --network=none centos:7.7.1908<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>进入容器查看网卡设备信息</p>
@@ -361,7 +361,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 0  bytes 0 (0.0 B)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="container模式"><a href="#container模式" class="headerlink" title="container模式"></a>container模式</h2><p>创建新的容器时指定和已存在的容器共享一个Network namespace，这些容器之间共享IP、端口范围等网络配置，容器之间传输效率高。两个容器除了网络资源共享之外，其他资源还是隔离的。虽然多个容器共享网络环境，但是多个容器形成的整体依然与宿主机以及其他容器形成网络隔离。</p>
+<h2 id="container模式"><a href="#container模式" class="headerlink" title="container模式"></a>container模式</h2><p>创建新的容器时指定和已存在的容器共享一个Network namespace，这些容器之间共享IP、端口范围等网络配置，容器之间传输效率高。两个容器除了网络资源共享之外，其他资源还是隔离的。虽然多个容器共享网络环境，但是多个容器形成的整体依然与宿主机以及其他容器形成网络隔离</p>
 <p>启动一个名为server1的容器</p>
 <pre class="line-numbers language-shell"><code class="language-shell">docker container run -itd --name "server1" centos:7.7.1908<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>再启动两个容器，把它们加入到server1这个容器的Network namespace</p>
@@ -395,7 +395,7 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX packets 6234  bytes 344851 (336.7 KiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 # 两个容器的IP、主机名都相同<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="容器虚拟网卡和docker0网桥的veth-pair配对"><a href="#容器虚拟网卡和docker0网桥的veth-pair配对" class="headerlink" title="容器虚拟网卡和docker0网桥的veth pair配对"></a>容器虚拟网卡和docker0网桥的veth pair配对</h1><p>veth是成对出现的虚拟网络设备， 发送到veth一端虚拟设备的请求会从另一端的虚拟设备中发出。创建一个容器的同时会为这个容器创建一对虚拟网卡veth pair，这个成对出现的虚拟网卡veth pair，分别放到宿主机和容器中，宿主机一端桥接到默认的docker0或者自定义的网桥上，容器一端放到新创建容器的Network namespace中，并把名字修改为eth0。虚拟网卡veth pair就像是一根网线，将宿主机的docker0和容器连接起来。</p>
+<h1 id="容器虚拟网卡和docker0网桥的veth-pair配对"><a href="#容器虚拟网卡和docker0网桥的veth-pair配对" class="headerlink" title="容器虚拟网卡和docker0网桥的veth pair配对"></a>容器虚拟网卡和docker0网桥的veth pair配对</h1><p>veth是成对出现的虚拟网络设备， 发送到veth一端虚拟设备的请求会从另一端的虚拟设备中发出。创建一个容器的同时会为这个容器创建一对虚拟网卡veth pair，这个成对出现的虚拟网卡veth pair，分别放到宿主机和容器中，宿主机一端桥接到默认的docker0或者自定义的网桥上，容器一端放到新创建容器的Network namespace中，并把名字修改为eth0。虚拟网卡veth pair就像是一根网线，将宿主机的docker0和容器连接起来</p>
 <pre class="line-numbers language-shell"><code class="language-shell">docker container run -itd --name "server1" centos:7.7.1908    # 创建容器
 
 brctl show docker0    # 查看宿主机上的docker0网桥
@@ -441,8 +441,8 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 -A DOCKER ! -i docker0 -p tcp -m tcp --dport 80 -j DNAT --to-destination 172.17.0.2:80
 -A DOCKER -d 172.17.0.2/32 ! -i docker0 -o docker0 -p tcp -m tcp --dport 80 -j ACCEPT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这两条规则将访问宿主机的80端口的流量转发到了172.17.0.2的80端口上(即真正提供服务的docker容器的IP+端口)，所以外界访问docker容器是通过iptables做DNAT(目的地址转换)实现的</p>
-<h1 id="etcd-和-flannel-实现-docker-跨主机通信"><a href="#etcd-和-flannel-实现-docker-跨主机通信" class="headerlink" title="etcd 和 flannel 实现 docker 跨主机通信"></a>etcd 和 flannel 实现 docker 跨主机通信</h1><p>flannel是一种基于overlay网络的跨主机容器网络解决方案，也就是将TCP数据包封装在另一种网络包里面进行路由转发和通信，flannel是CoreOS团队针对Kubernetes设计的一个网络规划服务，让集群中的不同节点主机创建的容器都具有全集群唯一的虚拟ip地址，flannel使用go语言编写。</p>
-<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>flannel为每个host分配一个subnet，容器从这个subnet中分配ip，这些ip可以在host间路由，容器间无需使用nat和端口映射即可实现跨主机通信。每个subnet都是从一个更大的ip池中划分的，flannel会在每个主机上运行一个叫flanneld的agent，其职责就是从池子中分配subnet。etcd相当于一个数据库，flannel使用etcd存放网络配置、已分配的subnet、host的IP等信息。</p>
+<h1 id="etcd-和-flannel-实现-docker-跨主机通信"><a href="#etcd-和-flannel-实现-docker-跨主机通信" class="headerlink" title="etcd 和 flannel 实现 docker 跨主机通信"></a>etcd 和 flannel 实现 docker 跨主机通信</h1><p>flannel是一种基于overlay网络的跨主机容器网络解决方案，也就是将TCP数据包封装在另一种网络包里面进行路由转发和通信，flannel是CoreOS团队针对Kubernetes设计的一个网络规划服务，让集群中的不同节点主机创建的容器都具有全集群唯一的虚拟ip地址，flannel使用go语言编写</p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>flannel为每个host分配一个subnet，容器从这个subnet中分配ip，这些ip可以在host间路由，容器间无需使用nat和端口映射即可实现跨主机通信。每个subnet都是从一个更大的ip池中划分的，flannel会在每个主机上运行一个叫flanneld的agent，其职责就是从池子中分配subnet。etcd相当于一个数据库，flannel使用etcd存放网络配置、已分配的subnet、host的IP等信息</p>
 <h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><table>
 <thead>
 <tr>
@@ -468,24 +468,28 @@ eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 <td>19.03.12</td>
 </tr>
 </tbody></table>
-<h2 id="master节点配置"><a href="#master节点配置" class="headerlink" title="master节点配置"></a>master节点配置</h2><h3 id="安装配置etcd"><a href="#安装配置etcd" class="headerlink" title="安装配置etcd"></a>安装配置etcd</h3><pre class="line-numbers language-shell"><code class="language-shell">yum install -y etcd        # 安装etcd,由于不配置etcd集群,所以只在10.10.110.150节点安装etcd就行了
+<h2 id="master节点配置"><a href="#master节点配置" class="headerlink" title="master节点配置"></a>master节点配置</h2><p>安装配置etcd</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yum install -y etcd        # 安装etcd,由于不配置etcd集群,所以只在10.10.110.150节点安装etcd就行了
 
 sed -i "s/localhost/10.10.110.150/g" /etc/etcd/etcd.conf    # 修改etcd配置文件
 
 systemctl start etcd.service    # 启动etcd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="安装配置flannel"><a href="#安装配置flannel" class="headerlink" title="安装配置flannel"></a>安装配置flannel</h3><pre class="line-numbers language-shell"><code class="language-shell">yum install -y flannel
+<p>安装配置flannel</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yum install -y flannel
 
 sed -i "s/127.0.0.1/10.10.110.150/g" /etc/sysconfig/flanneld    # flannel连接到etcd,slave连接也是填写master的IP
 
 etcdctl --endpoints="http://10.10.110.150:2379" set /atomic.io/network/config '{ "Network":"172.17.0.0/16", "Backend": {"Type": "vxlan"}} '        # 配置etcd的子网,如果这一步不配置,那么etcd无法启动
 
 systemctl start flanneld.service    # 启动flannel<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="slave节点配置"><a href="#slave节点配置" class="headerlink" title="slave节点配置"></a>slave节点配置</h2><h3 id="安装配置flannel-1"><a href="#安装配置flannel-1" class="headerlink" title="安装配置flannel"></a>安装配置flannel</h3><pre class="line-numbers language-shell"><code class="language-shell">yum install -y flannel
+<h2 id="slave节点配置"><a href="#slave节点配置" class="headerlink" title="slave节点配置"></a>slave节点配置</h2><p>安装配置flannel</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yum install -y flannel
 
 sed -i "s/127.0.0.1/10.10.110.150/g" /etc/sysconfig/flanneld    # 这里是填写master节点的IP,让slave连接到master的etcd,多slave也一样
 
 systemctl start flanneld.service    # 确保slave节点能连接到master节点的etcd,如果不关闭防火墙,那必须打开2379端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="配置docker使用flannel的网络"><a href="#配置docker使用flannel的网络" class="headerlink" title="配置docker使用flannel的网络"></a>配置docker使用flannel的网络</h2><h3 id="master节点"><a href="#master节点" class="headerlink" title="master节点"></a>master节点</h3><pre class="line-numbers language-shell"><code class="language-shell">vim /usr/lib/systemd/system/docker.service
+<h2 id="配置docker使用flannel的网络"><a href="#配置docker使用flannel的网络" class="headerlink" title="配置docker使用flannel的网络"></a>配置docker使用flannel的网络</h2><p>master节点</p>
+<pre class="line-numbers language-shell"><code class="language-shell">vim /usr/lib/systemd/system/docker.service
 
 EnvironmentFile=/run/flannel/docker        # 加载这个文件里面的变量,这个文件记录了flannel分配给master节点的子网信息(slave也会有自己的子网)
 
@@ -498,7 +502,8 @@ systemctl daemon-reload
 systemctl restart flanneld.service    # 这里必须先重启flannel再重启docker,这时候启动容器就会使用flannel去配置容器的网络
 
 systemctl restart docker.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="slave节点配置-1"><a href="#slave节点配置-1" class="headerlink" title="slave节点配置"></a>slave节点配置</h3><pre class="line-numbers language-shell"><code class="language-shell">vim /usr/lib/systemd/system/docker.service
+<p>slave节点配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">vim /usr/lib/systemd/system/docker.service
 
 EnvironmentFile=/run/flannel/docker        # 查看slave节点上这个文件,网段是和master节点不一样的
 
@@ -511,7 +516,7 @@ systemctl daemon-reload
 systemctl restart flanneld.service
 
 systemctl restart docker.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="查看宿主机的IP变化"><a href="#查看宿主机的IP变化" class="headerlink" title="查看宿主机的IP变化"></a>查看宿主机的IP变化</h2><h3 id="master节点-1"><a href="#master节点-1" class="headerlink" title="master节点"></a>master节点</h3><p>docker0虚拟网卡和flannel虚拟网卡已经在同一网段，这时候说明配置成功</p>
+<h2 id="查看宿主机的IP变化"><a href="#查看宿主机的IP变化" class="headerlink" title="查看宿主机的IP变化"></a>查看宿主机的IP变化</h2><p>master节点</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ip a
 3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
     link/ether 02:42:e3:89:96:4e brd ff:ff:ff:ff:ff:ff
@@ -522,8 +527,10 @@ systemctl restart docker.service<span aria-hidden="true" class="line-numbers-row
     inet 172.17.98.0/32 scope global flannel.1
        valid_lft forever preferred_lft forever
     inet6 fe80::6f:faff:fe71:67f7/64 scope link 
-       valid_lft forever preferred_lft forever       <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="slave节点"><a href="#slave节点" class="headerlink" title="slave节点"></a>slave节点</h3><pre class="line-numbers language-shell"><code class="language-shell">ip a
+       valid_lft forever preferred_lft forever    
+# docker0虚拟网卡和flannel虚拟网卡已经在同一网段，这时候说明配置成功<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>slave节点</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ip a
 3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
     link/ether 02:42:f2:30:ba:34 brd ff:ff:ff:ff:ff:ff
     inet 172.17.75.1/24 brd 172.17.75.255 scope global docker0
@@ -534,7 +541,8 @@ systemctl restart docker.service<span aria-hidden="true" class="line-numbers-row
        valid_lft forever preferred_lft forever
     inet6 fe80::f4ae:d1ff:fec0:e1a7/64 scope link 
        valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="在两个节点创建容器相互ping验证"><a href="#在两个节点创建容器相互ping验证" class="headerlink" title="在两个节点创建容器相互ping验证"></a>在两个节点创建容器相互ping验证</h2><h3 id="master节点-2"><a href="#master节点-2" class="headerlink" title="master节点"></a>master节点</h3><pre class="line-numbers language-shell"><code class="language-shell">docker run -it busybox sh
+<h2 id="在两个节点创建容器相互ping验证"><a href="#在两个节点创建容器相互ping验证" class="headerlink" title="在两个节点创建容器相互ping验证"></a>在两个节点创建容器相互ping验证</h2><p>master节点</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -it busybox sh
 / # ifconfig
 eth0      Link encap:Ethernet  HWaddr 02:42:AC:11:62:02  
           inet addr:172.17.98.2  Bcast:172.17.98.255  Mask:255.255.255.0
@@ -557,7 +565,8 @@ PING 172.17.75.2 (172.17.75.2): 56 data bytes
 64 bytes from 172.17.75.2: seq=0 ttl=62 time=0.492 ms
 64 bytes from 172.17.75.2: seq=1 ttl=62 time=0.353 ms
 64 bytes from 172.17.75.2: seq=2 ttl=62 time=0.342 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="slave节点-1"><a href="#slave节点-1" class="headerlink" title="slave节点"></a>slave节点</h3><pre class="line-numbers language-shell"><code class="language-shell">docker run -it busybox sh
+<p>slave节点</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -it busybox sh
 / # ifconfig
 eth0      Link encap:Ethernet  HWaddr 02:42:AC:11:4B:02  
           inet addr:172.17.75.2  Bcast:172.17.75.255  Mask:255.255.255.0
@@ -589,7 +598,7 @@ PING 172.17.98.2 (172.17.98.2): 56 data bytes
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-08T06:57:21.804Z" itemprop="dateUpdated">2020-07-08 14:57:21</time>
+    最后更新时间：<time datetime="2020-07-14T01:20:15.112Z" itemprop="dateUpdated">2020-07-14 09:20:15</time>
 </span><br>
 
 
@@ -628,18 +637,18 @@ PING 172.17.98.2 (172.17.98.2): 56 data bytes
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/44241b5a.html" id="post-prev" class="post-nav-link">
+      <a href="/post/62ac8f71.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Dockerfile定制容器镜像(6)</h4>
+        <h4 class="title">ansible的jinja2模板(16)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/62ac8f71.html" id="post-next" class="post-nav-link">
+      <a href="/post/44241b5a.html" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ansible的jinja2模板(16)</h4>
+        <h4 class="title">Dockerfile定制容器镜像(6)</h4>
       </a>
     </div>
   

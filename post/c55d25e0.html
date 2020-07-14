@@ -36,7 +36,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5eb61cb0c2a9a83be555278f.png">
 <meta property="article:published_time" content="2020-05-07T08:12:59.000Z">
-<meta property="article:modified_time" content="2020-06-15T03:06:19.372Z">
+<meta property="article:modified_time" content="2020-07-14T01:24:20.780Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -196,24 +196,20 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="Ansible介绍"><a href="#Ansible介绍" class="headerlink" title="Ansible介绍"></a>Ansible介绍</h1><p>Ansible 是2012年推出的一种通用自动化工具，ansible也是我接触的第一个自动化运维工具，ansible可以帮助我们完成一些批量任务，或者完成一些经常性的重复工作，在服务器集群场景下，ansible是我们运维的利器，Ansible 在2015年时被Redhat公司收购。Ansible是用Python编写的，它使用SSH在不同的机器上执行命令。Ansible是无代理的，这使得入手更容易。您只需要在相关机器上安装SSH和Python。Ansible使用声明式YAML语言”playbook”将一组主机(“hosts”)映射到定义明确的角色。</p>
+<h1 id="Ansible介绍"><a href="#Ansible介绍" class="headerlink" title="Ansible介绍"></a>Ansible介绍</h1><p>Ansible 是2012年推出的一种通用自动化工具，ansible也是我接触的第一个自动化运维工具，ansible可以帮助我们完成一些批量任务，或者完成一些经常性的重复工作，在服务器集群场景下，ansible是我们运维的利器，Ansible 在2015年时被Redhat公司收购。Ansible是用Python编写的，它使用SSH在不同的机器上执行命令。Ansible是无代理的，这使得入手更容易。您只需要在相关机器上安装SSH和Python。Ansible使用声明式YAML语言”playbook”将一组主机(“hosts”)映射到定义明确的角色</p>
 <p>也许你会说，我写个shell脚本不也一样能实现批量服务器的管理吗？这里我想说的是，ansible支持一些优秀的特性:</p>
-<ul>
-<li>支持幂等性</li>
-<li>No Agent</li>
-<li>支持palybook实现复杂的任务</li>
-<li>使用yaml语言</li>
-</ul>
+<p>支持幂等性</p>
+<p>No Agent</p>
+<p>支持palybook实现复杂的任务</p>
+<p>使用yaml语言</p>
 <p>先来说说什么是<strong>幂等性</strong>，假如我要在目标主机安装Nginx，但是我不确定这个主机是否已经安装了Nginx，当使用ansible完成这个任务时，问题就会变得简单，如果目标主机已经安装Nginx，则ansible不会进行任何操作，如果目标主机未安装Nginx，ansible才会开始工作，ansible是<strong>以导向为结果</strong>的，我们指定一个状态，ansible就会自动判断，把服务器的状态调整为我们指定的状态，我多次执行，结果都是一样的，这就是幂等性。</p>
 <p>使用zabbix监控一百台服务器，这一百台服务器都需要安装zabbix  agent，但是ansible是不需要在管理节点上安装客户端代理程序的，因为它基于ssh工作，只要Control node能通过ssh连接到Managed nodes就能通过ansible管理对应的管理节点了，还有就是ansible的控制节点不用单独启动服务，能直接运行命令。</p>
 <h1 id="Ansible的目标"><a href="#Ansible的目标" class="headerlink" title="Ansible的目标"></a>Ansible的目标</h1><p><strong>实现一切自动化</strong></p>
-<h1 id="Ansible的应用场景"><a href="#Ansible的应用场景" class="headerlink" title="Ansible的应用场景"></a>Ansible的应用场景</h1><ul>
-<li>自动化部署应用</li>
-<li>自动化管理配置</li>
-<li>自动化的持续交付</li>
-<li>自动化的云服务管理</li>
-<li>自动化网络设备管理</li>
-</ul>
+<h1 id="Ansible的应用场景"><a href="#Ansible的应用场景" class="headerlink" title="Ansible的应用场景"></a>Ansible的应用场景</h1><p>自动化部署应用</p>
+<p>自动化管理配置</p>
+<p>自动化的持续交付</p>
+<p>自动化的云服务管理</p>
+<p>自动化网络设备管理</p>
 <h1 id="Ansible的工作原理"><a href="#Ansible的工作原理" class="headerlink" title="Ansible的工作原理"></a>Ansible的工作原理</h1><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -223,18 +219,16 @@
             </figure>
 
 <p>安装ansible到管理节点，定义好主机清单，编写好palybook，就能运行ansible批量管理管理节点。步骤如下:</p>
-<ol>
-<li>在控制节点上安装ansible</li>
-<li>配置主机清单: 将被控节点的连接信息配置到主机清单中</li>
-<li>定义playbook: 指定运行主机和执行任务</li>
-</ol>
+<p>1.在控制节点上安装ansible</p>
+<p>2.配置主机清单: 将被控节点的连接信息配置到主机清单中</p>
+<p>3.定义playbook: 指定运行主机和执行任务</p>
 <h1 id="对节点主机的要求"><a href="#对节点主机的要求" class="headerlink" title="对节点主机的要求"></a>对节点主机的要求</h1><p>通常我们使用 ssh 与节点通信，默认使用 sftp. 如果 sftp 不可用，可在 ansible.cfg 配置文件中配置成 scp 的方式. 在节点上也需要安装Python 2（2.6或更高版本）或Python 3（3.5或更高版本）</p>
-<h1 id="Ansible的概念"><a href="#Ansible的概念" class="headerlink" title="Ansible的概念"></a>Ansible的概念</h1><h2 id="控制节点-Control-node"><a href="#控制节点-Control-node" class="headerlink" title="控制节点(Control node)"></a>控制节点(Control node)</h2><p>任何装有Ansible的机器可称为 <strong>控制节点</strong> 。 您可以从任何控制节点运行命令和剧本，并调用<code>/usr/bin/ansible</code>或<code>/usr/bin/ansible-playbook</code>命令，您可以将任何安装了Python的计算机用作控制节点,笔记本电脑,共享桌面和服务器都可以运行Ansible。 但是不能将Windows计算机用作控制节点。您也可以有多个控制节点。</p>
-<h2 id="管理节点-Managed-nodes"><a href="#管理节点-Managed-nodes" class="headerlink" title="管理节点(Managed nodes)"></a>管理节点(Managed nodes)</h2><p>使用Ansible管理的网络设备或服务器可称为 <strong>管理节点</strong>。 受管节点有时也称为 <strong>主机</strong> 。 受管节点上是不需要安装Ansible的。</p>
-<h2 id="主机清单-Inventory"><a href="#主机清单-Inventory" class="headerlink" title="主机清单(Inventory)"></a>主机清单(Inventory)</h2><p>托管节点的列表。库存文件有时也称为主机文件。您的目录可以为每个托管节点指定诸如IP地址之类的信息。库存还可以组织托管节点，创建和嵌套组，以便于扩展。</p>
-<h2 id="模块-Modules"><a href="#模块-Modules" class="headerlink" title="模块(Modules)"></a>模块(Modules)</h2><p>Ansible执行的具体代码。每个模块都有特定的用途，从管理特定类型数据库的用户到管理特定类型网络设备上的VLAN接口。您可以使用任务调用单个模块，也可以调用剧本中的几个不同模块。</p>
-<h2 id="任务-Tasks"><a href="#任务-Tasks" class="headerlink" title="任务(Tasks)"></a>任务(Tasks)</h2><p>Ansible的行动单位。tasks包含一组由module组成的任务列表, 您可以使用特别的命令一次性执行单个任务。</p>
-<h2 id="剧本-Playbooks"><a href="#剧本-Playbooks" class="headerlink" title="剧本(Playbooks)"></a>剧本(Playbooks)</h2><p>保存了已排序的任务列表，因此可以按此顺序重复运行这些任务。剧本可以包括变量和任务。剧本是用 <strong>YAML</strong> 编写的，易于阅读、编写、共享和理解。</p>
+<h1 id="Ansible的概念"><a href="#Ansible的概念" class="headerlink" title="Ansible的概念"></a>Ansible的概念</h1><h2 id="控制节点-Control-node"><a href="#控制节点-Control-node" class="headerlink" title="控制节点(Control node)"></a>控制节点(Control node)</h2><p>任何装有Ansible的机器可称为 <strong>控制节点</strong> 。 您可以从任何控制节点运行命令和剧本，并调用<code>/usr/bin/ansible</code>或<code>/usr/bin/ansible-playbook</code>命令，您可以将任何安装了Python的计算机用作控制节点,笔记本电脑,共享桌面和服务器都可以运行Ansible。 但是不能将Windows计算机用作控制节点。您也可以有多个控制节点</p>
+<h2 id="管理节点-Managed-nodes"><a href="#管理节点-Managed-nodes" class="headerlink" title="管理节点(Managed nodes)"></a>管理节点(Managed nodes)</h2><p>使用Ansible管理的网络设备或服务器可称为 <strong>管理节点</strong>。 受管节点有时也称为 <strong>主机</strong> 。 受管节点上是不需要安装Ansible的</p>
+<h2 id="主机清单-Inventory"><a href="#主机清单-Inventory" class="headerlink" title="主机清单(Inventory)"></a>主机清单(Inventory)</h2><p>托管节点的列表。库存文件有时也称为主机文件。您的目录可以为每个托管节点指定诸如IP地址之类的信息。库存还可以组织托管节点，创建和嵌套组，以便于扩展</p>
+<h2 id="模块-Modules"><a href="#模块-Modules" class="headerlink" title="模块(Modules)"></a>模块(Modules)</h2><p>Ansible执行的具体代码。每个模块都有特定的用途，从管理特定类型数据库的用户到管理特定类型网络设备上的VLAN接口。您可以使用任务调用单个模块，也可以调用剧本中的几个不同模块</p>
+<h2 id="任务-Tasks"><a href="#任务-Tasks" class="headerlink" title="任务(Tasks)"></a>任务(Tasks)</h2><p>Ansible的行动单位。tasks包含一组由module组成的任务列表, 您可以使用特别的命令一次性执行单个任务</p>
+<h2 id="剧本-Playbooks"><a href="#剧本-Playbooks" class="headerlink" title="剧本(Playbooks)"></a>剧本(Playbooks)</h2><p>保存了已排序的任务列表，因此可以按此顺序重复运行这些任务。剧本可以包括变量和任务。剧本是用 <strong>YAML</strong> 编写的，易于阅读、编写、共享和理解</p>
 
         </div>
 
@@ -243,7 +237,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-15T03:06:19.372Z" itemprop="dateUpdated">2020-06-15 11:06:19</time>
+    最后更新时间：<time datetime="2020-07-14T01:24:20.780Z" itemprop="dateUpdated">2020-07-14 09:24:20</time>
 </span><br>
 
 
@@ -282,18 +276,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/3ebd0a7f.html" id="post-prev" class="post-nav-link">
+      <a href="/post/44a3d96e.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">ansible安装(2)</h4>
+        <h4 class="title">Python基础day07</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/44a3d96e.html" id="post-next" class="post-nav-link">
+      <a href="/post/3ebd0a7f.html" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Python基础day07</h4>
+        <h4 class="title">ansible安装(2)</h4>
       </a>
     </div>
   
