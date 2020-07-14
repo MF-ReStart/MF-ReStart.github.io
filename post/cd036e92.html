@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-12T03:12:59.000Z">
-<meta property="article:modified_time" content="2020-06-22T06:36:15.116Z">
+<meta property="article:modified_time" content="2020-07-14T03:44:26.141Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -195,9 +195,7 @@
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
 <h1 id="setup模块"><a href="#setup模块" class="headerlink" title="setup模块"></a>setup模块</h1><p>setup模块主要用于获取主机信息，每个管理节点在接收控制节点命令之前，会将主机的信息告知控制节点</p>
-<ul>
-<li><strong>filter:</strong> 用于进行条件过滤，如果设置，仅返回匹配过滤条件的信息</li>
-</ul>
+<p><strong>filter:</strong> 用于进行条件过滤，如果设置，仅返回匹配过滤条件的信息</p>
 <table>
 <thead>
 <tr>
@@ -407,20 +405,18 @@
 <p>查看管理节点的发行版本</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ansible all -m setup -a 'filter=ansible_distribution'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h1 id="command模块"><a href="#command模块" class="headerlink" title="command模块"></a>command模块</h1><p>ansible的默认模块，可以不用-m指定，-a是command的参数</p>
-<ul>
-<li><strong>free_form:</strong> 其实没有名为“free form”的实际参数，command模块接受自由格式的命令运行</li>
-<li><strong>chdir:</strong> 在执行对应的命令之前，会先进入到chdir参数指定的目录中</li>
-<li><strong>creates:</strong> 如果指定的文件存在时，就不执行对应命令</li>
-<li><strong>removes:</strong> 当指定的文件不存在时，就不执行对应命令</li>
-</ul>
+<p><strong>free_form:</strong> 其实没有名为“free form”的实际参数，command模块接受自由格式的命令运行</p>
+<p><strong>chdir:</strong> 在执行对应的命令之前，会先进入到chdir参数指定的目录中</p>
+<p><strong>creates:</strong> 如果指定的文件存在时，就不执行对应命令</p>
+<p><strong>removes:</strong> 当指定的文件不存在时，就不执行对应命令</p>
 <p>查看管理节点/etc/目录下的hosts文件内容</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ansible all -a "chdir=/etc cat hosts"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>查看管理节点/etc/目录下的hosts文件内容，如果存在/etc/passwd文件则不执行</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ansible all -a "chdir=/etc creates=/etc/passwd cat hosts"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>command模块不支持调用<code>$HOME</code>这样的变量，还有像<code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>;</code>, <code>&amp;</code>这些正则和通配符都将不可用，但是command 模块更安全，因为他不受用户环境的影响。 也很大的避免了潜在的shell注入风险。</p>
 <h1 id="shell模块"><a href="#shell模块" class="headerlink" title="shell模块"></a>shell模块</h1><p>shell 模块可以帮助我们在远程主机上执行命令。与command模块不同的是，shell模块在远程主机中执行命令时，会经过远程主机上的 <code>/bin/sh</code> 程序处理，能够使用<code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>;</code>, <code>&amp;</code>这些符号和环境变量。</p>
+<p><strong>free_form:</strong> 其实没有名为“free form”的实际参数，command模块接受自由格式的命令运行</p>
 <ul>
-<li><strong>free_form:</strong> 其实没有名为“free form”的实际参数，command模块接受自由格式的命令运行</li>
 <li><strong>chdir:</strong> 在执行对应的命令之前，会先进入到chdir参数指定的目录中</li>
 <li><strong>creates:</strong> 如果指定的文件存在时，就不执行对应命令</li>
 <li><strong>removes:</strong> 当指定的文件不存在时，就不执行对应命令</li>
@@ -747,7 +743,7 @@ nginx -s reload
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-22T06:36:15.116Z" itemprop="dateUpdated">2020-06-22 14:36:15</time>
+    最后更新时间：<time datetime="2020-07-14T03:44:26.141Z" itemprop="dateUpdated">2020-07-14 11:44:26</time>
 </span><br>
 
 
