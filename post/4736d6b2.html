@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-28T02:13:41.000Z">
-<meta property="article:modified_time" content="2020-06-11T07:51:00.508Z">
+<meta property="article:modified_time" content="2020-07-14T04:37:46.874Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -194,12 +194,10 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="ansible的变量"><a href="#ansible的变量" class="headerlink" title="ansible的变量"></a>ansible的变量</h1><p>在ansible中使用变量，能让我们的工作变得更加灵活。</p>
-<h2 id="变量定义规则"><a href="#变量定义规则" class="headerlink" title="变量定义规则"></a>变量定义规则</h2><ul>
-<li><strong>变量名应该由字母、数字、下划线组成</strong></li>
-<li><strong>变量名需要以字母开头</strong></li>
-<li><strong>ansible内置的关键字不能作为变量名</strong></li>
-</ul>
+<h1 id="ansible的变量"><a href="#ansible的变量" class="headerlink" title="ansible的变量"></a>ansible的变量</h1><p>在ansible中使用变量，能让我们的工作变得更加灵活</p>
+<h2 id="变量定义规则"><a href="#变量定义规则" class="headerlink" title="变量定义规则"></a>变量定义规则</h2><p>变量名应该由字母、数字、下划线组成</p>
+<p>变量名需要以字母开头</p>
+<p>ansible内置的关键字不能作为变量名</p>
 <h1 id="在playbook中使用变量"><a href="#在playbook中使用变量" class="headerlink" title="在playbook中使用变量"></a>在playbook中使用变量</h1><p>使用vars关键字定义名为package1值为nginx的变量，在task中使用进行调用</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
@@ -263,11 +261,11 @@
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> task2
     <span class="token key atrule">file</span><span class="token punctuation">:</span>
       <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"{{ nginx['conf8080']}}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="变量与setup模块"><a href="#变量与setup模块" class="headerlink" title="变量与setup模块"></a>变量与setup模块</h1><p>前面我们说过在执行playbook的时候，默认都会运行一个名为<strong>Gathering Facts</strong>的任务，这个任务会收集管理节点的相关信息(例如管理节点的IP地址，主机名，系统版本，硬件配置等信息)，这些被收集到的信息都会保存在对应的变量中，我们想要使用这些信息时，可以获取对应的变量，从而使用这些信息。关于setup模块具体查看前面ansible模块学习。</p>
+<h1 id="变量与setup模块"><a href="#变量与setup模块" class="headerlink" title="变量与setup模块"></a>变量与setup模块</h1><p>前面我们说过在执行playbook的时候，默认都会运行一个名为<strong>Gathering Facts</strong>的任务，这个任务会收集管理节点的相关信息(例如管理节点的IP地址，主机名，系统版本，硬件配置等信息)，这些被收集到的信息都会保存在对应的变量中，我们想要使用这些信息时，可以获取对应的变量，从而使用这些信息。关于setup模块具体查看前面ansible模块学习</p>
 <h2 id="查看从管理节点收集到的所有相关信息"><a href="#查看从管理节点收集到的所有相关信息" class="headerlink" title="查看从管理节点收集到的所有相关信息"></a>查看从管理节点收集到的所有相关信息</h2><pre class="line-numbers language-shell"><code class="language-shell">ansible all -m setup
 # 由于返回信息的比较多，这里不作示例<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="查看管理节点的内存使用情况"><a href="#查看管理节点的内存使用情况" class="headerlink" title="查看管理节点的内存使用情况"></a>查看管理节点的内存使用情况</h2><pre class="line-numbers language-shell"><code class="language-shell">ansible all -m setup -a 'filter=ansible_memory_mb'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="在管理节点创建自定义变量"><a href="#在管理节点创建自定义变量" class="headerlink" title="在管理节点创建自定义变量"></a>在管理节点创建自定义变量</h2><p>除了ansible默认收集的信息以外，我们还能够在管理节点写入一些自定义变量，这些自定义变量也是可以被setup模块收集到。</p>
+<h2 id="在管理节点创建自定义变量"><a href="#在管理节点创建自定义变量" class="headerlink" title="在管理节点创建自定义变量"></a>在管理节点创建自定义变量</h2><p>除了ansible默认收集的信息以外，我们还能够在管理节点写入一些自定义变量，这些自定义变量也是可以被setup模块收集到</p>
 <p>首先在管理节点创建自定义变量的文件hello.fact，此类文件必须以*.fact命名</p>
 <pre class="line-numbers language-shell"><code class="language-shell"># 管理节点
 mkdir -p /etc/ansible/facts.d
@@ -292,10 +290,9 @@ ansible dbserver -m setup -a "filter=ansible_local"        # 使用ansible_local
     }, 
     "changed": false
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>注意:</strong> 管理节点上的hello.fact文件必须不是可执行文件，不然这个文件不会被成功读取，具体可查看ansible官方文档有详细说明。</p>
-<p>在管理节点的/etc/ansible/facts.d/这个目录是使用ansible_local关键字过滤时的默认路径，如果想要自定义路径可以使用fact_path关键字定义</p>
+<p><strong>注意:</strong> 管理节点上的hello.fact文件必须不是可执行文件，不然这个文件不会被成功读取，具体可查看ansible官方文档有详细说明。在管理节点的/etc/ansible/facts.d/这个目录是使用ansible_local关键字过滤时的默认路径，如果想要自定义路径可以使用fact_path关键字定义</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -m setup -a "fact_path=/tmp/facts.d/"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="变量与debug模块"><a href="#变量与debug模块" class="headerlink" title="变量与debug模块"></a>变量与debug模块</h1><p>debug模块是帮我们进行调试的，可以把对我们有用的信息输出到控制台上，以便能够定位问题。</p>
+<h1 id="变量与debug模块"><a href="#变量与debug模块" class="headerlink" title="变量与debug模块"></a>变量与debug模块</h1><p>debug模块是帮我们进行调试的，可以把对我们有用的信息输出到控制台上，以便能够定位问题</p>
 <h2 id="playbook中使用debug模块"><a href="#playbook中使用debug模块" class="headerlink" title="playbook中使用debug模块"></a>playbook中使用debug模块</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -368,8 +365,8 @@ webserver                  : ok=2    changed=0    unreachable=0    failed=0    s
 <p>ansible_memory_mb其中其实包含了 “nocache”、”real”、 “swap”三个部分的信息，我们只想获得”real”部分的信息，在playbook中引用变量时可以使用如下示例:</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"Remote host memory information: {{ ansible_memory_mb.real }}"</span>
 <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"Remote host memory information: {{ ansible_memory_mb['real'] }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h1 id="注册变量"><a href="#注册变量" class="headerlink" title="注册变量"></a>注册变量</h1><p>ansible的模块运行之后都会返回一些<strong>返回值</strong>，只是默认情况下，这些<strong>返回值</strong>并不会显示而已，我们可以把这些返回值写入到某个变量中，这样我们就能够通过引用对应的变量从而获取到这些返回值了，这种将模块的返回值写入到变量中的方法被称为<strong>注册变量</strong>。</p>
-<p>下面这个playbook有两个任务，第一个任务使用shell模块执行了一条命令，然后在这个任务下使用register注册了一个testvar的变量，第二个任务是使用debug模块的var参数打印这个变量，最后输出shell模块的返回值。</p>
+<h1 id="注册变量"><a href="#注册变量" class="headerlink" title="注册变量"></a>注册变量</h1><p>ansible的模块运行之后都会返回一些<strong>返回值</strong>，只是默认情况下，这些<strong>返回值</strong>并不会显示而已，我们可以把这些返回值写入到某个变量中，这样我们就能够通过引用对应的变量从而获取到这些返回值了，这种将模块的返回值写入到变量中的方法被称为<strong>注册变量</strong></p>
+<p>下面这个playbook有两个任务，第一个任务使用shell模块执行了一条命令，然后在这个任务下使用register注册了一个testvar的变量，第二个任务是使用debug模块的var参数打印这个变量，最后输出shell模块的返回值</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -408,8 +405,8 @@ ok: [dbserver] => {
 
 PLAY RECAP ***********************************************************************************************************************
 dbserver                   : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果你想要查看模块对应的返回值，可以先查找官方手册，但并不是所有模块的官方手册中都对模块的返回值进行了描述，你可以自己去官网查看模块的返回值，这些返回值不仅仅能够用于输出，通常我们会利用到这些返回值，比如通过模块的返回值决定之后的一些动作，所以注册变量在playbook中还是会被经常用到的，在之后的文章中我们会给出示例。</p>
-<h1 id="变量与用户交互信息"><a href="#变量与用户交互信息" class="headerlink" title="变量与用户交互信息"></a>变量与用户交互信息</h1><p>在运行shell脚本时，有些时候需要用户输入信息，脚本再根据用户输入的信息决定下一步的动作，这种交互是必须的。我们也可以在playbook中实现这种交互，首先提示用户输入信息，然后将用户输入的信息存放到指定的变量中，当我们需要使用这些信息时，只要引用对应的变量即可。</p>
+<p>如果你想要查看模块对应的返回值，可以先查找官方手册，但并不是所有模块的官方手册中都对模块的返回值进行了描述，你可以自己去官网查看模块的返回值，这些返回值不仅仅能够用于输出，通常我们会利用到这些返回值，比如通过模块的返回值决定之后的一些动作，所以注册变量在playbook中还是会被经常用到的，在之后的文章中我们会给出示例</p>
+<h1 id="变量与用户交互信息"><a href="#变量与用户交互信息" class="headerlink" title="变量与用户交互信息"></a>变量与用户交互信息</h1><p>在运行shell脚本时，有些时候需要用户输入信息，脚本再根据用户输入的信息决定下一步的动作，这种交互是必须的。我们也可以在playbook中实现这种交互，首先提示用户输入信息，然后将用户输入的信息存放到指定的变量中，当我们需要使用这些信息时，只要引用对应的变量即可</p>
 <p>下面我们使用vars_prompt关键字定义了两个变量，变量名为别为your_name和your_age，变量下面是提示用户输入时的信息</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -725,7 +722,7 @@ dbserver.com | SUCCESS => {
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-11T07:51:00.508Z" itemprop="dateUpdated">2020-06-11 15:51:00</time>
+    最后更新时间：<time datetime="2020-07-14T04:37:46.874Z" itemprop="dateUpdated">2020-07-14 12:37:46</time>
 </span><br>
 
 

@@ -36,7 +36,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ecdcfa1c2a9a83be515c4bf.jpg">
 <meta property="article:published_time" content="2020-05-26T07:13:48.000Z">
-<meta property="article:modified_time" content="2020-06-02T07:51:22.020Z">
+<meta property="article:modified_time" content="2020-07-14T04:35:01.920Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -196,7 +196,7 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="ansible的handlers用法"><a href="#ansible的handlers用法" class="headerlink" title="ansible的handlers用法"></a>ansible的handlers用法</h1><p>许多的Linux服务在修改配置文件后都是需要重启服务的，以便能够重新读取配置文件，使新的配置能够生效。那怎么用playbook实现这个简单的功能呢？下面我们来编写一个修改nginx端口的playbook，并且在修改完之后重启nginx。</p>
+<h1 id="ansible的handlers用法"><a href="#ansible的handlers用法" class="headerlink" title="ansible的handlers用法"></a>ansible的handlers用法</h1><p>许多的Linux服务在修改配置文件后都是需要重启服务的，以便能够重新读取配置文件，使新的配置能够生效。那怎么用playbook实现这个简单的功能呢？下面我们来编写一个修改nginx端口的playbook，并且在修改完之后重启nginx</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -211,7 +211,7 @@
     <span class="token key atrule">service</span><span class="token punctuation">:</span>
       <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
       <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>注意思考:</strong> 这个playbook虽然可以帮助我们成功修改nginx端口并重启nginx服务，但是大家请注意如果我再次执行这个playbook的话，nginx端口已经是8080了，由于ansible幂等性的缘故，所以modify config这个task没有发生状态的改变，所以这一步返回了绿色的信息，但是nginx的服务还是被重启了，其实我们并没有真正去改变nginx的配置文件，但是却还是重启了nginx服务，这是因为重启服务这个任务是写死了的。这种多余的重启是不需要的。那么在playbook中就是使用handlers来解决这种问题的，下面我们就继续以nginx服务这个小例子来学习playbook的handlers用法。</p>
+<p><strong>注意思考:</strong> 这个playbook虽然可以帮助我们成功修改nginx端口并重启nginx服务，但是大家请注意如果我再次执行这个playbook的话，nginx端口已经是8080了，由于ansible幂等性的缘故，所以modify config这个task没有发生状态的改变，所以这一步返回了绿色的信息，但是nginx的服务还是被重启了，其实我们并没有真正去改变nginx的配置文件，但是却还是重启了nginx服务，这是因为重启服务这个任务是写死了的。这种多余的重启是不需要的。那么在playbook中就是使用handlers来解决这种问题的，下面我们就继续以nginx服务这个小例子来学习playbook的handlers用法</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -230,8 +230,8 @@
     <span class="token key atrule">service</span><span class="token punctuation">:</span>
       <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
       <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上面示例我们使用handlers用法，如果modify config这个task的状态被真正修改过了，notify就会调用handlers任务列表的restart nginx任务，就会执行重启nginx服务，这样就能达到只有nginx配置文件被真正修改了，才会去重启nginx服务。</p>
-<h1 id="handlers是一种任务列表"><a href="#handlers是一种任务列表" class="headerlink" title="handlers是一种任务列表"></a>handlers是一种任务列表</h1><p>在playbook中handlers和tasks是同级别的，这是因为handlers也是任务列表的一种。只不过handlers中的任务是被用于tasks任务列表的notify调用罢了。</p>
+<p>上面示例我们使用handlers用法，如果modify config这个task的状态被真正修改过了，notify就会调用handlers任务列表的restart nginx任务，就会执行重启nginx服务，这样就能达到只有nginx配置文件被真正修改了，才会去重启nginx服务</p>
+<h1 id="handlers是一种任务列表"><a href="#handlers是一种任务列表" class="headerlink" title="handlers是一种任务列表"></a>handlers是一种任务列表</h1><p>在playbook中handlers和tasks是同级别的，这是因为handlers也是任务列表的一种。只不过handlers中的任务是被用于tasks任务列表的notify调用罢了</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -282,7 +282,7 @@ changed: [webserver]
 PLAY RECAP ***********************************************************************************************************************
 dbserver                   : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 webserver                  : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>默认情况下，所有task执行完毕后，才会执行各个handler，而且handler的执行顺序与handler在playbook中的定义顺序是相同的，与handler被notify调用的顺序无关，这一点大家要注意。如果你想要在执行完某些task以后立即执行对应的handler，则需要使用meta模块。</p>
+<p>默认情况下，所有task执行完毕后，才会执行各个handler，而且handler的执行顺序与handler在playbook中的定义顺序是相同的，与handler被notify调用的顺序无关，这一点大家要注意。如果你想要在执行完某些task以后立即执行对应的handler，则需要使用meta模块</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -343,7 +343,7 @@ webserver                  : ok=5    changed=4    unreachable=0    failed=0    s
     <span class="token key atrule">file</span><span class="token punctuation">:</span>
       <span class="token key atrule">path</span><span class="token punctuation">:</span> /testdir/testfile2
       <span class="token key atrule">state</span><span class="token punctuation">:</span> touch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>将ht1和ht2这两个handlers任务都监听handlers group1这一个组，这时候在task任务列表notify “handlers group1”这个组名时，就执行这个组的所有handlers任务。</p>
+<p>将ht1和ht2这两个handlers任务都监听handlers group1这一个组，这时候在task任务列表notify “handlers group1”这个组名时，就执行这个组的所有handlers任务</p>
 
         </div>
 
@@ -352,7 +352,7 @@ webserver                  : ok=5    changed=4    unreachable=0    failed=0    s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-02T07:51:22.020Z" itemprop="dateUpdated">2020-06-02 15:51:22</time>
+    最后更新时间：<time datetime="2020-07-14T04:35:01.920Z" itemprop="dateUpdated">2020-07-14 12:35:01</time>
 </span><br>
 
 
@@ -400,7 +400,7 @@ webserver                  : ok=5    changed=4    unreachable=0    failed=0    s
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/1b138d79.html" id="post-next" class="post-nav-link">
+      <a href="/post/cd036e92.html" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">ansible的tags(9)</h4>
       </a>

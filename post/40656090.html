@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-09T11:46:58.000Z">
-<meta property="article:modified_time" content="2020-06-22T05:39:49.352Z">
+<meta property="article:modified_time" content="2020-07-14T04:39:34.735Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -194,7 +194,7 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="ansible的过滤器"><a href="#ansible的过滤器" class="headerlink" title="ansible的过滤器"></a>ansible的过滤器</h1><p>过滤器可以帮助我们对数据进行处理，例如将获取到的变量值中的所有字母都变成大写，过滤器能帮我们实现这样的需求。</p>
+<h1 id="ansible的过滤器"><a href="#ansible的过滤器" class="headerlink" title="ansible的过滤器"></a>ansible的过滤器</h1><p>过滤器可以帮助我们对数据进行处理，例如将获取到的变量值中的所有字母都变成大写，过滤器能帮我们实现这样的需求</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -208,7 +208,7 @@
 <span class="token key atrule">ok</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> =<span class="token punctuation">></span> <span class="token punctuation">{</span>
     <span class="token key atrule">"msg"</span><span class="token punctuation">:</span> <span class="token string">"FESF1DECD"</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>过滤器是一种能够帮助我们处理数据的工具，ansible中的过滤器功能来自于jinja2模板引擎，我们可以借助jinja2的过滤器功能在ansible中对数据进行各种处理，而上例中的upper就是一种过滤器，这个过滤器的作用就是将小写字母变成大写。当然还有很多其他的过滤器，这些过滤器有些是jinja2内置的，有些是ansible特有的，如果这些过滤器都不能满足你的需求，jinja2也支持自定义过滤器。</p>
+<p>过滤器是一种能够帮助我们处理数据的工具，ansible中的过滤器功能来自于jinja2模板引擎，我们可以借助jinja2的过滤器功能在ansible中对数据进行各种处理，而上例中的upper就是一种过滤器，这个过滤器的作用就是将小写字母变成大写。当然还有很多其他的过滤器，这些过滤器有些是jinja2内置的，有些是ansible特有的，如果这些过滤器都不能满足你的需求，jinja2也支持自定义过滤器</p>
 <h1 id="字符串操作相关的过滤器"><a href="#字符串操作相关的过滤器" class="headerlink" title="字符串操作相关的过滤器"></a>字符串操作相关的过滤器</h1><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -417,7 +417,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-22T05:39:49.352Z" itemprop="dateUpdated">2020-06-22 13:39:49</time>
+    最后更新时间：<time datetime="2020-07-14T04:39:34.735Z" itemprop="dateUpdated">2020-07-14 12:39:34</time>
 </span><br>
 
 

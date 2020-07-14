@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-24T06:24:36.000Z">
-<meta property="article:modified_time" content="2020-06-02T07:51:22.021Z">
+<meta property="article:modified_time" content="2020-07-14T04:35:21.093Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -194,7 +194,7 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="Ansible-playbook初识"><a href="#Ansible-playbook初识" class="headerlink" title="Ansible playbook初识"></a>Ansible playbook初识</h1><p>前一章我们学习了ansible的模块，在控制节点上使用了很多ansible的命令对管理节点进行配置和管理，但是在我们真正的工作场景中，如果需要配置一个nginx服务，其实并不是在控制节点执行ansible命令去实现的，你可以想象一下，如果我们需要对管理节点做大量的操作，是不是就是要在控制节点执行非常多的命令呢，而且直接执行命令的方式对管理不同的管理节点时，命令又是需要修改的，这并不是我们想要的。其实ansible是可以写成”脚本”的，注意这里所说的脚本，并不是说将大量的ansible命令放到shell脚本里面去，ansible在部署较为复杂的任务时，有自己的一套执行流程，称为”剧本”，剧本翻译过来就是我们所说的playbook。编写playbook需要遵循yaml语法，那什么又是yaml语法呢，它是为了方便人类读写而设计出来的一种通用的数据串行化格式。</p>
+<h1 id="Ansible-playbook初识"><a href="#Ansible-playbook初识" class="headerlink" title="Ansible playbook初识"></a>Ansible playbook初识</h1><p>前一章我们学习了ansible的模块，在控制节点上使用了很多ansible的命令对管理节点进行配置和管理，但是在我们真正的工作场景中，如果需要配置一个nginx服务，其实并不是在控制节点执行ansible命令去实现的，你可以想象一下，如果我们需要对管理节点做大量的操作，是不是就是要在控制节点执行非常多的命令呢，而且直接执行命令的方式对管理不同的管理节点时，命令又是需要修改的，这并不是我们想要的。其实ansible是可以写成”脚本”的，注意这里所说的脚本，并不是说将大量的ansible命令放到shell脚本里面去，ansible在部署较为复杂的任务时，有自己的一套执行流程，称为”剧本”，剧本翻译过来就是我们所说的playbook。编写playbook需要遵循yaml语法，那什么又是yaml语法呢，它是为了方便人类读写而设计出来的一种通用的数据串行化格式</p>
 <h1 id="编写第一个playbook"><a href="#编写第一个playbook" class="headerlink" title="编写第一个playbook"></a>编写第一个playbook</h1><p>playbook文件都以”yaml”或”yml”作为文件后缀，这里我们创建一个名为first.yaml的playbook文件</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 将下面的ansible命令转化为playbook</span>
 ansible all <span class="token punctuation">-</span>m ping
@@ -211,11 +211,11 @@ ansible all <span class="token punctuation">-</span>m file <span class="token pu
     <span class="token key atrule">file</span><span class="token punctuation">:</span>
       <span class="token key atrule">path</span><span class="token punctuation">:</span> /etc/nodes
       <span class="token key atrule">state</span><span class="token punctuation">:</span> directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>第一行:</strong> 使用三个横杠作为开始，在YAML语法中，”—“表示文档开始</p>
-<p><strong>第二行:</strong> 使用”-“作为开头表示一个块序列的节点，后面使用hosts关键字指定了要操作的主机</p>
-<p><strong>第三行:</strong> 使用remote_user关键字可以指定在管理节点进行操作时使用哪个用户进行操作</p>
-<p><strong>第四行:</strong> 使用tasks关键字指明要进行操作的任务列表，之后的行都属于tasks键值对中的值</p>
-<p>tasks之后的行都属于任务列表的任务，可以看出任务列表一共有两个任务，每个任务以”-“开头，每个任务都有自己的名字，任务名字使用name关键字进行指定，第一个任务使用ping模块，ping模块在使用时不需要指定任何参数。第二个任务使用file模块，使用file模块时，指定了path参数和state参数的值。</p>
+<p><strong>第一行</strong>: 使用三个横杠作为开始，在YAML语法中，”—“表示文档开始</p>
+<p><strong>第二行</strong>: 使用”-“作为开头表示一个块序列的节点，后面使用hosts关键字指定了要操作的主机</p>
+<p><strong>第三行</strong>: 使用remote_user关键字可以指定在管理节点进行操作时使用哪个用户进行操作</p>
+<p><strong>第四行</strong>: 使用tasks关键字指明要进行操作的任务列表，之后的行都属于tasks键值对中的值</p>
+<p>tasks之后的行都属于任务列表的任务，可以看出任务列表一共有两个任务，每个任务以”-“开头，每个任务都有自己的名字，任务名字使用name关键字进行指定，第一个任务使用ping模块，ping模块在使用时不需要指定任何参数。第二个任务使用file模块，使用file模块时，指定了path参数和state参数的值</p>
 <h1 id="运行playbook"><a href="#运行playbook" class="headerlink" title="运行playbook"></a>运行playbook</h1><pre class="line-numbers language-shell"><code class="language-shell">[root@localhost ~/playbook]# ansible-playbook first.yaml 
 
 PLAY [all] *********************************************************************************************************************************************************
@@ -235,12 +235,12 @@ ok: [10.10.110.123]
 PLAY RECAP *********************************************************************************************************************************************************
 10.10.110.122              : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 10.10.110.123              : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如上所示，playbook执行后返回了一些信息，这些信息是这次剧本运行的概况。<strong>PLAY [all]</strong>表示这次运行的playbook有一个’play’是针对所有主机运行的，一个playbook可以是由一个或者多个play组成的。这个play包含了三个任务，这三个任务分别是<strong>TASK [Gathering Facts]</strong>，<strong>TASK [ping nodes]</strong>，<strong>TASK [mkdir directory]</strong>。我们只创建了两个任务，为什么却执行了三个任务呢？其实每个paly在执行前都会执行一个默认任务，这个默认任务就是<strong>TASK [Gathering Facts]</strong>，它会收集当前play对应的目标主机的相关信息，收集完这些基础信息后，才会执行我们指定的任务，这里它是收集我们这个play的所有主机的信息，然后返回主机的IP地址。第二个任务是用ping模块去测试管理节点的状态，给我们返回的是绿色的信息，表示管理节点的状态没有发生改变。第三个任务是创建目录，这里如果管理节点没有/etc/nodes目录，则会返回黄色的信息，表示在管理节点上创建了目录，管理节点的状态发生了改变。这是再次执行playbook，发现创建目录任务的返回信息变成了绿色的，是因为已经创建过目录了，由于幂等性的原因，管理节点的状态没有发生改变。返回信息的最后一个<strong>PLAY RECAP</strong>中可以对所有主机的执行情况进行回顾。</p>
+<p>如上所示，playbook执行后返回了一些信息，这些信息是这次剧本运行的概况。<strong>PLAY [all]</strong>表示这次运行的playbook有一个’play’是针对所有主机运行的，一个playbook可以是由一个或者多个play组成的。这个play包含了三个任务，这三个任务分别是<strong>TASK [Gathering Facts]</strong>，<strong>TASK [ping nodes]</strong>，<strong>TASK [mkdir directory]</strong>。我们只创建了两个任务，为什么却执行了三个任务呢？其实每个paly在执行前都会执行一个默认任务，这个默认任务就是<strong>TASK [Gathering Facts]</strong>，它会收集当前play对应的目标主机的相关信息，收集完这些基础信息后，才会执行我们指定的任务，这里它是收集我们这个play的所有主机的信息，然后返回主机的IP地址。第二个任务是用ping模块去测试管理节点的状态，给我们返回的是绿色的信息，表示管理节点的状态没有发生改变。第三个任务是创建目录，这里如果管理节点没有/etc/nodes目录，则会返回黄色的信息，表示在管理节点上创建了目录，管理节点的状态发生了改变。这是再次执行playbook，发现创建目录任务的返回信息变成了绿色的，是因为已经创建过目录了，由于幂等性的原因，管理节点的状态没有发生改变。返回信息的最后一个<strong>PLAY RECAP</strong>中可以对所有主机的执行情况进行回顾</p>
 <h1 id="检查playbook语法"><a href="#检查playbook语法" class="headerlink" title="检查playbook语法"></a>检查playbook语法</h1><pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --syntax-check first.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果执行语法检查命令之后，只返回了playbook的名称，就表示没有语法错误。</p>
+<p>如果执行语法检查命令之后，只返回了playbook的名称，就表示没有语法错误</p>
 <h1 id="模拟执行playbook"><a href="#模拟执行playbook" class="headerlink" title="模拟执行playbook"></a>模拟执行playbook</h1><pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --check first.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>除了对playbook进行语法测试，我们还能够模拟执行playbook，模拟执行并不是真正的执行，只是假装执行一下，playbook中的任务并不会真正在目标主机中运行，所以你可以放心大胆的进行模拟，模拟运行功能可以帮助我们’预估’playbook是否能够正常执行。</p>
-<p><strong>注意:</strong> 使用上述命令进行模拟时，一些任务可能会报错，这可能是因为报错的任务在执行时需要依赖之前的其他任务的完成结果，但是因为是模拟执行，所以之前的任务并不会真正的执行，既然之前的任务没有真正的执行，自然不会产生对应的结果，所以后面的任务就报错了。也就是说，我们并不能完全以模拟的反馈结果作为playbook是否能够正常运行的判断依据，只能通过模拟大概的预估一下而已。</p>
+<p>除了对playbook进行语法测试，我们还能够模拟执行playbook，模拟执行并不是真正的执行，只是假装执行一下，playbook中的任务并不会真正在目标主机中运行，所以你可以放心大胆的进行模拟，模拟运行功能可以帮助我们’预估’playbook是否能够正常执行</p>
+<p><strong>注意:</strong> 使用上述命令进行模拟时，一些任务可能会报错，这可能是因为报错的任务在执行时需要依赖之前的其他任务的完成结果，但是因为是模拟执行，所以之前的任务并不会真正的执行，既然之前的任务没有真正的执行，自然不会产生对应的结果，所以后面的任务就报错了。也就是说，我们并不能完全以模拟的反馈结果作为playbook是否能够正常运行的判断依据，只能通过模拟大概的预估一下而已</p>
 <h1 id="使用playbook安装nginx"><a href="#使用playbook安装nginx" class="headerlink" title="使用playbook安装nginx"></a>使用playbook安装nginx</h1><h2 id="目录文件规划"><a href="#目录文件规划" class="headerlink" title="目录文件规划"></a>目录文件规划</h2><pre class="line-numbers language-shell"><code class="language-shell">tree /root/playbook/
 /root/playbook/
 ├── index.html.j2
@@ -353,7 +353,7 @@ This is [u'10.10.110.123']<span aria-hidden="true" class="line-numbers-rows"><sp
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-02T07:51:22.021Z" itemprop="dateUpdated">2020-06-02 15:51:22</time>
+    最后更新时间：<time datetime="2020-07-14T04:35:21.093Z" itemprop="dateUpdated">2020-07-14 12:35:21</time>
 </span><br>
 
 
@@ -392,7 +392,7 @@ This is [u'10.10.110.123']<span aria-hidden="true" class="line-numbers-rows"><sp
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/b93ea0db.html" id="post-prev" class="post-nav-link">
+      <a href="/post/cd036e92.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title"></h4>
       </a>
@@ -403,7 +403,7 @@ This is [u'10.10.110.123']<span aria-hidden="true" class="line-numbers-rows"><sp
     <div class="waves-block waves-effect next">
       <a href="/post/b39d16c2.html" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ansible的handlers(8)</h4>
+        <h4 class="title">ansible模块学习(5)</h4>
       </a>
     </div>
   

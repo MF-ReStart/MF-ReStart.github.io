@@ -35,7 +35,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-27T02:38:40.000Z">
-<meta property="article:modified_time" content="2020-06-02T07:51:22.023Z">
+<meta property="article:modified_time" content="2020-07-14T04:36:01.555Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -194,7 +194,7 @@
 <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 </blockquote>
-<h1 id="ansible的tags用法"><a href="#ansible的tags用法" class="headerlink" title="ansible的tags用法"></a>ansible的tags用法</h1><p>我们学习ansible，以后都是要编写各种各样的playbook的。假如我们有一天，写了一个很长很长的playbook，其中包含了非常多的任务，这其实没有什么问题，但是我有时候可能只是需要执行这个playbook的一部分任务而已，而非每一次都执行playbook的全部任务，这个时候我们可以借助tags实现这个需求。</p>
+<h1 id="ansible的tags用法"><a href="#ansible的tags用法" class="headerlink" title="ansible的tags用法"></a>ansible的tags用法</h1><p>我们学习ansible，以后都是要编写各种各样的playbook的。假如我们有一天，写了一个很长很长的playbook，其中包含了非常多的任务，这其实没有什么问题，但是我有时候可能只是需要执行这个playbook的一部分任务而已，而非每一次都执行playbook的全部任务，这个时候我们可以借助tags实现这个需求</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -210,7 +210,7 @@
       <span class="token key atrule">path</span><span class="token punctuation">:</span> /tmp/task2
       <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
     <span class="token key atrule">tags</span><span class="token punctuation">:</span> t2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上面定义了两个task任务，每个任务有自己的tags，我们可以在执行playbook时借助标签指定只执行那些任务，而忽略其他任务。</p>
+<p>上面定义了两个task任务，每个任务有自己的tags，我们可以在执行playbook时借助标签指定只执行那些任务，而忽略其他任务</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --tags=t2 testtags.yaml    # 只执行t2标签的task任务
 
 ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他的任务都会执行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -240,7 +240,7 @@ ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他
       <span class="token key atrule">path</span><span class="token punctuation">:</span> /tmp/task2
       <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
     <span class="token key atrule">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'t2'</span><span class="token punctuation">,</span><span class="token string">'tag1'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>具有共同标签的任务，可以将共同标签从task中提取出来写在play中，下面的两个task任务分别有自己的t1和t2标签，同时又具有共同的t3标签，tags写在tasks上面时，tasks会继承当前play中的tags。</p>
+<p>具有共同标签的任务，可以将共同标签从task中提取出来写在play中，下面的两个task任务分别有自己的t1和t2标签，同时又具有共同的t3标签，tags写在tasks上面时，tasks会继承当前play中的tags</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -261,13 +261,11 @@ ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他
 <pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --tags=t1,t2 testtags.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>我们还可以在调用标签时先概览一下playbook中的标签</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --list-tags testtags.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="tags的五个内置标签"><a href="#tags的五个内置标签" class="headerlink" title="tags的五个内置标签"></a>tags的五个内置标签</h2><ul>
-<li><strong>always:</strong> 当把任务的tags的值指定为always时，那么这个任务就总是会被执行，除非你使用’–skip-tags’选项明确指定跳过这个任务</li>
-<li><strong>never:</strong> 当把任务的tags的值指定为never时，那么这个任务就总是不会被执行，2.5版本中新加入的特殊tag</li>
-<li><strong>tagged:</strong> 调用标签时使用的，只执行有标签的任务，没有任何标签的任务不会被执行</li>
-<li><strong>untagged:</strong> 只执行没有标签的任务，但是如果某些任务包含always标签，那么这些任务也会被执行</li>
-<li><strong>all:</strong> 执行所有标签</li>
-</ul>
+<h2 id="tags的五个内置标签"><a href="#tags的五个内置标签" class="headerlink" title="tags的五个内置标签"></a>tags的五个内置标签</h2><p><strong>always</strong>: 当把任务的tags的值指定为always时，那么这个任务就总是会被执行，除非你使用’–skip-tags’选项明确指定跳过这个任务</p>
+<p><strong>never</strong>: 当把任务的tags的值指定为never时，那么这个任务就总是不会被执行，2.5版本中新加入的特殊tag</p>
+<p><strong>tagged</strong>: 调用标签时使用的，只执行有标签的任务，没有任何标签的任务不会被执行</p>
+<p><strong>untagged</strong>: 只执行没有标签的任务，但是如果某些任务包含always标签，那么这些任务也会被执行</p>
+<p><strong>all</strong>: 执行所有标签</p>
 <p>只执行有标签的任务，没有任何标签的任务不会被执行</p>
 <pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --tags tagged testtag.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>跳过包含标签的任务，即使对应的任务包含always标签，也会被跳过</p>
@@ -282,7 +280,7 @@ ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-02T07:51:22.023Z" itemprop="dateUpdated">2020-06-02 15:51:22</time>
+    最后更新时间：<time datetime="2020-07-14T04:36:01.555Z" itemprop="dateUpdated">2020-07-14 12:36:01</time>
 </span><br>
 
 
@@ -483,7 +481,7 @@ ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                776
+                775
             
         </span>
     </div>
