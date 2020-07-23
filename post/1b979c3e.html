@@ -27,17 +27,13 @@
     
     
     <meta name="keywords" content="coding,持续集成">
-    <meta name="description" content="coding介绍在说到持续集成这方面，相信所有做运维的小伙伴都知道Jenkins，就是那个拿着托盘的老头子。但是说到coding，可能很多人都没听说过。什么是coding呢？coding涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，提升软件交付质量与速度。这是来自官网的介绍，下面就让我们一起学习coding吧！ 第一次接触coding在去年的七月份，">
+    <meta name="description" content="coding介绍在说到持续集成这方面，相信所有做运维的小伙伴都知道Jenkins，就是那个拿着托盘的老头子。但是说到coding，可能很多人都没听说过。什么是coding呢？coding涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，提升软件交付质量与速度。这是来自官网的介绍，下面就让我们一起学习coding吧！ 注册codingcoding所有的东西">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用coding持续集成Java项目">
 <meta property="og:url" content="https://www.missf.top/post/1b979c3e.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="coding介绍在说到持续集成这方面，相信所有做运维的小伙伴都知道Jenkins，就是那个拿着托盘的老头子。但是说到coding，可能很多人都没听说过。什么是coding呢？coding涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，提升软件交付质量与速度。这是来自官网的介绍，下面就让我们一起学习coding吧！ 第一次接触coding在去年的七月份，">
+<meta property="og:description" content="coding介绍在说到持续集成这方面，相信所有做运维的小伙伴都知道Jenkins，就是那个拿着托盘的老头子。但是说到coding，可能很多人都没听说过。什么是coding呢？coding涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，提升软件交付质量与速度。这是来自官网的介绍，下面就让我们一起学习coding吧！ 注册codingcoding所有的东西">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5ec233ecc2a9a83be541ae66.jpg">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5ec2342ec2a9a83be541f551.jpg">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5ec2346dc2a9a83be542325e.jpg">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5ec2351cc2a9a83be542dc4e.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec2389bc2a9a83be546aef6.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec2396dc2a9a83be547a27d.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec23a32c2a9a83be548918f.jpg">
@@ -57,12 +53,12 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec2510dc2a9a83be56769bd.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec26162c2a9a83be5ac20ab.jpg">
 <meta property="article:published_time" content="2020-05-18T07:42:59.000Z">
-<meta property="article:modified_time" content="2020-07-14T04:41:53.754Z">
+<meta property="article:modified_time" content="2020-07-23T01:48:24.583Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="coding">
 <meta property="article:tag" content="持续集成">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5ec233ecc2a9a83be541ae66.jpg">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5ec2389bc2a9a83be546aef6.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -187,7 +183,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#coding介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">coding介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第一次接触coding"><span class="post-toc-number">2.</span> <span class="post-toc-text">第一次接触coding</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#注册coding"><span class="post-toc-number">3.</span> <span class="post-toc-text">注册coding</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建项目"><span class="post-toc-number">4.</span> <span class="post-toc-text">创建项目</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择DevOps项目模板"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">选择DevOps项目模板</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填写项目基本信息"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">填写项目基本信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载若依的源码"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">下载若依的源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置若依数据库"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">配置若依数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初始化本地仓库"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">初始化本地仓库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置coding-SSH秘钥"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">配置coding SSH秘钥</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#推送本地仓库到coding"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">推送本地仓库到coding</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#持续集成"><span class="post-toc-number">5.</span> <span class="post-toc-text">持续集成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建持续集成任务"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">创建持续集成任务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新建构建计划"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">新建构建计划</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#录入项目凭据"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">录入项目凭据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编写静态配置的-Jenkinsfile"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">编写静态配置的 Jenkinsfile</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#触发规则"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">触发规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启缓存目录"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">开启缓存目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#立即构建"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">立即构建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看构建过程"><span class="post-toc-number">5.8.</span> <span class="post-toc-text">查看构建过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务器的启停脚本"><span class="post-toc-number">5.9.</span> <span class="post-toc-text">服务器的启停脚本</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看持续集成的效果"><span class="post-toc-number">6.</span> <span class="post-toc-text">查看持续集成的效果</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#coding介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">coding介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#注册coding"><span class="post-toc-number">2.</span> <span class="post-toc-text">注册coding</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建项目"><span class="post-toc-number">3.</span> <span class="post-toc-text">创建项目</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择DevOps项目模板"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">选择DevOps项目模板</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#填写项目基本信息"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">填写项目基本信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载若依的源码"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">下载若依的源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置若依数据库"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">配置若依数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初始化本地仓库"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">初始化本地仓库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置coding-SSH秘钥"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">配置coding SSH秘钥</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#推送本地仓库到coding"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">推送本地仓库到coding</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#持续集成"><span class="post-toc-number">4.</span> <span class="post-toc-text">持续集成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建持续集成任务"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">创建持续集成任务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新建构建计划"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">新建构建计划</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#录入项目凭据"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">录入项目凭据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编写静态配置的-Jenkinsfile"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">编写静态配置的 Jenkinsfile</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#触发规则"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">触发规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启缓存目录"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">开启缓存目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#立即构建"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">立即构建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看构建过程"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">查看构建过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务器的启停脚本"><span class="post-toc-number">4.9.</span> <span class="post-toc-text">服务器的启停脚本</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看持续集成的效果"><span class="post-toc-number">5.</span> <span class="post-toc-text">查看持续集成的效果</span></a></li></ol>
         </nav>
     </aside>
 
@@ -213,47 +209,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="coding介绍"><a href="#coding介绍" class="headerlink" title="coding介绍"></a>coding介绍</h1><p>在说到持续集成这方面，相信所有做运维的小伙伴都知道Jenkins，就是那个拿着托盘的老头子。但是说到coding，可能很多人都没听说过。什么是coding呢？<strong>coding涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，提升软件交付质量与速度。</strong>这是来自官网的介绍，下面就让我们一起学习coding吧！</p>
-<h1 id="第一次接触coding"><a href="#第一次接触coding" class="headerlink" title="第一次接触coding"></a>第一次接触coding</h1><p>在去年的七月份，我有幸参加了腾讯的<strong>724</strong>运维分享日，就在那时候接触到了coding</p>
-<p>这是腾讯滨海大厦四楼，现在看着还历历在目，但是当年的<strong>sz number one</strong>却散落在天涯！</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5ec233ecc2a9a83be541ae66.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<p>一群运维小伙伴看着这个墙哈哈大笑…</p>
-<p>和一群志同道合的人在一起时，即使不认识也会有莫名的亲切感啊</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5ec2342ec2a9a83be541f551.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<p>第一次看到coding的介绍时都不知道说的啥，现在回头看时才觉得自己成长了</p>
-<p>(就如Alex吹牛逼说的: 如果你不觉得一年前的自己是傻逼，那就说明你这一年都没有成长)</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5ec2346dc2a9a83be542325e.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<p>下图是coding创始人张海龙先生</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5ec2351cc2a9a83be542dc4e.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<p>额…扯远了，下面就让我们来学习coding吧！</p>
+            <h1 id="coding介绍"><a href="#coding介绍" class="headerlink" title="coding介绍"></a>coding介绍</h1><p>在说到持续集成这方面，相信所有做运维的小伙伴都知道Jenkins，就是那个拿着托盘的老头子。但是说到coding，可能很多人都没听说过。什么是coding呢？coding涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，提升软件交付质量与速度。这是来自官网的介绍，下面就让我们一起学习coding吧！</p>
 <h1 id="注册coding"><a href="#注册coding" class="headerlink" title="注册coding"></a>注册coding</h1><p>coding所有的东西都是在这个云平台上实现的，所谓的使研发团队在云端高效协同说的就是这个吧！</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -288,7 +244,8 @@
                 <div class="image-caption"></div>
             </figure>
 
-<h2 id="配置若依数据库"><a href="#配置若依数据库" class="headerlink" title="配置若依数据库"></a>配置若依数据库</h2><figure class="image-bubble">
+<h2 id="配置若依数据库"><a href="#配置若依数据库" class="headerlink" title="配置若依数据库"></a>配置若依数据库</h2><p>将若依自带的两个SQL文件导入到ry数据库</p>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="https://pic.imgdb.cn/item/5ec25331c2a9a83be5701a8a.jpg" alt="" title="">
@@ -296,7 +253,6 @@
                 <div class="image-caption"></div>
             </figure>
 
-<p>将若依自带的两个SQL文件导入到ry数据库</p>
 <h2 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h2><pre class="line-numbers language-shell"><code class="language-shell">git init
 git add .
 git commit -m "第一次提交"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -517,7 +473,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-14T04:41:53.754Z" itemprop="dateUpdated">2020-07-14 12:41:53</time>
+    最后更新时间：<time datetime="2020-07-23T01:48:24.583Z" itemprop="dateUpdated">2020-07-23 09:48:24</time>
 </span><br>
 
 
@@ -718,7 +674,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                1.1k
+                934
             
         </span>
     </div>
