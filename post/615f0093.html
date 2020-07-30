@@ -36,9 +36,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f20e09814195aa594f3290e.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f20e13414195aa594f3b901.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2140bc14195aa5945ae70c.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f22831a14195aa594112818.jpg">
 <meta property="article:published_time" content="2020-07-23T03:53:03.000Z">
-<meta property="article:modified_time" content="2020-07-30T08:22:29.042Z">
+<meta property="article:modified_time" content="2020-07-30T08:29:37.838Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -416,8 +417,7 @@ cat /usr/local/prometheus/rules/node.yml
 <p>配置完成之后重启alertmanager</p>
 <pre class="line-numbers language-shell"><code class="language-shell">systemctl restart alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>关闭node_exporter和docker_cadvisor服务，这时候会每个服务单独发送告警信息，由于将全部服务group_by在一个组里面，在发送恢复信息时会出现服务混乱的情况，所以我将每个服务做了路由，每一个服务都有自己的group_by，这样在发送信息时才会单独去发送</p>
-{% image https://pic.imgdb.cn/item/5f2140bc14195aa5945ae70c.jpg '' '' %}
-
+<p><img src="https://pic.imgdb.cn/item/5f2140bc14195aa5945ae70c.jpg" alt=""></p>
 <h1 id="配置钉钉告警"><a href="#配置钉钉告警" class="headerlink" title="配置钉钉告警"></a>配置钉钉告警</h1><p>先去创建一个钉钉机器人，具体过程这里就不详细说明了</p>
 <p>prometheus配置钉钉告警需要使用到prometheus-webhook-dingtalk插件，我们先使用二进制安装钉钉插件，dingtalk服务默认启动的端口是8060</p>
 <p><a href="https://github.com/timonwong/prometheus-webhook-dingtalk" target="_blank" rel="noopener">prometheus-webhook-dingtalk插件下载地址</a></p>
@@ -474,7 +474,7 @@ Jul 29 18:38:01 iZuf6fpaicz5jt7kep555qZ prometheus-webhook-dingtalk[5504]: ts=20
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-30T08:22:29.042Z" itemprop="dateUpdated">2020-07-30 16:22:29</time>
+    最后更新时间：<time datetime="2020-07-30T08:29:37.838Z" itemprop="dateUpdated">2020-07-30 16:29:37</time>
 </span><br>
 
 
