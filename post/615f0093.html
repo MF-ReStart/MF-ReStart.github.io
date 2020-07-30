@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8b4479ac4dfb59b63d69ce30940d781d"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Prometheus告警(6) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="云计算,Prometheus,监控">
+    <meta name="description" content="Alertmanager概述prometheus发出告警时分为两部分，首先prometheus按告警规则(rule_files配置)向alertmanager发送告警，即告警规则是在prometheus上定义的，然后由alertmanager去管理这些告警，包括去重(deduplicating)、分组(grouping)、静音(silencing)、抑制(inhibition)、聚合(aggreg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus告警(6)">
+<meta property="og:url" content="https://www.missf.top/post/615f0093.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="Alertmanager概述prometheus发出告警时分为两部分，首先prometheus按告警规则(rule_files配置)向alertmanager发送告警，即告警规则是在prometheus上定义的，然后由alertmanager去管理这些告警，包括去重(deduplicating)、分组(grouping)、静音(silencing)、抑制(inhibition)、聚合(aggreg">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f20e09814195aa594f3290e.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f20e13414195aa594f3b901.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f22831a14195aa594112818.jpg">
+<meta property="article:published_time" content="2020-07-23T03:53:03.000Z">
+<meta property="article:modified_time" content="2020-07-30T08:22:29.042Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="云计算">
+<meta property="article:tag" content="Prometheus">
+<meta property="article:tag" content="监控">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f20e09814195aa594f3290e.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Prometheus告警(6)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Prometheus告警(6)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-07-23T03:53:03.000Z" itemprop="datePublished" class="page-time">
+  2020-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Prometheus/">Prometheus</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Alertmanager概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">Alertmanager概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Alertmanager二进制安装"><span class="post-toc-number">2.</span> <span class="post-toc-text">Alertmanager二进制安装</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Alertmanager配置文件详解"><span class="post-toc-number">3.</span> <span class="post-toc-text">Alertmanager配置文件详解</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检查Alertmanager配置文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">检查Alertmanager配置文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置邮件告警"><span class="post-toc-number">5.</span> <span class="post-toc-text">配置邮件告警</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置微信告警"><span class="post-toc-number">6.</span> <span class="post-toc-text">配置微信告警</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置钉钉告警"><span class="post-toc-number">7.</span> <span class="post-toc-text">配置钉钉告警</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Prometheus告警(6)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Prometheus告警(6)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-07-23 11:53:03" datetime="2020-07-23T03:53:03.000Z"  itemprop="datePublished">2020-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Prometheus/">Prometheus</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Alertmanager概述"><a href="#Alertmanager概述" class="headerlink" title="Alertmanager概述"></a>Alertmanager概述</h1><p>prometheus发出告警时分为两部分，首先prometheus按告警规则(rule_files配置)向alertmanager发送告警，即告警规则是在prometheus上定义的，然后由alertmanager去管理这些告警，包括去重(deduplicating)、分组(grouping)、静音(silencing)、抑制(inhibition)、聚合(aggregation)，最终通过丰富的告警通知渠道(电话、微信、短信、邮件)将告警通知路由给对应的联系人。prometheus的大部分组件都是go语言开发的，zabbix到4.4之后的客户端才是go编写</p>
+<h1 id="Alertmanager二进制安装"><a href="#Alertmanager二进制安装" class="headerlink" title="Alertmanager二进制安装"></a>Alertmanager二进制安装</h1><pre class="line-numbers language-shell"><code class="language-shell"># 下载
+wget https://github.com/prometheus/alertmanager/releases/download/v0.21.0/alertmanager-0.21.0.linux-amd64.tar.gz
+
+# 解压
+tar xf alertmanager-0.21.0.linux-amd64.tar.gz && mv alertmanager-0.21.0.linux-amd64 /usr/local/alertmanager
+
+# 创建alertmanager启动文件
+vim /usr/lib/systemd/system/alertmanager.service
+[Unit]
+Documentation=alertmanager
+
+[Service]
+Restart=on-failure
+ExecStart=/usr/local/alertmanager/alertmanager --config.file=/usr/local/alertmanager/alertmanager.yml --storage.path=/usr/local/alertmanager/data
+
+[Install]
+WantedBy=multi-user.target
+
+# 启动
+systemctl daemon-reload
+systemctl start alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Alertmanager配置文件详解"><a href="#Alertmanager配置文件详解" class="headerlink" title="Alertmanager配置文件详解"></a>Alertmanager配置文件详解</h1><pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/alertmanager/alertmanager.yml
+<span class="token key atrule">global</span><span class="token punctuation">:</span>
+  <span class="token key atrule">resolve_timeout</span><span class="token punctuation">:</span> 5m    <span class="token comment" spellcheck="true"># 恢复的超时时间,这个跟告警恢复通知有关,此参数并不是说在这个时间没有收到告警就会恢复</span>
+
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'alertname'</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 将传入的警报进行分组的</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 10s    <span class="token comment" spellcheck="true"># 发送警报前，至少等待多少秒才会发送(为了收集同组更多的警报信息一起发送)</span>
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 10s    <span class="token comment" spellcheck="true"># 如果警报1已经发送,这时又出现同组的警报2,由于组状态发生变化,警报会在group_interval这个时间内发送,不会被repeat_interval这个时间收敛</span>
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 20m    <span class="token comment" spellcheck="true"># 报警信息已发送，但事件并没有恢复,则等待多久时间再重新发送(生产环境一般设成20min或者30min)</span>
+  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'web.hook'</span>    <span class="token comment" spellcheck="true"># 发送警报的接收者名称,如果一个报警没有被一个route匹配,则发送给默认的接收器</span>
+<span class="token key atrule">receivers</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 发送告警信息给那个接收者</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">'web.hook'</span>    <span class="token comment" spellcheck="true"># 这个需要和上面定义的接收者名称一致</span>
+  <span class="token key atrule">webhook_configs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token string">'http://127.0.0.1:5001/'</span>
+<span class="token key atrule">inhibit_rules</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 抑制规则,防止告警风暴</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">source_match</span><span class="token punctuation">:</span>
+      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'critical'</span>
+    <span class="token key atrule">target_match</span><span class="token punctuation">:</span>
+      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'warning'</span>
+    <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'alertname'</span><span class="token punctuation">,</span> <span class="token string">'dev'</span><span class="token punctuation">,</span> <span class="token string">'instance'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="检查Alertmanager配置文件"><a href="#检查Alertmanager配置文件" class="headerlink" title="检查Alertmanager配置文件"></a>检查Alertmanager配置文件</h1><pre class="line-numbers language-shell"><code class="language-shell"># 提示SUCCESS,则配置文件没有问题
+./amtool check-config alertmanager.yml
+
+# 修改配置文件之后重启alertmanager
+systemctl restart alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="配置邮件告警"><a href="#配置邮件告警" class="headerlink" title="配置邮件告警"></a>配置邮件告警</h1><p>修改alertmanager配置文件，填写邮箱的验证信息，定义路由的收件人，配置发送告警邮件到那个邮箱</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cat /usr/local/alertmanager/alertmanager.yml 
+global:
+  resolve_timeout: 3m
+  smtp_smarthost: 'smtp.qq.com:465'
+  smtp_from: '1173354099@qq.com'
+  smtp_auth_username: '1173354099@qq.com'
+  smtp_auth_password: ''    # 授权码
+  smtp_require_tls: false
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 20m
+  receiver: 'devops.mail'
+
+receivers:
+- name: 'devops.mail'
+  email_configs:
+  - to: 'mf_2013@163.com'
+    headers: { Subject: "[WARN] Prometheus 报警邮件" }
+    send_resolved: true        # 发送告警恢复通知
+
+#inhibit_rules:
+#  - source_match:
+#      severity: 'critical'
+#    target_match:
+#      severity: 'warning'
+#    equal: ['alertname', 'dev', 'instance']<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置prometheus与alertmanager通信，设置规则文件的路径和正则匹配</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 修改prometheus配置文件</span>
+vim /usr/local/prometheus/prometheus.yml
+<span class="token key atrule">alerting</span><span class="token punctuation">:</span>
+  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 127.0.0.1<span class="token punctuation">:</span><span class="token number">9093    </span><span class="token comment" spellcheck="true"># 这里由于alertmanager是和prometheus部署在同一台机器上,所以写本机地址</span>
+<span class="token key atrule">rule_files</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">"rules/*.yml"</span>    <span class="token comment" spellcheck="true"># rules这个目录是在prometheus上的,指当前配置文件的同级目录,这个目录需要自己创建</span>
+
+<span class="token comment" spellcheck="true"># 检查prometheus配置文件</span>
+./promtool check config prometheus.yml
+systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编写rules文件，根据rules文件中的表达式去告警，这个规则文件的路径是prometheus配置文件中定义的</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 监控节点的状态</span>
+cat /usr/local/prometheus/rules/node.yml 
+<span class="token key atrule">groups</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> node_alert
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> Node_InstanceDown        
+    <span class="token key atrule">expr</span><span class="token punctuation">:</span> up == 0    <span class="token comment" spellcheck="true"># 表达式</span>
+    <span class="token key atrule">for</span><span class="token punctuation">:</span> 5s
+    <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serverity</span><span class="token punctuation">:</span> error
+    <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+      <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance {{ $labels.instance }} down"</span>
+      <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在prometheus的web控制台查看配置的规则</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f20e09814195aa594f3290e.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>关闭node_exporter.service节点，查看告警邮件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f20e13414195aa594f3b901.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h1 id="配置微信告警"><a href="#配置微信告警" class="headerlink" title="配置微信告警"></a>配置微信告警</h1><p>修改alertmanager配置文件，定义路由规则</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">cat /usr/local/alertmanager/alertmanager.yml 
+<span class="token key atrule">global</span><span class="token punctuation">:</span>
+  <span class="token key atrule">resolve_timeout</span><span class="token punctuation">:</span> 3m
+  <span class="token key atrule">smtp_smarthost</span><span class="token punctuation">:</span> <span class="token string">'smtp.qq.com:465'</span>
+  <span class="token key atrule">smtp_from</span><span class="token punctuation">:</span> <span class="token string">'1173354099@qq.com'</span>
+  <span class="token key atrule">smtp_auth_username</span><span class="token punctuation">:</span> <span class="token string">'1173354099@qq.com'</span>
+  <span class="token key atrule">smtp_auth_password</span><span class="token punctuation">:</span> <span class="token string">'fvazuohkuyigigfa'</span>
+  <span class="token key atrule">smtp_require_tls</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+
+<span class="token key atrule">templates</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> /usr/local/alertmanager/template/wechat.temp
+
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'alertname'</span><span class="token punctuation">]</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 10s
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 10s
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 20m
+  <span class="token comment" spellcheck="true">#receiver: 'devops.mail'</span>
+  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'devops.mailwechat'</span>
+
+  <span class="token key atrule">routes</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 为node_exporter、docker、mysqld_exporter定义匹配路由,每个路由有自己的分组在微信告警时信息就会单独发送</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'devops.mailwechat'</span>    <span class="token comment" spellcheck="true"># 每个服务可以定义自己的接收者,这样在发送时就可以发送给不同的人,不同的服务对应不同的处理人员</span>
+    <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 10s
+    <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'node_exporter'</span><span class="token punctuation">]</span>
+    <span class="token key atrule">match_re</span><span class="token punctuation">:</span>
+      <span class="token key atrule">job</span><span class="token punctuation">:</span> node_exporter
+
+  <span class="token punctuation">-</span> <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'devops.mailwechat'</span>
+    <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 10s
+    <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'docker'</span><span class="token punctuation">]</span>
+    <span class="token key atrule">match_re</span><span class="token punctuation">:</span>
+      <span class="token key atrule">job</span><span class="token punctuation">:</span> docker
+
+  <span class="token punctuation">-</span> <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'devops.mailwechat'</span>
+    <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 10s
+    <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'mysqld_exporter'</span><span class="token punctuation">]</span>
+    <span class="token key atrule">match_re</span><span class="token punctuation">:</span>
+      <span class="token key atrule">job</span><span class="token punctuation">:</span> mysqld_exporter
+
+<span class="token key atrule">receivers</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">'devops.mailwechat'</span>    <span class="token comment" spellcheck="true"># 将这个告警同时发送到邮件和微信</span>
+  <span class="token key atrule">email_configs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span> <span class="token string">'mf_2013@163.com'</span>
+    <span class="token key atrule">headers</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token key atrule">Subject</span><span class="token punctuation">:</span> <span class="token string">"[WARN] Prometheus 报警邮件"</span> <span class="token punctuation">}</span>
+    <span class="token key atrule">send_resolved</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+
+  <span class="token key atrule">wechat_configs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">api_secret</span><span class="token punctuation">:</span> <span class="token string">'1_7UYCVsEGAKe8rSn8-AEYWicCPCHmrBEM1rFM1_IL8'</span>
+    <span class="token key atrule">agent_id</span><span class="token punctuation">:</span> <span class="token string">'1000003'</span>
+    <span class="token key atrule">corp_id</span><span class="token punctuation">:</span> <span class="token string">'wwcc094ce64f13742c'</span>
+    <span class="token key atrule">to_party</span><span class="token punctuation">:</span> <span class="token string">'2'</span>
+    <span class="token key atrule">send_resolved</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+
+<span class="token comment" spellcheck="true">#inhibit_rules:</span>
+<span class="token comment" spellcheck="true">#  - source_match:</span>
+<span class="token comment" spellcheck="true">#      severity: 'critical'</span>
+<span class="token comment" spellcheck="true">#    target_match:</span>
+<span class="token comment" spellcheck="true">#      severity: 'warning'</span>
+<span class="token comment" spellcheck="true">#    equal: ['alertname', 'dev', 'instance']</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编写rules文件，为了每个服务单独报警，这里将node_exporter、docker、mysqld_exporter分开去写匹配规则</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">cat /usr/local/prometheus/rules/node.yml 
+<span class="token key atrule">groups</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> node_exporter
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> node_exporter_Down
+    <span class="token key atrule">expr</span><span class="token punctuation">:</span> up<span class="token punctuation">{</span>job="node_exporter"<span class="token punctuation">}</span> == 0
+    <span class="token key atrule">for</span><span class="token punctuation">:</span> 5s
+    <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serverity</span><span class="token punctuation">:</span> error
+    <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+      <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance {{ $labels.instance }} down"</span>
+      <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes"</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqld_exporter
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> mysqld_exporter_Down
+    <span class="token key atrule">expr</span><span class="token punctuation">:</span> up<span class="token punctuation">{</span>job="mysqld_exporter"<span class="token punctuation">}</span> == 0
+    <span class="token key atrule">for</span><span class="token punctuation">:</span> 5s
+    <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serverity</span><span class="token punctuation">:</span> error
+    <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+      <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance {{ $labels.instance }} down"</span>
+      <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes"</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> docker
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span> 
+  <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> docker_Down
+    <span class="token key atrule">expr</span><span class="token punctuation">:</span> up<span class="token punctuation">{</span>job="docker"<span class="token punctuation">}</span> == 0
+    <span class="token key atrule">for</span><span class="token punctuation">:</span> 5s
+    <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serverity</span><span class="token punctuation">:</span> error
+    <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+      <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance {{ $labels.instance }} down"</span>
+      <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置完成之后重启alertmanager</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>关闭node_exporter和docker_cadvisor服务，这时候会每个服务单独发送告警信息，由于将全部服务group_by在一个组里面，在发送恢复信息时会出现服务混乱的情况，所以我将每个服务做了路由，每一个服务都有自己的group_by，这样在发送信息时才会单独去发送</p>
+{% image https://pic.imgdb.cn/item/5f2140bc14195aa5945ae70c.jpg '' '' %}
+
+<h1 id="配置钉钉告警"><a href="#配置钉钉告警" class="headerlink" title="配置钉钉告警"></a>配置钉钉告警</h1><p>先去创建一个钉钉机器人，具体过程这里就不详细说明了</p>
+<p>prometheus配置钉钉告警需要使用到prometheus-webhook-dingtalk插件，我们先使用二进制安装钉钉插件，dingtalk服务默认启动的端口是8060</p>
+<p><a href="https://github.com/timonwong/prometheus-webhook-dingtalk" target="_blank" rel="noopener">prometheus-webhook-dingtalk插件下载地址</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 下载prometheus-webhook-dingtalk
+wget https://github.com/timonwong/prometheus-webhook-dingtalk/releases/download/v1.4.0/prometheus-webhook-dingtalk-1.4.0.linux-amd64.tar.gz
+
+# 解压prometheus-webhook-dingtalk
+tar xf prometheus-webhook-dingtalk-1.4.0.linux-amd64.tar.gz && mv prometheus-webhook-dingtalk-1.4.0.linux-amd64 /usr/local/dingtalk
+
+# 编写dingtalk启动文件
+vim /usr/lib/systemd/system/dingtalk.service
+[Unit]
+Description=prometheus-webhook-dingtalk
+After=network-online.target
+
+[Service]
+Restart=on-failure
+ExecStart=/usr/local/dingtalk/prometheus-webhook-dingtalk \
+--ding.profile=Prometheus告警=https://oapi.dingtalk.com/robot/send?access_token=c14dc080c99185fd91802d5a7f2708a431eaa8980497b5d92d04f4c2347b1f3b
+[Install]
+WantedBy=multi-user.target
+
+# 启动dingtalk.service
+systemctl daemon-reload
+systemctl restart dingtalk.service
+
+# 查看dingtalk的webhook地址
+journalctl -fu dingtalk.service
+Jul 29 18:38:01 iZuf6fpaicz5jt7kep555qZ prometheus-webhook-dingtalk[5504]: ts=2020-07-29T10:38:01.655Z caller=main.go:133 component=configuration msg="Webhook urls for prometheus alertmanager" urls=http://localhost:8060/dingtalk/Prometheus告警/send<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改prometheus的alertmanager配置，更改告警的路由和接收者</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'devops_dingtalk'</span>    <span class="token comment" spellcheck="true"># 接收者必须和下面的一致</span>
+
+<span class="token key atrule">receivers</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">'devops_dingtalk'</span>
+  <span class="token key atrule">webhook_configs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token string">'http://localhost:8060/dingtalk/Prometheus告警/send'</span>    <span class="token comment" spellcheck="true"># 这个URL是dingtalk的webhook地址</span>
+    <span class="token key atrule">send_resolved</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>关闭docker收集器查看告警效果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f22831a14195aa594112818.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-07-30T08:22:29.042Z" itemprop="dateUpdated">2020-07-30 16:22:29</time>
+</span><br>
+
+
+        
+        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，那就请我喝咖啡吧！
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prometheus/" rel="tag">Prometheus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9B%91%E6%8E%A7/" rel="tag">监控</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/ba827699.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
+        <h4 class="title">Prometheus监控案例(5)</h4>
+      </a>
+    </div>
+  
+
+  
+
+
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub & Coding Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                1.7k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

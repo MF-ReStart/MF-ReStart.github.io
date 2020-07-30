@@ -34,17 +34,13 @@
 <meta property="og:site_name" content="荒原饮露">
 <meta property="og:description" content="二进制部署# 下载二进制安装包 wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;prometheus&#x2F;releases&#x2F;download&#x2F;v2.19.2&#x2F;prometheus-2.19.2.linux-amd64.tar.gz  # 解压 tar xf prometheus-2.19.2.linux-amd64.tar.gz &amp;&amp; mv prometheus-2.19.2.l">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f0e7d2114195aa5941d2623.jpg">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f0e98fb14195aa594262fc9.jpg">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f0e9c9014195aa594272a45.jpg">
 <meta property="article:published_time" content="2020-07-15T09:11:11.000Z">
-<meta property="article:modified_time" content="2020-07-22T08:35:12.785Z">
+<meta property="article:modified_time" content="2020-07-28T08:52:16.948Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
 <meta property="article:tag" content="监控">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f0e7d2114195aa5941d2623.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -169,7 +165,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二进制部署"><span class="post-toc-number">1.</span> <span class="post-toc-text">二进制部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Docker部署"><span class="post-toc-number">2.</span> <span class="post-toc-text">Docker部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Web控制台"><span class="post-toc-number">3.</span> <span class="post-toc-text">Web控制台</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Prometheus监控localhost"><span class="post-toc-number">4.</span> <span class="post-toc-text">Prometheus监控localhost</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取监控数据"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">获取监控数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看监控目标"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">查看监控目标</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二进制部署"><span class="post-toc-number">1.</span> <span class="post-toc-text">二进制部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改配置文件"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">修改配置文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Docker部署"><span class="post-toc-number">2.</span> <span class="post-toc-text">Docker部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#启动常用命令行参数"><span class="post-toc-number">3.</span> <span class="post-toc-text">启动常用命令行参数</span></a></li></ol>
         </nav>
     </aside>
 
@@ -201,23 +197,11 @@ wget https://github.com/prometheus/prometheus/releases/download/v2.19.2/promethe
 # 解压
 tar xf prometheus-2.19.2.linux-amd64.tar.gz && mv prometheus-2.19.2.linux-amd64 /usr/local/prometheus
 
-# 修改配置文件
-vim prometheus.yml
-scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'    # 使用prometheus这个作业,类似zabbix的监控模板
-
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
-    scrape_interval: 5s
-    static_configs:
-    - targets: ['localhost:9090']    # 监控本机
-
 # 创建启动文件
 cp /usr/lib/systemd/system/sshd.service /usr/lib/systemd/system/prometheus.service
 
 # 编写启动文件
-vim /usr/lib/systemd/system/prometheus.service
+tee /usr/lib/systemd/system/prometheus.service << EOF
 [Unit]
 Description=http://prometheus.io
 
@@ -227,37 +211,49 @@ ExecStart=/usr/local/prometheus/prometheus --config.file=/usr/local/prometheus/p
 
 [Install]
 WantedBy=multi-user.target
+EOF
 
 # 启动prometheus
 systemctl daemon-reload
-systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/prometheus/prometheus
+<span class="token comment" spellcheck="true"># my global config</span>
+<span class="token key atrule">global</span><span class="token punctuation">:</span>
+  <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span>     5s <span class="token comment" spellcheck="true"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span>
+  <span class="token key atrule">evaluation_interval</span><span class="token punctuation">:</span> 15s <span class="token comment" spellcheck="true"># Evaluate rules every 15 seconds. The default is every 1 minute.</span>
+  <span class="token comment" spellcheck="true"># scrape_timeout is set to the global default (10s).</span>
+
+<span class="token comment" spellcheck="true"># Alertmanager configuration</span>
+<span class="token key atrule">alerting</span><span class="token punctuation">:</span>
+  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
+      <span class="token comment" spellcheck="true"># - alertmanager:9093</span>
+
+<span class="token comment" spellcheck="true"># Load rules once and periodically evaluate them according to the global 'evaluation_interval'.</span>
+<span class="token key atrule">rule_files</span><span class="token punctuation">:</span>
+  <span class="token comment" spellcheck="true"># - "first_rules.yml"</span>
+  <span class="token comment" spellcheck="true"># - "second_rules.yml"</span>
+
+<span class="token comment" spellcheck="true"># A scrape configuration containing exactly one endpoint to scrape:</span>
+<span class="token comment" spellcheck="true"># Here it's Prometheus itself.</span>
+<span class="token key atrule">scrape_configs</span><span class="token punctuation">:</span>
+  <span class="token comment" spellcheck="true"># The job name is added as a label `job=&lt;job_name>` to any timeseries scraped from this config.</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'prometheus'</span>
+
+    <span class="token comment" spellcheck="true"># metrics_path defaults to '/metrics'</span>
+    <span class="token comment" spellcheck="true"># scheme defaults to 'http'.</span>
+
+    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'127.0.0.1:9090'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Docker部署"><a href="#Docker部署" class="headerlink" title="Docker部署"></a>Docker部署</h1><pre class="line-numbers language-shell"><code class="language-shell">docker run -d --name "prometheus" -p 9090:9090 \
 --mount src=prometheus,dst=/etc/prometheus \
 --mount type=bind,src=/prometheus/prometheus.yml,dst=/etc/prometheus/prometheus.yml prom/prometheus<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h1 id="Web控制台"><a href="#Web控制台" class="headerlink" title="Web控制台"></a>Web控制台</h1><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f0e7d2114195aa5941d2623.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h1 id="启动常用命令行参数"><a href="#启动常用命令行参数" class="headerlink" title="启动常用命令行参数"></a>启动常用命令行参数</h1><pre class="line-numbers language-shell"><code class="language-shell">./prometheus -h
+--config.file="prometheus.yml"    # 指定配置文件
+--web.listen-address="0.0.0.0:9090"        # 指定端口
+--log.level=info    # 指定日志级别<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h1 id="Prometheus监控localhost"><a href="#Prometheus监控localhost" class="headerlink" title="Prometheus监控localhost"></a>Prometheus监控localhost</h1><h2 id="获取监控数据"><a href="#获取监控数据" class="headerlink" title="获取监控数据"></a>获取监控数据</h2><p>访问Prometheus Server提供的监控数据指标，数据是以文本的形式展示，grafana就是将这些文本数据渲染成图表。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f0e98fb14195aa594262fc9.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<h2 id="查看监控目标"><a href="#查看监控目标" class="headerlink" title="查看监控目标"></a>查看监控目标</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f0e9c9014195aa594272a45.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
         </div>
 
         <blockquote class="post-copyright">
@@ -265,7 +261,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-22T08:35:12.785Z" itemprop="dateUpdated">2020-07-22 16:35:12</time>
+    最后更新时间：<time datetime="2020-07-28T08:52:16.948Z" itemprop="dateUpdated">2020-07-28 16:52:16</time>
 </span><br>
 
 
@@ -302,23 +298,26 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
 
     
 <nav class="post-nav flex-row flex-justify-between">
+
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/521f1005.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title"></h4>
+      <a href="/post/ef0b21f0.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
+        <h4 class="title">Prometheus概述(2)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/ef0b21f0.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+      <a href="/post/521f1005.html" id="post-next" class="post-nav-link">
+        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">Prometheus配置文件与核心功能(4)</h4>
       </a>
     </div>
   
+
+
 </nav>
 
 
@@ -466,7 +465,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                270
+                124
             
         </span>
     </div>

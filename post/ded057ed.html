@@ -27,16 +27,16 @@
     
     
     <meta name="keywords" content="云计算,Prometheus,监控">
-    <meta name="description" content="为什么要监控对系统不间断实时监控，系统出现故障能让我们在第一时间得知 实时反馈系统当前状态，采集系统数据可以对系统进行加强和优化 保证业务持续性运行，提升用户的体验 怎么来监控监控工具# free  # vmstat # df # top # ss # iftop ... 监控系统# zabbix # prometheus # open-falcon    # 小米开源 监控流程">
+    <meta name="description" content="监控目的监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑盒监控: 监控系统或服务，在发生异常时做出相应的措施。prometheus属于黑盒监控，是在服务发生异常时，我们通过告警信息得知，才去处理异常问题 监控的目的主要分为以下方面:  根据历史监控数据，对未来做出预测 发生异常时即使告警，或做出相应措施 根据监控报警及时定">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prometheus监控的意义(1)">
 <meta property="og:url" content="https://www.missf.top/post/ded057ed.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="为什么要监控对系统不间断实时监控，系统出现故障能让我们在第一时间得知 实时反馈系统当前状态，采集系统数据可以对系统进行加强和优化 保证业务持续性运行，提升用户的体验 怎么来监控监控工具# free  # vmstat # df # top # ss # iftop ... 监控系统# zabbix # prometheus # open-falcon    # 小米开源 监控流程">
+<meta property="og:description" content="监控目的监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑盒监控: 监控系统或服务，在发生异常时做出相应的措施。prometheus属于黑盒监控，是在服务发生异常时，我们通过告警信息得知，才去处理异常问题 监控的目的主要分为以下方面:  根据历史监控数据，对未来做出预测 发生异常时即使告警，或做出相应措施 根据监控报警及时定">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f0d66c514195aa594d1f578.jpg">
 <meta property="article:published_time" content="2020-07-13T17:28:39.000Z">
-<meta property="article:modified_time" content="2020-07-17T10:32:12.767Z">
+<meta property="article:modified_time" content="2020-07-27T09:51:54.387Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -167,7 +167,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#为什么要监控"><span class="post-toc-number">1.</span> <span class="post-toc-text">为什么要监控</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#怎么来监控"><span class="post-toc-number">2.</span> <span class="post-toc-text">怎么来监控</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#监控工具"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">监控工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#监控系统"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">监控系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#监控流程"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">监控流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#要监控什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">要监控什么</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控目的"><span class="post-toc-number">1.</span> <span class="post-toc-text">监控目的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#怎么监控"><span class="post-toc-number">2.</span> <span class="post-toc-text">怎么监控</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">监控流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控什么"><span class="post-toc-number">4.</span> <span class="post-toc-text">监控什么</span></a></li></ol>
         </nav>
     </aside>
 
@@ -193,20 +193,31 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="为什么要监控"><a href="#为什么要监控" class="headerlink" title="为什么要监控"></a>为什么要监控</h1><p>对系统不间断实时监控，系统出现故障能让我们在第一时间得知</p>
-<p>实时反馈系统当前状态，采集系统数据可以对系统进行加强和优化</p>
-<p>保证业务持续性运行，提升用户的体验</p>
-<h1 id="怎么来监控"><a href="#怎么来监控" class="headerlink" title="怎么来监控"></a>怎么来监控</h1><h2 id="监控工具"><a href="#监控工具" class="headerlink" title="监控工具"></a>监控工具</h2><pre class="line-numbers language-shell"><code class="language-shell"># free 
+            <h1 id="监控目的"><a href="#监控目的" class="headerlink" title="监控目的"></a>监控目的</h1><p>监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑盒监控: 监控系统或服务，在发生异常时做出相应的措施。prometheus属于黑盒监控，是在服务发生异常时，我们通过告警信息得知，才去处理异常问题</p>
+<p>监控的目的主要分为以下方面:</p>
+<ol>
+<li>根据历史监控数据，对未来做出预测</li>
+<li>发生异常时即使告警，或做出相应措施</li>
+<li>根据监控报警及时定位问题根源，记录问题出现的证据(记录网络波动)</li>
+<li>通过可视化图表展示，便于直观获取信息</li>
+<li>领导查看数据图表(PV、UV、订单趋势图)</li>
+<li>运维人员能够提前预知风险，避免故障的产生或者在故障发生时能够迅速处理</li>
+</ol>
+<h1 id="怎么监控"><a href="#怎么监控" class="headerlink" title="怎么监控"></a>怎么监控</h1><p>使用传统监控工具，直接调用Linux系统命令去获取服务状态和信息</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># free 
 # vmstat
 # df
 # top
 # ss
 # iftop
 ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="监控系统"><a href="#监控系统" class="headerlink" title="监控系统"></a>监控系统</h2><pre class="line-numbers language-shell"><code class="language-shell"># zabbix
+<p>使用监控系统去监控系统和服务，能够整体监控每一项数据</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># zabbix
+# nagios
 # prometheus
-# open-falcon    # 小米开源<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h2 id="监控流程"><a href="#监控流程" class="headerlink" title="监控流程"></a>监控流程</h2><figure class="image-bubble">
+# open-falcon<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="监控流程"><a href="#监控流程" class="headerlink" title="监控流程"></a>监控流程</h1><p>监控的大概流程分为:数据采集、数据存储、数据分析、以及展示和告警</p>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="https://pic.imgdb.cn/item/5f0d66c514195aa594d1f578.jpg" alt="" title="">
@@ -214,7 +225,7 @@
                 <div class="image-caption"></div>
             </figure>
 
-<h1 id="要监控什么"><a href="#要监控什么" class="headerlink" title="要监控什么"></a>要监控什么</h1><table>
+<h1 id="监控什么"><a href="#监控什么" class="headerlink" title="监控什么"></a>监控什么</h1><table>
 <thead>
 <tr>
 <th>监控类型</th>
@@ -223,7 +234,7 @@
 </thead>
 <tbody><tr>
 <td>硬件监控</td>
-<td>温度，硬件故障等</td>
+<td>硬件参数、温度、故障等</td>
 </tr>
 <tr>
 <td>系统监控</td>
@@ -262,7 +273,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-17T10:32:12.767Z" itemprop="dateUpdated">2020-07-17 18:32:12</time>
+    最后更新时间：<time datetime="2020-07-27T09:51:54.387Z" itemprop="dateUpdated">2020-07-27 17:51:54</time>
 </span><br>
 
 
@@ -299,23 +310,26 @@
 
     
 <nav class="post-nav flex-row flex-justify-between">
+
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/ef0b21f0.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title"></h4>
+      <a href="/post/34699079.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
+        <h4 class="title">Docker单机编排利器Docker Compose(9)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/34699079.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+      <a href="/post/ef0b21f0.html" id="post-next" class="post-nav-link">
+        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">Prometheus概述(2)</h4>
       </a>
     </div>
   
+
+
 </nav>
 
 
@@ -463,7 +477,7 @@
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                281
+                529
             
         </span>
     </div>
