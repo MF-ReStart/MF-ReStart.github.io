@@ -20,29 +20,27 @@
     
     
     
-    <title>Prometheus的pushgateway工具(8) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <title>ELK Stack需求及介绍(1) | 荒原饮露 | 青春不是隔岸观火啊</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="云计算,Prometheus,监控">
-    <meta name="description" content="PushGateway部署prometheus基于http的pull方式去采集时间序列数据，但是由于业务需求，prometheus和exporter可能不在一个子网或者防火墙原因，导致Prometheus无法直接拉取各个target数据，或者需要将不同的数据进行汇总，这时候就可以使用prometheus的自带组件pushgateway进行数据的汇总，将默认的pull方式改为push方式进行数据的采">
+    <meta name="keywords" content="ELK,企业级日志系统,数据收集分析">
+    <meta name="description" content="关于ELK Stack的需求在项目开发初期或者在版本更新迭代时，开发人员为了排除问题，经常需要登录线上服务器去查询项目日志信息。随着项目和产品线越来越多，我们的服务器会越来越多，日志类型也会越来越多…让开发人员登录线上服务器去查看日志信息，显然不现实，由于涉及到服务器安全问题，开发人员一般不会有服务器的登录权限。传统的查看日志输出信息，我们都是使用awk、sed、grep、tail等命令去搜索自己">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Prometheus的pushgateway工具(8)">
-<meta property="og:url" content="https://www.missf.top/post/5cf39589.html">
+<meta property="og:title" content="ELK Stack需求及介绍(1)">
+<meta property="og:url" content="https://www.missf.top/post/cb83e724.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="PushGateway部署prometheus基于http的pull方式去采集时间序列数据，但是由于业务需求，prometheus和exporter可能不在一个子网或者防火墙原因，导致Prometheus无法直接拉取各个target数据，或者需要将不同的数据进行汇总，这时候就可以使用prometheus的自带组件pushgateway进行数据的汇总，将默认的pull方式改为push方式进行数据的采">
+<meta property="og:description" content="关于ELK Stack的需求在项目开发初期或者在版本更新迭代时，开发人员为了排除问题，经常需要登录线上服务器去查询项目日志信息。随着项目和产品线越来越多，我们的服务器会越来越多，日志类型也会越来越多…让开发人员登录线上服务器去查看日志信息，显然不现实，由于涉及到服务器安全问题，开发人员一般不会有服务器的登录权限。传统的查看日志输出信息，我们都是使用awk、sed、grep、tail等命令去搜索自己">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f2a200a14195aa594b740f9.jpg">
-<meta property="article:published_time" content="2020-08-04T10:05:33.000Z">
-<meta property="article:modified_time" content="2020-08-05T05:58:20.290Z">
+<meta property="article:published_time" content="2020-08-05T06:19:27.000Z">
+<meta property="article:modified_time" content="2020-08-05T09:47:12.034Z">
 <meta property="article:author" content="荒原饮露">
-<meta property="article:tag" content="云计算">
-<meta property="article:tag" content="Prometheus">
-<meta property="article:tag" content="监控">
+<meta property="article:tag" content="ELK">
+<meta property="article:tag" content="企业级日志系统">
+<meta property="article:tag" content="数据收集分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f2a200a14195aa594b740f9.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -124,7 +122,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Prometheus的pushgateway工具(8)</div>
+        <div class="flex-col header-title ellipsis">ELK Stack需求及介绍(1)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -142,15 +140,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Prometheus的pushgateway工具(8)</h1>
+        <h1 class="title">ELK Stack需求及介绍(1)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-08-04T10:05:33.000Z" itemprop="datePublished" class="page-time">
-  2020-08-04
+                <time datetime="2020-08-05T06:19:27.000Z" itemprop="datePublished" class="page-time">
+  2020-08-05
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Prometheus/">Prometheus</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
 
             
         </h5>
@@ -167,21 +165,21 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PushGateway部署"><span class="post-toc-number">1.</span> <span class="post-toc-text">PushGateway部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Prometheus添加PushGateway"><span class="post-toc-number">2.</span> <span class="post-toc-text">Prometheus添加PushGateway</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#推送数据到PushGateway"><span class="post-toc-number">3.</span> <span class="post-toc-text">推送数据到PushGateway</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在PushGateway删除数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">在PushGateway删除数据</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于ELK-Stack的需求"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于ELK Stack的需求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ELK-Stack的介绍"><span class="post-toc-number">2.</span> <span class="post-toc-text">ELK Stack的介绍</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Prometheus的pushgateway工具(8)"
+<article id="post-ELK Stack需求及介绍(1)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Prometheus的pushgateway工具(8)</h1>
+        <h1 class="post-card-title">ELK Stack需求及介绍(1)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-08-04 18:05:33" datetime="2020-08-04T10:05:33.000Z"  itemprop="datePublished">2020-08-04</time>
+            <time class="post-time" title="2020-08-05 14:19:27" datetime="2020-08-05T06:19:27.000Z"  itemprop="datePublished">2020-08-05</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Prometheus/">Prometheus</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
 
 
 
@@ -193,68 +191,11 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="PushGateway部署"><a href="#PushGateway部署" class="headerlink" title="PushGateway部署"></a>PushGateway部署</h1><p>prometheus基于http的pull方式去采集时间序列数据，但是由于业务需求，prometheus和exporter可能不在一个子网或者防火墙原因，导致Prometheus无法直接拉取各个target数据，或者需要将不同的数据进行汇总，这时候就可以使用prometheus的自带组件pushgateway进行数据的汇总，将默认的pull方式改为push方式进行数据的采集</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 下载pushgateway
-wget https://github.com/prometheus/pushgateway/releases/download/v1.2.0/pushgateway-1.2.0.linux-amd64.tar.gz
-
-# 解压
-tar xf pushgateway-1.2.0.linux-amd64.tar.gz && mv pushgateway-1.2.0.linux-amd64 /usr/local/pushgateway
-
-# 创建pushgateway启动文件
-vim /usr/lib/systemd/system/pushgateway.service
-[Unit]
-Documentation=pushgateway exporter
-After=local-fs.target network-online.target network.target
-Wants=local-fs.target network-online.target network.target
-
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/pushgateway/pushgateway    # 需要修改监听端口可以自行添加参数
-
-[Install]
-WantedBy=multi-user.target
-
-# 启动pushgateway
-systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Prometheus添加PushGateway"><a href="#Prometheus添加PushGateway" class="headerlink" title="Prometheus添加PushGateway"></a>Prometheus添加PushGateway</h1><p>在我们的prometheus配置文件添加pushgateway的地址</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/prometheus/prometheus.yml
-<span class="token key atrule">scrape_configs</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'pushgateway'</span>
-    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'49.233.200.185:9091'</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 这个是安装了pushgateway的服务器地址</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">instance</span><span class="token punctuation">:</span> pushgateway<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>重启prometheus服务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>pushgateway其实是一个中转站，我们可以使用任何高级语言发送post请求到pushgateway，然后对数据进行增加删除等操作，pushgateway再把数据实时推送到prometheus</p>
-<h1 id="推送数据到PushGateway"><a href="#推送数据到PushGateway" class="headerlink" title="推送数据到PushGateway"></a>推送数据到PushGateway</h1><pre class="line-numbers language-shell"><code class="language-shell">echo "missf 123456" | curl --data-binary @- http://49.233.200.185:9091/metrics/job/prometheus
-# 数据:missf,值:123456
-# --data-binary 表示发送二进制数据(post方式)
-# http://49.233.200.185:9091 pushgateway的地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>查看pushgateway推送到prometheus上的数据，这可以看到有exported_job=”prometheus”和job=”pushgateway”两个指标，我们推送数据时指定的job是prometheus，为什么这里的job会显示pushgateway呢？这里需要修改一个honor_labels的参数</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f2a200a14195aa594b740f9.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<p>修改prometheus的配置文件，开启honor_labels参数(默认为false)</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">scrape_configs</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'pushgateway'</span>
-    <span class="token key atrule">honor_labels</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'49.233.200.185:9091'</span><span class="token punctuation">]</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">instance</span><span class="token punctuation">:</span> pushgateway<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>重启prometheus</p>
-<p>再次推送数据到pushgateway，然后查看prometheus上的数据</p>
-<pre class="line-numbers language-shell"><code class="language-shell">echo "mwj 123456" | curl --data-binary @- http://49.233.200.185:9091/metrics/job/prometheus/instance/missf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-{% image https://pic.imgdb.cn/item/5f2a245714195aa594b8dbe0.jpg '' '' %}
-
-<p>这里说明一下honor_labels的作用:因为prometheus配置pushgateway的时候，也会指定job和instance，但是它只表示pushgateway实例本身，不能真正表达收集数据的含义。所以配置pushgateway需要添加honor_labels:true参数，避免收集到的数据本身的job和instance被覆盖。具体参考官网</p>
-<h1 id="在PushGateway删除数据"><a href="#在PushGateway删除数据" class="headerlink" title="在PushGateway删除数据"></a>在PushGateway删除数据</h1><pre class="line-numbers language-shell"><code class="language-shell">curl -X DELETE http://49.233.200.185:9091/metrics/job/prometheus/instance/missf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+            <h1 id="关于ELK-Stack的需求"><a href="#关于ELK-Stack的需求" class="headerlink" title="关于ELK Stack的需求"></a>关于ELK Stack的需求</h1><p>在项目开发初期或者在版本更新迭代时，开发人员为了排除问题，经常需要登录线上服务器去查询项目日志信息。随着项目和产品线越来越多，我们的服务器会越来越多，日志类型也会越来越多…让开发人员登录线上服务器去查看日志信息，显然不现实，由于涉及到服务器安全问题，开发人员一般不会有服务器的登录权限。传统的查看日志输出信息，我们都是使用awk、sed、grep、tail等命令去搜索自己想要的日志信息，但是在日志量庞大、文本搜索太慢、无法多维度查询等问题面前使用传统命令去查看日志会显得苍白无力，ELK因此就应运而生</p>
+<h1 id="ELK-Stack的介绍"><a href="#ELK-Stack的介绍" class="headerlink" title="ELK Stack的介绍"></a>ELK Stack的介绍</h1><p>Logstash: 它是一个服务端的数据处理管道，可以从多个数据源中提取数据，对其进行转换，然后将其存储到Elasticsearch中。简单来说就是日志的收集、分析、过滤工具</p>
+<p>Filebeat: 监控日志文件，获取服务器上指定路径的日志文件，并将这些日志转发到Logstash实例以进行处理。Filebeat的设计是为了可靠性和低延迟。Filebeat在主机上占用的资源很少，而Beats input插件将对Logstash实例的资源需求降到最低。</p>
+<p>Elasticsearch: 它是一个开源分布式搜索引擎，提供收集、分析、存储数据三大功能</p>
+<p>Kibana: 它是一个基于web的图形界面，用于搜索、分析和可视化存储在Elasticsearch中的日志数据</p>
 
         </div>
 
@@ -263,7 +204,7 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-05T05:58:20.290Z" itemprop="dateUpdated">2020-08-05 13:58:20</time>
+    最后更新时间：<time datetime="2020-08-05T09:47:12.034Z" itemprop="dateUpdated">2020-08-05 17:47:12</time>
 </span><br>
 
 
@@ -289,7 +230,7 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prometheus/" rel="tag">Prometheus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9B%91%E6%8E%A7/" rel="tag">监控</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%81%E4%B8%9A%E7%BA%A7%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" rel="tag">企业级日志系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E5%88%86%E6%9E%90/" rel="tag">数据收集分析</a></li></ul>
 
 
             
@@ -299,24 +240,17 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
 
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/f261c617.html" id="post-prev" class="post-nav-link">
+      <a href="/post/5cf39589.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Prometheus业务监控(7)</h4>
+        <h4 class="title">Prometheus的pushgateway工具(8)</h4>
       </a>
     </div>
   
 
-  
-    <div class="waves-block waves-effect next">
-      <a href="/post/cb83e724.html" id="post-next" class="post-nav-link">
-        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ELK Stack需求及介绍(1)</h4>
-      </a>
-    </div>
   
 
 
@@ -467,7 +401,7 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                620
+                436
             
         </span>
     </div>
