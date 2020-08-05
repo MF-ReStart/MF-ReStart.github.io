@@ -37,11 +37,11 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f14fccb14195aa59415fa14.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f1515d514195aa5941cc06f.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f1518a914195aa5941d6c7f.jpg">
-<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20200721104029250.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f23b7c914195aa5948360c4.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f17260614195aa59400404d.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f18f80f14195aa594e798e0.jpg">
 <meta property="article:published_time" content="2020-07-16T07:43:16.000Z">
-<meta property="article:modified_time" content="2020-07-28T09:24:54.598Z">
+<meta property="article:modified_time" content="2020-08-03T03:27:09.082Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -251,7 +251,7 @@ vim /usr/local/prometheus/sd_config/node/*.yaml
 <h2 id="硬盘监控"><a href="#硬盘监控" class="headerlink" title="硬盘监控"></a>硬盘监控</h2><pre class="line-numbers language-shell"><code class="language-shell"># 计算硬盘使用率表达式
 100 - node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"} / node_filesystem_size_bytes{mountpoint="/",fstype=~"ext4|xfs"} * 100
 
-# node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区硬盘剩余容量,只计算ext4|xfs类型的文件系统,
+# node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区硬盘剩余容量,只计算ext4|xfs类型的文件系统
 # node_filesystem_size_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区的硬盘总量
 # 根分区硬盘剩余容量除以根分区的硬盘总量得到根分区硬盘的剩余率,再以100减去硬盘的剩余率得到硬盘使用率<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="监控系统服务状态"><a href="#监控系统服务状态" class="headerlink" title="监控系统服务状态"></a>监控系统服务状态</h1><h2 id="修改node-exporter的启动参数"><a href="#修改node-exporter的启动参数" class="headerlink" title="修改node_exporter的启动参数"></a>修改node_exporter的启动参数</h2><pre class="line-numbers language-shell"><code class="language-shell">vim /usr/lib/systemd/system/node_exporter.service
@@ -334,7 +334,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200721104029250.png" alt="" title="">
+                    <img src="https://pic.imgdb.cn/item/5f23b7c914195aa5948360c4.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -399,7 +399,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-28T09:24:54.598Z" itemprop="dateUpdated">2020-07-28 17:24:54</time>
+    最后更新时间：<time datetime="2020-08-03T03:27:09.082Z" itemprop="dateUpdated">2020-08-03 11:27:09</time>
 </span><br>
 
 
