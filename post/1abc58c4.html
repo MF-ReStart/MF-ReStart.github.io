@@ -20,27 +20,29 @@
     
     
     
-    <title>Prometheus部署(3) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <title>ELK Stack架构(2) | 荒原饮露 | 青春不是隔岸观火啊</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="云计算,Prometheus,监控">
-    <meta name="description" content="二进制部署# 下载二进制安装包 wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;prometheus&#x2F;releases&#x2F;download&#x2F;v2.19.2&#x2F;prometheus-2.19.2.linux-amd64.tar.gz  # 解压 tar xf prometheus-2.19.2.linux-amd64.tar.gz &amp;&amp; mv prometheus-2.19.2.l">
+    <meta name="keywords" content="ELK,企业级日志系统,数据收集分析">
+    <meta name="description" content="ELK Stack日志处理流程                                                                                                            LogstashInput: 输入，输出数据可以是Stdin、File、TCP、Redis、Syslog等 Filter: 过滤，将日志格式化，有丰富的过">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Prometheus部署(3)">
-<meta property="og:url" content="https://www.missf.top/post/d26dfcbe.html">
+<meta property="og:title" content="ELK Stack架构(2)">
+<meta property="og:url" content="https://www.missf.top/post/1abc58c4.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="二进制部署# 下载二进制安装包 wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;prometheus&#x2F;releases&#x2F;download&#x2F;v2.19.2&#x2F;prometheus-2.19.2.linux-amd64.tar.gz  # 解压 tar xf prometheus-2.19.2.linux-amd64.tar.gz &amp;&amp; mv prometheus-2.19.2.l">
+<meta property="og:description" content="ELK Stack日志处理流程                                                                                                            LogstashInput: 输入，输出数据可以是Stdin、File、TCP、Redis、Syslog等 Filter: 过滤，将日志格式化，有丰富的过">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-15T09:11:11.000Z">
-<meta property="article:modified_time" content="2020-08-05T10:26:27.919Z">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2b632f14195aa59440b65e.jpg">
+<meta property="article:published_time" content="2020-08-05T10:26:09.000Z">
+<meta property="article:modified_time" content="2020-08-06T06:37:16.633Z">
 <meta property="article:author" content="荒原饮露">
-<meta property="article:tag" content="云计算">
-<meta property="article:tag" content="Prometheus">
-<meta property="article:tag" content="监控">
+<meta property="article:tag" content="ELK">
+<meta property="article:tag" content="企业级日志系统">
+<meta property="article:tag" content="数据收集分析">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f2b632f14195aa59440b65e.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -122,7 +124,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Prometheus部署(3)</div>
+        <div class="flex-col header-title ellipsis">ELK Stack架构(2)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -140,15 +142,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Prometheus部署(3)</h1>
+        <h1 class="title">ELK Stack架构(2)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-07-15T09:11:11.000Z" itemprop="datePublished" class="page-time">
-  2020-07-15
+                <time datetime="2020-08-05T10:26:09.000Z" itemprop="datePublished" class="page-time">
+  2020-08-05
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Prometheus/">Prometheus</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
 
             
         </h5>
@@ -165,21 +167,21 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二进制部署"><span class="post-toc-number">1.</span> <span class="post-toc-text">二进制部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改配置文件"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">修改配置文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Docker部署"><span class="post-toc-number">2.</span> <span class="post-toc-text">Docker部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#启动常用命令行参数"><span class="post-toc-number">3.</span> <span class="post-toc-text">启动常用命令行参数</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ELK-Stack日志处理流程"><span class="post-toc-number">1.</span> <span class="post-toc-text">ELK Stack日志处理流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Logstash"><span class="post-toc-number">2.</span> <span class="post-toc-text">Logstash</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Elasticsearch"><span class="post-toc-number">3.</span> <span class="post-toc-text">Elasticsearch</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kibana"><span class="post-toc-number">4.</span> <span class="post-toc-text">Kibana</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Prometheus部署(3)"
+<article id="post-ELK Stack架构(2)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Prometheus部署(3)</h1>
+        <h1 class="post-card-title">ELK Stack架构(2)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-07-15 17:11:11" datetime="2020-07-15T09:11:11.000Z"  itemprop="datePublished">2020-07-15</time>
+            <time class="post-time" title="2020-08-05 18:26:09" datetime="2020-08-05T10:26:09.000Z"  itemprop="datePublished">2020-08-05</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Prometheus/">Prometheus</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
 
 
 
@@ -191,68 +193,19 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="二进制部署"><a href="#二进制部署" class="headerlink" title="二进制部署"></a>二进制部署</h1><pre class="line-numbers language-shell"><code class="language-shell"># 下载二进制安装包
-wget https://github.com/prometheus/prometheus/releases/download/v2.19.2/prometheus-2.19.2.linux-amd64.tar.gz
+            <h1 id="ELK-Stack日志处理流程"><a href="#ELK-Stack日志处理流程" class="headerlink" title="ELK Stack日志处理流程"></a>ELK Stack日志处理流程</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f2b632f14195aa59440b65e.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
-# 解压
-tar xf prometheus-2.19.2.linux-amd64.tar.gz && mv prometheus-2.19.2.linux-amd64 /usr/local/prometheus
-
-# 创建启动文件
-cp /usr/lib/systemd/system/sshd.service /usr/lib/systemd/system/prometheus.service
-
-# 编写启动文件
-tee /usr/lib/systemd/system/prometheus.service << EOF
-[Unit]
-Description=http://prometheus.io
-
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/prometheus/prometheus --config.file=/usr/local/prometheus/prometheus.yml
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# 启动prometheus
-systemctl daemon-reload
-systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/prometheus/prometheus
-<span class="token comment" spellcheck="true"># my global config</span>
-<span class="token key atrule">global</span><span class="token punctuation">:</span>
-  <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span>     5s <span class="token comment" spellcheck="true"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span>
-  <span class="token key atrule">evaluation_interval</span><span class="token punctuation">:</span> 15s <span class="token comment" spellcheck="true"># Evaluate rules every 15 seconds. The default is every 1 minute.</span>
-  <span class="token comment" spellcheck="true"># scrape_timeout is set to the global default (10s).</span>
-
-<span class="token comment" spellcheck="true"># Alertmanager configuration</span>
-<span class="token key atrule">alerting</span><span class="token punctuation">:</span>
-  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
-      <span class="token comment" spellcheck="true"># - alertmanager:9093</span>
-
-<span class="token comment" spellcheck="true"># Load rules once and periodically evaluate them according to the global 'evaluation_interval'.</span>
-<span class="token key atrule">rule_files</span><span class="token punctuation">:</span>
-  <span class="token comment" spellcheck="true"># - "first_rules.yml"</span>
-  <span class="token comment" spellcheck="true"># - "second_rules.yml"</span>
-
-<span class="token comment" spellcheck="true"># A scrape configuration containing exactly one endpoint to scrape:</span>
-<span class="token comment" spellcheck="true"># Here it's Prometheus itself.</span>
-<span class="token key atrule">scrape_configs</span><span class="token punctuation">:</span>
-  <span class="token comment" spellcheck="true"># The job name is added as a label `job=&lt;job_name>` to any timeseries scraped from this config.</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'prometheus'</span>
-
-    <span class="token comment" spellcheck="true"># metrics_path defaults to '/metrics'</span>
-    <span class="token comment" spellcheck="true"># scheme defaults to 'http'.</span>
-
-    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'127.0.0.1:9090'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Docker部署"><a href="#Docker部署" class="headerlink" title="Docker部署"></a>Docker部署</h1><pre class="line-numbers language-shell"><code class="language-shell">docker run -d --name "prometheus" -p 9090:9090 \
---mount src=prometheus,dst=/etc/prometheus \
---mount type=bind,src=/prometheus/prometheus.yml,dst=/etc/prometheus/prometheus.yml prom/prometheus<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h1 id="启动常用命令行参数"><a href="#启动常用命令行参数" class="headerlink" title="启动常用命令行参数"></a>启动常用命令行参数</h1><pre class="line-numbers language-shell"><code class="language-shell">./prometheus -h
---config.file="prometheus.yml"    # 指定配置文件
---web.listen-address="0.0.0.0:9090"        # 指定端口
---log.level=info    # 指定日志级别<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h1><p>Input: 输入，输出数据可以是Stdin、File、TCP、Redis、Syslog等</p>
+<p>Filter: 过滤，将日志格式化，有丰富的过滤插件: Grok正则捕获、Date时间处理、Json编解码、Mutate数据修改等</p>
+<p>Output: 输出，输出目标可以是Stdout、File、TCP、Redis、ES等</p>
+<h1 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h1><p>Elasticsearch将Logstash输出的格式化日志进行存储，并且使用倒排索引使得查询数据是近乎实时的</p>
+<h1 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h1><p>可视化数据</p>
 
         </div>
 
@@ -261,7 +214,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-05T10:26:27.919Z" itemprop="dateUpdated">2020-08-05 18:26:27</time>
+    最后更新时间：<time datetime="2020-08-06T06:37:16.633Z" itemprop="dateUpdated">2020-08-06 14:37:16</time>
 </span><br>
 
 
@@ -287,7 +240,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prometheus/" rel="tag">Prometheus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9B%91%E6%8E%A7/" rel="tag">监控</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%81%E4%B8%9A%E7%BA%A7%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" rel="tag">企业级日志系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E5%88%86%E6%9E%90/" rel="tag">数据收集分析</a></li></ul>
 
 
             
@@ -301,18 +254,18 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
 
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/ef0b21f0.html" id="post-prev" class="post-nav-link">
+      <a href="/post/cb83e724.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Prometheus概述(2)</h4>
+        <h4 class="title">ELK Stack需求及介绍(1)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/521f1005.html" id="post-next" class="post-nav-link">
+      <a href="/post/dbe94810.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Prometheus配置文件与核心功能(4)</h4>
+        <h4 class="title">ELK Elasticsearch基础概念(3)</h4>
       </a>
     </div>
   
@@ -465,7 +418,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                124
+                117
             
         </span>
     </div>

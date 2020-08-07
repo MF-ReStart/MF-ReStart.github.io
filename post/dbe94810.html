@@ -20,29 +20,27 @@
     
     
     
-    <title>ELK Stack需求及介绍(1) | 荒原饮露 | 青春不是隔岸观火啊</title>
+    <title>ELK Elasticsearch基础概念(3) | 荒原饮露 | 青春不是隔岸观火啊</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="ELK,企业级日志系统,数据收集分析">
-    <meta name="description" content="关于ELK Stack的需求在项目开发初期或者在版本更新迭代时，开发人员为了排除问题，经常需要登录线上服务器去查询项目日志信息。随着项目和产品线越来越多，我们的服务器会越来越多，日志类型也会越来越多…让开发人员登录线上服务器去查看日志信息，显然不现实，由于涉及到服务器安全问题，开发人员一般不会有服务器的登录权限。传统的查看日志输出信息，我们都是使用awk、sed、grep、tail等命令去搜索自己">
+    <meta name="description" content="基本概念Node: 运行单个ES实例的服务器 Cluster: 一个或多个节点构成集群 Index: 索引是多个文档的集合 Document: Index里每条记录称为Document，若干文档构建成一个Index Type: 一个Index可以定义一种或者多种类型，将Document逻辑分组 Filed: ES存储的最小单元 Shards: ES将Index分为若干份，每一份是一个分片 Repl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ELK Stack需求及介绍(1)">
-<meta property="og:url" content="https://www.missf.top/post/cb83e724.html">
+<meta property="og:title" content="ELK Elasticsearch基础概念(3)">
+<meta property="og:url" content="https://www.missf.top/post/dbe94810.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="关于ELK Stack的需求在项目开发初期或者在版本更新迭代时，开发人员为了排除问题，经常需要登录线上服务器去查询项目日志信息。随着项目和产品线越来越多，我们的服务器会越来越多，日志类型也会越来越多…让开发人员登录线上服务器去查看日志信息，显然不现实，由于涉及到服务器安全问题，开发人员一般不会有服务器的登录权限。传统的查看日志输出信息，我们都是使用awk、sed、grep、tail等命令去搜索自己">
+<meta property="og:description" content="基本概念Node: 运行单个ES实例的服务器 Cluster: 一个或多个节点构成集群 Index: 索引是多个文档的集合 Document: Index里每条记录称为Document，若干文档构建成一个Index Type: 一个Index可以定义一种或者多种类型，将Document逻辑分组 Filed: ES存储的最小单元 Shards: ES将Index分为若干份，每一份是一个分片 Repl">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f2a836114195aa594e93860.jpg">
-<meta property="article:published_time" content="2020-08-05T06:19:27.000Z">
-<meta property="article:modified_time" content="2020-08-05T10:26:19.631Z">
+<meta property="article:published_time" content="2020-08-06T02:12:40.000Z">
+<meta property="article:modified_time" content="2020-08-07T10:41:18.803Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
 <meta property="article:tag" content="数据收集分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f2a836114195aa594e93860.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -124,7 +122,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">ELK Stack需求及介绍(1)</div>
+        <div class="flex-col header-title ellipsis">ELK Elasticsearch基础概念(3)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -142,11 +140,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">ELK Stack需求及介绍(1)</h1>
+        <h1 class="title">ELK Elasticsearch基础概念(3)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-08-05T06:19:27.000Z" itemprop="datePublished" class="page-time">
-  2020-08-05
+                <time datetime="2020-08-06T02:12:40.000Z" itemprop="datePublished" class="page-time">
+  2020-08-06
 </time>
 
 
@@ -167,18 +165,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于ELK-Stack的需求"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于ELK Stack的需求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ELK-Stack的介绍"><span class="post-toc-number">2.</span> <span class="post-toc-text">ELK Stack的介绍</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基本概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#集群部署"><span class="post-toc-number">2.</span> <span class="post-toc-text">集群部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据操作"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常用查询"><span class="post-toc-number">4.</span> <span class="post-toc-text">常用查询</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Head插件"><span class="post-toc-number">5.</span> <span class="post-toc-text">Head插件</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-ELK Stack需求及介绍(1)"
+<article id="post-ELK Elasticsearch基础概念(3)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">ELK Stack需求及介绍(1)</h1>
+        <h1 class="post-card-title">ELK Elasticsearch基础概念(3)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-08-05 14:19:27" datetime="2020-08-05T06:19:27.000Z"  itemprop="datePublished">2020-08-05</time>
+            <time class="post-time" title="2020-08-06 10:12:40" datetime="2020-08-06T02:12:40.000Z"  itemprop="datePublished">2020-08-06</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
@@ -193,21 +191,93 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="关于ELK-Stack的需求"><a href="#关于ELK-Stack的需求" class="headerlink" title="关于ELK Stack的需求"></a>关于ELK Stack的需求</h1><p>在项目开发初期或者在版本更新迭代时，开发人员为了排除问题，经常需要登录线上服务器去查询项目日志信息。随着项目和产品线越来越多，我们的服务器会越来越多，日志类型也会越来越多…让开发人员登录线上服务器去查看日志信息，显然不现实，由于涉及到服务器安全问题，开发人员一般不会有服务器的登录权限。传统的查看日志输出信息，我们都是使用awk、sed、grep、tail等命令去搜索自己想要的日志信息，但是在日志量庞大、文本搜索太慢、无法多维度查询等问题面前使用传统命令去查看日志会显得苍白无力，ELK因此就应运而生</p>
-<h1 id="ELK-Stack的介绍"><a href="#ELK-Stack的介绍" class="headerlink" title="ELK Stack的介绍"></a>ELK Stack的介绍</h1><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f2a836114195aa594e93860.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<p>Logstash: 它是一个服务端的数据处理管道，可以从多个数据源中提取数据，对其进行转换，然后将其存储到Elasticsearch中</p>
-<p>Filebeat: 监控日志文件，获取服务器上指定路径的日志文件，并将这些日志转发到Logstash实例以进行处理</p>
-<p>Elasticsearch: 它是一个开源分布式搜索引擎，提供收集、分析、存储数据三大功能</p>
-<p>Kibana: 它是一个基于web的图形界面，用于搜索、分析和可视化存储在Elasticsearch中的日志数据</p>
-<p>Beats : 轻量型采集器的平台，从边缘机器向Logstash和Elasticsearch发送数据</p>
-
+            <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>Node: 运行单个ES实例的服务器</p>
+<p>Cluster: 一个或多个节点构成集群</p>
+<p>Index: 索引是多个文档的集合</p>
+<p>Document: Index里每条记录称为Document，若干文档构建成一个Index</p>
+<p>Type: 一个Index可以定义一种或者多种类型，将Document逻辑分组</p>
+<p>Filed: ES存储的最小单元</p>
+<p>Shards: ES将Index分为若干份，每一份是一个分片</p>
+<p>Replicas: Index的一份或多份副本</p>
+<table>
+<thead>
+<tr>
+<th>Elasticsearch</th>
+<th>mysql</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>index</td>
+<td>database</td>
+</tr>
+<tr>
+<td>type</td>
+<td>table</td>
+</tr>
+<tr>
+<td>document</td>
+<td>row</td>
+</tr>
+<tr>
+<td>filed</td>
+<td>column</td>
+</tr>
+</tbody></table>
+<h1 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h1><p>环境准备</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ES1:10.10.110.191
+ES2:10.10.110.192
+ES3:10.10.110.193
+# 三台机器都需要按实际情况执行下面的操作<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下载elasticsearch和校验文件</p>
+<pre class="line-numbers language-shell"><code class="language-shell">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.1-x86_64.rpm
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.1-x86_64.rpm.sha512<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>安装elasticsearch</p>
+<pre class="line-numbers language-shell"><code class="language-shell">shasum -a 512 -c elasticsearch-7.8.1-x86_64.rpm.sha512
+sudo rpm --install elasticsearch-7.8.1-x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>修改elasticsearch配置文件</p>
+<pre class="line-numbers language-shell"><code class="language-shell">grep -v '^#' /etc/elasticsearch/elasticsearch.yml
+cluster.name: elk-cluster    # 集群名称,所有节点一样
+node.name: node-1    # 不同节点,分别用node-1/node-2/node-3...
+path.data: /var/lib/elasticsearch    # 数据目录,如果加入集群失败可以情况数据目录再重启服务
+path.logs: /var/log/elasticsearch    # 日志目录
+network.host: 10.10.110.191        # 监听地址
+http.port: 9200        # 监听端口
+discovery.seed_hosts: ["10.10.110.191", "10.10.110.192", "10.10.110.193"]    # 集群发现,可以写成10.10.110.191:9200
+cluster.initial_master_nodes: ["node-1", "node-2", "node-3"]    # 指定可以成为master的节点,此参数只有在初始化集群时生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改elasticsearch启动分配的内存大小，根据自己的机器配置来修改</p>
+<pre class="line-numbers language-shell"><code class="language-shell">vim /etc/elasticsearch/jvm.options
+-Xms512m    # 确保Xmx和Xms的大小是相同的，其目的是为了能够在java垃圾回收机制清理完堆区后不需要重新分隔计算堆区的大小而浪费资源
+-Xmx512m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>三个节点都启动elasticsearch服务</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl start elasticsearch.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查看集群状态</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -XGET http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/_cluster/health?pretty
+<span class="token punctuation">{</span>
+  <span class="token property">"cluster_name"</span> <span class="token operator">:</span> <span class="token string">"elk-cluster"</span><span class="token punctuation">,</span>
+  <span class="token property">"status"</span> <span class="token operator">:</span> <span class="token string">"green"</span><span class="token punctuation">,</span>    # 集群状态红绿灯<span class="token punctuation">,</span>绿<span class="token operator">:</span>健康<span class="token punctuation">,</span>黄<span class="token operator">:</span>亚健康<span class="token punctuation">,</span>红<span class="token operator">:</span>病态
+  <span class="token property">"timed_out"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token property">"number_of_nodes"</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token property">"number_of_data_nodes"</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token property">"active_primary_shards"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"active_shards"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"relocating_shards"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"initializing_shards"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"unassigned_shards"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"delayed_unassigned_shards"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"number_of_pending_tasks"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"number_of_in_flight_fetch"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"task_max_waiting_in_queue_millis"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"active_shards_percent_as_number"</span> <span class="token operator">:</span> <span class="token number">100.0</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看那个节点是master</p>
+<pre class="line-numbers language-shell"><code class="language-shell">curl -XGET 'http://10.10.110.191:9200/_cat/master?v'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查看节点的状态</p>
+<pre class="line-numbers language-shell"><code class="language-shell">curl -XGET 'http://10.10.110.191:9200/_cat/nodes?v'
+ip            heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
+10.10.110.192           64          93   0    0.03    0.04     0.05 dilmrt    *      node-2        # *代表当前节点是master
+10.10.110.191           65          93   0    0.07    0.09     0.12 dilmrt    -      node-1
+10.10.110.193           64          93   0    0.02    0.04     0.05 dilmrt    -      node-3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1><h1 id="常用查询"><a href="#常用查询" class="headerlink" title="常用查询"></a>常用查询</h1><h1 id="Head插件"><a href="#Head插件" class="headerlink" title="Head插件"></a>Head插件</h1>
         </div>
 
         <blockquote class="post-copyright">
@@ -215,7 +285,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-05T10:26:19.631Z" itemprop="dateUpdated">2020-08-05 18:26:19</time>
+    最后更新时间：<time datetime="2020-08-07T10:41:18.803Z" itemprop="dateUpdated">2020-08-07 18:41:18</time>
 </span><br>
 
 
@@ -251,24 +321,17 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
 
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/5cf39589.html" id="post-prev" class="post-nav-link">
+      <a href="/post/1abc58c4.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Prometheus的pushgateway工具(8)</h4>
+        <h4 class="title">ELK Stack架构(2)</h4>
       </a>
     </div>
   
 
-  
-    <div class="waves-block waves-effect next">
-      <a href="/post/1abc58c4.html" id="post-next" class="post-nav-link">
-        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ELK Stack架构(2)</h4>
-      </a>
-    </div>
   
 
 
@@ -419,7 +482,7 @@
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                398
+                664
             
         </span>
     </div>
