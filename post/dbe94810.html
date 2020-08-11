@@ -34,13 +34,15 @@
 <meta property="og:site_name" content="荒原饮露">
 <meta property="og:description" content="基本概念Node: 运行单个ES实例的服务器 Cluster: 一个或多个节点构成集群 Index: 索引是多个文档的集合 Document: Index里每条记录称为Document，若干文档构建成一个Index Type: 一个Index可以定义一种或者多种类型，将Document逻辑分组 Filed: ES存储的最小单元 Shards: ES将Index分为若干份，每一份是一个分片 Repl">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f323e7d14195aa59491cc4b.jpg">
 <meta property="article:published_time" content="2020-08-06T02:12:40.000Z">
-<meta property="article:modified_time" content="2020-08-07T10:41:18.803Z">
+<meta property="article:modified_time" content="2020-08-11T08:29:20.876Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
 <meta property="article:tag" content="数据收集分析">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f323e7d14195aa59491cc4b.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -202,24 +204,29 @@
 <table>
 <thead>
 <tr>
-<th>Elasticsearch</th>
-<th>mysql</th>
+<th>ES概念</th>
+<th></th>
+<th>ES对应mysql</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>index</td>
+<td>索引</td>
 <td>database</td>
 </tr>
 <tr>
 <td>type</td>
+<td>类型</td>
 <td>table</td>
 </tr>
 <tr>
 <td>document</td>
+<td>文档</td>
 <td>row</td>
 </tr>
 <tr>
 <td>filed</td>
+<td>字段</td>
 <td>column</td>
 </tr>
 </tbody></table>
@@ -251,7 +258,7 @@ cluster.initial_master_nodes: ["node-1", "node-2", "node-3"]    # 指定可以�
 <p>三个节点都启动elasticsearch服务</p>
 <pre class="line-numbers language-shell"><code class="language-shell">systemctl start elasticsearch.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>查看集群状态</p>
-<pre class="line-numbers language-json"><code class="language-json">curl -XGET http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/_cluster/health?pretty
+<pre class="line-numbers language-json"><code class="language-json">curl -X GET http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/_cluster/health?pretty
 <span class="token punctuation">{</span>
   <span class="token property">"cluster_name"</span> <span class="token operator">:</span> <span class="token string">"elk-cluster"</span><span class="token punctuation">,</span>
   <span class="token property">"status"</span> <span class="token operator">:</span> <span class="token string">"green"</span><span class="token punctuation">,</span>    # 集群状态红绿灯<span class="token punctuation">,</span>绿<span class="token operator">:</span>健康<span class="token punctuation">,</span>黄<span class="token operator">:</span>亚健康<span class="token punctuation">,</span>红<span class="token operator">:</span>病态
@@ -270,14 +277,221 @@ cluster.initial_master_nodes: ["node-1", "node-2", "node-3"]    # 指定可以�
   <span class="token property">"active_shards_percent_as_number"</span> <span class="token operator">:</span> <span class="token number">100.0</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看那个节点是master</p>
-<pre class="line-numbers language-shell"><code class="language-shell">curl -XGET 'http://10.10.110.191:9200/_cat/master?v'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">curl -X GET 'http://10.10.110.191:9200/_cat/master?v'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>查看节点的状态</p>
-<pre class="line-numbers language-shell"><code class="language-shell">curl -XGET 'http://10.10.110.191:9200/_cat/nodes?v'
+<pre class="line-numbers language-shell"><code class="language-shell">curl -X GET 'http://10.10.110.191:9200/_cat/nodes?v'
 ip            heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
 10.10.110.192           64          93   0    0.03    0.04     0.05 dilmrt    *      node-2        # *代表当前节点是master
 10.10.110.191           65          93   0    0.07    0.09     0.12 dilmrt    -      node-1
 10.10.110.193           64          93   0    0.02    0.04     0.05 dilmrt    -      node-3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1><h1 id="常用查询"><a href="#常用查询" class="headerlink" title="常用查询"></a>常用查询</h1><h1 id="Head插件"><a href="#Head插件" class="headerlink" title="Head插件"></a>Head插件</h1>
+<h1 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1><p>elasticsearch提供了一种RestFul API格式去操作数据</p>
+<pre class="line-numbers language-apl"><code class="language-apl">curl <span class="token function">-</span>X <span class="token function">&lt;</span>verb<span class="token function">></span> <span class="token string">'&lt;protocol>://&lt;host>:&lt;port>/&lt;path>?&lt;query_string> -d &lt;body>'</span>
+<span class="token comment" spellcheck="true"># verb: HTTP方法,比如GET、POST、PUT、HEAD、DELETE</span>
+<span class="token comment" spellcheck="true"># host: ES集群中的任意节点主机名</span>
+<span class="token comment" spellcheck="true"># port: ES HTTP服务端口,默认9200</span>
+<span class="token comment" spellcheck="true"># path: 索引路径</span>
+<span class="token comment" spellcheck="true"># query_string: 可选的查询请求参数,例如?pretty参数将格式化输出JSON数据</span>
+<span class="token comment" spellcheck="true"># -d: 里面放一个GET的JSON格式请求主体</span>
+<span class="token comment" spellcheck="true"># body: 自己写的JSON格式的请求主体</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>新建索引</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X PUT '<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/missf/?pretty'    # 新建一个missf的索引<span class="token punctuation">,</span>?pretty参数是格式化输出JSON数据
+<span class="token punctuation">{</span>
+  <span class="token property">"acknowledged"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"shards_acknowledged"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"index"</span> <span class="token operator">:</span> <span class="token string">"missf"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查询节点所有索引</p>
+<pre class="line-numbers language-shell"><code class="language-shell">curl -X GET 'http://10.10.110.191:9200/_cat/indices?v'
+health status index uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   mwj   Qy8OHomTRn2I7HGHfva9Mg   1   1          0            0       416b           208b
+green  open   missf 13yWyr_PTi6RIPEjsCtCsQ   1   1          0            0       416b           208b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在info索引中插入记录</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X PUT 'http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/info/_doc/<span class="token number">1</span>?pretty' -H <span class="token string">"Content-Type:application/json"</span> -d ' <span class="token punctuation">{</span>
+<span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"mowenjie"</span><span class="token punctuation">,</span>
+<span class="token property">"job"</span><span class="token operator">:</span> <span class="token string">"DevOps"</span><span class="token punctuation">,</span>
+<span class="token property">"base"</span><span class="token operator">:</span> <span class="token string">"sz"</span>
+<span class="token punctuation">}</span>'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查询info索引的记录</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X GET 'http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/info/_doc/<span class="token number">1</span>?pretty'    # 查询info索引下类型为_doc<span class="token punctuation">,</span>ID为<span class="token number">1</span>的数据并格式化输出json数据
+<span class="token punctuation">{</span>
+  <span class="token property">"_index"</span> <span class="token operator">:</span> <span class="token string">"info"</span><span class="token punctuation">,</span>
+  <span class="token property">"_type"</span> <span class="token operator">:</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span>
+  <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>    # 如果ID不正确就查询不到数据
+  <span class="token property">"_version"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">"_seq_no"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"_primary_term"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">"found"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>    # 表示查询成功
+  <span class="token property">"_source"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>        # _source是自己创建的字段
+    <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"mowenjie"</span><span class="token punctuation">,</span>
+    <span class="token property">"job"</span> <span class="token operator">:</span> <span class="token string">"DevOps"</span><span class="token punctuation">,</span>
+    <span class="token property">"base"</span> <span class="token operator">:</span> <span class="token string">"sz"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>只查询索引的_source内容</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X GET 'http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/info/_doc/<span class="token number">1</span>/_source/?pretty'
+<span class="token punctuation">{</span>
+  <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"missf"</span><span class="token punctuation">,</span>
+  <span class="token property">"job"</span> <span class="token operator">:</span> <span class="token string">"python"</span><span class="token punctuation">,</span>
+  <span class="token property">"base"</span> <span class="token operator">:</span> <span class="token string">"bj"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查询一个索引下所有类型的数据</p>
+<pre class="line-numbers language-apl"><code class="language-apl">curl <span class="token function">-</span>X GET <span class="token string">'http://10.10.110.191:9200/info/_search/?pretty'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>删除info索引下类型为_doc并且ID为2的记录</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X DELETE 'http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/info/_doc/<span class="token number">2</span>?pretty'    # 这是删除索引下的某条记录<span class="token punctuation">,</span>索引还存在
+<span class="token punctuation">{</span>
+  <span class="token property">"_index"</span> <span class="token operator">:</span> <span class="token string">"info"</span><span class="token punctuation">,</span>
+  <span class="token property">"_type"</span> <span class="token operator">:</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span>
+  <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
+  <span class="token property">"_version"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span> <span class="token operator">:</span> <span class="token string">"deleted"</span><span class="token punctuation">,</span>
+  <span class="token property">"_shards"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"total"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">"successful"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">"failed"</span> <span class="token operator">:</span> <span class="token number">0</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"_seq_no"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token property">"_primary_term"</span> <span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>删除索引</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X DELETE 'http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/mwj/?pretty'    # 整个索引下的数据都被删除
+<span class="token punctuation">{</span>    
+  <span class="token property">"acknowledged"</span> <span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>更新索引的记录</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X PUT 'http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/info/_doc/<span class="token number">1</span>?pretty' -H <span class="token string">"Content-Type:application/json"</span> -d ' <span class="token punctuation">{</span>
+> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"missf"</span>    # 将info索引下_doc类型并且ID为<span class="token number">1</span>的记录更新
+> <span class="token punctuation">}</span>'
+<span class="token punctuation">{</span>
+  <span class="token property">"_index"</span> <span class="token operator">:</span> <span class="token string">"info"</span><span class="token punctuation">,</span>
+  <span class="token property">"_type"</span> <span class="token operator">:</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span>
+  <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
+  <span class="token property">"_version"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span> <span class="token operator">:</span> <span class="token string">"updated"</span><span class="token punctuation">,</span>        # 这个表示是更新操作
+  <span class="token property">"_shards"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"total"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">"successful"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">"failed"</span> <span class="token operator">:</span> <span class="token number">0</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"_seq_no"</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token property">"_primary_term"</span> <span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="常用查询"><a href="#常用查询" class="headerlink" title="常用查询"></a>常用查询</h1><p>使用_search接口查询数据，默认只返回十条数据</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d '
+<span class="token punctuation">{</span>
+    <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"match_all"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>    # 匹配索引下面所有的文档
+    <span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token property">"account_number"</span><span class="token operator">:</span> <span class="token string">"asc"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>    # 查询结果按照account_number字段进行升序排列<span class="token punctuation">,</span>如果不排序就会随机返回十条数据
+<span class="token punctuation">}</span>'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查询一个区间的数据</p>
+<pre class="line-numbers language-json"><code class="language-json"># 先按account_number进行排序<span class="token punctuation">,</span>然后取<span class="token number">0</span>-<span class="token number">29</span>的数据
+curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d '
+<span class="token punctuation">{</span>
+<span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"match_all"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token property">"account_number"</span><span class="token operator">:</span> <span class="token string">"asc"</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token property">"from"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>    # 从第<span class="token number">10</span>条数据开始
+<span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">30</span>    # 一共返回<span class="token number">30</span>条数据<span class="token punctuation">,</span>就是account_number为<span class="token number">10</span>-<span class="token number">39</span>的数据
+<span class="token punctuation">}</span>'
+
+# 取<span class="token number">1000</span>到<span class="token number">2000</span>这个区间的随机数据
+curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d'
+<span class="token punctuation">{</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"match_all"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"filter"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"balance"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"gte"</span><span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+            <span class="token property">"lte"</span><span class="token operator">:</span> <span class="token number">2000</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以指定的字段和值去查询数据(只要包含这个值的数据就会匹配成功)</p>
+<pre class="line-numbers language-json"><code class="language-json"># email的值等于mf_2013@<span class="token number">163</span>.com的数据都会返回
+curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d '
+<span class="token punctuation">{</span>
+    <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"mf_2013@163.com"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'
+
+# address的值包含mill这个关键字都会返回<span class="token punctuation">,</span>match匹配查询是以包含为依据<span class="token punctuation">,</span>值相等也是包含的一种
+curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d '
+<span class="token punctuation">{</span>
+    <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"address"</span><span class="token operator">:</span> <span class="token string">"mill"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'
+
+# 只要address的值中包含lane或者mill就会返回数据
+curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d '
+<span class="token punctuation">{</span>
+    <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"address"</span><span class="token operator">:</span> <span class="token string">"lane mill"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'
+
+# 两个条件同时成立才返回数据
+curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d '
+<span class="token punctuation">{</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span> 
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span> <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"employer"</span><span class="token operator">:</span> <span class="token string">"Comverges"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"address"</span><span class="token operator">:</span> <span class="token string">"mill"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>'
+
+# 只要一个条件成立则返回数据
+curl -X GET <span class="token string">"http://10.10.110.191:9200/bank/account/_search?pretty"</span> -H <span class="token string">"Content-Type:application/json"</span> -d '
+<span class="token punctuation">{</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span> 
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"should"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span> <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"employer"</span><span class="token operator">:</span> <span class="token string">"Comverges"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"address"</span><span class="token operator">:</span> <span class="token string">"mill"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Head插件"><a href="#Head插件" class="headerlink" title="Head插件"></a>Head插件</h1><p>安装Head插件，图形化管理elasticsearch</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 下载nodejs
+wget https://nodejs.org/dist/v12.18.3/node-v12.18.3-linux-x64.tar.xz
+
+# 解压
+xz -d node-v12.18.3-linux-x64.tar.xz && tar xf node-v12.18.3-linux-x64.tar
+mv node-v12.18.3-linux-x64 /usr/local/node
+
+# 配置环境变量
+vim /etc/profile
+export NODE_HOME=/usr/local/node
+export PATH=$NODE_HOME/bin:$PATH
+
+# 安装phantomjs
+wget https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-linux-x86_64.tar.bz2
+tar –jxvf  phantomjs-2.1.1-linux-x86_64.tar.bz2 && mv phantomjs-2.1.1-linux-x86_64 /usr/bin/phantomjs
+echo "export PATH=$PATH:/usr/bin/phantomjs/bin" >> /etc/profile
+source /etc/profile
+
+# clone elasticsearch-head
+git clone git://github.com/mobz/elasticsearch-head.git
+cd elasticsearch-head && npm install -g cnpm --registry=https://registry.npm.taobao.org
+npm run start
+
+# 修改elasticsearch配置文件
+vim /etc/elasticsearch/elasticsearch.yml
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+systemctl restart elasticsearch.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>登录web页面可以操作管理elasticsearch数据库</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f323e7d14195aa59491cc4b.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+
+
         </div>
 
         <blockquote class="post-copyright">
@@ -285,7 +499,7 @@ ip            heap.percent ram.percent cpu load_1m load_5m load_15m node.role ma
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-07T10:41:18.803Z" itemprop="dateUpdated">2020-08-07 18:41:18</time>
+    最后更新时间：<time datetime="2020-08-11T08:29:20.876Z" itemprop="dateUpdated">2020-08-11 16:29:20</time>
 </span><br>
 
 
@@ -321,7 +535,7 @@ ip            heap.percent ram.percent cpu load_1m load_5m load_15m node.role ma
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
 
   
     <div class="waves-block waves-effect prev">
@@ -332,6 +546,13 @@ ip            heap.percent ram.percent cpu load_1m load_5m load_15m node.role ma
     </div>
   
 
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/fe947601.html" id="post-next" class="post-nav-link">
+        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ELK Logstash安装与常用插件(4)</h4>
+      </a>
+    </div>
   
 
 
@@ -482,7 +703,7 @@ ip            heap.percent ram.percent cpu load_1m load_5m load_15m node.role ma
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                664
+                1.9k
             
         </span>
     </div>
