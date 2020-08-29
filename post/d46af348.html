@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f07bcfc14195aa594b4097d.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f07c1be14195aa594b536af.jpg">
 <meta property="article:published_time" content="2020-07-08T05:33:50.000Z">
-<meta property="article:modified_time" content="2020-07-21T01:44:09.867Z">
+<meta property="article:modified_time" content="2020-08-28T03:17:23.392Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -201,49 +201,49 @@
 <p>Docker Compose 1.18版本+</p>
 <h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><p>在线安装:从Docker Hub下载Harbor相关镜像，因此安装软件包非常小 </p>
 <p>离线安装:安装包包含部署的相关镜像，因此安装包比较大</p>
-<h1 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker-compose安装"></a>docker-compose安装</h1><h2 id="下载二进制文件"><a href="#下载二进制文件" class="headerlink" title="下载二进制文件"></a>下载二进制文件</h2><pre class="line-numbers language-shell"><code class="language-shell">https://github.com/docker/compose/releases    # docker-compose下载地址
-# 下载docker-compose-Linux-x86_64这个二进制文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="配置二进制文件"><a href="#配置二进制文件" class="headerlink" title="配置二进制文件"></a>配置二进制文件</h2><pre class="line-numbers language-shell"><code class="language-shell">mv docker-compose-Linux-x86_64 /usr/bin/docker-compose
-chmod +x /usr/bin/docker-compose
-docker-compose --help  # 安装完成<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h1 id="Harbor-HTTP部署"><a href="#Harbor-HTTP部署" class="headerlink" title="Harbor HTTP部署"></a>Harbor HTTP部署</h1><h2 id="下载Harbor安装包"><a href="#下载Harbor安装包" class="headerlink" title="下载Harbor安装包"></a>下载Harbor安装包</h2><pre class="line-numbers language-shell"><code class="language-shell">wget https://github.com/goharbor/harbor/releases/download/v2.0.1/harbor-offline-installer-v2.0.1.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="解压安装包"><a href="#解压安装包" class="headerlink" title="解压安装包"></a>解压安装包</h2><pre class="line-numbers language-shell"><code class="language-shell">tar xf harbor-offline-installer-v2.0.1.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><pre class="line-numbers language-shell"><code class="language-shell">cp harbor.yml.tmpl harbor.yml
+<h1 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker-compose安装"></a>docker-compose安装</h1><h2 id="下载二进制文件"><a href="#下载二进制文件" class="headerlink" title="下载二进制文件"></a>下载二进制文件</h2><pre class="line-numbers language-bash"><code class="language-bash">https://github.com/docker/compose/releases    <span class="token comment" spellcheck="true"># docker-compose下载地址</span>
+<span class="token comment" spellcheck="true"># 下载docker-compose-Linux-x86_64这个二进制文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="配置二进制文件"><a href="#配置二进制文件" class="headerlink" title="配置二进制文件"></a>配置二进制文件</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mv</span> docker-compose-Linux-x86_64 /usr/bin/docker-compose
+<span class="token function">chmod</span> +x /usr/bin/docker-compose
+docker-compose --help  <span class="token comment" spellcheck="true"># 安装完成</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="Harbor-HTTP部署"><a href="#Harbor-HTTP部署" class="headerlink" title="Harbor HTTP部署"></a>Harbor HTTP部署</h1><h2 id="下载Harbor安装包"><a href="#下载Harbor安装包" class="headerlink" title="下载Harbor安装包"></a>下载Harbor安装包</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/goharbor/harbor/releases/download/v2.0.1/harbor-offline-installer-v2.0.1.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="解压安装包"><a href="#解压安装包" class="headerlink" title="解压安装包"></a>解压安装包</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">tar</span> xf harbor-offline-installer-v2.0.1.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cp</span> harbor.yml.tmpl harbor.yml
 
 vim harbor.yml
-hostname: reg.missf.com        # 修改Harbor默认域名
-https:     # 先注释https相关配置
-harbor_admin_password: MF-yihan        # 修改Harbor的密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="部署Harbor"><a href="#部署Harbor" class="headerlink" title="部署Harbor"></a>部署Harbor</h2><pre class="line-numbers language-shell"><code class="language-shell">./prepare    # 做一系列的准备工作
-./install.sh    # 利用docker-compose拉取一系列的镜像,安装好之后就会直接启动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="访问Harbor"><a href="#访问Harbor" class="headerlink" title="访问Harbor"></a>访问Harbor</h2><pre class="line-numbers language-shell"><code class="language-shell"># 通过本地电脑配置hosts,然后在浏览器访问我们的域名reg.missf.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+hostname: reg.missf.com        <span class="token comment" spellcheck="true"># 修改Harbor默认域名</span>
+https:     <span class="token comment" spellcheck="true"># 先注释https相关配置</span>
+harbor_admin_password: MF-yihan        <span class="token comment" spellcheck="true"># 修改Harbor的密码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="部署Harbor"><a href="#部署Harbor" class="headerlink" title="部署Harbor"></a>部署Harbor</h2><pre class="line-numbers language-bash"><code class="language-bash">./prepare    <span class="token comment" spellcheck="true"># 做一系列的准备工作</span>
+./install.sh    <span class="token comment" spellcheck="true"># 利用docker-compose拉取一系列的镜像,安装好之后就会直接启动</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="访问Harbor"><a href="#访问Harbor" class="headerlink" title="访问Harbor"></a>访问Harbor</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 通过本地电脑配置hosts,然后在浏览器访问我们的域名reg.missf.com</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 {% image https://pic.imgdb.cn/item/5f05980114195aa5940c513f.jpg '' '' %}
 
-<h2 id="登录Harbor"><a href="#登录Harbor" class="headerlink" title="登录Harbor"></a>登录Harbor</h2><pre class="line-numbers language-shell"><code class="language-shell">vim /etc/hosts    # 添加解析,登录时可以直接访问域名
+<h2 id="登录Harbor"><a href="#登录Harbor" class="headerlink" title="登录Harbor"></a>登录Harbor</h2><pre class="line-numbers language-bash"><code class="language-bash">vim /etc/hosts    <span class="token comment" spellcheck="true"># 添加解析,登录时可以直接访问域名</span>
 10.10.110.151 reg.missf.com
 
-vim /etc/docker/daemon.json     # 配置域名可信任,因为现在没有配置https,而docker默认是使用https协议去连接的,不配置不能登录成功
-{
-        "registry-mirrors": ["https://265wemgl.mirror.aliyuncs.com"],
-        "insecure registries": ["reg.missf.com"]
-}
+vim /etc/docker/daemon.json     <span class="token comment" spellcheck="true"># 配置域名可信任,因为现在没有配置https,而docker默认是使用https协议去连接的,不配置不能登录成功</span>
+<span class="token punctuation">{</span>
+        <span class="token string">"registry-mirrors"</span><span class="token keyword">:</span> <span class="token punctuation">[</span><span class="token string">"https://265wemgl.mirror.aliyuncs.com"</span><span class="token punctuation">]</span>,
+        <span class="token string">"insecure registries"</span><span class="token keyword">:</span> <span class="token punctuation">[</span><span class="token string">"reg.missf.com"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
 
-systemctl restart docker.service    # 修改了daemon.json需要重启docker
+systemctl restart docker.service    <span class="token comment" spellcheck="true"># 修改了daemon.json需要重启docker</span>
 
-docker-compose down && docker-compose up -d        # 重启docker之后容器有些会退出,重启harbor重启把容器拉起来 
+docker-compose down <span class="token operator">&amp;&amp;</span> docker-compose up -d        <span class="token comment" spellcheck="true"># 重启docker之后容器有些会退出,重启harbor重启把容器拉起来 </span>
 
-docker login reg.missf.com    # 登录成功
+docker login reg.missf.com    <span class="token comment" spellcheck="true"># 登录成功</span>
 Username: admin
 Password: 
-WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+WARNING<span class="token operator">!</span> Your password will be stored unencrypted <span class="token keyword">in</span> /root/.docker/config.json.
 Configure a credential helper to remove this warning. See
-https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+https://docs.docker.com/engine/reference/commandline/login/<span class="token comment" spellcheck="true">#credentials-store</span>
 
 Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="推送镜像到Harbor仓库"><a href="#推送镜像到Harbor仓库" class="headerlink" title="推送镜像到Harbor仓库"></a>推送镜像到Harbor仓库</h2><pre class="line-numbers language-shell"><code class="language-shell">docker tag nginx:1.0 reg.missf.com/library/nginx:1.0    # 推送之前修改镜像的标签(镜像中心/项目/镜像:标签)
+<h2 id="推送镜像到Harbor仓库"><a href="#推送镜像到Harbor仓库" class="headerlink" title="推送镜像到Harbor仓库"></a>推送镜像到Harbor仓库</h2><pre class="line-numbers language-bash"><code class="language-bash">docker tag nginx:1.0 reg.missf.com/library/nginx:1.0    <span class="token comment" spellcheck="true"># 推送之前修改镜像的标签(镜像中心/项目/镜像:标签)</span>
 
-docker push reg.missf.com/library/nginx:1.0        # 推送镜像，pull拉取镜像也是使用这个标签去拉取
-The push refers to repository [reg.missf.com/library/nginx]
+docker push reg.missf.com/library/nginx:1.0        <span class="token comment" spellcheck="true"># 推送镜像，pull拉取镜像也是使用这个标签去拉取</span>
+The push refers to repository <span class="token punctuation">[</span>reg.missf.com/library/nginx<span class="token punctuation">]</span>
 b1b653ec37ba: Pushed 
 fe503a975c26: Pushed 
 60165efe909a: Pushed 
@@ -262,19 +262,19 @@ d2039520c249: Pushed
 
 <h1 id="Harbor-HTTPS部署"><a href="#Harbor-HTTPS部署" class="headerlink" title="Harbor HTTPS部署"></a>Harbor HTTPS部署</h1><p>由于Harbor不附带任何证书，它默认使用HTTP来提供注册表请求。但是强烈建议为生产环境配置ssl证书。这里我们由于是实验测试，使用自签名证书，到时候生产环境配置可以去阿里云购买ssl证书。</p>
 <h2 id="生成自签名ssl证书"><a href="#生成自签名ssl证书" class="headerlink" title="生成自签名ssl证书"></a>生成自签名ssl证书</h2><p>由于kubernetes使用cfssl自签证书,这里我们也使用cfssl生成自签证书</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 执行这个脚本,安装cfssl并将命令放到/usr/bin/下供我们直接使用
-cat cfssl.sh     
-wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
-wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
-wget https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
-chmod +x cfssl*
-mv cfssl_linux-amd64 /usr/bin/cfssl
-mv cfssljson_linux-amd64 /usr/bin/cfssljson
-mv cfssl-certinfo_linux-amd64 /usr/bin/cfssl-certinfo
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 执行这个脚本,安装cfssl并将命令放到/usr/bin/下供我们直接使用</span>
+<span class="token function">cat</span> cfssl.sh     
+<span class="token function">wget</span> https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+<span class="token function">wget</span> https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+<span class="token function">wget</span> https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
+<span class="token function">chmod</span> +x cfssl*
+<span class="token function">mv</span> cfssl_linux-amd64 /usr/bin/cfssl
+<span class="token function">mv</span> cfssljson_linux-amd64 /usr/bin/cfssljson
+<span class="token function">mv</span> cfssl-certinfo_linux-amd64 /usr/bin/cfssl-certinfo
 
-# 执行这个脚本,生成两个json的ca配置文件并自动生成证书,cfssl是根据json的配置文件去生成ca证书的
-cat certs.sh     
-cat > ca-config.json <<EOF
+<span class="token comment" spellcheck="true"># 执行这个脚本,生成两个json的ca配置文件并自动生成证书,cfssl是根据json的配置文件去生成ca证书的</span>
+<span class="token function">cat</span> certs.sh     
+<span class="token function">cat</span> <span class="token operator">></span> ca-config.json <span class="token operator">&lt;&lt;</span><span class="token string">EOF
 {
   "signing": {
     "default": {
@@ -293,9 +293,9 @@ cat > ca-config.json <<EOF
     }
   }
 }
-EOF
+EOF</span>
 
-cat > ca-csr.json <<EOF
+<span class="token function">cat</span> <span class="token operator">></span> ca-csr.json <span class="token operator">&lt;&lt;</span><span class="token string">EOF
 {
     "CN": "kubernetes",
     "key": {
@@ -310,11 +310,11 @@ cat > ca-csr.json <<EOF
         }
     ]
 }
-EOF
+EOF</span>
 
-cfssl gencert -initca ca-csr.json | cfssljson -bare ca -    # 初始化ca配置文件
+cfssl gencert -initca ca-csr.json <span class="token operator">|</span> cfssljson -bare ca -    <span class="token comment" spellcheck="true"># 初始化ca配置文件</span>
 
-cat > reg.missf.com-csr.json <<EOF
+<span class="token function">cat</span> <span class="token operator">></span> reg.missf.com-csr.json <span class="token operator">&lt;&lt;</span><span class="token string">EOF
 {
   "CN": "reg.missf.com",
   "hosts": [],
@@ -330,38 +330,38 @@ cat > reg.missf.com-csr.json <<EOF
     }
   ]
 }
-EOF
+EOF</span>
 
-cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes reg.missf.com-csr.json | cfssljson -bare reg.missf.com    # 生成ca证书
+cfssl gencert -ca<span class="token operator">=</span>ca.pem -ca-key<span class="token operator">=</span>ca-key.pem -config<span class="token operator">=</span>ca-config.json -profile<span class="token operator">=</span>kubernetes reg.missf.com-csr.json <span class="token operator">|</span> cfssljson -bare reg.missf.com    <span class="token comment" spellcheck="true"># 生成ca证书</span>
 
-# 执行完上面两个脚本之后我们会得到下面这两个文件
+<span class="token comment" spellcheck="true"># 执行完上面两个脚本之后我们会得到下面这两个文件</span>
 reg.missf.com-key.pem
 reg.missf.com.pem<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Harbor启用HTTPS"><a href="#Harbor启用HTTPS" class="headerlink" title="Harbor启用HTTPS"></a>Harbor启用HTTPS</h2><pre class="line-numbers language-shell"><code class="language-shell">https:
-  # https port for harbor, default is 443
+<h2 id="Harbor启用HTTPS"><a href="#Harbor启用HTTPS" class="headerlink" title="Harbor启用HTTPS"></a>Harbor启用HTTPS</h2><pre class="line-numbers language-bash"><code class="language-bash">https:
+  <span class="token comment" spellcheck="true"># https port for harbor, default is 443</span>
   port: 443
-  # The path of cert and key files for nginx
+  <span class="token comment" spellcheck="true"># The path of cert and key files for nginx</span>
   certificate: /root/ssh/reg.missf.com.pem
   private_key: /root/ssh/reg.missf.com-key.pem<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="重新配置并部署Harbor"><a href="#重新配置并部署Harbor" class="headerlink" title="重新配置并部署Harbor"></a>重新配置并部署Harbor</h2><pre class="line-numbers language-shell"><code class="language-shell">systemctl restart docker.service
+<h2 id="重新配置并部署Harbor"><a href="#重新配置并部署Harbor" class="headerlink" title="重新配置并部署Harbor"></a>重新配置并部署Harbor</h2><pre class="line-numbers language-bash"><code class="language-bash">systemctl restart docker.service
 ./prepare
 docker-compose down
-docker-compose up –d    # 重新打开Harbor页面会自动跳转到https,但是由于是自签证书,所以仍会显示不安全<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+docker-compose up –d    <span class="token comment" spellcheck="true"># 重新打开Harbor页面会自动跳转到https,但是由于是自签证书,所以仍会显示不安全</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="其他Docker主机连接Harbor仓库"><a href="#其他Docker主机连接Harbor仓库" class="headerlink" title="其他Docker主机连接Harbor仓库"></a>其他Docker主机连接Harbor仓库</h2><p>一般Harbor仓库都是自己公司内部使用,但是有时候也会开放给别的Docker主机去pull镜像，如果其他的Docker主机需要连接Harbor，必须要有证书才能连接</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 复制Harbor主机的证书到需要连接Harbor仓库的Docker主机上
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 复制Harbor主机的证书到需要连接Harbor仓库的Docker主机上</span>
 
-mkdir -p /etc/docker/certs.d/reg.missf.com/        # 在Docker主机上创建目录
+<span class="token function">mkdir</span> -p /etc/docker/certs.d/reg.missf.com/        <span class="token comment" spellcheck="true"># 在Docker主机上创建目录</span>
 
-cp reg.missf.com.pem /etc/docker/certs.d/reg.missf.com/reg.missf.com.crt    # 将Harbor主机的证书复制到Docker主机
+<span class="token function">cp</span> reg.missf.com.pem /etc/docker/certs.d/reg.missf.com/reg.missf.com.crt    <span class="token comment" spellcheck="true"># 将Harbor主机的证书复制到Docker主机</span>
 
-echo "10.10.110.151 reg.missf.com" >> /etc/hosts    # 这里由于是实验环境,需要配置域名解析
+<span class="token keyword">echo</span> <span class="token string">"10.10.110.151 reg.missf.com"</span> <span class="token operator">>></span> /etc/hosts    <span class="token comment" spellcheck="true"># 这里由于是实验环境,需要配置域名解析</span>
 
-docker login reg.missf.com    # 在其他的docker主机登录到Harbor,就可以pull拉取Harbor仓库的镜像了
+docker login reg.missf.com    <span class="token comment" spellcheck="true"># 在其他的docker主机登录到Harbor,就可以pull拉取Harbor仓库的镜像了</span>
 Username: admin
 Password: 
-WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+WARNING<span class="token operator">!</span> Your password will be stored unencrypted <span class="token keyword">in</span> /root/.docker/config.json.
 Configure a credential helper to remove this warning. See
-https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+https://docs.docker.com/engine/reference/commandline/login/<span class="token comment" spellcheck="true">#credentials-store</span>
 
 Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Harbor主从复制"><a href="#Harbor主从复制" class="headerlink" title="Harbor主从复制"></a>Harbor主从复制</h1><h2 id="Harbor主从复制的三种方式"><a href="#Harbor主从复制的三种方式" class="headerlink" title="Harbor主从复制的三种方式"></a>Harbor主从复制的三种方式</h2><p>学习过MySQL主从的同学可以看出，其实Harbor的主从复制和MySQL的主从复制方式非常相似</p>
@@ -450,7 +450,7 @@ Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-21T01:44:09.867Z" itemprop="dateUpdated">2020-07-21 09:44:09</time>
+    最后更新时间：<time datetime="2020-08-28T03:17:23.392Z" itemprop="dateUpdated">2020-08-28 11:17:23</time>
 </span><br>
 
 
@@ -654,7 +654,7 @@ Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                938
+                1.7k
             
         </span>
     </div>

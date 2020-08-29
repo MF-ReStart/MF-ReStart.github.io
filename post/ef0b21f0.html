@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f0d6fde14195aa594d4927d.jpg">
 <meta property="article:published_time" content="2020-07-14T06:48:33.000Z">
-<meta property="article:modified_time" content="2020-07-28T08:32:28.730Z">
+<meta property="article:modified_time" content="2020-08-28T02:59:28.304Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -210,8 +210,8 @@
             </figure>
 
 <h1 id="Prometheus数据模型"><a href="#Prometheus数据模型" class="headerlink" title="Prometheus数据模型"></a>Prometheus数据模型</h1><p>Prometheus将所有数据存储为时间序列，具有相同度量名称以及标签属于同一个指标。每个时间序列都由度量标准名称和一组键值对(也成为标签)唯一标识</p>
-<pre class="line-numbers language-shell"><code class="language-shell">#  时间序列格式示例 <metric name>{<label name>=<label value>, ...}
-api_http_requests_total{method="POST", handler="/messages"}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#  时间序列格式示例 &lt;metric name>{&lt;label name>=&lt;label value>, ...}</span>
+api_http_requests_total<span class="token punctuation">{</span>method<span class="token operator">=</span><span class="token string">"POST"</span>, handler<span class="token operator">=</span><span class="token string">"/messages"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="Prometheus指标类型"><a href="#Prometheus指标类型" class="headerlink" title="Prometheus指标类型"></a>Prometheus指标类型</h1><p>Counter: 递增的计数器</p>
 <p>Gauge: 可以任意变化的数值</p>
 <p>Histogram: 对一段时间范围内数据进行采样，并对所有数值求和与统计数量</p>
@@ -234,7 +234,7 @@ api_http_requests_total{method="POST", handler="/messages"}<span aria-hidden="tr
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-28T08:32:28.730Z" itemprop="dateUpdated">2020-07-28 16:32:28</time>
+    最后更新时间：<time datetime="2020-08-28T02:59:28.304Z" itemprop="dateUpdated">2020-08-28 10:59:28</time>
 </span><br>
 
 
@@ -438,7 +438,7 @@ api_http_requests_total{method="POST", handler="/messages"}<span aria-hidden="tr
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                751
+                760
             
         </span>
     </div>

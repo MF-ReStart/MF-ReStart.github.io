@@ -30,7 +30,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-27T02:38:40.000Z">
-<meta property="article:modified_time" content="2020-07-14T04:36:01.555Z">
+<meta property="article:modified_time" content="2020-08-28T03:08:29.174Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -206,9 +206,9 @@
       <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
     <span class="token key atrule">tags</span><span class="token punctuation">:</span> t2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上面定义了两个task任务，每个任务有自己的tags，我们可以在执行playbook时借助标签指定只执行那些任务，而忽略其他任务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --tags=t2 testtags.yaml    # 只执行t2标签的task任务
+<pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --tags<span class="token operator">=</span>t2 testtags.yaml    <span class="token comment" spellcheck="true"># 只执行t2标签的task任务</span>
 
-ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他的任务都会执行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+ansible-playbook --skip-tags<span class="token operator">=</span>t1 testtags.yaml    <span class="token comment" spellcheck="true"># 跳过t1标签任务，其他的任务都会执行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="tags的三种语法"><a href="#tags的三种语法" class="headerlink" title="tags的三种语法"></a>tags的三种语法</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">语法一</span><span class="token punctuation">:</span>
 <span class="token key atrule">tags</span><span class="token punctuation">:</span>
  <span class="token punctuation">-</span> t1
@@ -253,20 +253,20 @@ ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他
       <span class="token key atrule">state</span><span class="token punctuation">:</span> touch
     <span class="token key atrule">tags</span><span class="token punctuation">:</span> t2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>调用标签时，可以一次性指定多个标签，调用多个标签需要用逗号隔开</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --tags=t1,t2 testtags.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --tags<span class="token operator">=</span>t1,t2 testtags.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>我们还可以在调用标签时先概览一下playbook中的标签</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --list-tags testtags.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --list-tags testtags.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="tags的五个内置标签"><a href="#tags的五个内置标签" class="headerlink" title="tags的五个内置标签"></a>tags的五个内置标签</h2><p><strong>always</strong>: 当把任务的tags的值指定为always时，那么这个任务就总是会被执行，除非你使用’–skip-tags’选项明确指定跳过这个任务</p>
 <p><strong>never</strong>: 当把任务的tags的值指定为never时，那么这个任务就总是不会被执行，2.5版本中新加入的特殊tag</p>
 <p><strong>tagged</strong>: 调用标签时使用的，只执行有标签的任务，没有任何标签的任务不会被执行</p>
 <p><strong>untagged</strong>: 只执行没有标签的任务，但是如果某些任务包含always标签，那么这些任务也会被执行</p>
 <p><strong>all</strong>: 执行所有标签</p>
 <p>只执行有标签的任务，没有任何标签的任务不会被执行</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --tags tagged testtag.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --tags tagged testtag.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>跳过包含标签的任务，即使对应的任务包含always标签，也会被跳过</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --skip-tags tagged testtag.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --skip-tags tagged testtag.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>只执行没有标签的任务，但是如果某些任务包含always标签，那么这些任务也会被执行</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible-playbook --tags untagged testtag.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --tags untagged testtag.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
         </div>
 
@@ -275,7 +275,7 @@ ansible-playbook --skip-tags=t1 testtags.yaml    # 跳过t1标签任务，其他
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-14T04:36:01.555Z" itemprop="dateUpdated">2020-07-14 12:36:01</time>
+    最后更新时间：<time datetime="2020-08-28T03:08:29.174Z" itemprop="dateUpdated">2020-08-28 11:08:29</time>
 </span><br>
 
 

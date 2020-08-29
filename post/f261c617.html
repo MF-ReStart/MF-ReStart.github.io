@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f292d4d14195aa59468abde.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f292f3014195aa5946a6ddd.jpg">
 <meta property="article:published_time" content="2020-08-03T02:26:26.000Z">
-<meta property="article:modified_time" content="2020-08-05T03:59:06.694Z">
+<meta property="article:modified_time" content="2020-08-28T03:01:55.386Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -192,32 +192,32 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="Blackbox-exporter部署"><a href="#Blackbox-exporter部署" class="headerlink" title="Blackbox_exporter部署"></a>Blackbox_exporter部署</h1><p>Blackbox_exporter是prometheus官方提供的exporter之一，可以提供http、dns、tcp、icmp 的监控数据采集</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 下载
-wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.17.0/blackbox_exporter-0.17.0.linux-amd64.tar.gz
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载</span>
+<span class="token function">wget</span> https://github.com/prometheus/blackbox_exporter/releases/download/v0.17.0/blackbox_exporter-0.17.0.linux-amd64.tar.gz
 
-# 解压
-tar xf blackbox_exporter-0.17.0.linux-amd64.tar.gz && mv blackbox_exporter-0.17.0.linux-amd64 /usr/local/blackbox
+<span class="token comment" spellcheck="true"># 解压</span>
+<span class="token function">tar</span> xf blackbox_exporter-0.17.0.linux-amd64.tar.gz <span class="token operator">&amp;&amp;</span> <span class="token function">mv</span> blackbox_exporter-0.17.0.linux-amd64 /usr/local/blackbox
 
-# 创建blackbox启动文件
+<span class="token comment" spellcheck="true"># 创建blackbox启动文件</span>
 vim /usr/lib/systemd/system/blackbox.service 
-[Unit]
-Documentation=Blackbox exporter
-After=local-fs.target network-online.target network.target
-Wants=local-fs.target network-online.target network.target
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+Documentation<span class="token operator">=</span>Blackbox exporter
+After<span class="token operator">=</span>local-fs.target network-online.target network.target
+Wants<span class="token operator">=</span>local-fs.target network-online.target network.target
 
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/blackbox/blackbox_exporter --config.file=/usr/local/blackbox/blackbox.yml
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+Restart<span class="token operator">=</span>on-failure
+ExecStart<span class="token operator">=</span>/usr/local/blackbox/blackbox_exporter --config.file<span class="token operator">=</span>/usr/local/blackbox/blackbox.yml
 
-[Install]
-WantedBy=multi-user.target
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+WantedBy<span class="token operator">=</span>multi-user.target
 
-# 启动blackbox
+<span class="token comment" spellcheck="true"># 启动blackbox</span>
 systemctl daemon-reload
 systemctl restart blackbox.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="配置TCP端口检测及告警"><a href="#配置TCP端口检测及告警" class="headerlink" title="配置TCP端口检测及告警"></a>配置TCP端口检测及告警</h1><p>传统的端口检测方式，调用命令的方式去实现</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ncat -vz 47.100.107.121 80    # 返回seconds而不是timeout那么端口就是通的
-telnet ......
+<pre class="line-numbers language-bash"><code class="language-bash">ncat -vz 47.100.107.121 80    <span class="token comment" spellcheck="true"># 返回seconds而不是timeout那么端口就是通的</span>
+telnet <span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
 zabbix监控端口可以通过模板或者自定义key写脚本实现<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>修改prometheus配置文件，配置TCP端口检测</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/prometheus/prometheus.yml
@@ -250,7 +250,7 @@ zabbix监控端口可以通过模板或者自定义key写脚本实现<span aria-
       <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.group }} port connection fail,{{ $labels.group }} value is:{{ $value }}"</span>
       <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.group }} port connection failed"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>修改prometheus配置文件需要重启prometheus服务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>关闭Nginx测试当80端口无法访问之后的告警结果</p>
 <p><img src="https://pic.imgdb.cn/item/5f27e91d14195aa594ee2d22.jpg" alt=""></p>
 <h1 id="业务接口检测及告警"><a href="#业务接口检测及告警" class="headerlink" title="业务接口检测及告警"></a>业务接口检测及告警</h1><p>基于现在Java + Vue前后端分离的开发模式下，我们很多时候需要去检测Java的接口是否正常。传统的手动检测可以使用postman，或者写shell脚本也可以实现，但是prometheus可以通过blackbox去更好的检测业务接口</p>
@@ -285,7 +285,7 @@ zabbix监控端口可以通过模板或者自定义key写脚本实现<span aria-
       <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.group }} failed, {{ $labels.group }} value is:{{ $value }}"</span>
       <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.group }} website not accessible"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>修改prometheus配置文件之后记得重启prometheus服务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果<a href="https://www.missf.top这个链接的http请求不是返回2xx的状态码就会告警" target="_blank" rel="noopener">https://www.missf.top这个链接的http请求不是返回2xx的状态码就会告警</a></p>
 {% image https://pic.imgdb.cn/item/5f28fbe914195aa5944ce74b.jpg '' '' %}
 
@@ -337,7 +337,7 @@ zabbix监控端口可以通过模板或者自定义key写脚本实现<span aria-
   <span class="token key atrule">icmp</span><span class="token punctuation">:</span>
     <span class="token key atrule">prober</span><span class="token punctuation">:</span> icmp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>修改了blackbox配置文件需要重启blackbox服务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart blackbox.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">systemctl restart blackbox.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>上面所配置的匹配返回内容是在http_2xx这个模块下添加的，我们需要修改prometheus配置文件对应的http_2xx模块的规则文件，配置我们监控业务接口的返回内容的url地址</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/prometheus/check/url/get_mysite.json 
 <span class="token punctuation">[</span>
@@ -409,7 +409,7 @@ zabbix监控端口可以通过模板或者自定义key写脚本实现<span aria-
       <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.group }} icmp connection failed, {{ $labels.group }} value is: {{ $value }}"</span>
       <span class="token key atrule">summary</span><span class="token punctuation">:</span> "<span class="token punctuation">{</span><span class="token punctuation">{</span> $labels.group <span class="token punctuation">}</span><span class="token punctuation">}</span> connection failed<span class="token punctuation">,</span> <span class="token key atrule">instance</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> $labels.instance <span class="token punctuation">}</span><span class="token punctuation">}</span>"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>修改prometheus配置文件之后记得重启prometheus服务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
         </div>
 
@@ -418,7 +418,7 @@ zabbix监控端口可以通过模板或者自定义key写脚本实现<span aria-
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-05T03:59:06.694Z" itemprop="dateUpdated">2020-08-05 11:59:06</time>
+    最后更新时间：<time datetime="2020-08-28T03:01:55.386Z" itemprop="dateUpdated">2020-08-28 11:01:55</time>
 </span><br>
 
 

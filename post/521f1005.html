@@ -30,7 +30,7 @@
 <meta property="og:description" content="全局配置文件介绍global:   # 全局默认的数据拉取间隔,默认每隔1m拉取一次监控数据   [ scrape_interval: &lt;duration&gt; | default &#x3D; 1m ]    # 全局默认的单次数据拉取超时   [ scrape_timeout: &lt;duration&gt; | default &#x3D; 10s ]    # 对告警规则做定期计算的间隔时间,每隔1m对比一次我">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-15T11:06:15.000Z">
-<meta property="article:modified_time" content="2020-07-29T08:44:20.583Z">
+<meta property="article:modified_time" content="2020-08-28T03:00:04.834Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -265,10 +265,10 @@
   <span class="token punctuation">-</span> <span class="token string">'10.10.110.150:9090'</span>    <span class="token comment" spellcheck="true"># 这个是填写prometheus主机的地址,如果prometheus启动时监听的是8080端口,那么这里就需要和prometheus端口一致,不然获取不到数据</span>
   <span class="token key atrule">labels</span><span class="token punctuation">:</span>
     <span class="token key atrule">group</span><span class="token punctuation">:</span> prometheus<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="重载配置文件"><a href="#重载配置文件" class="headerlink" title="重载配置文件"></a>重载配置文件</h2><pre class="line-numbers language-shell"><code class="language-shell">ps -ef | grep prometheus
-root       1774      1  0 Jul15 ?        00:02:21 /usr/local/prometheus/prometheus --config.file=/usr/local/prometheus/prometheus.yml
-root       2741   1702  0 14:13 pts/1    00:00:00 grep --color=auto prometheus
-kill -hup 1774<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="重载配置文件"><a href="#重载配置文件" class="headerlink" title="重载配置文件"></a>重载配置文件</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ps</span> -ef <span class="token operator">|</span> <span class="token function">grep</span> prometheus
+root       1774      1  0 Jul15 ?        00:02:21 /usr/local/prometheus/prometheus --config.file<span class="token operator">=</span>/usr/local/prometheus/prometheus.yml
+root       2741   1702  0 14:13 pts/1    00:00:00 <span class="token function">grep</span> --color<span class="token operator">=</span>auto prometheus
+<span class="token function">kill</span> -hup 1774<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
         </div>
 
@@ -277,7 +277,7 @@ kill -hup 1774<span aria-hidden="true" class="line-numbers-rows"><span></span><s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-29T08:44:20.583Z" itemprop="dateUpdated">2020-07-29 16:44:20</time>
+    最后更新时间：<time datetime="2020-08-28T03:00:04.834Z" itemprop="dateUpdated">2020-08-28 11:00:04</time>
 </span><br>
 
 

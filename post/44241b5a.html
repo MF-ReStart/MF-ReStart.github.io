@@ -30,7 +30,7 @@
 <meta property="og:description" content="Dockerfile 介绍Dockerfile是由一行一行的命令语句组成，并且从上到下执行，支持以#注释行。一般Dockerfile的内容分为四个部分，基础镜像信息、维护者信息、镜像操作指令、容器启动时执行指令 Dockerfile 常用指令   指令 描述    FROM 指定构建新镜像时是基于那个镜像，Dockerfile的第一条指令必须为FROM指令，如果在同一个Dockerfile中创建多">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-30T05:33:50.000Z">
-<meta property="article:modified_time" content="2020-07-30T08:23:20.027Z">
+<meta property="article:modified_time" content="2020-08-28T03:16:37.711Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -296,10 +296,10 @@ CMD command param1 param2<span aria-hidden="true" class="line-numbers-rows"><spa
 <h2 id="ENTRYPOINT用法"><a href="#ENTRYPOINT用法" class="headerlink" title="ENTRYPOINT用法"></a>ENTRYPOINT用法</h2><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ENTRYPOINT ["executable", "param1", "param2"]    # 假如配合CMD一起使用,那么["param1", "param2"]可以写在CMD作为ENTRYPOINT的默认参数
 
 ENTRYPOINT command param1 param2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><pre class="line-numbers language-shell"><code class="language-shell">1. CMD和ENTRYPOINT指令都可以用来定义运行容器时所使用的命令
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><pre class="line-numbers language-bash"><code class="language-bash">1. CMD和ENTRYPOINT指令都可以用来定义运行容器时所使用的命令
 2. Dockerfile至少指定一个CMD或ENTRYPOINT
 3. CMD可以用作ENTRYPOINT默认参数，或者用作容器的默认命令
-4. docker run启动容器时指定<command>，将会覆盖dockerfile定义的CMD<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+4. docker run启动容器时指定<span class="token operator">&lt;</span>command<span class="token operator">></span>，将会覆盖dockerfile定义的CMD<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="构建Nginx容器镜像"><a href="#构建Nginx容器镜像" class="headerlink" title="构建Nginx容器镜像"></a>构建Nginx容器镜像</h1><h2 id="dockerfile内容"><a href="#dockerfile内容" class="headerlink" title="dockerfile内容"></a>dockerfile内容</h2><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">FROM centos:7.7.1908
 
 LABEL maintainer www.missf.top
@@ -337,7 +337,7 @@ WORKDIR /usr/local/nginx
 EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><pre class="line-numbers language-shell"><code class="language-shell">[root@localhost /Dockerfile/nginx]# ll
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost /Dockerfile/nginx<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ll</span>
 total 1028
 -rw-r--r-- 1 root root     890 Jul  6 18:58 Dockerfile
 -rw-r--r-- 1 root root 1032630 Jan 14 09:53 nginx-1.16.1.tar.gz
@@ -394,7 +394,7 @@ WORKDIR /usr/local/php
 EXPOSE 9000
 
 CMD ["php-fpm"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="目录结构-1"><a href="#目录结构-1" class="headerlink" title="目录结构"></a>目录结构</h2><pre class="line-numbers language-shell"><code class="language-shell">[root@localhost /Dockerfile/php]# ll
+<h2 id="目录结构-1"><a href="#目录结构-1" class="headerlink" title="目录结构"></a>目录结构</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost /Dockerfile/php<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ll</span>
 total 16144
 -rw-r--r-- 1 root root     1758 Jul  6 18:53 Dockerfile
 -rw-r--r-- 1 root root 16418792 Jul  1 10:39 php-7.4.0.tar.gz
@@ -402,21 +402,21 @@ total 16144
 -rw-r--r-- 1 root root    72953 Jul  1 22:09 php.ini
 -rw-r--r-- 1 root root       93 Jul  6 18:56 start
 -rw-r--r-- 1 root root    19616 Jul  6 18:53 www.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="容器化搭建个人博客"><a href="#容器化搭建个人博客" class="headerlink" title="容器化搭建个人博客"></a>容器化搭建个人博客</h1><h2 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h2><pre class="line-numbers language-shell"><code class="language-shell">docker network create lnmp    # 将多个容器加入到一个自定义网络<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="创建MySQL容器"><a href="#创建MySQL容器" class="headerlink" title="创建MySQL容器"></a>创建MySQL容器</h2><pre class="line-numbers language-shell"><code class="language-shell">docker volume create mysql
-docker run -e MYSQL_ROOT_PASSWORD=mwj123456 -e MYSQL_DATABASE=wordpress -p 53306:3306 --name "mysql" --network lnmp --mount src=mysql,dst=/var/lib/mysql/ -d mysql:5.7
-# 将MySQL数据库的数据持久化到mysql这个数据卷<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h2 id="创建PHP容器"><a href="#创建PHP容器" class="headerlink" title="创建PHP容器"></a>创建PHP容器</h2><pre class="line-numbers language-shell"><code class="language-shell">docker volume create nginx
-docker run --name php --network lnmp --mount src=nginx,dst=/usr/local/nginx/html/ -d php:1.0    
-# 这里先启动PHP容器再启动Nginx容器,因为Nginx要去连接PHP容器,如果PHP容器没有启动,那Nginx就因为无法连接到PHP所有退出了
-# 这里需要把Nginx代码也挂载到PHP容器内,而且容器内的路径要与Nginx配置文件路径一致
-# 因为Nginx配置文件将所有*.php的请求都通过fastcgi_pass代理到PHP容器去处理,所有需要把代码也挂载到PHP容器内,不然访问php文件会提示未找到文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="创建Nginx容器"><a href="#创建Nginx容器" class="headerlink" title="创建Nginx容器"></a>创建Nginx容器</h2><pre class="line-numbers language-shell"><code class="language-shell">docker container run --name "nginx" --mount src=nginx,dst=/usr/local/nginx/html --network lnmp -p 80:80 -p 443:443 -d nginx:1.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="部署WordPress代码"><a href="#部署WordPress代码" class="headerlink" title="部署WordPress代码"></a>部署WordPress代码</h2><pre class="line-numbers language-shell"><code class="language-shell">docker volume inspect nginx        # 先查看数据卷在宿主机上的目录,然后把代码解压到对应的目录下
+<h1 id="容器化搭建个人博客"><a href="#容器化搭建个人博客" class="headerlink" title="容器化搭建个人博客"></a>容器化搭建个人博客</h1><h2 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h2><pre class="line-numbers language-bash"><code class="language-bash">docker network create lnmp    <span class="token comment" spellcheck="true"># 将多个容器加入到一个自定义网络</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="创建MySQL容器"><a href="#创建MySQL容器" class="headerlink" title="创建MySQL容器"></a>创建MySQL容器</h2><pre class="line-numbers language-bash"><code class="language-bash">docker volume create mysql
+docker run -e MYSQL_ROOT_PASSWORD<span class="token operator">=</span>mwj123456 -e MYSQL_DATABASE<span class="token operator">=</span>wordpress -p 53306:3306 --name <span class="token string">"mysql"</span> --network lnmp --mount src<span class="token operator">=</span>mysql,dst<span class="token operator">=</span>/var/lib/mysql/ -d mysql:5.7
+<span class="token comment" spellcheck="true"># 将MySQL数据库的数据持久化到mysql这个数据卷</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="创建PHP容器"><a href="#创建PHP容器" class="headerlink" title="创建PHP容器"></a>创建PHP容器</h2><pre class="line-numbers language-bash"><code class="language-bash">docker volume create nginx
+docker run --name php --network lnmp --mount src<span class="token operator">=</span>nginx,dst<span class="token operator">=</span>/usr/local/nginx/html/ -d php:1.0    
+<span class="token comment" spellcheck="true"># 这里先启动PHP容器再启动Nginx容器,因为Nginx要去连接PHP容器,如果PHP容器没有启动,那Nginx就因为无法连接到PHP所有退出了</span>
+<span class="token comment" spellcheck="true"># 这里需要把Nginx代码也挂载到PHP容器内,而且容器内的路径要与Nginx配置文件路径一致</span>
+<span class="token comment" spellcheck="true"># 因为Nginx配置文件将所有*.php的请求都通过fastcgi_pass代理到PHP容器去处理,所有需要把代码也挂载到PHP容器内,不然访问php文件会提示未找到文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="创建Nginx容器"><a href="#创建Nginx容器" class="headerlink" title="创建Nginx容器"></a>创建Nginx容器</h2><pre class="line-numbers language-bash"><code class="language-bash">docker container run --name <span class="token string">"nginx"</span> --mount src<span class="token operator">=</span>nginx,dst<span class="token operator">=</span>/usr/local/nginx/html --network lnmp -p 80:80 -p 443:443 -d nginx:1.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="部署WordPress代码"><a href="#部署WordPress代码" class="headerlink" title="部署WordPress代码"></a>部署WordPress代码</h2><pre class="line-numbers language-bash"><code class="language-bash">docker volume inspect nginx        <span class="token comment" spellcheck="true"># 先查看数据卷在宿主机上的目录,然后把代码解压到对应的目录下</span>
 
-tar xf wordpress-5.4.2-zh_CN.tar.gz -C /var/lib/docker/volumes/nginx/_data/
+<span class="token function">tar</span> xf wordpress-5.4.2-zh_CN.tar.gz -C /var/lib/docker/volumes/nginx/_data/
 
-# 这时候通过访问宿主机的IP就能看到WordPress的安装页面了,如果无法对wp-config.php文件写入,就手动创建并写入<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true"># 这时候通过访问宿主机的IP就能看到WordPress的安装页面了,如果无法对wp-config.php文件写入,就手动创建并写入</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="构建Tomcat容器镜像"><a href="#构建Tomcat容器镜像" class="headerlink" title="构建Tomcat容器镜像"></a>构建Tomcat容器镜像</h1><h2 id="dockerfile内容-2"><a href="#dockerfile内容-2" class="headerlink" title="dockerfile内容"></a>dockerfile内容</h2><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">FROM centos:7.7.1908
 
 LABEL maintainer www.missf.top
@@ -445,14 +445,14 @@ WORKDIR ${CATALINA_HOME}
 EXPOSE 8080
 
 CMD ["catalina.sh", "run"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="目录结构-2"><a href="#目录结构-2" class="headerlink" title="目录结构"></a>目录结构</h2><pre class="line-numbers language-shell"><code class="language-shell">[root@localhost /Dockerfile/tomcat]# ll
+<h2 id="目录结构-2"><a href="#目录结构-2" class="headerlink" title="目录结构"></a>目录结构</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost /Dockerfile/tomcat<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ll</span>
 total 200568
 -rw-r--r-- 1 root root  10379806 Jul  7 11:19 apache-tomcat-8.5.57.tar.gz
 -rw-r--r-- 1 root root       728 Jul  7 19:41 Dockerfile
 -rw-r--r-- 1 root root 194990602 Jul  2  2019 jdk-8u211-linux-x64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="部署测试代码"><a href="#部署测试代码" class="headerlink" title="部署测试代码"></a>部署测试代码</h2><pre class="line-numbers language-shell"><code class="language-shell">docker volume inspect tomcat    # 查看Tomcat容器代码目录持久化到宿主机的目录
+<h2 id="部署测试代码"><a href="#部署测试代码" class="headerlink" title="部署测试代码"></a>部署测试代码</h2><pre class="line-numbers language-bash"><code class="language-bash">docker volume inspect tomcat    <span class="token comment" spellcheck="true"># 查看Tomcat容器代码目录持久化到宿主机的目录</span>
 
-ll /var/lib/docker/volumes/tomcat/_data        # 放到这个目录的war包会被自动解压
+ll /var/lib/docker/volumes/tomcat/_data        <span class="token comment" spellcheck="true"># 放到这个目录的war包会被自动解压</span>
 total 17840
 drwxr-x--- 4 root root       37 Jul  7 21:34 ROOT
 -rw-r--r-- 1 root root 18265402 Jun 20 13:08 ROOT.war<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -486,7 +486,7 @@ CMD ["/bin/sh", "-c", "java -jar $JAVA_OPTS /projects/hello.jar"]<span aria-hidd
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-30T08:23:20.027Z" itemprop="dateUpdated">2020-07-30 16:23:20</time>
+    最后更新时间：<time datetime="2020-08-28T03:16:37.711Z" itemprop="dateUpdated">2020-08-28 11:16:37</time>
 </span><br>
 
 

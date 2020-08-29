@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f17260614195aa59400404d.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f18f80f14195aa594e798e0.jpg">
 <meta property="article:published_time" content="2020-07-16T07:43:16.000Z">
-<meta property="article:modified_time" content="2020-08-03T03:27:09.082Z">
+<meta property="article:modified_time" content="2020-08-28T03:00:43.029Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -194,88 +194,88 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="监控Linux服务器"><a href="#监控Linux服务器" class="headerlink" title="监控Linux服务器"></a>监控Linux服务器</h1><h2 id="部署node-exporter"><a href="#部署node-exporter" class="headerlink" title="部署node_exporter"></a>部署node_exporter</h2><p>prometheus官方提供Node_exporter来让我们收集机器的系统数据，除node_exporter外，官方还提供consul、memcached、haproxy、mysqld等exporter。exporter类似于zabbix写好的监控模板，但是这些exporter都是需要在被监控节点安装</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 下载node_exporter
-wget https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载node_exporter</span>
+<span class="token function">wget</span> https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
 
-# 解压
-tar xf node_exporter-1.0.1.linux-amd64.tar.gz && mv node_exporter-1.0.1.linux-amd64 /usr/local/node_exporter
+<span class="token comment" spellcheck="true"># 解压</span>
+<span class="token function">tar</span> xf node_exporter-1.0.1.linux-amd64.tar.gz <span class="token operator">&amp;&amp;</span> <span class="token function">mv</span> node_exporter-1.0.1.linux-amd64 /usr/local/node_exporter
 
-# 编写启动文件
+<span class="token comment" spellcheck="true"># 编写启动文件</span>
 vim /usr/lib/systemd/system/node_exporter.service
-[Unit]
-Description=prometheus
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+Description<span class="token operator">=</span>prometheus
 
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/node_exporter/node_exporter
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+Restart<span class="token operator">=</span>on-failure
+ExecStart<span class="token operator">=</span>/usr/local/node_exporter/node_exporter
 
-[Install]
-WantedBy=multi-user.target
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+WantedBy<span class="token operator">=</span>multi-user.target
 
-# 启动node_exporter
+<span class="token comment" spellcheck="true"># 启动node_exporter</span>
 systemctl daemon-reload
 systemctl start node_exporter.service
 
-# 访问node_exporter的数据接口
-http://10.10.110.23:9100/metrics    # 默认端口是9100,默认接口是metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="配置监控"><a href="#配置监控" class="headerlink" title="配置监控"></a>配置监控</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 修改prometheus配置文件</span>
+<span class="token comment" spellcheck="true"># 访问node_exporter的数据接口</span>
+http://10.10.110.23:9100/metrics    <span class="token comment" spellcheck="true"># 默认端口是9100,默认接口是metrics</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="配置监控"><a href="#配置监控" class="headerlink" title="配置监控"></a>配置监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 修改prometheus配置文件</span>
 vim /usr/local/prometheus/prometheus.yml
-  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'node_exporter'</span>
-    <span class="token key atrule">file_sd_configs</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">files</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'/usr/local/prometheus/sd_config/node/*.yaml'</span><span class="token punctuation">]</span>
-        <span class="token key atrule">refresh_interval</span><span class="token punctuation">:</span> 5s
+  - job_name: <span class="token string">'node_exporter'</span>
+    file_sd_configs:
+      - files: <span class="token punctuation">[</span><span class="token string">'/usr/local/prometheus/sd_config/node/*.yaml'</span><span class="token punctuation">]</span>
+        refresh_interval: 5s
 
 <span class="token comment" spellcheck="true"># 创建服务发现的文件</span>
 vim /usr/local/prometheus/sd_config/node/*.yaml
-<span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token string">'10.10.110.23:9100'</span>        <span class="token comment" spellcheck="true"># 这个地址是被监控节点的IP地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="promSQL监控CPU、内存、硬盘"><a href="#promSQL监控CPU、内存、硬盘" class="headerlink" title="promSQL监控CPU、内存、硬盘"></a>promSQL监控CPU、内存、硬盘</h1><h2 id="CPU监控"><a href="#CPU监控" class="headerlink" title="CPU监控"></a>CPU监控</h2><pre class="line-numbers language-shell"><code class="language-shell"># 计算CPU五分钟内平均的使用率表达式
-100 - irate(node_cpu_seconds_total{mode="idle",instance="10.10.110.23:9100",job="node_exporter"}[5m]) * 100
+- targets:
+  - <span class="token string">'10.10.110.23:9100'</span>        <span class="token comment" spellcheck="true"># 这个地址是被监控节点的IP地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="promSQL监控CPU、内存、硬盘"><a href="#promSQL监控CPU、内存、硬盘" class="headerlink" title="promSQL监控CPU、内存、硬盘"></a>promSQL监控CPU、内存、硬盘</h1><h2 id="CPU监控"><a href="#CPU监控" class="headerlink" title="CPU监控"></a>CPU监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算CPU五分钟内平均的使用率表达式</span>
+100 - irate<span class="token punctuation">(</span>node_cpu_seconds_total<span class="token punctuation">{</span>mode<span class="token operator">=</span><span class="token string">"idle"</span>,instance<span class="token operator">=</span><span class="token string">"10.10.110.23:9100"</span>,job<span class="token operator">=</span><span class="token string">"node_exporter"</span><span class="token punctuation">}</span><span class="token punctuation">[</span>5m<span class="token punctuation">]</span><span class="token punctuation">)</span> * 100
 
-# node_cpu_seconds_total{mode="idle",instance="10.10.110.23:9100",job="node_exporter"}[5m]:取CPU五分钟之内的空闲值
-# irate函数:将会用于计算某个指标在一定时间间隔内的变化速率
-# 将得到的空闲值乘以100再得到CPU百分比的空闲值,再以100减去CPU百分比的空闲值,就得到CPU五分钟内平均的使用率<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h2><pre class="line-numbers language-shell"><code class="language-shell"># 计算内存使用率表达式
-100 - (node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes) / node_memory_MemTotal_bytes * 100
+<span class="token comment" spellcheck="true"># node_cpu_seconds_total{mode="idle",instance="10.10.110.23:9100",job="node_exporter"}[5m]:取CPU五分钟之内的空闲值</span>
+<span class="token comment" spellcheck="true"># irate函数:将会用于计算某个指标在一定时间间隔内的变化速率</span>
+<span class="token comment" spellcheck="true"># 将得到的空闲值乘以100再得到CPU百分比的空闲值,再以100减去CPU百分比的空闲值,就得到CPU五分钟内平均的使用率</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算内存使用率表达式</span>
+100 - <span class="token punctuation">(</span>node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes<span class="token punctuation">)</span> / node_memory_MemTotal_bytes * 100
 
-# (node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes)是内存剩余的总量
+<span class="token comment" spellcheck="true"># (node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes)是内存剩余的总量</span>
     在系统层面来考虑:buff和cache是已经被使用的内存
     在程序层面来考虑:buff和cache是剩余的内存
 
-# 内存剩余的总量除以内存总量得到内存剩余率,再以100减去内存剩余率得到内存使用率<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="硬盘监控"><a href="#硬盘监控" class="headerlink" title="硬盘监控"></a>硬盘监控</h2><pre class="line-numbers language-shell"><code class="language-shell"># 计算硬盘使用率表达式
-100 - node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"} / node_filesystem_size_bytes{mountpoint="/",fstype=~"ext4|xfs"} * 100
+<span class="token comment" spellcheck="true"># 内存剩余的总量除以内存总量得到内存剩余率,再以100减去内存剩余率得到内存使用率</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="硬盘监控"><a href="#硬盘监控" class="headerlink" title="硬盘监控"></a>硬盘监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算硬盘使用率表达式</span>
+100 - node_filesystem_free_bytes<span class="token punctuation">{</span>mountpoint<span class="token operator">=</span><span class="token string">"/"</span>,fstype<span class="token operator">=</span>~<span class="token string">"ext4|xfs"</span><span class="token punctuation">}</span> / node_filesystem_size_bytes<span class="token punctuation">{</span>mountpoint<span class="token operator">=</span><span class="token string">"/"</span>,fstype<span class="token operator">=</span>~<span class="token string">"ext4|xfs"</span><span class="token punctuation">}</span> * 100
 
-# node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区硬盘剩余容量,只计算ext4|xfs类型的文件系统
-# node_filesystem_size_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区的硬盘总量
-# 根分区硬盘剩余容量除以根分区的硬盘总量得到根分区硬盘的剩余率,再以100减去硬盘的剩余率得到硬盘使用率<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="监控系统服务状态"><a href="#监控系统服务状态" class="headerlink" title="监控系统服务状态"></a>监控系统服务状态</h1><h2 id="修改node-exporter的启动参数"><a href="#修改node-exporter的启动参数" class="headerlink" title="修改node_exporter的启动参数"></a>修改node_exporter的启动参数</h2><pre class="line-numbers language-shell"><code class="language-shell">vim /usr/lib/systemd/system/node_exporter.service
-[Unit]
-Description=prometheus
+<span class="token comment" spellcheck="true"># node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区硬盘剩余容量,只计算ext4|xfs类型的文件系统</span>
+<span class="token comment" spellcheck="true"># node_filesystem_size_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区的硬盘总量</span>
+<span class="token comment" spellcheck="true"># 根分区硬盘剩余容量除以根分区的硬盘总量得到根分区硬盘的剩余率,再以100减去硬盘的剩余率得到硬盘使用率</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="监控系统服务状态"><a href="#监控系统服务状态" class="headerlink" title="监控系统服务状态"></a>监控系统服务状态</h1><h2 id="修改node-exporter的启动参数"><a href="#修改node-exporter的启动参数" class="headerlink" title="修改node_exporter的启动参数"></a>修改node_exporter的启动参数</h2><pre class="line-numbers language-bash"><code class="language-bash">vim /usr/lib/systemd/system/node_exporter.service
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+Description<span class="token operator">=</span>prometheus
 
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/node_exporter/node_exporter --collector.systemd --collector.systemd.unit-whitelist=(docker|sshd).service
-# 利用正则匹配监控systemd的docker|sshd这三个服务
-[Install]
-WantedBy=multi-user.target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="重启node-exporter"><a href="#重启node-exporter" class="headerlink" title="重启node_exporter"></a>重启node_exporter</h2><pre class="line-numbers language-shell"><code class="language-shell">systemctl daemon-reload
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+Restart<span class="token operator">=</span>on-failure
+ExecStart<span class="token operator">=</span>/usr/local/node_exporter/node_exporter --collector.systemd --collector.systemd.unit-whitelist<span class="token operator">=</span><span class="token punctuation">(</span>docker<span class="token operator">|</span>sshd<span class="token punctuation">)</span>.service
+<span class="token comment" spellcheck="true"># 利用正则匹配监控systemd的docker|sshd这三个服务</span>
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+WantedBy<span class="token operator">=</span>multi-user.target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="重启node-exporter"><a href="#重启node-exporter" class="headerlink" title="重启node_exporter"></a>重启node_exporter</h2><pre class="line-numbers language-bash"><code class="language-bash">systemctl daemon-reload
 systemctl restart node_exporter.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="查看监控服务的数据指标"><a href="#查看监控服务的数据指标" class="headerlink" title="查看监控服务的数据指标"></a>查看监控服务的数据指标</h2><pre class="line-numbers language-shell"><code class="language-shell">node_systemd_unit_state{name="docker.service"}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="查看监控服务的数据指标"><a href="#查看监控服务的数据指标" class="headerlink" title="查看监控服务的数据指标"></a>查看监控服务的数据指标</h2><pre class="line-numbers language-bash"><code class="language-bash">node_systemd_unit_state<span class="token punctuation">{</span>name<span class="token operator">=</span><span class="token string">"docker.service"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>在activating、active、deactivating、failed、inactive五个状态中value为1的状态，就是服务当前的状态</p>
 {% image https://pic.imgdb.cn/item/5f1fa26414195aa5947438c7.jpg '' '' %}
 
-<h1 id="使用Grafana图表展示监控数据"><a href="#使用Grafana图表展示监控数据" class="headerlink" title="使用Grafana图表展示监控数据"></a>使用Grafana图表展示监控数据</h1><h2 id="安装Grafana"><a href="#安装Grafana" class="headerlink" title="安装Grafana"></a>安装Grafana</h2><pre class="line-numbers language-shell"><code class="language-shell"># 下载软件包
-wget https://dl.grafana.com/oss/release/grafana-7.1.0-1.x86_64.rpm
+<h1 id="使用Grafana图表展示监控数据"><a href="#使用Grafana图表展示监控数据" class="headerlink" title="使用Grafana图表展示监控数据"></a>使用Grafana图表展示监控数据</h1><h2 id="安装Grafana"><a href="#安装Grafana" class="headerlink" title="安装Grafana"></a>安装Grafana</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载软件包</span>
+<span class="token function">wget</span> https://dl.grafana.com/oss/release/grafana-7.1.0-1.x86_64.rpm
 
-# 安装
-yum install grafana-7.1.0-1.x86_64.rpm -y
+<span class="token comment" spellcheck="true"># 安装</span>
+yum <span class="token function">install</span> grafana-7.1.0-1.x86_64.rpm -y
 
-# 启动
-systemctl enable grafana-server.service
+<span class="token comment" spellcheck="true"># 启动</span>
+systemctl <span class="token function">enable</span> grafana-server.service
 systemctl start grafana-server.service
 
-# Grafana默认端口为3000,账号密码都为admin,初次登录会提示需要修改密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true"># Grafana默认端口为3000,账号密码都为admin,初次登录会提示需要修改密码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="Grafana配置数据源"><a href="#Grafana配置数据源" class="headerlink" title="Grafana配置数据源"></a>Grafana配置数据源</h2><p>填写prometheus主机的地址，在配置数据源时我们还可以配置验证、定义HTTP头部、以及其他的一些信息</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -304,24 +304,24 @@ systemctl start grafana-server.service
             </figure>
 
 <h1 id="监控Docker服务器"><a href="#监控Docker服务器" class="headerlink" title="监控Docker服务器"></a>监控Docker服务器</h1><h2 id="部署cadvisor"><a href="#部署cadvisor" class="headerlink" title="部署cadvisor"></a>部署cadvisor</h2><p>想要监控Docker容器，需要在被监控主机安装cadvisor插件，暴露一个HTTP端口，为prometheus提供容器的监控数据</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 由于国内无法连接到gcr.io,这里使用张馆长仓库的镜像地址
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 由于国内无法连接到gcr.io,这里使用张馆长仓库的镜像地址</span>
 docker run \
---volume=/:/rootfs:ro \
---volume=/var/run:/var/run:ro \
---volume=/sys:/sys:ro \
---volume=/var/lib/docker/:/var/lib/docker:ro \
---volume=/dev/disk/:/dev/disk:ro \
---publish=8080:8080 \
---detach=true \
---name=cadvisor \
+--volume<span class="token operator">=</span>/:/rootfs:ro \
+--volume<span class="token operator">=</span>/var/run:/var/run:ro \
+--volume<span class="token operator">=</span>/sys:/sys:ro \
+--volume<span class="token operator">=</span>/var/lib/docker/:/var/lib/docker:ro \
+--volume<span class="token operator">=</span>/dev/disk/:/dev/disk:ro \
+--publish<span class="token operator">=</span>8080:8080 \
+--detach<span class="token operator">=</span>true \
+--name<span class="token operator">=</span>cadvisor \
 --privileged \
---device=/dev/kmsg \
+--device<span class="token operator">=</span>/dev/kmsg \
 registry.aliyuncs.com/k8sxio/cadvisor:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="配置Prometheus监控cadvisor"><a href="#配置Prometheus监控cadvisor" class="headerlink" title="配置Prometheus监控cadvisor"></a>配置Prometheus监控cadvisor</h2><p>cadvisor可以搜集一台机器上所有运行的容器信息，还提供基础查询界面和http接口，供其他组件如prometheus拉取数据</p>
-<pre class="line-numbers language-shell"><code class="language-shell">vim /usr/local/prometheus/prometheus.yml    # 在prometheus配置文件加入监控主机的cadvisor端口(拉取容器数据)
-  - job_name: 'docker'
+<pre class="line-numbers language-bash"><code class="language-bash">vim /usr/local/prometheus/prometheus.yml    <span class="token comment" spellcheck="true"># 在prometheus配置文件加入监控主机的cadvisor端口(拉取容器数据)</span>
+  - job_name: <span class="token string">'docker'</span>
     static_configs:
-    - targets: ['10.10.110.23:8080']
+    - targets: <span class="token punctuation">[</span><span class="token string">'10.10.110.23:8080'</span><span class="token punctuation">]</span>
 
 systemctl daemon-reload
 systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -343,41 +343,41 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
             </figure>
 
 <h1 id="监控MySQL服务器"><a href="#监控MySQL服务器" class="headerlink" title="监控MySQL服务器"></a>监控MySQL服务器</h1><p>监控MySQL主机和监控Linux主机一样，都是需要导出器去获取数据，这里我们去prometheus官网下载mysqld_exporter，然后在mysql主机上安装(监控那台mysql主机就在那台主机安装mysqld_exporter)</p>
-<h2 id="MySQL主机安装mysqld-exporter"><a href="#MySQL主机安装mysqld-exporter" class="headerlink" title="MySQL主机安装mysqld_exporter"></a>MySQL主机安装mysqld_exporter</h2><pre class="line-numbers language-shell"><code class="language-shell"># 下载
-wget https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz
+<h2 id="MySQL主机安装mysqld-exporter"><a href="#MySQL主机安装mysqld-exporter" class="headerlink" title="MySQL主机安装mysqld_exporter"></a>MySQL主机安装mysqld_exporter</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载</span>
+<span class="token function">wget</span> https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz
 
-# 解压
-tar xf mysqld_exporter-0.12.1.linux-amd64.tar.gz && mv mysqld_exporter-0.12.1.linux-amd64 /usr/local/mysqld_exporter
+<span class="token comment" spellcheck="true"># 解压</span>
+<span class="token function">tar</span> xf mysqld_exporter-0.12.1.linux-amd64.tar.gz <span class="token operator">&amp;&amp;</span> <span class="token function">mv</span> mysqld_exporter-0.12.1.linux-amd64 /usr/local/mysqld_exporter
 
-# 创建启动文件
+<span class="token comment" spellcheck="true"># 创建启动文件</span>
 vim /usr/lib/systemd/system/mysqld_exporter.service
-[Unit]
-Documentation=https://prometheus.io/
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+Documentation<span class="token operator">=</span>https://prometheus.io/
 
-[Service]
-Restart=on-failure
-Environment=DATA_SOURCE_NAME=exporter:Missf.top123@(localhost:3306)/    # 连接数据库的账号密码,也可以指定.my.cnf文件
-ExecStart=/usr/local/mysqld_exporter/mysqld_exporter
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+Restart<span class="token operator">=</span>on-failure
+Environment<span class="token operator">=</span>DATA_SOURCE_NAME<span class="token operator">=</span>exporter:Missf.top123@<span class="token punctuation">(</span>localhost:3306<span class="token punctuation">)</span>/    <span class="token comment" spellcheck="true"># 连接数据库的账号密码,也可以指定.my.cnf文件</span>
+ExecStart<span class="token operator">=</span>/usr/local/mysqld_exporter/mysqld_exporter
 
-[Install]
-WantedBy=multi-user.target
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+WantedBy<span class="token operator">=</span>multi-user.target
 
-# 被监控数据库添加mysql用户及监控权限
-CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'Missf.top123' WITH MAX_USER_CONNECTIONS 3;
-GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
-FLUSH PRIVILEGES;
+<span class="token comment" spellcheck="true"># 被监控数据库添加mysql用户及监控权限</span>
+CREATE USER <span class="token string">'exporter'</span>@<span class="token string">'localhost'</span> IDENTIFIED BY <span class="token string">'Missf.top123'</span> WITH MAX_USER_CONNECTIONS 3<span class="token punctuation">;</span>
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO <span class="token string">'exporter'</span>@<span class="token string">'localhost'</span><span class="token punctuation">;</span>
+FLUSH PRIVILEGES<span class="token punctuation">;</span>
 
-# 启动mysqld_exporter
+<span class="token comment" spellcheck="true"># 启动mysqld_exporter</span>
 systemctl start mysqld_exporter
 
-# 获取监控数据
-curl [IP]:9104/metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="配置Prometheus监控mysqld-exporter"><a href="#配置Prometheus监控mysqld-exporter" class="headerlink" title="配置Prometheus监控mysqld_exporter"></a>配置Prometheus监控mysqld_exporter</h2><pre class="line-numbers language-shell"><code class="language-shell"># 修改配置文件
+<span class="token comment" spellcheck="true"># 获取监控数据</span>
+curl <span class="token punctuation">[</span>IP<span class="token punctuation">]</span>:9104/metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="配置Prometheus监控mysqld-exporter"><a href="#配置Prometheus监控mysqld-exporter" class="headerlink" title="配置Prometheus监控mysqld_exporter"></a>配置Prometheus监控mysqld_exporter</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 修改配置文件</span>
 vim /usr/local/prometheus/prometheus.yml
-  - job_name: 'mysqld_exporter'        # 添加监控mysqld_exporter
+  - job_name: <span class="token string">'mysqld_exporter'</span>        <span class="token comment" spellcheck="true"># 添加监控mysqld_exporter</span>
     static_configs:
-    - targets: ['47.100.107.121:9104']
-# 重启
+    - targets: <span class="token punctuation">[</span><span class="token string">'47.100.107.121:9104'</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># 重启</span>
 systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="导入MySQL仪表盘"><a href="#导入MySQL仪表盘" class="headerlink" title="导入MySQL仪表盘"></a>导入MySQL仪表盘</h2><p>导入ID为7362的MySQL仪表盘，查看MySQL的监控数据</p>
 <figure class="image-bubble">
@@ -394,7 +394,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-03T03:27:09.082Z" itemprop="dateUpdated">2020-08-03 11:27:09</time>
+    最后更新时间：<time datetime="2020-08-28T03:00:43.029Z" itemprop="dateUpdated">2020-08-28 11:00:43</time>
 </span><br>
 
 

@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f2a200a14195aa594b740f9.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f2a245714195aa594b8dbe0.jpg">
 <meta property="article:published_time" content="2020-08-04T10:05:33.000Z">
-<meta property="article:modified_time" content="2020-08-14T06:17:15.641Z">
+<meta property="article:modified_time" content="2020-08-28T03:02:24.983Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -190,27 +190,27 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="PushGateway部署"><a href="#PushGateway部署" class="headerlink" title="PushGateway部署"></a>PushGateway部署</h1><p>prometheus基于http的pull方式去采集时间序列数据，但是由于业务需求，prometheus和exporter可能不在一个子网或者防火墙原因，导致Prometheus无法直接拉取各个target数据，或者需要将不同的数据进行汇总，这时候就可以使用prometheus的自带组件pushgateway进行数据的汇总，将默认的pull方式改为push方式进行数据的采集</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 下载pushgateway
-wget https://github.com/prometheus/pushgateway/releases/download/v1.2.0/pushgateway-1.2.0.linux-amd64.tar.gz
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载pushgateway</span>
+<span class="token function">wget</span> https://github.com/prometheus/pushgateway/releases/download/v1.2.0/pushgateway-1.2.0.linux-amd64.tar.gz
 
-# 解压
-tar xf pushgateway-1.2.0.linux-amd64.tar.gz && mv pushgateway-1.2.0.linux-amd64 /usr/local/pushgateway
+<span class="token comment" spellcheck="true"># 解压</span>
+<span class="token function">tar</span> xf pushgateway-1.2.0.linux-amd64.tar.gz <span class="token operator">&amp;&amp;</span> <span class="token function">mv</span> pushgateway-1.2.0.linux-amd64 /usr/local/pushgateway
 
-# 创建pushgateway启动文件
+<span class="token comment" spellcheck="true"># 创建pushgateway启动文件</span>
 vim /usr/lib/systemd/system/pushgateway.service
-[Unit]
-Documentation=pushgateway exporter
-After=local-fs.target network-online.target network.target
-Wants=local-fs.target network-online.target network.target
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+Documentation<span class="token operator">=</span>pushgateway exporter
+After<span class="token operator">=</span>local-fs.target network-online.target network.target
+Wants<span class="token operator">=</span>local-fs.target network-online.target network.target
 
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/pushgateway/pushgateway    # 需要修改监听端口可以自行添加参数
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+Restart<span class="token operator">=</span>on-failure
+ExecStart<span class="token operator">=</span>/usr/local/pushgateway/pushgateway    <span class="token comment" spellcheck="true"># 需要修改监听端口可以自行添加参数</span>
 
-[Install]
-WantedBy=multi-user.target
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+WantedBy<span class="token operator">=</span>multi-user.target
 
-# 启动pushgateway
+<span class="token comment" spellcheck="true"># 启动pushgateway</span>
 systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Prometheus添加PushGateway"><a href="#Prometheus添加PushGateway" class="headerlink" title="Prometheus添加PushGateway"></a>Prometheus添加PushGateway</h1><p>在我们的prometheus配置文件添加pushgateway的地址</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/prometheus/prometheus.yml
@@ -221,12 +221,12 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
         <span class="token key atrule">instance</span><span class="token punctuation">:</span> pushgateway<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重启prometheus服务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>pushgateway其实是一个中转站，我们可以使用任何高级语言发送post请求到pushgateway，然后对数据进行增加删除等操作，pushgateway再把数据实时推送到prometheus</p>
-<h1 id="推送数据到PushGateway"><a href="#推送数据到PushGateway" class="headerlink" title="推送数据到PushGateway"></a>推送数据到PushGateway</h1><pre class="line-numbers language-shell"><code class="language-shell">echo "missf 123456" | curl --data-binary @- http://49.233.200.185:9091/metrics/job/prometheus
-# 数据:missf,值:123456
-# --data-binary 表示发送二进制数据(post方式)
-# http://49.233.200.185:9091 pushgateway的地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="推送数据到PushGateway"><a href="#推送数据到PushGateway" class="headerlink" title="推送数据到PushGateway"></a>推送数据到PushGateway</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token keyword">echo</span> <span class="token string">"missf 123456"</span> <span class="token operator">|</span> curl --data-binary @- http://49.233.200.185:9091/metrics/job/prometheus
+<span class="token comment" spellcheck="true"># 数据:missf,值:123456</span>
+<span class="token comment" spellcheck="true"># --data-binary 表示发送二进制数据(post方式)</span>
+<span class="token comment" spellcheck="true"># http://49.233.200.185:9091 pushgateway的地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看pushgateway推送到prometheus上的数据，这可以看到有exported_job=”prometheus”和job=”pushgateway”两个指标，我们推送数据时指定的job是prometheus，为什么这里的job会显示pushgateway呢？这里需要修改一个honor_labels的参数</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -246,10 +246,10 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
         <span class="token key atrule">instance</span><span class="token punctuation">:</span> pushgateway<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重启prometheus</p>
 <p>再次推送数据到pushgateway，然后查看prometheus上的数据</p>
-<pre class="line-numbers language-shell"><code class="language-shell">echo "mwj 123456" | curl --data-binary @- http://49.233.200.185:9091/metrics/job/prometheus/instance/missf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token keyword">echo</span> <span class="token string">"mwj 123456"</span> <span class="token operator">|</span> curl --data-binary @- http://49.233.200.185:9091/metrics/job/prometheus/instance/missf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="https://pic.imgdb.cn/item/5f2a245714195aa594b8dbe0.jpg" alt=""></p>
 <p>这里说明一下honor_labels的作用:因为prometheus配置pushgateway的时候，也会指定job和instance，但是它只表示pushgateway实例本身，不能真正表达收集数据的含义。所以配置pushgateway需要添加honor_labels:true参数，避免收集到的数据本身的job和instance被覆盖。具体参考官网</p>
-<h1 id="在PushGateway删除数据"><a href="#在PushGateway删除数据" class="headerlink" title="在PushGateway删除数据"></a>在PushGateway删除数据</h1><pre class="line-numbers language-shell"><code class="language-shell">curl -X DELETE http://49.233.200.185:9091/metrics/job/prometheus/instance/missf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="在PushGateway删除数据"><a href="#在PushGateway删除数据" class="headerlink" title="在PushGateway删除数据"></a>在PushGateway删除数据</h1><pre class="line-numbers language-bash"><code class="language-bash">curl -X DELETE http://49.233.200.185:9091/metrics/job/prometheus/instance/missf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
         </div>
 
@@ -258,7 +258,7 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-14T06:17:15.641Z" itemprop="dateUpdated">2020-08-14 14:17:15</time>
+    最后更新时间：<time datetime="2020-08-28T03:02:24.983Z" itemprop="dateUpdated">2020-08-28 11:02:24</time>
 </span><br>
 
 
@@ -462,7 +462,7 @@ systemctl start pushgateway.service<span aria-hidden="true" class="line-numbers-
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                612
+                614
             
         </span>
     </div>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-01T02:47:20.000Z">
-<meta property="article:modified_time" content="2020-06-20T06:42:47.646Z">
+<meta property="article:modified_time" content="2020-08-28T03:10:45.990Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -482,21 +482,21 @@ dir3/sofm    dir3/bin
     <span class="token punctuation">-</span> <span class="token punctuation">[</span>dir1<span class="token punctuation">,</span>dir2<span class="token punctuation">,</span>dir3<span class="token punctuation">]</span>
     <span class="token punctuation">-</span> <span class="token punctuation">[</span>sofm<span class="token punctuation">,</span>bin<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>执行playbook会将两个列表的元素两两组合，使用item[0]和item[1]来获取每一次循环的值</p>
-<pre class="line-numbers language-shell"><code class="language-shell">PLAY [dbserver] ******************************************************************************************************************
+<pre class="line-numbers language-bash"><code class="language-bash">PLAY <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> ******************************************************************************************************************
 
-TASK [Gathering Facts] ***********************************************************************************************************
-ok: [dbserver]
+TASK <span class="token punctuation">[</span>Gathering Facts<span class="token punctuation">]</span> ***********************************************************************************************************
+ok: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span>
 
-TASK [file] **********************************************************************************************************************
-changed: [dbserver] => (item=[u'dir1', u'sofm'])
-changed: [dbserver] => (item=[u'dir1', u'bin'])
-changed: [dbserver] => (item=[u'dir2', u'sofm'])
-changed: [dbserver] => (item=[u'dir2', u'bin'])
-changed: [dbserver] => (item=[u'dir3', u'sofm'])
-changed: [dbserver] => (item=[u'dir3', u'bin'])
+TASK <span class="token punctuation">[</span>file<span class="token punctuation">]</span> **********************************************************************************************************************
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>item<span class="token operator">=</span><span class="token punctuation">[</span>u<span class="token string">'dir1'</span>, u<span class="token string">'sofm'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>item<span class="token operator">=</span><span class="token punctuation">[</span>u<span class="token string">'dir1'</span>, u<span class="token string">'bin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>item<span class="token operator">=</span><span class="token punctuation">[</span>u<span class="token string">'dir2'</span>, u<span class="token string">'sofm'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>item<span class="token operator">=</span><span class="token punctuation">[</span>u<span class="token string">'dir2'</span>, u<span class="token string">'bin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>item<span class="token operator">=</span><span class="token punctuation">[</span>u<span class="token string">'dir3'</span>, u<span class="token string">'sofm'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>item<span class="token operator">=</span><span class="token punctuation">[</span>u<span class="token string">'dir3'</span>, u<span class="token string">'bin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
 PLAY RECAP ***********************************************************************************************************************
-dbserver                   : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+dbserver                   <span class="token keyword">:</span> ok<span class="token operator">=</span>2    changed<span class="token operator">=</span>1    unreachable<span class="token operator">=</span>0    failed<span class="token operator">=</span>0    skipped<span class="token operator">=</span>0    rescued<span class="token operator">=</span>0    ignored<span class="token operator">=</span>0   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="列表元素添加索引编号"><a href="#列表元素添加索引编号" class="headerlink" title="列表元素添加索引编号"></a>列表元素添加索引编号</h1><p>使用with_indexed_items关键字可以为列表的每一个元素添加索引编号，索引编号从0开始，我们可以在出来列表每一项元素的时候获取到索引编号</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -793,7 +793,7 @@ ntp<span class="token punctuation">:</span>x<span class="token punctuation">:</s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-20T06:42:47.646Z" itemprop="dateUpdated">2020-06-20 14:42:47</time>
+    最后更新时间：<time datetime="2020-08-28T03:10:45.990Z" itemprop="dateUpdated">2020-08-28 11:10:45</time>
 </span><br>
 
 

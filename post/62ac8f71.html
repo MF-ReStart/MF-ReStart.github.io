@@ -30,7 +30,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克 an">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-10T12:56:59.000Z">
-<meta property="article:modified_time" content="2020-07-14T06:29:45.252Z">
+<meta property="article:modified_time" content="2020-08-28T03:12:48.639Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -189,8 +189,8 @@
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
 <h1 id="ansible的jinja2模板"><a href="#ansible的jinja2模板" class="headerlink" title="ansible的jinja2模板"></a>ansible的jinja2模板</h1><p>我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的IP地址，这时候就需要使用到ansible的jinja2模板去分发动态的配置文件。我们先创建一份模板文件，将IP配置部分使用ansible变量进行替换，然后使用template模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点</p>
 <p>下面我们以安装redis为示例，为不同的管理节点分发动态配置文件</p>
-<pre class="line-numbers language-shell"><code class="language-shell">cat /etc/redis/conf/redis.conf
-bind {{ ansible_host }}     # 将默认的127.0.0.1改为管理节点本机的IP，这样就能生成各自的管理节点的配置文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /etc/redis/conf/redis.conf
+bind <span class="token punctuation">{</span><span class="token punctuation">{</span> ansible_host <span class="token punctuation">}</span><span class="token punctuation">}</span>     <span class="token comment" spellcheck="true"># 将默认的127.0.0.1改为管理节点本机的IP，这样就能生成各自的管理节点的配置文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>准备模板配置文件之后，下面就来编写一个playbook，完成模板配置文件的渲染和分发</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
@@ -243,21 +243,21 @@ bind {{ ansible_host }}     # 将默认的127.0.0.1改为管理节点本机的IP
      <span class="token punctuation">{</span>% endfor %<span class="token punctuation">}</span>
      &lt;/ul<span class="token punctuation">></span>
  <span class="token punctuation">{</span>% endraw %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="执行命令时传入变量"><a href="#执行命令时传入变量" class="headerlink" title="执行命令时传入变量"></a>执行命令时传入变量</h2><pre class="line-numbers language-shell"><code class="language-shell">cat /root/test.j2
-my blog is {{ site }}
+<h2 id="执行命令时传入变量"><a href="#执行命令时传入变量" class="headerlink" title="执行命令时传入变量"></a>执行命令时传入变量</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /root/test.j2
+my blog is <span class="token punctuation">{</span><span class="token punctuation">{</span> site <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-ansible dbserver -m template -e "site=missf.top" -a "src=/root/test.j2 dest=/opt/test"
+ansible dbserver -m template -e <span class="token string">"site=missf.top"</span> -a <span class="token string">"src=/root/test.j2 dest=/opt/test"</span>
 
-cat /opt/test
+<span class="token function">cat</span> /opt/test
 my blog is missf.top<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% if num <span class="token punctuation">></span> 3 %<span class="token punctuation">}</span>
 gtfr derew pllu
 <span class="token punctuation">{</span>% endif %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>使用template模板进行渲染</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -m template -e "num=4" -a "src=/root/test.j2 dest=/opt/test"
+<pre class="line-numbers language-bash"><code class="language-bash">ansible dbserver -m template -e <span class="token string">"num=4"</span> -a <span class="token string">"src=/root/test.j2 dest=/opt/test"</span>
 
-# 渲染后的输出结果
-cat /opt/test
+<span class="token comment" spellcheck="true"># 渲染后的输出结果</span>
+<span class="token function">cat</span> /opt/test
 gtfr derew pllu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><p>jinja2模板的for语法示例</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% if num <span class="token punctuation">></span> 3 %<span class="token punctuation">}</span>
@@ -265,10 +265,10 @@ gtfr derew pllu<span aria-hidden="true" class="line-numbers-rows"><span></span><
 <span class="token punctuation">{</span><span class="token punctuation">{</span> i <span class="token punctuation">}</span><span class="token punctuation">}</span>
 <span class="token punctuation">{</span>% endfor %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>使用template模板进行渲染</p>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible dbserver -m template -a "src=/root/test.j2 dest=/opt/test"
+<pre class="line-numbers language-bash"><code class="language-bash">ansible dbserver -m template -a <span class="token string">"src=/root/test.j2 dest=/opt/test"</span>
 
-# 渲染后的输出结果
-cat /opt/test
+<span class="token comment" spellcheck="true"># 渲染后的输出结果</span>
+<span class="token function">cat</span> /opt/test
 5
 65
 7
@@ -292,7 +292,7 @@ cat /opt/test
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-14T06:29:45.252Z" itemprop="dateUpdated">2020-07-14 14:29:45</time>
+    最后更新时间：<time datetime="2020-08-28T03:12:48.639Z" itemprop="dateUpdated">2020-08-28 11:12:48</time>
 </span><br>
 
 

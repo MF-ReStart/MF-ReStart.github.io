@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec2510dc2a9a83be56769bd.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ec26162c2a9a83be5ac20ab.jpg">
 <meta property="article:published_time" content="2020-05-18T07:42:59.000Z">
-<meta property="article:modified_time" content="2020-08-06T06:39:33.722Z">
+<meta property="article:modified_time" content="2020-08-28T03:19:20.167Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="coding">
 <meta property="article:tag" content="持续集成">
@@ -248,9 +248,9 @@
                 <div class="image-caption"></div>
             </figure>
 
-<h2 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h2><pre class="line-numbers language-shell"><code class="language-shell">git init
-git add .
-git commit -m "第一次提交"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> init
+<span class="token function">git</span> add <span class="token keyword">.</span>
+<span class="token function">git</span> commit -m <span class="token string">"第一次提交"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="配置coding-SSH秘钥"><a href="#配置coding-SSH秘钥" class="headerlink" title="配置coding SSH秘钥"></a>配置coding SSH秘钥</h2><p>在Windows电脑生成ssh密钥对，然后将id_rsa.pub公钥添加到coding SSH公钥</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -269,8 +269,8 @@ git commit -m "第一次提交"<span aria-hidden="true" class="line-numbers-rows
             </figure>
 
 <p><strong><code>注意:</code></strong> 如果已经在coding配置了ssh秘钥，git添加远程仓库的时候不要使用https的地址，不然还是会提示需要输入coding的账号密码</p>
-<pre class="line-numbers language-shell"><code class="language-shell">git remote add origin git@e.coding.net:missf/RuoYi.git    # 配置了SSH秘钥的，一定要填写项目的git地址
-git push -u origin master    # 这样推送时就不需要输入账号密码啦<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> remote add origin git@e.coding.net:missf/RuoYi.git    <span class="token comment" spellcheck="true"># 配置了SSH秘钥的，一定要填写项目的git地址</span>
+<span class="token function">git</span> push -u origin master    <span class="token comment" spellcheck="true"># 这样推送时就不需要输入账号密码啦</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -322,58 +322,58 @@ git push -u origin master    # 这样推送时就不需要输入账号密码啦<
             </figure>
 
 <p>这里附上完整Jenkinsfile</p>
-<pre class="line-numbers language-shell"><code class="language-shell">pipeline {
+<pre class="line-numbers language-bash"><code class="language-bash">pipeline <span class="token punctuation">{</span>
   agent any
-  stages {
-    stage('检出') {
-      steps {
-        checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]],
-        userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
-      }
-    }
-    stage('构建') {
-      steps {
-        echo '构建中...'
-        sh 'java -version'
-        sh 'mvn package'
-        echo '构建完成.'
-      }
-    }
-    stage('压缩jar包') {
-      steps {
-        echo '压缩中...'
-        sh 'cd /root/workspace/ruoyi-admin/target/ && tar -zcf /tmp/ruoyi-admin.tar.gz ruoyi-admin.jar'
-        echo '压缩完成.'
-      }
-    }
-    stage('部署') {
-      steps {
-        echo '部署中...'
-        script {
-          def remote = [:]
-          remote.name = 'java-server'
-          remote.allowAnyHosts = true
-          remote.host = "${env.REMOTE_HOST}"
-          remote.port = 50312
-          remote.user = "${env.REMOTE_USER_NAME}"
+  stages <span class="token punctuation">{</span>
+    stage<span class="token punctuation">(</span><span class="token string">'检出'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      steps <span class="token punctuation">{</span>
+        checkout<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token variable">$class</span><span class="token keyword">:</span> <span class="token string">'GitSCM'</span>, branches: <span class="token punctuation">[</span><span class="token punctuation">[</span>name: env.GIT_BUILD_REF<span class="token punctuation">]</span><span class="token punctuation">]</span>,
+        userRemoteConfigs: <span class="token punctuation">[</span><span class="token punctuation">[</span>url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    stage<span class="token punctuation">(</span><span class="token string">'构建'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      steps <span class="token punctuation">{</span>
+        <span class="token keyword">echo</span> <span class="token string">'构建中...'</span>
+        sh <span class="token string">'java -version'</span>
+        sh <span class="token string">'mvn package'</span>
+        <span class="token keyword">echo</span> <span class="token string">'构建完成.'</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    stage<span class="token punctuation">(</span><span class="token string">'压缩jar包'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      steps <span class="token punctuation">{</span>
+        <span class="token keyword">echo</span> <span class="token string">'压缩中...'</span>
+        sh <span class="token string">'cd /root/workspace/ruoyi-admin/target/ &amp;&amp; tar -zcf /tmp/ruoyi-admin.tar.gz ruoyi-admin.jar'</span>
+        <span class="token keyword">echo</span> <span class="token string">'压缩完成.'</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    stage<span class="token punctuation">(</span><span class="token string">'部署'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      steps <span class="token punctuation">{</span>
+        <span class="token keyword">echo</span> <span class="token string">'部署中...'</span>
+        script <span class="token punctuation">{</span>
+          def remote <span class="token operator">=</span> <span class="token punctuation">[</span>:<span class="token punctuation">]</span>
+          remote.name <span class="token operator">=</span> <span class="token string">'java-server'</span>
+          remote.allowAnyHosts <span class="token operator">=</span> <span class="token boolean">true</span>
+          remote.host <span class="token operator">=</span> <span class="token string">"<span class="token variable">${env.REMOTE_HOST}</span>"</span>
+          remote.port <span class="token operator">=</span> 50312
+          remote.user <span class="token operator">=</span> <span class="token string">"<span class="token variable">${env.REMOTE_USER_NAME}</span>"</span>
 
           // 把「CODING 凭据管理」中的「凭据 ID」填入 credentialsId，而 id_rsa 无需修改 
-          withCredentials([sshUserPrivateKey(credentialsId: "${env.REMOTE_CRED}", keyFileVariable: 'id_rsa')]) {
-            remote.identityFile = id_rsa
+          withCredentials<span class="token punctuation">(</span><span class="token punctuation">[</span>sshUserPrivateKey<span class="token punctuation">(</span>credentialsId: <span class="token string">"<span class="token variable">${env.REMOTE_CRED}</span>"</span>, keyFileVariable: <span class="token string">'id_rsa'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            remote.identityFile <span class="token operator">=</span> id_rsa
 
             // SSH 上传文件到服务器
-            sshPut remote: remote, from: '/tmp/ruoyi-admin.tar.gz', into: '/tmp/'
+            sshPut remote: remote, from: <span class="token string">'/tmp/ruoyi-admin.tar.gz'</span>, into: <span class="token string">'/tmp/'</span>
             // 解压缩
-            sshCommand remote: remote,  sudo: false, command: "tar -zxf /tmp/ruoyi-admin.tar.gz -C /home/ruoyi/"
+            sshCommand remote: remote,  sudo: false, command: <span class="token string">"tar -zxf /tmp/ruoyi-admin.tar.gz -C /home/ruoyi/"</span>
             // 执行Java应用启停脚本
-            sshCommand remote: remote,  sudo: true, command: "sh /home/ruoyi/start.sh stop && sh /home/ruoyi/start.sh start"
-          }
-        }
-        echo '部署完成'
-      }
-    }
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            sshCommand remote: remote,  sudo: true, command: <span class="token string">"sh /home/ruoyi/start.sh stop &amp;&amp; sh /home/ruoyi/start.sh start"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">echo</span> <span class="token string">'部署完成'</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="触发规则"><a href="#触发规则" class="headerlink" title="触发规则"></a>触发规则</h2><p>本地仓库推送代码到master分支时就会自动触发持续集成任务</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -409,51 +409,51 @@ git push -u origin master    # 这样推送时就不需要输入账号密码啦<
                 <div class="image-caption"></div>
             </figure>
 
-<h2 id="服务器的启停脚本"><a href="#服务器的启停脚本" class="headerlink" title="服务器的启停脚本"></a>服务器的启停脚本</h2><pre class="line-numbers language-shell"><code class="language-shell">[root@java-server ~]# cd /home/ruoyi/
-[root@java-server ruoyi]# ll
+<h2 id="服务器的启停脚本"><a href="#服务器的启停脚本" class="headerlink" title="服务器的启停脚本"></a>服务器的启停脚本</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@java-server ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># cd /home/ruoyi/</span>
+<span class="token punctuation">[</span>root@java-server ruoyi<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ll</span>
 total 65080
 drwxr-xr-x 2 root root     4096 May 18 10:18 logs
 -rw-r--r-- 1 root root       67 May 18 17:04 nohup.out
 -rw-r--r-- 1 root root 66627886 May 18 17:04 ruoyi-admin.jar
 -rwxr-xr-x 1 root root      760 May 18 14:29 start.sh
 
-[root@java-server ruoyi]# cat start.sh 
-#!/bin/bash
+<span class="token punctuation">[</span>root@java-server ruoyi<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># cat start.sh </span>
+<span class="token comment" spellcheck="true">#!/bin/bash</span>
 
-WORKSPACE=/home/ruoyi
+WORKSPACE<span class="token operator">=</span>/home/ruoyi
 
-if [ -d "${WORKSPACE}" ]; then
-    cd ${WORKSPACE}
-else
-    echo "${WORKSPACE} directory does not exist"
-    exit 1
-fi
+<span class="token keyword">if</span> <span class="token punctuation">[</span> -d <span class="token string">"<span class="token variable">${WORKSPACE}</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token function">cd</span> <span class="token variable">${WORKSPACE}</span>
+<span class="token keyword">else</span>
+    <span class="token keyword">echo</span> <span class="token string">"<span class="token variable">${WORKSPACE}</span> directory does not exist"</span>
+    <span class="token keyword">exit</span> 1
+<span class="token keyword">fi</span>
 
-APP_NAME='ruoyi-admin.jar'
+APP_NAME<span class="token operator">=</span><span class="token string">'ruoyi-admin.jar'</span>
 
-USE_JAVA_HOME='/usr/local/jdk1.8.0_211'
+USE_JAVA_HOME<span class="token operator">=</span><span class="token string">'/usr/local/jdk1.8.0_211'</span>
 
-JVM_OPTS='-Xms512m -Xmx512m'
+JVM_OPTS<span class="token operator">=</span><span class="token string">'-Xms512m -Xmx512m'</span>
 
-CONFIG_OPTS=''
+CONFIG_OPTS<span class="token operator">=</span><span class="token string">''</span>
 
-if [ $1 == 'start' ]; then
-    echo 'start service '$APP_NAME
-    nohup java -jar ${JVM_OPTS} ${APP_NAME} > ${WORKSPACE}/nohup.out 2>&1 &
-elif [ $1 == 'stop' ]; then
-    echo 'stop service '$APP_NAME
-    PID=$(ps -ef | grep -v grep | grep ${APP_NAME} | awk '{print $2}')
-    if [ -z ${PID} ]; then
-        echo ${APP_NAME} ' had stopped'
-    else
-        kill ${PID}
-        sleep 2
-        if [ $? -ne 0 ]; then
-        echo ${APP_NAME} ' stop failed'
-        exit 1
-        fi
-    fi
-fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token operator">==</span> <span class="token string">'start'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token keyword">echo</span> <span class="token string">'start service '</span><span class="token variable">$APP_NAME</span>
+    <span class="token function">nohup</span> java -jar <span class="token variable">${JVM_OPTS}</span> <span class="token variable">${APP_NAME}</span> <span class="token operator">></span> <span class="token variable">${WORKSPACE}</span>/nohup.out 2<span class="token operator">></span><span class="token operator">&amp;</span>1 <span class="token operator">&amp;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token operator">==</span> <span class="token string">'stop'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token keyword">echo</span> <span class="token string">'stop service '</span><span class="token variable">$APP_NAME</span>
+    PID<span class="token operator">=</span><span class="token punctuation">$(</span>ps -ef <span class="token operator">|</span> <span class="token function">grep</span> -v <span class="token function">grep</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token variable">${APP_NAME}</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'{print <span class="token variable">$2</span>}'</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">[</span> -z <span class="token variable">${PID}</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token keyword">echo</span> <span class="token variable">${APP_NAME}</span> <span class="token string">' had stopped'</span>
+    <span class="token keyword">else</span>
+        <span class="token function">kill</span> <span class="token variable">${PID}</span>
+        <span class="token function">sleep</span> 2
+        <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$?</span> -ne 0 <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token keyword">echo</span> <span class="token variable">${APP_NAME}</span> <span class="token string">' stop failed'</span>
+        <span class="token keyword">exit</span> 1
+        <span class="token keyword">fi</span>
+    <span class="token keyword">fi</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="查看持续集成的效果"><a href="#查看持续集成的效果" class="headerlink" title="查看持续集成的效果"></a>查看持续集成的效果</h1><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -468,7 +468,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-06T06:39:33.722Z" itemprop="dateUpdated">2020-08-06 14:39:33</time>
+    最后更新时间：<time datetime="2020-08-28T03:19:20.167Z" itemprop="dateUpdated">2020-08-28 11:19:20</time>
 </span><br>
 
 
@@ -672,7 +672,7 @@ fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                934
+                940
             
         </span>
     </div>

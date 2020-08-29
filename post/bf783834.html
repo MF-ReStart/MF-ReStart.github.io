@@ -30,7 +30,7 @@
 <meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-09T01:12:59.000Z">
-<meta property="article:modified_time" content="2020-08-11T08:11:14.641Z">
+<meta property="article:modified_time" content="2020-08-28T03:03:03.050Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -196,8 +196,8 @@
 <h1 id="定义主机清单"><a href="#定义主机清单" class="headerlink" title="定义主机清单"></a>定义主机清单</h1><blockquote>
 <p>定义一个简单的通过ssh认证的主机清单</p>
 </blockquote>
-<pre class="line-numbers language-shell"><code class="language-shell">cat /etc/ansible/hosts
-10.10.110.122 ansible_user=root ansible_pass=0 ansible_port=22<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /etc/ansible/hosts
+10.10.110.122 ansible_user<span class="token operator">=</span>root ansible_pass<span class="token operator">=</span>0 ansible_port<span class="token operator">=</span>22<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>主机清单的配置含义:</p>
 <ul>
 <li><code>ansible_host</code> 定义管理节点ip地址</li>
@@ -208,27 +208,27 @@
 <h1 id="执行ansible命令"><a href="#执行ansible命令" class="headerlink" title="执行ansible命令"></a>执行ansible命令</h1><blockquote>
 <p>测试Control node和Managed nodes的连接状态</p>
 </blockquote>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible 10.10.110.122 -m ping
-# 命令中的含义 -192.168.77.135 用于匹配主机清单中的主机名称 -m ping 指定 ping 模块，用于测试与管理节点的连接状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">ansible 10.10.110.122 -m <span class="token function">ping</span>
+<span class="token comment" spellcheck="true"># 命令中的含义 -192.168.77.135 用于匹配主机清单中的主机名称 -m ping 指定 ping 模块，用于测试与管理节点的连接状态</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
 <p>如果提示如下错误:</p>
 <p>10.10.110.122 | FAILED! =&gt; {<br>    “msg”: “Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host’s fingerprint to your known_hosts file to manage this host.”<br>}</p>
 <p>这是因为Control node和Managed nodes第一次连接需要先添加指纹信息，可以先使用ssh连接一次，如果机器太多的话，可以在ansible配置文件开启host_key_checking = False</p>
 </blockquote>
-<pre class="line-numbers language-shell"><code class="language-shell">cat /etc/ansible/ansible.cfg
-host_key_checking = False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /etc/ansible/ansible.cfg
+host_key_checking <span class="token operator">=</span> False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
 <p>再次测试连接状态</p>
 </blockquote>
-<pre class="line-numbers language-shell"><code class="language-shell">ansible 10.10.110.122 -m ping
-10.10.110.122 | SUCCESS => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    }, 
-    "changed": false, 
-    "ping": "pong"
-}
-# 看到"ping": "pong"表示连接成功<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">ansible 10.10.110.122 -m <span class="token function">ping</span>
+10.10.110.122 <span class="token operator">|</span> SUCCESS <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token string">"ansible_facts"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"discovered_interpreter_python"</span><span class="token keyword">:</span> <span class="token string">"/usr/bin/python"</span>
+    <span class="token punctuation">}</span>, 
+    <span class="token string">"changed"</span><span class="token keyword">:</span> false, 
+    <span class="token string">"ping"</span><span class="token keyword">:</span> <span class="token string">"pong"</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true"># 看到"ping": "pong"表示连接成功</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
         </div>
 
@@ -237,7 +237,7 @@ host_key_checking = False<span aria-hidden="true" class="line-numbers-rows"><spa
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-11T08:11:14.641Z" itemprop="dateUpdated">2020-08-11 16:11:14</time>
+    最后更新时间：<time datetime="2020-08-28T03:03:03.050Z" itemprop="dateUpdated">2020-08-28 11:03:03</time>
 </span><br>
 
 

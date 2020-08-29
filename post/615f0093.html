@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f23c66b14195aa5948a1e2d.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f23ceb714195aa5948dbd05.jpg">
 <meta property="article:published_time" content="2020-07-23T03:53:03.000Z">
-<meta property="article:modified_time" content="2020-08-03T02:26:00.981Z">
+<meta property="article:modified_time" content="2020-08-28T03:01:19.617Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
@@ -195,25 +195,25 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="Alertmanager概述"><a href="#Alertmanager概述" class="headerlink" title="Alertmanager概述"></a>Alertmanager概述</h1><p>prometheus发出告警时分为两部分，首先prometheus按告警规则(rule_files配置)向alertmanager发送告警，即告警规则是在prometheus上定义的，然后由alertmanager去管理这些告警，包括去重(deduplicating)、分组(grouping)、静音(silencing)、抑制(inhibition)、聚合(aggregation)，最终通过丰富的告警通知渠道(电话、微信、短信、邮件)将告警通知路由给对应的联系人。prometheus的大部分组件都是go语言开发的，zabbix到4.4之后的客户端才是go编写</p>
-<h1 id="Alertmanager二进制安装"><a href="#Alertmanager二进制安装" class="headerlink" title="Alertmanager二进制安装"></a>Alertmanager二进制安装</h1><pre class="line-numbers language-shell"><code class="language-shell"># 下载
-wget https://github.com/prometheus/alertmanager/releases/download/v0.21.0/alertmanager-0.21.0.linux-amd64.tar.gz
+<h1 id="Alertmanager二进制安装"><a href="#Alertmanager二进制安装" class="headerlink" title="Alertmanager二进制安装"></a>Alertmanager二进制安装</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载</span>
+<span class="token function">wget</span> https://github.com/prometheus/alertmanager/releases/download/v0.21.0/alertmanager-0.21.0.linux-amd64.tar.gz
 
-# 解压
-tar xf alertmanager-0.21.0.linux-amd64.tar.gz && mv alertmanager-0.21.0.linux-amd64 /usr/local/alertmanager
+<span class="token comment" spellcheck="true"># 解压</span>
+<span class="token function">tar</span> xf alertmanager-0.21.0.linux-amd64.tar.gz <span class="token operator">&amp;&amp;</span> <span class="token function">mv</span> alertmanager-0.21.0.linux-amd64 /usr/local/alertmanager
 
-# 创建alertmanager启动文件
+<span class="token comment" spellcheck="true"># 创建alertmanager启动文件</span>
 vim /usr/lib/systemd/system/alertmanager.service
-[Unit]
-Documentation=alertmanager
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+Documentation<span class="token operator">=</span>alertmanager
 
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/alertmanager/alertmanager --config.file=/usr/local/alertmanager/alertmanager.yml --storage.path=/usr/local/alertmanager/data
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+Restart<span class="token operator">=</span>on-failure
+ExecStart<span class="token operator">=</span>/usr/local/alertmanager/alertmanager --config.file<span class="token operator">=</span>/usr/local/alertmanager/alertmanager.yml --storage.path<span class="token operator">=</span>/usr/local/alertmanager/data
 
-[Install]
-WantedBy=multi-user.target
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+WantedBy<span class="token operator">=</span>multi-user.target
 
-# 启动
+<span class="token comment" spellcheck="true"># 启动</span>
 systemctl daemon-reload
 systemctl start alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Alertmanager配置文件详解"><a href="#Alertmanager配置文件详解" class="headerlink" title="Alertmanager配置文件详解"></a>Alertmanager配置文件详解</h1><pre class="line-numbers language-yaml"><code class="language-yaml">vim /usr/local/alertmanager/alertmanager.yml
@@ -236,10 +236,10 @@ systemctl start alertmanager.service<span aria-hidden="true" class="line-numbers
     <span class="token key atrule">target_match</span><span class="token punctuation">:</span>
       <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'warning'</span>
     <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'alertname'</span><span class="token punctuation">,</span> <span class="token string">'dev'</span><span class="token punctuation">,</span> <span class="token string">'instance'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="检查Alertmanager配置文件"><a href="#检查Alertmanager配置文件" class="headerlink" title="检查Alertmanager配置文件"></a>检查Alertmanager配置文件</h1><pre class="line-numbers language-shell"><code class="language-shell"># 提示SUCCESS,则配置文件没有问题
+<h1 id="检查Alertmanager配置文件"><a href="#检查Alertmanager配置文件" class="headerlink" title="检查Alertmanager配置文件"></a>检查Alertmanager配置文件</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 提示SUCCESS,则配置文件没有问题</span>
 ./amtool check-config alertmanager.yml
 
-# 修改配置文件之后重启alertmanager
+<span class="token comment" spellcheck="true"># 修改配置文件之后重启alertmanager</span>
 systemctl restart alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="配置邮件告警"><a href="#配置邮件告警" class="headerlink" title="配置邮件告警"></a>配置邮件告警</h1><p>修改alertmanager配置文件，填写邮箱的验证信息，定义路由的收件人，配置发送告警邮件到那个邮箱</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">cat /usr/local/alertmanager/alertmanager.yml 
@@ -413,38 +413,38 @@ cat /usr/local/prometheus/rules/node.yml
       <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance {{ $labels.instance }} down"</span>
       <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>配置完成之后重启alertmanager</p>
-<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">systemctl restart alertmanager.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>关闭node_exporter和docker_cadvisor服务，这时候会每个服务单独发送告警信息，由于将全部服务group_by在一个组里面，在发送恢复信息时会出现服务混乱的情况，所以我将每个服务做了路由，每一个服务都有自己的group_by，这样在发送信息时才会单独去发送</p>
 <p><img src="https://pic.imgdb.cn/item/5f2140bc14195aa5945ae70c.jpg" alt=""></p>
 <h1 id="配置钉钉告警"><a href="#配置钉钉告警" class="headerlink" title="配置钉钉告警"></a>配置钉钉告警</h1><p>先去创建一个钉钉机器人，具体过程这里就不详细说明了</p>
 <p>prometheus配置钉钉告警需要使用到prometheus-webhook-dingtalk插件，我们先使用二进制安装钉钉插件，dingtalk服务默认启动的端口是8060</p>
 <p><a href="https://github.com/timonwong/prometheus-webhook-dingtalk" target="_blank" rel="noopener">prometheus-webhook-dingtalk插件下载地址</a></p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 下载prometheus-webhook-dingtalk
-wget https://github.com/timonwong/prometheus-webhook-dingtalk/releases/download/v1.4.0/prometheus-webhook-dingtalk-1.4.0.linux-amd64.tar.gz
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载prometheus-webhook-dingtalk</span>
+<span class="token function">wget</span> https://github.com/timonwong/prometheus-webhook-dingtalk/releases/download/v1.4.0/prometheus-webhook-dingtalk-1.4.0.linux-amd64.tar.gz
 
-# 解压prometheus-webhook-dingtalk
-tar xf prometheus-webhook-dingtalk-1.4.0.linux-amd64.tar.gz && mv prometheus-webhook-dingtalk-1.4.0.linux-amd64 /usr/local/dingtalk
+<span class="token comment" spellcheck="true"># 解压prometheus-webhook-dingtalk</span>
+<span class="token function">tar</span> xf prometheus-webhook-dingtalk-1.4.0.linux-amd64.tar.gz <span class="token operator">&amp;&amp;</span> <span class="token function">mv</span> prometheus-webhook-dingtalk-1.4.0.linux-amd64 /usr/local/dingtalk
 
-# 编写dingtalk启动文件
+<span class="token comment" spellcheck="true"># 编写dingtalk启动文件</span>
 vim /usr/lib/systemd/system/dingtalk.service
-[Unit]
-Description=prometheus-webhook-dingtalk
-After=network-online.target
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+Description<span class="token operator">=</span>prometheus-webhook-dingtalk
+After<span class="token operator">=</span>network-online.target
 
-[Service]
-Restart=on-failure
-ExecStart=/usr/local/dingtalk/prometheus-webhook-dingtalk \
---ding.profile=Prometheus告警=https://oapi.dingtalk.com/robot/send?access_token=xxxxxx
-[Install]
-WantedBy=multi-user.target
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+Restart<span class="token operator">=</span>on-failure
+ExecStart<span class="token operator">=</span>/usr/local/dingtalk/prometheus-webhook-dingtalk \
+--ding.profile<span class="token operator">=</span>Prometheus告警<span class="token operator">=</span>https://oapi.dingtalk.com/robot/send?access_token<span class="token operator">=</span>xxxxxx
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+WantedBy<span class="token operator">=</span>multi-user.target
 
-# 启动dingtalk.service
+<span class="token comment" spellcheck="true"># 启动dingtalk.service</span>
 systemctl daemon-reload
 systemctl restart dingtalk.service
 
-# 查看dingtalk的webhook地址
+<span class="token comment" spellcheck="true"># 查看dingtalk的webhook地址</span>
 journalctl -fu dingtalk.service
-Jul 29 18:38:01 iZuf6fpaicz5jt7kep555qZ prometheus-webhook-dingtalk[5504]: ts=2020-07-29T10:38:01.655Z caller=main.go:133 component=configuration msg="Webhook urls for prometheus alertmanager" urls=http://localhost:8060/dingtalk/Prometheus告警/send<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Jul 29 18:38:01 iZuf6fpaicz5jt7kep555qZ prometheus-webhook-dingtalk<span class="token punctuation">[</span>5504<span class="token punctuation">]</span>: ts<span class="token operator">=</span>2020-07-29T10:38:01.655Z caller<span class="token operator">=</span>main.go:133 component<span class="token operator">=</span>configuration msg<span class="token operator">=</span><span class="token string">"Webhook urls for prometheus alertmanager"</span> urls<span class="token operator">=</span>http://localhost:8060/dingtalk/Prometheus告警/send<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>修改prometheus的alertmanager配置，更改告警的路由和接收者</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">route</span><span class="token punctuation">:</span>
   <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'devops_dingtalk'</span>    <span class="token comment" spellcheck="true"># 接收者必须和下面的一致</span>
@@ -537,7 +537,7 @@ Jul 29 18:38:01 iZuf6fpaicz5jt7kep555qZ prometheus-webhook-dingtalk[5504]: ts=20
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-03T02:26:00.981Z" itemprop="dateUpdated">2020-08-03 10:26:00</time>
+    最后更新时间：<time datetime="2020-08-28T03:01:19.617Z" itemprop="dateUpdated">2020-08-28 11:01:19</time>
 </span><br>
 
 
@@ -741,7 +741,7 @@ Jul 29 18:38:01 iZuf6fpaicz5jt7kep555qZ prometheus-webhook-dingtalk[5504]: ts=20
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                2.5k
+                2.6k
             
         </span>
     </div>

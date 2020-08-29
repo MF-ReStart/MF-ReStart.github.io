@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5ecdcfa1c2a9a83be515c4bf.jpg">
 <meta property="article:published_time" content="2020-05-26T07:13:48.000Z">
-<meta property="article:modified_time" content="2020-07-14T04:35:01.920Z">
+<meta property="article:modified_time" content="2020-08-28T03:06:57.401Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ansible">
 <meta property="article:tag" content="自动化运维">
@@ -252,31 +252,31 @@
       <span class="token key atrule">path</span><span class="token punctuation">:</span> /testdir/testfile2
       <span class="token key atrule">state</span><span class="token punctuation">:</span> touch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上面playbook的执行过程如下:</p>
-<pre class="line-numbers language-shell"><code class="language-shell">PLAY [all] ***********************************************************************************************************************
+<pre class="line-numbers language-bash"><code class="language-bash">PLAY <span class="token punctuation">[</span>all<span class="token punctuation">]</span> ***********************************************************************************************************************
 
-TASK [Gathering Facts] ***********************************************************************************************************
-ok: [webserver]
-ok: [dbserver]
+TASK <span class="token punctuation">[</span>Gathering Facts<span class="token punctuation">]</span> ***********************************************************************************************************
+ok: <span class="token punctuation">[</span>webserver<span class="token punctuation">]</span>
+ok: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span>
 
-TASK [make testfile1] ************************************************************************************************************
-changed: [webserver]
-changed: [dbserver]
+TASK <span class="token punctuation">[</span>make testfile1<span class="token punctuation">]</span> ************************************************************************************************************
+changed: <span class="token punctuation">[</span>webserver<span class="token punctuation">]</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span>
 
-TASK [make testfile2] ************************************************************************************************************
-changed: [webserver]
-changed: [dbserver]
+TASK <span class="token punctuation">[</span>make testfile2<span class="token punctuation">]</span> ************************************************************************************************************
+changed: <span class="token punctuation">[</span>webserver<span class="token punctuation">]</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span>
 
-RUNNING HANDLER [ht1] ************************************************************************************************************
-changed: [webserver]
-changed: [dbserver]
+RUNNING HANDLER <span class="token punctuation">[</span>ht1<span class="token punctuation">]</span> ************************************************************************************************************
+changed: <span class="token punctuation">[</span>webserver<span class="token punctuation">]</span>
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span>
 
-RUNNING HANDLER [ht2] ************************************************************************************************************
-changed: [dbserver]
-changed: [webserver]
+RUNNING HANDLER <span class="token punctuation">[</span>ht2<span class="token punctuation">]</span> ************************************************************************************************************
+changed: <span class="token punctuation">[</span>dbserver<span class="token punctuation">]</span>
+changed: <span class="token punctuation">[</span>webserver<span class="token punctuation">]</span>
 
 PLAY RECAP ***********************************************************************************************************************
-dbserver                   : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-webserver                  : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+dbserver                   <span class="token keyword">:</span> ok<span class="token operator">=</span>5    changed<span class="token operator">=</span>4    unreachable<span class="token operator">=</span>0    failed<span class="token operator">=</span>0    skipped<span class="token operator">=</span>0    rescued<span class="token operator">=</span>0    ignored<span class="token operator">=</span>0   
+webserver                  <span class="token keyword">:</span> ok<span class="token operator">=</span>5    changed<span class="token operator">=</span>4    unreachable<span class="token operator">=</span>0    failed<span class="token operator">=</span>0    skipped<span class="token operator">=</span>0    rescued<span class="token operator">=</span>0    ignored<span class="token operator">=</span>0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>默认情况下，所有task执行完毕后，才会执行各个handler，而且handler的执行顺序与handler在playbook中的定义顺序是相同的，与handler被notify调用的顺序无关，这一点大家要注意。如果你想要在执行完某些task以后立即执行对应的handler，则需要使用meta模块</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
@@ -347,7 +347,7 @@ webserver                  : ok=5    changed=4    unreachable=0    failed=0    s
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-14T04:35:01.920Z" itemprop="dateUpdated">2020-07-14 12:35:01</time>
+    最后更新时间：<time datetime="2020-08-28T03:06:57.401Z" itemprop="dateUpdated">2020-08-28 11:06:57</time>
 </span><br>
 
 
