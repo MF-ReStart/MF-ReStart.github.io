@@ -15,29 +15,30 @@
     
     
     
-    <title>ELK Logstash安装与常用插件(4) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Elastic Logstash(3) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="ELK,企业级日志系统,数据收集分析">
-    <meta name="description" content="Logstash概述logstash是elasticsearch的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出，其中input(负责从数据源采集数据)和output(将数据传输到目的地)是必要的，filter(将数据修改为你指定的格式或内容)是非必要的。logstash 是插件式管理模式，在输入、过滤、输出以及编码过程中都可以使用插件进行定制，Logstash 社区有超过 200">
+    <meta name="description" content="Logstash概述logstash是elasticsearch的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出。其中input(负责从数据源采集数据)和output(将数据传输到目的地)是必要的，filter(将数据修改为你指定的格式或内容)是非必要的。logstash是插件式管理模式，在输入、过滤、输出以及编码过程中都可以使用插件进行定制，Logstash社区有超过200种可用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ELK Logstash安装与常用插件(4)">
+<meta property="og:title" content="Elastic Logstash(3)">
 <meta property="og:url" content="https://www.missf.top/post/fe947601.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="Logstash概述logstash是elasticsearch的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出，其中input(负责从数据源采集数据)和output(将数据传输到目的地)是必要的，filter(将数据修改为你指定的格式或内容)是非必要的。logstash 是插件式管理模式，在输入、过滤、输出以及编码过程中都可以使用插件进行定制，Logstash 社区有超过 200">
+<meta property="og:description" content="Logstash概述logstash是elasticsearch的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出。其中input(负责从数据源采集数据)和output(将数据传输到目的地)是必要的，filter(将数据修改为你指定的格式或内容)是非必要的。logstash是插件式管理模式，在输入、过滤、输出以及编码过程中都可以使用插件进行定制，Logstash社区有超过200种可用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f33c7b714195aa594ff030a.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f4ca600160a154a67c1320d.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f4db451160a154a67703955.jpg">
 <meta property="article:published_time" content="2020-08-11T07:04:57.000Z">
-<meta property="article:modified_time" content="2020-08-18T10:36:01.860Z">
+<meta property="article:modified_time" content="2020-09-01T05:59:10.644Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
 <meta property="article:tag" content="数据收集分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f33c7b714195aa594ff030a.jpg">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f4ca600160a154a67c1320d.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -119,7 +120,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">ELK Logstash安装与常用插件(4)</div>
+        <div class="flex-col header-title ellipsis">Elastic Logstash(3)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -137,7 +138,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">ELK Logstash安装与常用插件(4)</h1>
+        <h1 class="title">Elastic Logstash(3)</h1>
         <h5 class="subtitle">
             
                 <time datetime="2020-08-11T07:04:57.000Z" itemprop="datePublished" class="page-time">
@@ -145,7 +146,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Elastic-Stack/">Elastic Stack</a></li></ul>
 
             
         </h5>
@@ -162,21 +163,21 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Logstash概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">Logstash概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装Logstash"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装Logstash</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#条件判断"><span class="post-toc-number">3.</span> <span class="post-toc-text">条件判断</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输入插件"><span class="post-toc-number">4.</span> <span class="post-toc-text">输入插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编码插件"><span class="post-toc-number">5.</span> <span class="post-toc-text">编码插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#过滤插件"><span class="post-toc-number">6.</span> <span class="post-toc-text">过滤插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输出插件"><span class="post-toc-number">7.</span> <span class="post-toc-text">输出插件</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Logstash概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">Logstash概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Logstash安装"><span class="post-toc-number">2.</span> <span class="post-toc-text">Logstash安装</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Logstash配置详解"><span class="post-toc-number">3.</span> <span class="post-toc-text">Logstash配置详解</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#过滤"><span class="post-toc-number">4.</span> <span class="post-toc-text">过滤</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输出"><span class="post-toc-number">5.</span> <span class="post-toc-text">输出</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Stdin示例"><span class="post-toc-number">6.</span> <span class="post-toc-text">Stdin示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#File示例"><span class="post-toc-number">7.</span> <span class="post-toc-text">File示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TCP示例"><span class="post-toc-number">8.</span> <span class="post-toc-text">TCP示例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输入插件"><span class="post-toc-number">9.</span> <span class="post-toc-text">输入插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编码插件"><span class="post-toc-number">10.</span> <span class="post-toc-text">编码插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#过滤插件"><span class="post-toc-number">11.</span> <span class="post-toc-text">过滤插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#输出插件"><span class="post-toc-number">12.</span> <span class="post-toc-text">输出插件</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-ELK Logstash安装与常用插件(4)"
+<article id="post-Elastic Logstash(3)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">ELK Logstash安装与常用插件(4)</h1>
+        <h1 class="post-card-title">Elastic Logstash(3)</h1>
         <div class="post-meta">
             <time class="post-time" title="2020-08-11 15:04:57" datetime="2020-08-11T07:04:57.000Z"  itemprop="datePublished">2020-08-11</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Elastic-Stack/">Elastic Stack</a></li></ul>
 
 
 
@@ -188,32 +189,177 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="Logstash概述"><a href="#Logstash概述" class="headerlink" title="Logstash概述"></a>Logstash概述</h1><p>logstash是elasticsearch的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出，其中input(负责从数据源采集数据)和output(将数据传输到目的地)是必要的，filter(将数据修改为你指定的格式或内容)是非必要的。logstash 是插件式管理模式，在输入、过滤、输出以及编码过程中都可以使用插件进行定制，Logstash 社区有超过 200 种可用插件</p>
+            <h1 id="Logstash概述"><a href="#Logstash概述" class="headerlink" title="Logstash概述"></a>Logstash概述</h1><p>logstash是elasticsearch的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出。其中input(负责从数据源采集数据)和output(将数据传输到目的地)是必要的，filter(将数据修改为你指定的格式或内容)是非必要的。logstash是插件式管理模式，在输入、过滤、输出以及编码过程中都可以使用插件进行定制，Logstash社区有超过200种可用插件</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f33c7b714195aa594ff030a.jpg" alt="" title="">
+                    <img src="https://pic.imgdb.cn/item/5f4ca600160a154a67c1320d.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
 
-<h1 id="安装Logstash"><a href="#安装Logstash" class="headerlink" title="安装Logstash"></a>安装Logstash</h1><pre class="line-numbers language-shell"><code class="language-shell"># 安装jdk,这里使用yum是因为二进制安装的jdk,在Logstash启动时会报could not find java
-yum install -y java-11-openjdk java-11-openjdk-devel java-11-openjdk-headless
+<h1 id="Logstash安装"><a href="#Logstash安装" class="headerlink" title="Logstash安装"></a>Logstash安装</h1><p>这里使用yum是因为二进制安装的jdk，在Logstash启动时会报could not find java</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 安装jdk</span>
+yum <span class="token function">install</span> -y java-11-openjdk java-11-openjdk-devel java-11-openjdk-headless
 
-# 下载logstash
-wget https://artifacts.elastic.co/downloads/logstash/logstash-7.8.1.rpm
+<span class="token comment" spellcheck="true"># 下载logstash</span>
+<span class="token function">wget</span> https://artifacts.elastic.co/downloads/logstash/logstash-7.8.1.rpm
 
-# 安装
-yum install -y logstash-7.8.1.rpm
+<span class="token comment" spellcheck="true"># 安装logstash</span>
+yum <span class="token function">install</span> -y logstash-7.8.1.rpm
 
-# 修改启动分配内存
+<span class="token comment" spellcheck="true"># 修改启动分配内存</span>
 vim /etc/logstash/jvm.options
 -Xms512m
 -Xmx512m
 
-# 启动logstash
-systemctl start logstash.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h1><p>比较操作符</p>
+<span class="token comment" spellcheck="true"># 第一个logstash示例</span>
+<span class="token function">cd</span> logstash Installation directory
+bin/logstash -e <span class="token string">'input { stdin { } } output { stdout {} }'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 执行结果如下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f4db451160a154a67703955.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h1 id="Logstash配置详解"><a href="#Logstash配置详解" class="headerlink" title="Logstash配置详解"></a>Logstash配置详解</h1><p>Logstash的配置有两个必须元素(input和output)和一个可选元素(filter)</p>
+<pre class="line-numbers language-json"><code class="language-json">input <span class="token punctuation">{</span> # 输入 
+  stdin <span class="token punctuation">{</span> 
+    ... # 标准输入
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+filter <span class="token punctuation">{</span> # 过滤
+  ...    # 对数据进行分割、截取等处理 
+<span class="token punctuation">}</span>
+
+output <span class="token punctuation">{</span> # 输出 
+  stdout <span class="token punctuation">{</span>
+    ...  # 标准输出
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>输入</p>
+</blockquote>
+<blockquote>
+<p>采集各种样式、大小和来源的数据，数据往往以各种各样的形式，或分散或集中地存在于不同的系统中</p>
+</blockquote>
+<blockquote>
+<p> Logstash支持各种输入选择 ，可以在同一时间从众多常用来源捕捉事件</p>
+</blockquote>
+<blockquote>
+<p>能够以连续的流式传输方式，轻松地从您的日志、指标、Web 应用、数据存储以及各种AWS服务采集数据</p>
+</blockquote>
+<h1 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h1><p>实时解析和转换数据，Logstash过滤器能够解析各个事件</p>
+<p>识别已命名的字段以构建结构，并将它们转换成通用格式，以便更轻松更快速地分析和实现商业价值</p>
+<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><p>Logstash提供众多输出选择，你可以将数据发送到指定的地方，并且能够灵活地解锁众多下游用例</p>
+<h1 id="Stdin示例"><a href="#Stdin示例" class="headerlink" title="Stdin示例"></a>Stdin示例</h1><p>从标准输入读取数据输出到标准输出</p>
+<pre class="line-numbers language-json"><code class="language-json">input <span class="token punctuation">{</span>
+  stdin <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span>
+
+filter <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+output <span class="token punctuation">{</span>
+  stdout <span class="token punctuation">{</span>
+    codec => rubydebug 
+  <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行结果如下</p>
+<pre class="line-numbers language-json"><code class="language-json">mwj
+<span class="token punctuation">{</span>
+          <span class="token string">"host"</span> => <span class="token string">"localhost.localdomain"</span><span class="token punctuation">,</span>
+    <span class="token string">"@timestamp"</span> => <span class="token number">2020</span>-<span class="token number">08</span>-12T18<span class="token operator">:</span><span class="token number">36</span><span class="token operator">:</span><span class="token number">32</span>.683Z<span class="token punctuation">,</span>
+       <span class="token string">"message"</span> => <span class="token string">"mwj"</span><span class="token punctuation">,</span>
+      <span class="token string">"@version"</span> => <span class="token string">"1"</span>
+<span class="token punctuation">}</span>
+test data      
+<span class="token punctuation">{</span>
+          <span class="token string">"host"</span> => <span class="token string">"localhost.localdomain"</span><span class="token punctuation">,</span>
+    <span class="token string">"@timestamp"</span> => <span class="token number">2020</span>-<span class="token number">08</span>-12T18<span class="token operator">:</span><span class="token number">36</span><span class="token operator">:</span><span class="token number">47</span>.691Z<span class="token punctuation">,</span>
+       <span class="token string">"message"</span> => <span class="token string">"test data"</span><span class="token punctuation">,</span>
+      <span class="token string">"@version"</span> => <span class="token string">"1"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="File示例"><a href="#File示例" class="headerlink" title="File示例"></a>File示例</h1><p>从文件中读取数据，输出到标准输出</p>
+<pre class="line-numbers language-json"><code class="language-json">input <span class="token punctuation">{</span>
+  file <span class="token punctuation">{</span>    # 调用file这个插件<span class="token punctuation">,</span>logstash社区有非常多的插件可以供我们使用
+    path =><span class="token string">"/var/log/messages"</span>    # 数据源来自这个文件的内容
+    tags =><span class="token string">"messages"</span>    # 打标签
+    type =><span class="token string">"syslog"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+filter <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+output <span class="token punctuation">{</span>
+  stdout <span class="token punctuation">{</span>
+    codec => rubydebug 
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行结果如下</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+          <span class="token string">"type"</span> => <span class="token string">"syslog"</span><span class="token punctuation">,</span>
+    <span class="token string">"@timestamp"</span> => <span class="token number">2020</span>-<span class="token number">08</span>-13T11<span class="token operator">:</span><span class="token number">41</span><span class="token operator">:</span><span class="token number">45</span>.031Z<span class="token punctuation">,</span>
+      <span class="token string">"@version"</span> => <span class="token string">"1"</span><span class="token punctuation">,</span>
+          <span class="token string">"path"</span> => <span class="token string">"/var/log/messages"</span><span class="token punctuation">,</span>
+          <span class="token string">"host"</span> => <span class="token string">"localhost.localdomain"</span><span class="token punctuation">,</span>
+          <span class="token string">"tags"</span> => <span class="token punctuation">[</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token string">"messages"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+       <span class="token string">"message"</span> => <span class="token string">"Aug 13 19:41:44 localhost yum[86466]: Installed: 1:nginx-mod-http-image-filter-1.16.1-1.el7.x86_64"</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>
+          <span class="token string">"type"</span> => <span class="token string">"syslog"</span><span class="token punctuation">,</span>
+    <span class="token string">"@timestamp"</span> => <span class="token number">2020</span>-<span class="token number">08</span>-13T11<span class="token operator">:</span><span class="token number">41</span><span class="token operator">:</span><span class="token number">45</span>.032Z<span class="token punctuation">,</span>
+      <span class="token string">"@version"</span> => <span class="token string">"1"</span><span class="token punctuation">,</span>
+          <span class="token string">"path"</span> => <span class="token string">"/var/log/messages"</span><span class="token punctuation">,</span>
+          <span class="token string">"host"</span> => <span class="token string">"localhost.localdomain"</span><span class="token punctuation">,</span>
+          <span class="token string">"tags"</span> => <span class="token punctuation">[</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token string">"messages"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+       <span class="token string">"message"</span> => <span class="token string">"Aug 13 19:41:44 localhost yum[86466]: Installed: 1:nginx-all-modules-1.16.1-1.el7.noarch"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="TCP示例"><a href="#TCP示例" class="headerlink" title="TCP示例"></a>TCP示例</h1><p>logstash从本机端口读取数据，其他机器通过nc工具发送数据到logstash指定的端口</p>
+<pre class="line-numbers language-json"><code class="language-json">input <span class="token punctuation">{</span>
+  tcp <span class="token punctuation">{</span>
+    port =><span class="token number">12345</span>    # 监听<span class="token number">12345</span>端口
+    type =><span class="token string">"nc"</span>        # 通过nc工具使用tcp/udp连接去发送网络数据给logstash
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+filter <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+output <span class="token punctuation">{</span>
+  stdout <span class="token punctuation">{</span>
+    codec => rubydebug 
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行结果如下</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+      <span class="token string">"@version"</span> => <span class="token string">"1"</span><span class="token punctuation">,</span>
+          <span class="token string">"type"</span> => <span class="token string">"nc"</span><span class="token punctuation">,</span>
+    <span class="token string">"@timestamp"</span> => <span class="token number">2020</span>-<span class="token number">08</span>-13T06<span class="token operator">:</span><span class="token number">28</span><span class="token operator">:</span><span class="token number">13</span>.448Z<span class="token punctuation">,</span>
+          <span class="token string">"host"</span> => <span class="token string">"10.10.110.191"</span><span class="token punctuation">,</span>
+          <span class="token string">"port"</span> => <span class="token number">35228</span><span class="token punctuation">,</span>
+       <span class="token string">"message"</span> => <span class="token string">"we"</span>    # logstash接收到其他机器nc工具发送过来的信息(nc <span class="token number">10.10</span>.<span class="token number">110.194</span> <span class="token number">12345</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>
+      <span class="token string">"@version"</span> => <span class="token string">"1"</span><span class="token punctuation">,</span>
+          <span class="token string">"type"</span> => <span class="token string">"nc"</span><span class="token punctuation">,</span>
+    <span class="token string">"@timestamp"</span> => <span class="token number">2020</span>-<span class="token number">08</span>-13T06<span class="token operator">:</span><span class="token number">28</span><span class="token operator">:</span><span class="token number">40</span>.148Z<span class="token punctuation">,</span>
+          <span class="token string">"host"</span> => <span class="token string">"10.10.110.191"</span><span class="token punctuation">,</span>
+          <span class="token string">"port"</span> => <span class="token number">35228</span><span class="token punctuation">,</span>
+       <span class="token string">"message"</span> => <span class="token string">"test"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>条件判断</p>
+<p>比较操作符</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token operator">==</span><span class="token punctuation">(</span>相等<span class="token punctuation">)</span> , <span class="token operator">!=</span><span class="token punctuation">(</span>不等于<span class="token punctuation">)</span> , <span class="token operator">&lt;</span><span class="token punctuation">(</span>小于<span class="token punctuation">)</span> , <span class="token operator">></span><span class="token punctuation">(</span>大于<span class="token punctuation">)</span> , <span class="token operator">&lt;=</span><span class="token punctuation">(</span>小于等于<span class="token punctuation">)</span> , <span class="token operator">>=</span><span class="token punctuation">(</span>大于等于<span class="token punctuation">)</span>
 <span class="token operator">=</span>~<span class="token punctuation">(</span>匹配正则<span class="token punctuation">)</span> , <span class="token operator">!</span>~<span class="token punctuation">(</span>不匹配正则<span class="token punctuation">)</span> 
 in<span class="token punctuation">(</span>包含<span class="token punctuation">)</span> , not in<span class="token punctuation">(</span>不包含<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -628,7 +774,7 @@ output <span class="token punctuation">{</span>
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-18T10:36:01.860Z" itemprop="dateUpdated">2020-08-18 18:36:01</time>
+    最后更新时间：<time datetime="2020-09-01T05:59:10.644Z" itemprop="dateUpdated">2020-09-01 13:59:10</time>
 </span><br>
 
 
@@ -668,18 +814,18 @@ output <span class="token punctuation">{</span>
 
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/dbe94810.html" id="post-prev" class="post-nav-link">
+      <a href="/post/1abc58c4.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">ELK Elasticsearch基础概念(3)</h4>
+        <h4 class="title">Elastic Elasticsearch(2)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/e26112db.html" id="post-next" class="post-nav-link">
+      <a href="/post/fe947601.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ELK Kibana简述与安装配置(5)</h4>
+        <h4 class="title">Elastic Logstash安装配置(3)</h4>
       </a>
     </div>
   
@@ -832,7 +978,7 @@ output <span class="token punctuation">{</span>
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                1.8k
+                2.5k
             
         </span>
     </div>

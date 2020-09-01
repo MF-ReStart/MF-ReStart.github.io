@@ -30,7 +30,7 @@
 <meta property="og:description" content="Elasticsearch简介Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发，并作为Apache许可条款下的开放源代码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索、稳定、可靠、快速、使用方便 我们建立一个网站或应用程序，并要添加搜索功能，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-05T10:26:09.000Z">
-<meta property="article:modified_time" content="2020-08-29T08:04:41.867Z">
+<meta property="article:modified_time" content="2020-08-31T07:15:12.483Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
@@ -321,11 +321,11 @@ var inspectData <span class="token operator">=</span> s.contentType <span class=
 <h1 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a>RESTful API</h1><p>在Elasticsearch中，提供了功能丰富的RESTful API的操作，包括基本的CRUD、创建索引、删除索引等操作。RESTful是统一规范的http接口，任何语言都可以使用。我们可以直接使用web客户端(postman)来测试，甚至还可以使用Linux上的curl工具测试，不需要自己写程序来调用Elasticsearch服务</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Elasticsearch RESTful操作数据的风格</span>
 curl -X <span class="token operator">&lt;</span>verb<span class="token operator">></span> <span class="token string">'&lt;protocol>://&lt;host>:&lt;port>/&lt;path>?&lt;query_string> -d &lt;body>'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>verb: HTTP方法,如GET、POST、PUT、HEAD、DELETE</p>
+<p>verb: HTTP方法，如GET、POST、PUT、HEAD、DELETE</p>
 <p>host: ES集群中的任意节点主机名</p>
 <p>port: ES HTTP服务端口默认9200</p>
 <p>path: 索引路径</p>
-<p>query_string: 可选的查询请求参数,例如?pretty参数将格式化输出JSON数据</p>
+<p>query_string: 可选的查询请求参数，例如?pretty参数将格式化输出JSON数据</p>
 <p>-d: 一个GET的JSON格式请求主体</p>
 <p>body: 自己写的JSON格式的请求主体</p>
 <h1 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h1><p>在Lucene中创建索引是需要定义字段名称以及字段的类型，在Elasticsearch中提供了非结构化的索引，就是不需要创建索引结构，即可写入数据到索引中，实际上在Elasticsearch底层会进行结构化操作，此操作对用户是透明的</p>
@@ -607,8 +607,9 @@ curl -X POST '<span class="token number">10.10</span>.<span class="token number"
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h1><p>和SQL使用LIMIT关键字返回只有一页的结果一样，Elasticsearch接受from和size参数</p>
-<pre><code>size: 结果数,默认10 
-from: 从第n条数据之后开始,默认0</code></pre><p>查询一个区间的数据</p>
+<pre class="line-numbers language-bash"><code class="language-bash">size: 结果数,默认10 
+from: 从第n条数据之后开始,默认0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>查询一个区间的数据</p>
 <pre class="line-numbers language-json"><code class="language-json"># 导入官方测试数据
 curl -H <span class="token string">"Content-Type: application/x-ndjson"</span> -XPOST <span class="token string">"10.10.110.191:9200/bank/account/_bulk?pretty"</span> --data-binary @accounts.json
 
@@ -736,57 +737,116 @@ curl -X POST '<span class="token number">10.10</span>.<span class="token number"
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>bool查询可以用来合并多个条件查询结果的布尔逻辑，它包含以下操作符：</p>
-<ul>
-<li><p>must: 多个查询条件的完全匹配，相当于and</p>
-</li>
-<li><p>must_not: 多个查询条件的相反匹配，相当于not</p>
-</li>
-<li><p>should: 至少有一个查询条件匹配，相当于or</p>
-</li>
-<li><p>filter: 必须匹配，但它不会对匹配的数据进行评分</p>
-</li>
-</ul>
-<pre><code># 只要包含&quot;乒乓 游泳&quot;的数据都会被匹配
-curl -X POST &#39;10.10.110.191:9200/itcast/_doc/_search?pretty&#39; -H &quot;Content-Type:application/json&quot; -d &#39; { 
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
-        {
-          &quot;match&quot;: {
-            &quot;hobby&quot;: &quot;乒乓 游泳&quot;
-          }
-        }
-      ]
-    }
-  }
-}&#39;
-
-# hobby包含乒乓但是age不等于21的数据
-curl -X POST &#39;10.10.110.191:9200/itcast/_doc/_search?pretty&#39; -H &quot;Content-Type:application/json&quot; -d &#39; { 
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
-        {
-          &quot;match&quot;: {
-            &quot;hobby&quot;: &quot;乒乓&quot;
-          }
-        }
-      ],
-      &quot;must_not&quot;: [
-        {
-          &quot;match&quot;: {
-            &quot;age&quot;: &quot;21&quot;
-          }
-        }
-      ]
-    }
-  }
-}&#39;</code></pre><h1 id="中文分词"><a href="#中文分词" class="headerlink" title="中文分词"></a>中文分词</h1><p>中文分词的难点在于在汉语中没有明显的词汇分界点，如在英语中空格可以作为分隔符，如果分隔不正确就会造成歧义。常用中文分词器有IK、jieba、THULAC等，推荐使用IK分词器</p>
 <blockquote>
-<p>IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词工具包。从2006年12月推出1.0版开始，IKAnalyzer已经推出了3个大版本。最初，它是以开源项目Luence为应用主体的，结合词典分词和文法分析算法的中文分词组件。新版本的IK Analyzer 3.0则发展为面向Java的公用分词组件，独立于Lucene项目，同时提供了对Lucene的默认优化实现。采用了特有的“正向迭代最细粒度切分算法“，具有80万字/秒的高速处理能力 采用了多子处理器分析模式，支持：英文字母（IP地址、Email、URL）、数字（日期，常用中文数量词，罗马数字，科学计数法），中文词汇（姓名、地名处理）等分词处理。 优化的词典存储，更小的内存占用</p>
+<p>must: 多个查询条件的完全匹配，相当于and</p>
+</blockquote>
+<blockquote>
+<p>must_not: 多个查询条件的相反匹配，相当于not</p>
+</blockquote>
+<blockquote>
+<p>should: 至少有一个查询条件匹配，相当于or</p>
+</blockquote>
+<blockquote>
+<p>filter: 必须匹配，但它不会对匹配的数据进行评分</p>
+</blockquote>
+<pre class="line-numbers language-json"><code class="language-json"># 只要包含<span class="token string">"乒乓 游泳"</span>的数据都会被匹配
+curl -X POST '<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/itcast/_doc/_search?pretty' -H <span class="token string">"Content-Type:application/json"</span> -d ' <span class="token punctuation">{</span> 
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"hobby"</span><span class="token operator">:</span> <span class="token string">"乒乓 游泳"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'
+
+# hobby包含乒乓但是age不等于<span class="token number">21</span>的数据
+curl -X POST '<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/itcast/_doc/_search?pretty' -H <span class="token string">"Content-Type:application/json"</span> -d ' <span class="token punctuation">{</span> 
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"hobby"</span><span class="token operator">:</span> <span class="token string">"乒乓"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"must_not"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"age"</span><span class="token operator">:</span> <span class="token string">"21"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="中文分词"><a href="#中文分词" class="headerlink" title="中文分词"></a>中文分词</h1><p>中文分词的难点在于在汉语中没有明显的词汇分界点，如在英语中空格可以作为分隔符，如果分隔不正确就会造成歧义。常用中文分词器有IK、jieba、THULAC等，推荐使用IK分词器</p>
+<blockquote>
+<p>IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词工具包。从2006年12月推出1.0版开始，IKAnalyzer已经推出了3个大版本。最初，它是以开源项目Luence为应用主体的，结合词典分词和文法分析算法的中文分词组件。新版本的IK Analyzer 3.0则发展为面向Java的公用分词组件，独立于Lucene项目，同时提供了对Lucene的默认优化实现。采用了特有的”正向迭代最细粒度切分算法”，具有80万字/秒的高速处理能力 采用了多子处理器分析模式，支持：英文字母（IP地址、Email、URL）、数字（日期，常用中文数量词，罗马数字，科学计数法），中文词汇（姓名、地名处理）等分词处理。 优化的词典存储，更小的内存占用</p>
 </blockquote>
 <p>安装ik中文分词器</p>
-<pre><code></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载对应es版本的ik分词器</span>
+https://github.com/medcl/elasticsearch-analysis-ik
+
+<span class="token comment" spellcheck="true"># 创建目录</span>
+<span class="token function">cd</span> your-es-root/plugins/ <span class="token operator">&amp;&amp;</span> <span class="token function">mkdir</span> ik
+
+<span class="token comment" spellcheck="true"># 解压</span>
+unzip plugin to folder your-es-root/plugins/ik
+
+<span class="token comment" spellcheck="true"># 重启es(集群环境每一台都要配置)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>分词测试</p>
+<pre class="line-numbers language-json"><code class="language-json">curl -X POST '<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/_analyze?pretty' -H <span class="token string">"Content-Type:application/json"</span> -d ' 
+<span class="token punctuation">{</span>
+  <span class="token property">"analyzer"</span><span class="token operator">:</span> <span class="token string">"ik_max_word"</span><span class="token punctuation">,</span>
+  <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"我是中国人"</span>
+<span class="token punctuation">}</span>'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"tokens"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"token"</span> <span class="token operator">:</span> <span class="token string">"我"</span><span class="token punctuation">,</span>
+      <span class="token property">"start_offset"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">"end_offset"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span> <span class="token operator">:</span> <span class="token string">"CN_CHAR"</span><span class="token punctuation">,</span>
+      <span class="token property">"position"</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"token"</span> <span class="token operator">:</span> <span class="token string">"是"</span><span class="token punctuation">,</span>
+      <span class="token property">"start_offset"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">"end_offset"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span> <span class="token operator">:</span> <span class="token string">"CN_CHAR"</span><span class="token punctuation">,</span>
+      <span class="token property">"position"</span> <span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"token"</span> <span class="token operator">:</span> <span class="token string">"中国人"</span><span class="token punctuation">,</span>
+      <span class="token property">"start_offset"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">"end_offset"</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span> <span class="token operator">:</span> <span class="token string">"CN_WORD"</span><span class="token punctuation">,</span>
+      <span class="token property">"position"</span> <span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"token"</span> <span class="token operator">:</span> <span class="token string">"中国"</span><span class="token punctuation">,</span>
+      <span class="token property">"start_offset"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">"end_offset"</span> <span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span> <span class="token operator">:</span> <span class="token string">"CN_WORD"</span><span class="token punctuation">,</span>
+      <span class="token property">"position"</span> <span class="token operator">:</span> <span class="token number">3</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"token"</span> <span class="token operator">:</span> <span class="token string">"国人"</span><span class="token punctuation">,</span>
+      <span class="token property">"start_offset"</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">"end_offset"</span> <span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span> <span class="token operator">:</span> <span class="token string">"CN_WORD"</span><span class="token punctuation">,</span>
+      <span class="token property">"position"</span> <span class="token operator">:</span> <span class="token number">4</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -794,7 +854,7 @@ curl -X POST &#39;10.10.110.191:9200/itcast/_doc/_search?pretty&#39; -H &quot;Co
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-29T08:04:41.867Z" itemprop="dateUpdated">2020-08-29 16:04:41</time>
+    最后更新时间：<time datetime="2020-08-31T07:15:12.483Z" itemprop="dateUpdated">2020-08-31 15:15:12</time>
 </span><br>
 
 
@@ -843,9 +903,9 @@ curl -X POST &#39;10.10.110.191:9200/itcast/_doc/_search?pretty&#39; -H &quot;Co
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/dbe94810.html" id="post-next" class="post-nav-link">
+      <a href="/post/fe947601.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ELK Elasticsearch基础概念(3)</h4>
+        <h4 class="title">Elastic Logstash(3)</h4>
       </a>
     </div>
   
@@ -998,7 +1058,7 @@ curl -X POST &#39;10.10.110.191:9200/itcast/_doc/_search?pretty&#39; -H &quot;Co
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                4.8k
+                4.9k
             
         </span>
     </div>
