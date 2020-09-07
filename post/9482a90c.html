@@ -15,29 +15,30 @@
     
     
     
-    <title>ELK Stack引入filebeat(8) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Elastic 引入Filebeat(7) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="ELK,企业级日志系统,数据收集分析">
-    <meta name="description" content="架构简介filebeat代替logstash去收集日志数据，然后将收集到的日志数据存储到redis或者kafka，再由logstash去消费数据。filebeat是非常轻量级单用途的日志采集器，属于Beats家族。早期的elk架构使用logstash收集、解析日志，但是logstash对内存、CPU、IO等资源消耗比较高(因为logstash是使用java语言编写的)，后来出现了使用golang编">
+    <meta name="description" content="引入filebeat架构简介filebeat代替logstash去收集日志数据，然后将收集到的日志数据存储到redis或者kafka，再由logstash去消费数据。filebeat是非常轻量级单用途的日志采集器，属于Beats家族。早期的elk架构使用logstash收集、解析日志，但是logstash对内存、CPU、IO等资源消耗比较高(因为logstash是使用java语言编写的)，后来出现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ELK Stack引入filebeat(8)">
+<meta property="og:title" content="Elastic 引入Filebeat(7)">
 <meta property="og:url" content="https://www.missf.top/post/9482a90c.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="架构简介filebeat代替logstash去收集日志数据，然后将收集到的日志数据存储到redis或者kafka，再由logstash去消费数据。filebeat是非常轻量级单用途的日志采集器，属于Beats家族。早期的elk架构使用logstash收集、解析日志，但是logstash对内存、CPU、IO等资源消耗比较高(因为logstash是使用java语言编写的)，后来出现了使用golang编">
+<meta property="og:description" content="引入filebeat架构简介filebeat代替logstash去收集日志数据，然后将收集到的日志数据存储到redis或者kafka，再由logstash去消费数据。filebeat是非常轻量级单用途的日志采集器，属于Beats家族。早期的elk架构使用logstash收集、解析日志，但是logstash对内存、CPU、IO等资源消耗比较高(因为logstash是使用java语言编写的)，后来出现">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f3df60214195aa594569ff7.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f55ced6160a154a674c1b90.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f5600d8160a154a675742af.jpg">
 <meta property="article:published_time" content="2020-08-20T03:58:57.000Z">
-<meta property="article:modified_time" content="2020-08-25T10:25:42.031Z">
+<meta property="article:modified_time" content="2020-09-07T09:44:52.344Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
 <meta property="article:tag" content="数据收集分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f3df60214195aa594569ff7.jpg">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f55ced6160a154a674c1b90.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -119,7 +120,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">ELK Stack引入filebeat(8)</div>
+        <div class="flex-col header-title ellipsis">Elastic 引入Filebeat(7)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -137,7 +138,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">ELK Stack引入filebeat(8)</h1>
+        <h1 class="title">Elastic 引入Filebeat(7)</h1>
         <h5 class="subtitle">
             
                 <time datetime="2020-08-20T03:58:57.000Z" itemprop="datePublished" class="page-time">
@@ -145,7 +146,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Elastic-Stack/">Elastic Stack</a></li></ul>
 
             
         </h5>
@@ -162,21 +163,21 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#架构简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">架构简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装Filebeat"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装Filebeat</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编写filebeat配置文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">编写filebeat配置文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看filebeat输出的json数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">查看filebeat输出的json数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义filebeat输出的json数据"><span class="post-toc-number">5.</span> <span class="post-toc-text">定义filebeat输出的json数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Logstash消费redis中的数据"><span class="post-toc-number">6.</span> <span class="post-toc-text">Logstash消费redis中的数据</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#引入filebeat架构简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">引入filebeat架构简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装Filebeat"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装Filebeat</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编写filebeat配置文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">编写filebeat配置文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看filebeat输出的json数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">查看filebeat输出的json数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义filebeat输出的json数据"><span class="post-toc-number">5.</span> <span class="post-toc-text">定义filebeat输出的json数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Logstash消费redis中的数据"><span class="post-toc-number">6.</span> <span class="post-toc-text">Logstash消费redis中的数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Elasticsearch查看数据"><span class="post-toc-number">7.</span> <span class="post-toc-text">Elasticsearch查看数据</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-ELK Stack引入filebeat(8)"
+<article id="post-Elastic 引入Filebeat(7)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">ELK Stack引入filebeat(8)</h1>
+        <h1 class="post-card-title">Elastic 引入Filebeat(7)</h1>
         <div class="post-meta">
             <time class="post-time" title="2020-08-20 11:58:57" datetime="2020-08-20T03:58:57.000Z"  itemprop="datePublished">2020-08-20</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Elastic-Stack/">Elastic Stack</a></li></ul>
 
 
 
@@ -188,20 +189,20 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="架构简介"><a href="#架构简介" class="headerlink" title="架构简介"></a>架构简介</h1><p>filebeat代替logstash去收集日志数据，然后将收集到的日志数据存储到redis或者kafka，再由logstash去消费数据。filebeat是非常轻量级单用途的日志采集器，属于Beats家族。早期的elk架构使用logstash收集、解析日志，但是logstash对内存、CPU、IO等资源消耗比较高(因为logstash是使用java语言编写的)，后来出现了使用golang编写的filebeat日志收集器，可以不依赖任何环境安装即可使用，同时对资源的占用可以忽略不计，使用filebeat替代logstash去收集日志是非常好的方案</p>
+            <h1 id="引入filebeat架构简介"><a href="#引入filebeat架构简介" class="headerlink" title="引入filebeat架构简介"></a>引入filebeat架构简介</h1><p>filebeat代替logstash去收集日志数据，然后将收集到的日志数据存储到redis或者kafka，再由logstash去消费数据。filebeat是非常轻量级单用途的日志采集器，属于Beats家族。早期的elk架构使用logstash收集、解析日志，但是logstash对内存、CPU、IO等资源消耗比较高(因为logstash是使用java语言编写的)，后来出现了使用golang编写的filebeat日志收集器，可以不依赖任何环境安装即可使用，同时对资源的占用可以忽略不计，使用filebeat替代logstash去收集日志是非常好的方案</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f3df60214195aa594569ff7.jpg" alt="" title="">
+                    <img src="https://pic.imgdb.cn/item/5f55ced6160a154a674c1b90.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
 
-<h1 id="安装Filebeat"><a href="#安装Filebeat" class="headerlink" title="安装Filebeat"></a>安装Filebeat</h1><pre class="line-numbers language-shell"><code class="language-shell"># 下载filebeat
-wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.9.0-x86_64.rpm
+<h1 id="安装Filebeat"><a href="#安装Filebeat" class="headerlink" title="安装Filebeat"></a>安装Filebeat</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载filebeat</span>
+<span class="token function">wget</span> https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.9.0-x86_64.rpm
 
-# 安装
-yum install -y filebeat-7.9.0-x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true"># 安装</span>
+yum <span class="token function">install</span> -y filebeat-7.9.0-x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="编写filebeat配置文件"><a href="#编写filebeat配置文件" class="headerlink" title="编写filebeat配置文件"></a>编写filebeat配置文件</h1><p>filebeat配置文件负责收集日志，然后将数据存到redis</p>
 <pre class="line-numbers language-json"><code class="language-json">cat /etc/filebeat/filebeat.yml
 filebeat.inputs<span class="token operator">:</span>
@@ -209,7 +210,7 @@ filebeat.inputs<span class="token operator">:</span>
   enabled<span class="token operator">:</span> <span class="token boolean">true</span>
   paths<span class="token operator">:</span>
     - /var/log/messages
-  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"syslog"</span><span class="token punctuation">,</span><span class="token string">"test"</span><span class="token punctuation">]</span>
+  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"messages"</span><span class="token punctuation">,</span><span class="token string">"syslog"</span><span class="token punctuation">]</span>
   #include_lines<span class="token operator">:</span> <span class="token punctuation">[</span>'sometext'<span class="token punctuation">]</span> Filebeat仅导出与列表中的正则表达式匹配的行
   #exclude_lines<span class="token operator">:</span> <span class="token punctuation">[</span>'^DBG'<span class="token punctuation">]</span> Filebeat会删除列表中与正则表达式匹配的所有行
   fields<span class="token operator">:</span>    # 可以指定字段向输出添加附加信息
@@ -220,7 +221,7 @@ filebeat.inputs<span class="token operator">:</span>
   enabled<span class="token operator">:</span> <span class="token boolean">true</span>
   paths<span class="token operator">:</span>
     - /var/log/audit/audit.log
-  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"auth"</span><span class="token punctuation">,</span><span class="token string">"test"</span><span class="token punctuation">]</span>
+  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"audit"</span><span class="token punctuation">,</span><span class="token string">"syslog"</span><span class="token punctuation">]</span>
   fields<span class="token operator">:</span>
     type<span class="token operator">:</span> system
   # fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>
@@ -236,39 +237,39 @@ output.redis<span class="token operator">:</span>    # filebeat将收集到的�
 <h1 id="查看filebeat输出的json数据"><a href="#查看filebeat输出的json数据" class="headerlink" title="查看filebeat输出的json数据"></a>查看filebeat输出的json数据</h1><p>我们在调试日志格式时使用命令去启动filebeat，使用systemctl的方式去调试会出现很多转义符，不便于查看</p>
 <pre class="line-numbers language-json"><code class="language-json">/usr/bin/filebeat -c /etc/filebeat/filebeat.yml    # 这里需要将控制台输出的数据json格式化
 <span class="token punctuation">{</span>
-    <span class="token property">"@timestamp"</span><span class="token operator">:</span> <span class="token string">"2020-08-25T12:07:57.897Z"</span><span class="token punctuation">,</span>
+    <span class="token property">"@timestamp"</span><span class="token operator">:</span> <span class="token string">"2020-09-07T16:17:42.615Z"</span><span class="token punctuation">,</span>
     <span class="token property">"@metadata"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"beat"</span><span class="token operator">:</span> <span class="token string">"filebeat"</span><span class="token punctuation">,</span>
         <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span>
         <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"7.9.0"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"agent"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"3436b667-fb2e-4eb5-9296-62aabd11e903"</span><span class="token punctuation">,</span>
-        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"localhost.localdomain"</span><span class="token punctuation">,</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"filebeat"</span><span class="token punctuation">,</span>
-        <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"7.9.0"</span><span class="token punctuation">,</span>
-        <span class="token property">"hostname"</span><span class="token operator">:</span> <span class="token string">"localhost.localdomain"</span><span class="token punctuation">,</span>
-        <span class="token property">"ephemeral_id"</span><span class="token operator">:</span> <span class="token string">"bc8c2f7c-8cb0-4575-b725-5fd3ea7b6719"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"log"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"offset"</span><span class="token operator">:</span> <span class="token number">3742825567</span><span class="token punctuation">,</span>
-        <span class="token property">"file"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/var/log/messages"</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Aug 25 20:07:51 localhost systemd: Started Session 32 of user root."</span><span class="token punctuation">,</span>
-    <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"syslog"</span><span class="token punctuation">,</span> <span class="token string">"test"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"log"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">{</span>    # 这里由于filebeat配置文件中没有开启fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>这个选项<span class="token punctuation">,</span>所以我们定义的字段会在fields里面
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"system"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"ecs"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.5.0"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"host"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"localhost.localdomain"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"agent"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"ephemeral_id"</span><span class="token operator">:</span> <span class="token string">"660a2bfb-9a56-43a8-ae93-788060f5d243"</span><span class="token punctuation">,</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"6a8ff370-52b5-4f89-ad9c-b6feecf938a9"</span><span class="token punctuation">,</span>
+        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"localhost.localdomain"</span><span class="token punctuation">,</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"filebeat"</span><span class="token punctuation">,</span>
+        <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"7.9.0"</span><span class="token punctuation">,</span>
+        <span class="token property">"hostname"</span><span class="token operator">:</span> <span class="token string">"localhost.localdomain"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"log"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"offset"</span><span class="token operator">:</span> <span class="token number">997322</span><span class="token punctuation">,</span>
+        <span class="token property">"file"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/var/log/messages"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Sep  8 00:01:01 localhost systemd: Started Session 7 of user root."</span><span class="token punctuation">,</span>
+    <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token string">"syslog"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">{</span> # 这里由于filebeat配置文件中没有开启fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>这个选项<span class="token punctuation">,</span>所以我们定义的字段会在fields里面
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"system"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"log"</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="定义filebeat输出的json数据"><a href="#定义filebeat输出的json数据" class="headerlink" title="定义filebeat输出的json数据"></a>定义filebeat输出的json数据</h1><p>我们除了可以自己自定义字段，还可以删除一些filebeat默认输出的字段，让日志数据更加易于查看</p>
@@ -279,52 +280,48 @@ filebeat.inputs<span class="token operator">:</span>
   # json.keys_under_root<span class="token operator">:</span> <span class="token boolean">true</span> 开始json解析<span class="token punctuation">,</span>不是json格式的日志不要开启此选项
   paths<span class="token operator">:</span>
     - /var/log/messages
-  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"syslog"</span><span class="token punctuation">,</span><span class="token string">"test"</span><span class="token punctuation">]</span>
+  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"messages"</span><span class="token punctuation">,</span><span class="token string">"syslog"</span><span class="token punctuation">]</span>
 
   fields<span class="token operator">:</span>
     type<span class="token operator">:</span> system
-  # fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>
+  fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>
 
 - type<span class="token operator">:</span> log
   enabled<span class="token operator">:</span> <span class="token boolean">true</span>
   paths<span class="token operator">:</span>
     - /var/log/audit/audit.log
-  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"auth"</span><span class="token punctuation">,</span><span class="token string">"test"</span><span class="token punctuation">]</span>
+  tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"audit"</span><span class="token punctuation">,</span><span class="token string">"syslog"</span><span class="token punctuation">]</span>
   fields<span class="token operator">:</span>
     type<span class="token operator">:</span> system
-  # fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>
+  fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>
 
 processors<span class="token operator">:</span>
 - drop_fields<span class="token operator">:</span>
     fields<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"input_type"</span><span class="token punctuation">,</span> <span class="token string">"ecs.version"</span><span class="token punctuation">,</span> <span class="token string">"host.name"</span><span class="token punctuation">,</span> <span class="token string">"agent"</span><span class="token punctuation">,</span> <span class="token string">"log.offset"</span><span class="token punctuation">]</span>    # 将这些字段丢弃
 
-output.console<span class="token operator">:</span>
-
-# 查看自定义的json数据<span class="token punctuation">,</span>抛弃不需要的日志数据便于查看
-<span class="token punctuation">{</span>
-    <span class="token property">"@timestamp"</span><span class="token operator">:</span> <span class="token string">"2020-08-24T17:52:53.125Z"</span><span class="token punctuation">,</span>
+output.console<span class="token operator">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看自定义之后的json数据</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"@timestamp"</span><span class="token operator">:</span> <span class="token string">"2020-09-07T17:37:59.500Z"</span><span class="token punctuation">,</span>
     <span class="token property">"@metadata"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"beat"</span><span class="token operator">:</span> <span class="token string">"filebeat"</span><span class="token punctuation">,</span>
         <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span>
         <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"7.9.0"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token string">"syslog"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"log"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"system"</span><span class="token punctuation">,</span>    # fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span> 将作为顶级字段
     <span class="token property">"ecs"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"host"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"log"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"file"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
             <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/var/log/messages"</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"json"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Aug 25 01:52:50 localhost systemd-logind: Removed session 12."</span><span class="token punctuation">,</span>
-    <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"syslog"</span><span class="token punctuation">,</span> <span class="token string">"test"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"host"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"log"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"system"</span>    # 自定义的字段可以用于logstash将数据存储到es时做匹配<span class="token punctuation">,</span>不同的日志数据分开存储
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Sep  8 01:35:28 localhost systemd-logind: Removed session 4."</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Logstash消费redis中的数据"><a href="#Logstash消费redis中的数据" class="headerlink" title="Logstash消费redis中的数据"></a>Logstash消费redis中的数据</h1><p>filebeat将日志数据存储到redis之后，logstash从redis读取日志数据就是非常简单的事情了</p>
 <pre class="line-numbers language-json"><code class="language-json">cat /etc/logstash/conf.d/sys-from-redis.conf
 input <span class="token punctuation">{</span>
@@ -334,29 +331,41 @@ input <span class="token punctuation">{</span>
     password => <span class="token string">"123456"</span>
     db => <span class="token string">"0"</span>
     data_type => <span class="token string">"list"</span>
+    batch_count => <span class="token string">"1"</span>
     key => <span class="token string">"filebeat"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
+filter <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+
 output <span class="token punctuation">{</span>
-  if <span class="token punctuation">[</span>fields<span class="token punctuation">]</span><span class="token punctuation">[</span>type<span class="token punctuation">]</span> == <span class="token string">"system"</span> <span class="token punctuation">{</span>    # 这里的匹配由filebeat输出的json数据格式来定义
-    if <span class="token punctuation">[</span>tags<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> == <span class="token string">"syslog"</span> <span class="token punctuation">{</span>
+  if <span class="token punctuation">[</span>type<span class="token punctuation">]</span> == <span class="token string">"system"</span> <span class="token punctuation">{</span>    # 这里的匹配由filebeat输出的json数据格式来定义
+    if <span class="token punctuation">[</span>tags<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> == <span class="token string">"messages"</span> <span class="token punctuation">{</span>
       elasticsearch <span class="token punctuation">{</span>
         hosts  => <span class="token punctuation">[</span><span class="token string">"http://10.10.110.191:9200"</span><span class="token punctuation">,</span><span class="token string">"http://10.10.110.192:9200"</span><span class="token punctuation">,</span><span class="token string">"http://10.10.110.193:9200"</span><span class="token punctuation">]</span>
-        index  => <span class="token string">"filebeat-sys-syslog%{+YYYY.MM.dd}"</span>
+        index  => <span class="token string">"filebeat-fromredis-messages-%{+YYYY.MM.dd}"</span>
       <span class="token punctuation">}</span>
       stdout <span class="token punctuation">{</span> codec=> rubydebug <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-    else if <span class="token punctuation">[</span>tags<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> == <span class="token string">"auth"</span> <span class="token punctuation">{</span>
+    else if <span class="token punctuation">[</span>tags<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> == <span class="token string">"audit"</span> <span class="token punctuation">{</span>
       elasticsearch <span class="token punctuation">{</span>
         hosts  => <span class="token punctuation">[</span><span class="token string">"http://10.10.110.191:9200"</span><span class="token punctuation">,</span><span class="token string">"http://10.10.110.192:9200"</span><span class="token punctuation">,</span><span class="token string">"http://10.10.110.193:9200"</span><span class="token punctuation">]</span>
-        index  => <span class="token string">"filebeat-sys-auth-%{+YYYY.MM.dd}"</span>
+        index  => <span class="token string">"filebeat-fromredis-audit-%{+YYYY.MM.dd}"</span>
       <span class="token punctuation">}</span>
       stdout <span class="token punctuation">{</span> codec=> rubydebug <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Elasticsearch查看数据"><a href="#Elasticsearch查看数据" class="headerlink" title="Elasticsearch查看数据"></a>Elasticsearch查看数据</h1><p>索引的命名根据我们在logstash处理数据时的定义格式</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f5600d8160a154a675742af.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
         </div>
 
         <blockquote class="post-copyright">
@@ -364,7 +373,7 @@ output <span class="token punctuation">{</span>
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-25T10:25:42.031Z" itemprop="dateUpdated">2020-08-25 18:25:42</time>
+    最后更新时间：<time datetime="2020-09-07T09:44:52.344Z" itemprop="dateUpdated">2020-09-07 17:44:52</time>
 </span><br>
 
 
@@ -406,7 +415,7 @@ output <span class="token punctuation">{</span>
     <div class="waves-block waves-effect prev">
       <a href="/post/c802a07c.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">ELK Stack监控系统日志(6)</h4>
+        <h4 class="title">Elastic Kibana展示系统日志(5)</h4>
       </a>
     </div>
   
@@ -415,7 +424,7 @@ output <span class="token punctuation">{</span>
     <div class="waves-block waves-effect next">
       <a href="/post/baa98a96.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">ELK Stack收集Nginx日志(9)</h4>
+        <h4 class="title">Elastic 收集Nginx日志(8)</h4>
       </a>
     </div>
   
@@ -568,7 +577,7 @@ output <span class="token punctuation">{</span>
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                980
+                972
             
         </span>
     </div>

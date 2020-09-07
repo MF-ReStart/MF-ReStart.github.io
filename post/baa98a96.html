@@ -15,29 +15,29 @@
     
     
     
-    <title>ELK Stack收集Nginx日志(9) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Elastic 收集Nginx日志(8) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="ELK,企业级日志系统,数据收集分析">
-    <meta name="description" content="通过filebeat配置文件收集日志编写filebeat配置文件，收集Nginx的access.log和error.log，并且添加自定义字段和标签存储到redis cat &#x2F;etc&#x2F;filebeat&#x2F;filebeat-nginx.yml  filebeat.inputs: - type: log   enabled: true   json.keys_under_root: true   pat">
+    <meta name="description" content="Nginx配置json格式日志修改Nginx配置文件，定义输出json格式的日志，便于filebeat和logstash收集 http {     log_format  main  &#39;{&quot;@timestamp&quot;: &quot;$time_iso8601&quot;, &#39;                         &#39;&quot;clientRealIp&quot;: &quot;$remote_addr&quot;, &#39;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ELK Stack收集Nginx日志(9)">
+<meta property="og:title" content="Elastic 收集Nginx日志(8)">
 <meta property="og:url" content="https://www.missf.top/post/baa98a96.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="通过filebeat配置文件收集日志编写filebeat配置文件，收集Nginx的access.log和error.log，并且添加自定义字段和标签存储到redis cat &#x2F;etc&#x2F;filebeat&#x2F;filebeat-nginx.yml  filebeat.inputs: - type: log   enabled: true   json.keys_under_root: true   pat">
+<meta property="og:description" content="Nginx配置json格式日志修改Nginx配置文件，定义输出json格式的日志，便于filebeat和logstash收集 http {     log_format  main  &#39;{&quot;@timestamp&quot;: &quot;$time_iso8601&quot;, &#39;                         &#39;&quot;clientRealIp&quot;: &quot;$remote_addr&quot;, &#39;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/5f45ca02160a154a6711cac0.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f560c25160a154a6759d557.jpg">
 <meta property="article:published_time" content="2020-08-25T06:27:22.000Z">
-<meta property="article:modified_time" content="2020-08-26T06:37:39.745Z">
+<meta property="article:modified_time" content="2020-09-07T10:35:01.133Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
 <meta property="article:tag" content="数据收集分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f45ca02160a154a6711cac0.jpg">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f560c25160a154a6759d557.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -119,7 +119,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">ELK Stack收集Nginx日志(9)</div>
+        <div class="flex-col header-title ellipsis">Elastic 收集Nginx日志(8)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -137,7 +137,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">ELK Stack收集Nginx日志(9)</h1>
+        <h1 class="title">Elastic 收集Nginx日志(8)</h1>
         <h5 class="subtitle">
             
                 <time datetime="2020-08-25T06:27:22.000Z" itemprop="datePublished" class="page-time">
@@ -145,7 +145,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Elastic-Stack/">Elastic Stack</a></li></ul>
 
             
         </h5>
@@ -162,21 +162,21 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通过filebeat配置文件收集日志"><span class="post-toc-number">1.</span> <span class="post-toc-text">通过filebeat配置文件收集日志</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#控制台调试filebeat输出的日志数据"><span class="post-toc-number">2.</span> <span class="post-toc-text">控制台调试filebeat输出的日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#logstash读取redis中的日志数据"><span class="post-toc-number">3.</span> <span class="post-toc-text">logstash读取redis中的日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kibana展示Nginx日志"><span class="post-toc-number">4.</span> <span class="post-toc-text">Kibana展示Nginx日志</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Nginx配置json格式日志"><span class="post-toc-number">1.</span> <span class="post-toc-text">Nginx配置json格式日志</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#filebeat配置文件"><span class="post-toc-number">2.</span> <span class="post-toc-text">filebeat配置文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#控制台调试filebeat输出的日志数据"><span class="post-toc-number">3.</span> <span class="post-toc-text">控制台调试filebeat输出的日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#logstash读取redis中的日志数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">logstash读取redis中的日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kibana展示Nginx日志"><span class="post-toc-number">5.</span> <span class="post-toc-text">Kibana展示Nginx日志</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-ELK Stack收集Nginx日志(9)"
+<article id="post-Elastic 收集Nginx日志(8)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">ELK Stack收集Nginx日志(9)</h1>
+        <h1 class="post-card-title">Elastic 收集Nginx日志(8)</h1>
         <div class="post-meta">
             <time class="post-time" title="2020-08-25 14:27:22" datetime="2020-08-25T06:27:22.000Z"  itemprop="datePublished">2020-08-25</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ELK-Stack/">ELK Stack</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Elastic-Stack/">Elastic Stack</a></li></ul>
 
 
 
@@ -188,7 +188,26 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="通过filebeat配置文件收集日志"><a href="#通过filebeat配置文件收集日志" class="headerlink" title="通过filebeat配置文件收集日志"></a>通过filebeat配置文件收集日志</h1><p>编写filebeat配置文件，收集Nginx的access.log和error.log，并且添加自定义字段和标签存储到redis</p>
+            <h1 id="Nginx配置json格式日志"><a href="#Nginx配置json格式日志" class="headerlink" title="Nginx配置json格式日志"></a>Nginx配置json格式日志</h1><p>修改Nginx配置文件，定义输出json格式的日志，便于filebeat和logstash收集</p>
+<pre class="line-numbers language-json"><code class="language-json">http <span class="token punctuation">{</span>
+    log_format  main  '<span class="token punctuation">{</span><span class="token property">"@timestamp"</span><span class="token operator">:</span> <span class="token string">"$time_iso8601"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"clientRealIp"</span><span class="token operator">:</span> <span class="token string">"$remote_addr"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"scheme"</span><span class="token operator">:</span> <span class="token string">"$scheme"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"method"</span><span class="token operator">:</span> <span class="token string">"$request_method"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"host"</span><span class="token operator">:</span> <span class="token string">"$host"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"$request_uri"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"size"</span><span class="token operator">:</span> $body_bytes_sent<span class="token punctuation">,</span> '
+                        '<span class="token property">"referrer"</span><span class="token operator">:</span> <span class="token string">"$http_referer"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"agent"</span><span class="token operator">:</span> <span class="token string">"$http_user_agent"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"upstream_addr"</span><span class="token operator">:</span> <span class="token string">"$upstream_addr"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"request_time"</span><span class="token operator">:</span> $request_time<span class="token punctuation">,</span> '
+                        '<span class="token property">"request_length"</span><span class="token operator">:</span> $request_length<span class="token punctuation">,</span> '
+                        '<span class="token property">"upstream_connect_time"</span><span class="token operator">:</span> <span class="token string">"$upstream_connect_time"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"upstream_response_time"</span><span class="token operator">:</span> <span class="token string">"$upstream_response_time"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"upstream_status"</span><span class="token operator">:</span> <span class="token string">"$upstream_status"</span><span class="token punctuation">,</span> '
+                        '<span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"$status"</span><span class="token punctuation">}</span>'<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="filebeat配置文件"><a href="#filebeat配置文件" class="headerlink" title="filebeat配置文件"></a>filebeat配置文件</h1><p>编写filebeat配置文件，收集Nginx的access.log和error.log，并且添加自定义字段和标签存储到redis</p>
 <pre class="line-numbers language-json"><code class="language-json">cat /etc/filebeat/filebeat-nginx.yml 
 filebeat.inputs<span class="token operator">:</span>
 - type<span class="token operator">:</span> log
@@ -198,7 +217,7 @@ filebeat.inputs<span class="token operator">:</span>
     - /usr/local/nginx/logs/access.log
   tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"access"</span><span class="token punctuation">]</span>
   fields<span class="token operator">:</span>
-    app<span class="token operator">:</span> nginx
+    server<span class="token operator">:</span> nginx
     type<span class="token operator">:</span> nginx-access
   fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>
 
@@ -209,30 +228,31 @@ filebeat.inputs<span class="token operator">:</span>
     - /usr/local/nginx/logs/error.log
   tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"error"</span><span class="token punctuation">]</span>
   fields<span class="token operator">:</span>
-    app<span class="token operator">:</span> nginx
+    server<span class="token operator">:</span> nginx
     type<span class="token operator">:</span> nginx-error
   fields_under_root<span class="token operator">:</span> <span class="token boolean">true</span>
 
 processors<span class="token operator">:</span>
 - drop_fields<span class="token operator">:</span>
     fields<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"input_type"</span><span class="token punctuation">,</span> <span class="token string">"ecs.version"</span><span class="token punctuation">,</span> <span class="token string">"host.name"</span><span class="token punctuation">,</span> <span class="token string">"agent"</span><span class="token punctuation">,</span> <span class="token string">"log.offset"</span><span class="token punctuation">]</span>
+
 #output.console<span class="token operator">:</span>
 
 output.redis<span class="token operator">:</span>
   hosts<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"10.10.110.194:56379"</span><span class="token punctuation">]</span>
   password<span class="token operator">:</span> <span class="token string">"123456"</span>
-  key<span class="token operator">:</span> <span class="token string">"filebeat"</span>
+  key<span class="token operator">:</span> <span class="token string">"nginx"</span>
   db<span class="token operator">:</span> <span class="token number">0</span>
-  datatype<span class="token operator">:</span> list<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  datatype<span class="token operator">:</span> list<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="控制台调试filebeat输出的日志数据"><a href="#控制台调试filebeat输出的日志数据" class="headerlink" title="控制台调试filebeat输出的日志数据"></a>控制台调试filebeat输出的日志数据</h1><p>通过drop_fields去控制我们想要输出的字段，得到精简的日志数据</p>
 <pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
-    <span class="token property">"@timestamp"</span><span class="token operator">:</span> <span class="token string">"2020-08-25T18:37:46.443Z"</span><span class="token punctuation">,</span>
+    <span class="token property">"@timestamp"</span><span class="token operator">:</span> <span class="token string">"2020-09-07T18:08:49.000Z"</span><span class="token punctuation">,</span>
     <span class="token property">"@metadata"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"beat"</span><span class="token operator">:</span> <span class="token string">"filebeat"</span><span class="token punctuation">,</span>
         <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span>
         <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"7.9.0"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"nginx-access"</span><span class="token punctuation">,</span>
+    <span class="token property">"server"</span><span class="token operator">:</span> <span class="token string">"nginx"</span><span class="token punctuation">,</span>
     <span class="token property">"ecs"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"host"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"log"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -240,32 +260,16 @@ output.redis<span class="token operator">:</span>
             <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/usr/local/nginx/logs/access.log"</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"access"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"app"</span><span class="token operator">:</span> <span class="token string">"nginx"</span><span class="token punctuation">,</span>
-    <span class="token property">"message"</span><span class="token operator">:</span> "<span class="token punctuation">{</span>
-    <span class="token property">"@timestamp "</span><span class="token operator">:</span> <span class="token string">"2020 - 08 - 26 T02: 37: 40 + 08: 00 "</span><span class="token punctuation">,</span>
-    <span class="token property">"clientRealIp "</span><span class="token operator">:</span> <span class="token string">"10.10 .110 .195 "</span><span class="token punctuation">,</span> 
-    <span class="token property">"scheme "</span><span class="token operator">:</span> <span class="token string">"http "</span><span class="token punctuation">,</span> 
-    <span class="token property">"method "</span><span class="token operator">:</span> <span class="token string">"GET "</span><span class="token punctuation">,</span> 
-    <span class="token property">"host "</span><span class="token operator">:</span> <span class="token string">"10.10 .110 .195 "</span><span class="token punctuation">,</span> 
-    <span class="token property">"url "</span><span class="token operator">:</span> <span class="token string">" / "</span><span class="token punctuation">,</span> 
-    <span class="token property">"size "</span><span class="token operator">:</span> <span class="token number">612</span><span class="token punctuation">,</span> 
-    <span class="token property">"referrer "</span><span class="token operator">:</span> <span class="token string">" - "</span><span class="token punctuation">,</span> 
-    <span class="token property">"agent "</span><span class="token operator">:</span> <span class="token string">"curl / 7.29 .0 "</span><span class="token punctuation">,</span> 
-    <span class="token property">"upstream_addr "</span><span class="token operator">:</span> <span class="token string">" - "</span><span class="token punctuation">,</span> 
-    <span class="token property">"request_time "</span><span class="token operator">:</span> <span class="token number">0.000</span><span class="token punctuation">,</span> 
-    <span class="token property">"request_length "</span><span class="token operator">:</span> <span class="token number">77</span><span class="token punctuation">,</span> 
-    <span class="token property">"upstream_connect_time "</span><span class="token operator">:</span> <span class="token string">" - "</span><span class="token punctuation">,</span> 
-    <span class="token property">"upstream_response_time "</span><span class="token operator">:</span> <span class="token string">" - "</span><span class="token punctuation">,</span> 
-    <span class="token property">"upstream_status "</span><span class="token operator">:</span> <span class="token string">" - "</span><span class="token punctuation">,</span> 
-    <span class="token property">"status "</span><span class="token operator">:</span> <span class="token string">"200 "</span><span class="token punctuation">}</span>"<span class="token punctuation">,</span>
+    <span class="token property">"json"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"log"</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"nginx-access"</span><span class="token punctuation">,</span>
+    <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"10.10.110.194 - - [08/Sep/2020:02:08:41 +0800] \"GET /848dd HTTP/1.1\" 404 153 \"-\" \"curl/7.29.0\""</span><span class="token punctuation">,</span>
+    <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"access"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="logstash读取redis中的日志数据"><a href="#logstash读取redis中的日志数据" class="headerlink" title="logstash读取redis中的日志数据"></a>logstash读取redis中的日志数据</h1><p>logstash读取redis中的日志数据，并且在Kibana展示Nginx日志</p>
 <pre class="line-numbers language-json"><code class="language-json"># logstash配置文件通过我们定义的fields字段和标签匹配数据<span class="token punctuation">,</span>将不同的数据存储到不同的index
-vim /etc/logstash/conf.d/nginx-from-redis.conf
 input <span class="token punctuation">{</span>
   redis <span class="token punctuation">{</span>
     host => <span class="token string">"10.10.110.194"</span>
@@ -273,11 +277,11 @@ input <span class="token punctuation">{</span>
     password => <span class="token string">"123456"</span>
     db => <span class="token string">"0"</span>
     data_type => <span class="token string">"list"</span>
-    key => <span class="token string">"filebeat"</span>
+    key => <span class="token string">"nginx"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-output <span class="token punctuation">{</span>    # 通过字段和标签判断日志数据<span class="token punctuation">,</span>存储到不同的index
+output <span class="token punctuation">{</span> # 通过字段和标签判断日志数据<span class="token punctuation">,</span>存储到不同的index
   if <span class="token punctuation">[</span>type<span class="token punctuation">]</span> == <span class="token string">"nginx-access"</span> <span class="token punctuation">{</span>
     if <span class="token punctuation">[</span>tags<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> == <span class="token string">"access"</span> <span class="token punctuation">{</span>
       elasticsearch <span class="token punctuation">{</span>
@@ -296,15 +300,12 @@ output <span class="token punctuation">{</span>    # 通过字段和标签判断
       stdout <span class="token punctuation">{</span> codec=> rubydebug <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-# 启动logstash
-/usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/nginx-from-redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Kibana展示Nginx日志"><a href="#Kibana展示Nginx日志" class="headerlink" title="Kibana展示Nginx日志"></a>Kibana展示Nginx日志</h1><p>我们可以在kibana上创建索引，查看Nginx日志，通过字段去统计和展示日志数据</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f45ca02160a154a6711cac0.jpg" alt="" title="">
+                    <img src="https://pic.imgdb.cn/item/5f560c25160a154a6759d557.jpg" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -315,7 +316,7 @@ output <span class="token punctuation">{</span>    # 通过字段和标签判断
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-26T06:37:39.745Z" itemprop="dateUpdated">2020-08-26 14:37:39</time>
+    最后更新时间：<time datetime="2020-09-07T10:35:01.133Z" itemprop="dateUpdated">2020-09-07 18:35:01</time>
 </span><br>
 
 
@@ -357,7 +358,7 @@ output <span class="token punctuation">{</span>    # 通过字段和标签判断
     <div class="waves-block waves-effect prev">
       <a href="/post/9482a90c.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">ELK Stack引入filebeat(8)</h4>
+        <h4 class="title">Elastic 引入Filebeat(7)</h4>
       </a>
     </div>
   
@@ -512,7 +513,7 @@ output <span class="token punctuation">{</span>    # 通过字段和标签判断
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                475
+                487
             
         </span>
     </div>
