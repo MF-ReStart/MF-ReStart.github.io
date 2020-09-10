@@ -30,7 +30,7 @@
 <meta property="og:description" content="Elasticsearch简介Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发，并作为Apache许可条款下的开放源代码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索、稳定、可靠、快速、使用方便 我们建立一个网站或应用程序，并要添加搜索功能，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-05T10:26:09.000Z">
-<meta property="article:modified_time" content="2020-09-09T02:58:45.361Z">
+<meta property="article:modified_time" content="2020-09-09T08:57:44.414Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
@@ -513,25 +513,25 @@ curl -X POST '<span class="token number">10.10</span>.<span class="token number"
 
 # 响应<span class="token punctuation">,</span>age字段值为<span class="token number">16</span>的有<span class="token number">1</span>条数据<span class="token punctuation">,</span>age字段值为<span class="token number">25</span>的有<span class="token number">2</span>条数据
 <span class="token property">"aggregations"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"age_terms"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"doc_count_error_upper_bound"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
-      <span class="token property">"sum_other_doc_count"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
-      <span class="token property">"buckets"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token number">16</span><span class="token punctuation">,</span>
-          <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">1</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token number">25</span><span class="token punctuation">,</span>
-          <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">2</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token number">36</span><span class="token punctuation">,</span>
-          <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">1</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token property">"age_terms"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"doc_count_error_upper_bound"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"sum_other_doc_count"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"buckets"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token number">16</span><span class="token punctuation">,</span>
+        <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">1</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token number">25</span><span class="token punctuation">,</span>
+        <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">2</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token number">36</span><span class="token punctuation">,</span>
+        <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">1</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><p>一个文档不只有数据，它还包含了元数据(metadata)——关于文档的信息。三个必须的元数据节点是</p>
 <table>
 <thead>
@@ -854,7 +854,7 @@ unzip plugin to folder your-es-root/plugins/ik
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-09T02:58:45.361Z" itemprop="dateUpdated">2020-09-09 10:58:45</time>
+    最后更新时间：<time datetime="2020-09-09T08:57:44.414Z" itemprop="dateUpdated">2020-09-09 16:57:44</time>
 </span><br>
 
 

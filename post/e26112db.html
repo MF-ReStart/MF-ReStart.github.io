@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f50a2a9160a154a672c41a2.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f50a1ee160a154a672c0902.jpg">
 <meta property="article:published_time" content="2020-08-14T07:56:54.000Z">
-<meta property="article:modified_time" content="2020-09-09T02:59:49.058Z">
+<meta property="article:modified_time" content="2020-09-09T09:04:44.171Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
@@ -190,43 +190,43 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="Kibana简述"><a href="#Kibana简述" class="headerlink" title="Kibana简述"></a>Kibana简述</h1><p>Kibana是一个针对Elasticsearch的开源分析及可视化平台，用来搜索、查看交互存储在Elasticsearch索引中的数据。使用Kibana，可以通过各种图表进行高级数据分析及展示。Kibana让海量数据更容易理解，它操作简单，基于浏览器的用户界面可以快速创建仪表板(dashboard)实时显示Elasticsearch查询动态。设置Kibana非常简单，无需编码或者额外的基础架构，就可以完成Kibana安装并启动Elasticsearch索引监测</p>
-<h1 id="Kibana安装配置"><a href="#Kibana安装配置" class="headerlink" title="Kibana安装配置"></a>Kibana安装配置</h1><pre class="line-numbers language-shell"><code class="language-shell"># 下载Kibana
-wget https://artifacts.elastic.co/downloads/kibana/kibana-7.8.1-x86_64.rpm
+<h1 id="Kibana安装配置"><a href="#Kibana安装配置" class="headerlink" title="Kibana安装配置"></a>Kibana安装配置</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载Kibana</span>
+<span class="token function">wget</span> https://artifacts.elastic.co/downloads/kibana/kibana-7.8.1-x86_64.rpm
 
-# 安装
+<span class="token comment" spellcheck="true"># 安装</span>
 shasum -a 512 kibana-7.8.1-x86_64.rpm
 rpm --install kibana-7.8.1-x86_64.rpm
 
-# 修改Kibana配置文件
-grep -v "^#" /etc/kibana/kibana.yml
+<span class="token comment" spellcheck="true"># 修改Kibana配置文件</span>
+<span class="token function">grep</span> -v <span class="token string">"^#"</span> /etc/kibana/kibana.yml
 server.port: 5601
-server.host: "127.0.0.1"
-elasticsearch.hosts: ["http://10.10.110.191:9200"]
-i18n.locale: "zh-CN"
+server.host: <span class="token string">"127.0.0.1"</span>
+elasticsearch.hosts: <span class="token punctuation">[</span><span class="token string">"http://10.10.110.191:9200"</span><span class="token punctuation">]</span>
+i18n.locale: <span class="token string">"zh-CN"</span>
 
-# 启动Kibana
+<span class="token comment" spellcheck="true"># 启动Kibana</span>
 systemctl start kibana.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="配置Nginx代理Kibana"><a href="#配置Nginx代理Kibana" class="headerlink" title="配置Nginx代理Kibana"></a>配置Nginx代理Kibana</h1><p>配置Nginx反向代理实现鉴权</p>
-<pre class="line-numbers language-shell"><code class="language-shell">vim /usr/local/nginx/conf/nginx.conf
-server {
-      listen 9090;
-      server_name localhost;
-      location / {
-        auth_basic "Restricted Access";
-        auth_basic_user_file /usr/local/nginx/conf/passwd.db;    # 账号密码文件
-        proxy_pass http://127.0.0.1:5601;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      }
-    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">vim /usr/local/nginx/conf/nginx.conf
+server <span class="token punctuation">{</span>
+      listen 9090<span class="token punctuation">;</span>
+      server_name localhost<span class="token punctuation">;</span>
+      location / <span class="token punctuation">{</span>
+        auth_basic <span class="token string">"Restricted Access"</span><span class="token punctuation">;</span>
+        auth_basic_user_file /usr/local/nginx/conf/passwd.db<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true"># 账号密码文件</span>
+        proxy_pass http://127.0.0.1:5601<span class="token punctuation">;</span>
+        proxy_set_header Host <span class="token variable">$host</span><span class="token punctuation">;</span>
+        proxy_set_header X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>配置验证登录账号密码</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 需要安装httpd-tools工具,文件里的密码是密文的
-htpasswd -c /usr/local/nginx/conf/passwd.db admin    # 连续输入两次密码
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 需要安装httpd-tools工具,文件里的密码是密文的</span>
+htpasswd -c /usr/local/nginx/conf/passwd.db admin    <span class="token comment" spellcheck="true"># 连续输入两次密码</span>
 
-# 测试本机kibana能否连接,如果本机都不能连接,那么Nginx代理就没有意义
+<span class="token comment" spellcheck="true"># 测试本机kibana能否连接,如果本机都不能连接,那么Nginx代理就没有意义</span>
 curl -L -u admin:12345678 http://127.0.0.1:5601<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="登录Kibana"><a href="#登录Kibana" class="headerlink" title="登录Kibana"></a>登录Kibana</h1><p>登录kibana的地址</p>
-<pre class="line-numbers language-shell"><code class="language-shell">http://10.10.110.194:9090/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">http://10.10.110.194:9090/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Nginx账号密码</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -252,7 +252,7 @@ curl -L -u admin:12345678 http://127.0.0.1:5601<span aria-hidden="true" class="l
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-09T02:59:49.058Z" itemprop="dateUpdated">2020-09-09 10:59:49</time>
+    最后更新时间：<time datetime="2020-09-09T09:04:44.171Z" itemprop="dateUpdated">2020-09-09 17:04:44</time>
 </span><br>
 
 

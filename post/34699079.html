@@ -30,7 +30,7 @@
 <meta property="og:description" content="Docker Compose 概述Compose是用于定义和运行多容器的工具，通过Compose可以使用YAML文件来配置容器。然后使用一个命令就可以从配置中创建并启动所有服务。其实在刚学习Docker时我就想过，如果我是LNMP架构容器化项目，因为每次都要一个个容器的启动，是否有必要将启停多个容器的命令写成一个shell脚本呢。现在学到Docker Compose，才知道根本没有这个必要，我们现">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-10T06:27:09.000Z">
-<meta property="article:modified_time" content="2020-09-01T02:08:32.638Z">
+<meta property="article:modified_time" content="2020-09-09T07:22:32.645Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器技术">
@@ -192,8 +192,8 @@
 <p>定义应用程序启动配置文件 docker-compose.yml</p>
 <p>docker-compose启动并管理整个应用程序生命周期</p>
 <h1 id="Linux-安装-Compose"><a href="#Linux-安装-Compose" class="headerlink" title="Linux 安装 Compose"></a>Linux 安装 Compose</h1><p>其实前面我们在学习Harbor时已经安装过docker-compose，这是一个使用python开发的编排工具，国内下载可能会比较慢(你应该知道怎么做了吧…)</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>L "https<span class="token punctuation">:</span>//github.com/docker/compose/releases/download/1.26.0/docker<span class="token punctuation">-</span>compose<span class="token punctuation">-</span>$(uname <span class="token punctuation">-</span>s)<span class="token punctuation">-</span>$(uname <span class="token punctuation">-</span>m)"  <span class="token punctuation">-</span>o /usr/bin/docker<span class="token punctuation">-</span>compose
-chmod <span class="token punctuation">,</span>+x ，/usr/bin/docker<span class="token punctuation">-</span>compose ， <span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">curl -L <span class="token string">"https://github.com/docker/compose/releases/download/1.26.0/docker-compose-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -s<span class="token variable">)</span></span>-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -m<span class="token variable">)</span></span>"</span>  -o /usr/bin/docker-compose
+<span class="token function">chmod</span> +x /usr/bin/docker-compose<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="docker-compose-yaml配置文件参数"><a href="#docker-compose-yaml配置文件参数" class="headerlink" title="docker-compose.yaml配置文件参数"></a>docker-compose.yaml配置文件参数</h1><h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><p>使用docker-compose启动容器服务除了可以基于指定的镜像，还可以基于一份Dockerfile，在使用up启动时执行构建镜像的任务，这个构建标签就是build。Compose将会利用它自动构建这个镜像，然后使用这个镜像启动服务容器</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">version<span class="token punctuation">:</span><span class="token string">"3.7"</span>
 <span class="token key atrule">services</span><span class="token punctuation">:</span>
@@ -437,7 +437,7 @@ command<span class="token punctuation">:</span><span class="token punctuation">[
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-01T02:08:32.638Z" itemprop="dateUpdated">2020-09-01 10:08:32</time>
+    最后更新时间：<time datetime="2020-09-09T07:22:32.645Z" itemprop="dateUpdated">2020-09-09 15:22:32</time>
 </span><br>
 
 
