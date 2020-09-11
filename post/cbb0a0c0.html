@@ -15,22 +15,22 @@
     
     
     
-    <title>Ansible的include(15) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Ansible yaml基本语法(6).md | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Ansible,自动化运维">
-    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克 An">
+    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ansible的include(15)">
-<meta property="og:url" content="https://www.missf.top/post/fa9ef74f.html">
+<meta property="og:title" content="Ansible yaml基本语法(6).md">
+<meta property="og:url" content="https://www.missf.top/post/cbb0a0c0.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克 An">
+<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-10T11:56:59.000Z">
-<meta property="article:modified_time" content="2020-09-09T09:18:55.003Z">
+<meta property="article:published_time" content="2020-05-23T03:54:36.000Z">
+<meta property="article:modified_time" content="2020-09-11T11:01:17.205Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Ansible">
 <meta property="article:tag" content="自动化运维">
@@ -116,7 +116,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Ansible的include(15)</div>
+        <div class="flex-col header-title ellipsis">Ansible yaml基本语法(6).md</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -134,11 +134,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Ansible的include(15)</h1>
+        <h1 class="title">Ansible yaml基本语法(6).md</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-06-10T11:56:59.000Z" itemprop="datePublished" class="page-time">
-  2020-06-10
+                <time datetime="2020-05-23T03:54:36.000Z" itemprop="datePublished" class="page-time">
+  2020-05-23
 </time>
 
 
@@ -159,18 +159,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的include"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible的include</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#给include文件传参"><span class="post-toc-number">2.</span> <span class="post-toc-text">给include文件传参</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Import-playbook"><span class="post-toc-number">3.</span> <span class="post-toc-text">Import_playbook</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ansible的yaml基本语法"><span class="post-toc-number">1.</span> <span class="post-toc-text">ansible的yaml基本语法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#yaml支持的三种数据结构"><span class="post-toc-number">2.</span> <span class="post-toc-text">yaml支持的三种数据结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数组"><span class="post-toc-number">3.</span> <span class="post-toc-text">数组</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对象"><span class="post-toc-number">4.</span> <span class="post-toc-text">对象</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#纯量"><span class="post-toc-number">5.</span> <span class="post-toc-text">纯量</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#引用"><span class="post-toc-number">6.</span> <span class="post-toc-text">引用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Ansible的include(15)"
+<article id="post-Ansible yaml基本语法(6)"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Ansible的include(15)</h1>
+        <h1 class="post-card-title">Ansible yaml基本语法(6).md</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-06-10 19:56:59" datetime="2020-06-10T11:56:59.000Z"  itemprop="datePublished">2020-06-10</time>
+            <time class="post-time" title="2020-05-23 11:54:36" datetime="2020-05-23T03:54:36.000Z"  itemprop="datePublished">2020-05-23</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Ansible/">Ansible</a></li></ul>
@@ -185,95 +185,83 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
+            <blockquote>
+<p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
 <p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
-<h1 id="Ansible的include"><a href="#Ansible的include" class="headerlink" title="Ansible的include"></a>Ansible的include</h1><p>在所有的编程语言中，在处理重复代码的时候，都会将重复的代码提取出来作为一个逻辑单元，这个逻辑单元通常被称为函数或者方法，这样可以让我们更加方便的、重复的调用这段代码。而且如果需要修改这段代码，只需要修改这段代码本身，那么在调用这段代码的地方的逻辑就会随之改变。同时，使用函数的方式编写代码，能让我们的逻辑更清晰，通过函数的名称，大概能推算出程序的主体作用和逻辑</p>
-<p>在ansible中，其实也有类似的功能，这种功能被称之为include。通过include，我们可以在playbook中包含另一个文件，以便实现我们刚才所说的函数效果</p>
-<p>在配置环境的时候，我们经常会有一些需要重复使用的playbook，就像下面的LAMP环境和LNMP环境</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml">cat lamp.yaml 
-<span class="token punctuation">---</span>
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
-  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install lamp
-      <span class="token key atrule">yum</span><span class="token punctuation">:</span>
-        <span class="token key atrule">name</span><span class="token punctuation">:</span>
-          <span class="token punctuation">-</span> mysql
-          <span class="token punctuation">-</span> php<span class="token punctuation">-</span>fpm
-          <span class="token punctuation">-</span> httpd
-        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+</blockquote>
+<h1 id="ansible的yaml基本语法"><a href="#ansible的yaml基本语法" class="headerlink" title="ansible的yaml基本语法"></a>ansible的yaml基本语法</h1><p>大小写敏感</p>
+<p>使用缩进表示层级关系</p>
+<p>缩进时不允许使用Tab键，只允许使用空格</p>
+<p>缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</p>
+<p>yaml文件以”—“作为文档的开始，”…”作为文档的结束</p>
+<p># 表示注释，从这个字符一直到行尾，都会被解析器忽略</p>
+<p>相同缩进级别的行以”-“(破折号和空格)开头的组成一个列表</p>
+<h1 id="yaml支持的三种数据结构"><a href="#yaml支持的三种数据结构" class="headerlink" title="yaml支持的三种数据结构"></a>yaml支持的三种数据结构</h1><p><strong>数组</strong>: 一组按次序排列的值，又称为序列(sequence) / 列表(list)</p>
+<p><strong>对象</strong>: 键值对的集合，又称为映射(mapping)/ 哈希(hashes) / 字典(dictionary)</p>
+<p><strong>纯量</strong>: 单个的、不可再分的值</p>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p>相同缩进级别的行以”-“（破折号和空格）开头组成一个列表就是数组</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">fruits</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Apple
+  <span class="token punctuation">-</span> Banana
+  <span class="token punctuation">-</span> orange
+  <span class="token punctuation">-</span> melon
 
-cat lnmp.yaml 
-<span class="token punctuation">---</span>
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
-  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install lnmp
-      <span class="token key atrule">yum</span><span class="token punctuation">:</span>
-        <span class="token key atrule">name</span><span class="token punctuation">:</span>
-          <span class="token punctuation">-</span> mysql
-          <span class="token punctuation">-</span> php<span class="token punctuation">-</span>fpm
-          <span class="token punctuation">-</span> nginx
-        <span class="token key atrule">state</span><span class="token punctuation">:</span> present<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们可以把上面的两个playbook改写层下面这样，便于我们直接调用</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml">cat lamp.yaml
-<span class="token punctuation">-</span> <span class="token key atrule">yum</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> mysql
-      <span class="token punctuation">-</span> php<span class="token punctuation">-</span>fpm
-      <span class="token punctuation">-</span> httpd
-    <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+<span class="token comment" spellcheck="true"># 行内表示法</span>
+<span class="token key atrule">fruits</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'Apple'</span><span class="token punctuation">,</span> <span class="token string">'Banana'</span><span class="token punctuation">,</span> <span class="token string">'orange'</span><span class="token punctuation">,</span> <span class="token string">'melon'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><p>对象的一组键值对，使用冒号结构表示(冒号后面要有个空格)</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">sb</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> Alex
+  <span class="token key atrule">job</span><span class="token punctuation">:</span> python
+  <span class="token key atrule">skill</span><span class="token punctuation">:</span> brag
+<span class="token comment" spellcheck="true"># 行内表示法</span>
+<span class="token key atrule">sb</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">name</span><span class="token punctuation">:</span> Alex<span class="token punctuation">,</span> <span class="token key atrule">job</span><span class="token punctuation">:</span> python<span class="token punctuation">,</span> <span class="token key atrule">skill</span><span class="token punctuation">:</span> brag<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="纯量"><a href="#纯量" class="headerlink" title="纯量"></a>纯量</h1><p>数值</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">12</span>
+<span class="token key atrule">float</span><span class="token punctuation">:</span> <span class="token number">15.20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>布尔值</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">表示true的值
+true<span class="token punctuation">,</span> <span class="token boolean important">True</span><span class="token punctuation">,</span> <span class="token boolean important">TRUE</span><span class="token punctuation">,</span> yes<span class="token punctuation">,</span> Yes<span class="token punctuation">,</span> YES<span class="token punctuation">,</span> on<span class="token punctuation">,</span> On<span class="token punctuation">,</span> ON<span class="token punctuation">,</span> y<span class="token punctuation">,</span> Y
 
-cat lnmp.yaml 
-<span class="token punctuation">-</span> <span class="token key atrule">yum</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> mysql
-      <span class="token punctuation">-</span> php<span class="token punctuation">-</span>fpm
-      <span class="token punctuation">-</span> nginx
-    <span class="token key atrule">state</span><span class="token punctuation">:</span> present<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>当我们需要执行这两个playbook时，直接使用include调用，playbook中的任务就会在被调用处执行</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml">cat lamp_lnmp.yaml
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webserver
-  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install lamp
-      <span class="token key atrule">include_tasks</span><span class="token punctuation">:</span> lamp.yaml    <span class="token comment" spellcheck="true"># 这里执行的是lamp.yaml的内容</span>
+表示false的值
+false<span class="token punctuation">,</span> <span class="token boolean important">False</span><span class="token punctuation">,</span> <span class="token boolean important">FALSE</span><span class="token punctuation">,</span> no<span class="token punctuation">,</span> No<span class="token punctuation">,</span> NO<span class="token punctuation">,</span> off<span class="token punctuation">,</span> Off<span class="token punctuation">,</span> OFF<span class="token punctuation">,</span> n<span class="token punctuation">,</span> N<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>强制类型转换</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">a</span><span class="token punctuation">:</span> <span class="token tag">!!str</span> <span class="token number">123</span>
+<span class="token key atrule">d</span><span class="token punctuation">:</span> <span class="token tag">!!str</span> <span class="token boolean important">true    </span><span class="token comment" spellcheck="true"># 这个true的数据类型不再是布尔值，而是str类型</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>字符串</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">str</span><span class="token punctuation">:</span> 这是字符串
+<span class="token key atrule">s1</span><span class="token punctuation">:</span> <span class="token string">'内容\n字符串'</span>    <span class="token comment" spellcheck="true"># 如果字符之中包含空格和特殊字符，需要放在引号之中，单引号和双引号都可以使用，双引号不会对特殊字符转义</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>空值</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># null: 用~表示</span>
+<span class="token key atrule">parent</span><span class="token punctuation">:</span> <span class="token null important">~ </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p><strong>&amp;</strong>用来建立锚点(defaults)，<strong>&lt;&lt;</strong>表示合并到当前数据，*****用来引用锚点</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">defaults</span><span class="token punctuation">:</span> <span class="token important">&amp;defaults</span>
+  <span class="token key atrule">adapter</span><span class="token punctuation">:</span> postgres
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
 
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
-  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install lnmp
-      <span class="token key atrule">include_tasks</span><span class="token punctuation">:</span> lnmp.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="给include文件传参"><a href="#给include文件传参" class="headerlink" title="给include文件传参"></a>给include文件传参</h1><pre class="line-numbers language-yaml"><code class="language-yaml">cat baidu.yaml 
-<span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> ping <span class="token punctuation">-</span>c 3 "<span class="token punctuation">{</span><span class="token punctuation">{</span> baidu <span class="token punctuation">}</span><span class="token punctuation">}</span>"    <span class="token comment" spellcheck="true"># 在include文件使用变量</span>
+<span class="token key atrule">development</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">database</span><span class="token punctuation">:</span> myapp_development
+  <span class="token key atrule">&lt;&lt;</span><span class="token punctuation">:</span> <span class="token important">*defaults</span>
 
-cat include_baidu.yaml 
-<span class="token punctuation">---</span>
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
-  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
-  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
-    <span class="token key atrule">baidu</span><span class="token punctuation">:</span> <span class="token string">"www.baidu.com"</span>    <span class="token comment" spellcheck="true"># 定义include文件所需要的变量</span>
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ping baidu
-      <span class="token key atrule">include_tasks</span><span class="token punctuation">:</span> baidu.yaml        <span class="token comment" spellcheck="true"># 调用执行include文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Import-playbook"><a href="#Import-playbook" class="headerlink" title="Import_playbook"></a>Import_playbook</h1><p>我们使用include关键字可以调用任务列表，但如果想要调用整个playbook，则需要import_playbook模块代替include模块</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml">cat import_test.yaml
-<span class="token punctuation">---</span>
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
-  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
-      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"test task cat import_test.yaml"</span>
+<span class="token key atrule">test</span><span class="token punctuation">:</span>
+  <span class="token key atrule">database</span><span class="token punctuation">:</span> myapp_test
+  <span class="token key atrule">&lt;&lt;</span><span class="token punctuation">:</span> <span class="token important">*defaults</span>
 
-<span class="token punctuation">-</span> <span class="token key atrule">import_playbook</span><span class="token punctuation">:</span> intest7.yaml        <span class="token comment" spellcheck="true"># 调用intest7.yaml整个yaml</span>
+<span class="token comment" spellcheck="true"># 上面的写法等同于下面的代码:</span>
+<span class="token key atrule">defaults</span><span class="token punctuation">:</span>
+  <span class="token key atrule">adapter</span><span class="token punctuation">:</span> postgres
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
 
-cat intest7.yaml
-<span class="token punctuation">---</span>
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webserver
-  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">debug</span><span class="token punctuation">:</span>
-      <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"test task cat intest7.yaml"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token key atrule">development</span><span class="token punctuation">:</span>
+  <span class="token key atrule">database</span><span class="token punctuation">:</span> myapp_development
+  <span class="token key atrule">adapter</span><span class="token punctuation">:</span> postgres
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
+
+<span class="token key atrule">test</span><span class="token punctuation">:</span>
+  <span class="token key atrule">database</span><span class="token punctuation">:</span> myapp_test
+  <span class="token key atrule">adapter</span><span class="token punctuation">:</span> postgres
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>palybooks更多的yaml语法请参考: <a href="http://docs.ansible.com/YAMLSyntax.html" target="_blank" rel="noopener">http://docs.ansible.com/YAMLSyntax.html</a></p>
 
         </div>
 
@@ -282,7 +270,7 @@ cat intest7.yaml
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-09T09:18:55.003Z" itemprop="dateUpdated">2020-09-09 17:18:55</time>
+    最后更新时间：<time datetime="2020-09-11T11:01:17.205Z" itemprop="dateUpdated">2020-09-11 19:01:17</time>
 </span><br>
 
 
@@ -322,18 +310,18 @@ cat intest7.yaml
 
   
     <div class="waves-block waves-effect prev">
-      <a href="/post/de181bd8.html" id="post-prev" class="post-nav-link">
+      <a href="/post/1b979c3e.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Ansible的lookups插件(14)</h4>
+        <h4 class="title">coding持续集成Java项目</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/62ac8f71.html" id="post-next" class="post-nav-link">
+      <a href="/post/11b6c727.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Ansible的jinja2模板(16)</h4>
+        <h4 class="title">Ansible playbook(7)</h4>
       </a>
     </div>
   
@@ -486,7 +474,7 @@ cat intest7.yaml
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                569
+                542
             
         </span>
     </div>
