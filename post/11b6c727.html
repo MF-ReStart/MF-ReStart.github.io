@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Ansible playbook(7) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ansible,自动化运维">
+    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible playbook(7)">
+<meta property="og:url" content="https://www.missf.top/post/11b6c727.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-24T06:24:36.000Z">
+<meta property="article:modified_time" content="2020-09-11T11:01:39.803Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="Ansible">
+<meta property="article:tag" content="自动化运维">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Ansible playbook(7)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Ansible playbook(7)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-24T06:24:36.000Z" itemprop="datePublished" class="page-time">
+  2020-05-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Ansible/">Ansible</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible-playbook初识"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible playbook初识</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编写第一个playbook"><span class="post-toc-number">2.</span> <span class="post-toc-text">编写第一个playbook</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行playbook"><span class="post-toc-number">3.</span> <span class="post-toc-text">运行playbook</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检查playbook语法"><span class="post-toc-number">4.</span> <span class="post-toc-text">检查playbook语法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#模拟执行playbook"><span class="post-toc-number">5.</span> <span class="post-toc-text">模拟执行playbook</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用playbook安装nginx"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用playbook安装nginx</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目录文件规划"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">目录文件规划</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编写playbook"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">编写playbook</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编写nginx配置文件"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">编写nginx配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编写index-html-j2文件"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">编写index.html.j2文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在ansible控制节点上查看"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">在ansible控制节点上查看</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Ansible playbook(7)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Ansible playbook(7)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-24 14:24:36" datetime="2020-05-24T06:24:36.000Z"  itemprop="datePublished">2020-05-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Ansible/">Ansible</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
+<p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
+</blockquote>
+<h1 id="Ansible-playbook初识"><a href="#Ansible-playbook初识" class="headerlink" title="Ansible playbook初识"></a>Ansible playbook初识</h1><p>前一章我们学习了ansible的模块，在控制节点上使用了很多ansible的命令对管理节点进行配置和管理，但是在我们真正的工作场景中，如果需要配置一个nginx服务，其实并不是在控制节点执行ansible命令去实现的，你可以想象一下，如果我们需要对管理节点做大量的操作，是不是就是要在控制节点执行非常多的命令呢，而且直接执行命令的方式对管理不同的管理节点时，命令又是需要修改的，这并不是我们想要的。其实ansible是可以写成”脚本”的，注意这里所说的脚本，并不是说将大量的ansible命令放到shell脚本里面去，ansible在部署较为复杂的任务时，有自己的一套执行流程，称为”剧本”，剧本翻译过来就是我们所说的playbook。编写playbook需要遵循yaml语法，那什么又是yaml语法呢，它是为了方便人类读写而设计出来的一种通用的数据串行化格式</p>
+<h1 id="编写第一个playbook"><a href="#编写第一个playbook" class="headerlink" title="编写第一个playbook"></a>编写第一个playbook</h1><p>playbook文件都以”yaml”或”yml”作为文件后缀，这里我们创建一个名为first.yaml的playbook文件</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 将下面的ansible命令转化为playbook</span>
+ansible all <span class="token punctuation">-</span>m ping
+ansible all <span class="token punctuation">-</span>m file <span class="token punctuation">-</span>a 'path=/etc/nodes state=directory'
+
+<span class="token comment" spellcheck="true"># playbook的写法:</span>
+<span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ping nodes
+    <span class="token key atrule">ping</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mkdir directory
+    <span class="token key atrule">file</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> /etc/nodes
+      <span class="token key atrule">state</span><span class="token punctuation">:</span> directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>第一行</strong>: 使用三个横杠作为开始，在YAML语法中，”—“表示文档开始</p>
+<p><strong>第二行</strong>: 使用”-“作为开头表示一个块序列的节点，后面使用hosts关键字指定了要操作的主机</p>
+<p><strong>第三行</strong>: 使用remote_user关键字可以指定在管理节点进行操作时使用哪个用户进行操作</p>
+<p><strong>第四行</strong>: 使用tasks关键字指明要进行操作的任务列表，之后的行都属于tasks键值对中的值</p>
+<p>tasks之后的行都属于任务列表的任务，可以看出任务列表一共有两个任务，每个任务以”-“开头，每个任务都有自己的名字，任务名字使用name关键字进行指定，第一个任务使用ping模块，ping模块在使用时不需要指定任何参数。第二个任务使用file模块，使用file模块时，指定了path参数和state参数的值</p>
+<h1 id="运行playbook"><a href="#运行playbook" class="headerlink" title="运行playbook"></a>运行playbook</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost ~/playbook<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ansible-playbook first.yaml </span>
+
+PLAY <span class="token punctuation">[</span>all<span class="token punctuation">]</span> *********************************************************************************************************************************************************
+
+TASK <span class="token punctuation">[</span>Gathering Facts<span class="token punctuation">]</span> *********************************************************************************************************************************************
+ok: <span class="token punctuation">[</span>10.10.110.123<span class="token punctuation">]</span>
+ok: <span class="token punctuation">[</span>10.10.110.122<span class="token punctuation">]</span>
+
+TASK <span class="token punctuation">[</span>ping nodes<span class="token punctuation">]</span> **************************************************************************************************************************************************
+ok: <span class="token punctuation">[</span>10.10.110.123<span class="token punctuation">]</span>
+ok: <span class="token punctuation">[</span>10.10.110.122<span class="token punctuation">]</span>
+
+TASK <span class="token punctuation">[</span>mkdir directory<span class="token punctuation">]</span> *********************************************************************************************************************************************
+ok: <span class="token punctuation">[</span>10.10.110.122<span class="token punctuation">]</span>
+ok: <span class="token punctuation">[</span>10.10.110.123<span class="token punctuation">]</span>
+
+PLAY RECAP *********************************************************************************************************************************************************
+10.10.110.122              <span class="token keyword">:</span> ok<span class="token operator">=</span>3    changed<span class="token operator">=</span>0    unreachable<span class="token operator">=</span>0    failed<span class="token operator">=</span>0    skipped<span class="token operator">=</span>0    rescued<span class="token operator">=</span>0    ignored<span class="token operator">=</span>0   
+10.10.110.123              <span class="token keyword">:</span> ok<span class="token operator">=</span>3    changed<span class="token operator">=</span>0    unreachable<span class="token operator">=</span>0    failed<span class="token operator">=</span>0    skipped<span class="token operator">=</span>0    rescued<span class="token operator">=</span>0    ignored<span class="token operator">=</span>0   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上所示，playbook执行后返回了一些信息，这些信息是这次剧本运行的概况。<strong>PLAY [all]</strong>表示这次运行的playbook有一个’play’是针对所有主机运行的，一个playbook可以是由一个或者多个play组成的。这个play包含了三个任务，这三个任务分别是<strong>TASK [Gathering Facts]</strong>，<strong>TASK [ping nodes]</strong>，<strong>TASK [mkdir directory]</strong>。我们只创建了两个任务，为什么却执行了三个任务呢？其实每个paly在执行前都会执行一个默认任务，这个默认任务就是<strong>TASK [Gathering Facts]</strong>，它会收集当前play对应的目标主机的相关信息，收集完这些基础信息后，才会执行我们指定的任务，这里它是收集我们这个play的所有主机的信息，然后返回主机的IP地址。第二个任务是用ping模块去测试管理节点的状态，给我们返回的是绿色的信息，表示管理节点的状态没有发生改变。第三个任务是创建目录，这里如果管理节点没有/etc/nodes目录，则会返回黄色的信息，表示在管理节点上创建了目录，管理节点的状态发生了改变。这是再次执行playbook，发现创建目录任务的返回信息变成了绿色的，是因为已经创建过目录了，由于幂等性的原因，管理节点的状态没有发生改变。返回信息的最后一个<strong>PLAY RECAP</strong>中可以对所有主机的执行情况进行回顾</p>
+<h1 id="检查playbook语法"><a href="#检查playbook语法" class="headerlink" title="检查playbook语法"></a>检查playbook语法</h1><pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --syntax-check first.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果执行语法检查命令之后，只返回了playbook的名称，就表示没有语法错误</p>
+<h1 id="模拟执行playbook"><a href="#模拟执行playbook" class="headerlink" title="模拟执行playbook"></a>模拟执行playbook</h1><pre class="line-numbers language-bash"><code class="language-bash">ansible-playbook --check first.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>除了对playbook进行语法测试，我们还能够模拟执行playbook，模拟执行并不是真正的执行，只是假装执行一下，playbook中的任务并不会真正在目标主机中运行，所以你可以放心大胆的进行模拟，模拟运行功能可以帮助我们’预估’playbook是否能够正常执行</p>
+<p><strong>注意:</strong> 使用上述命令进行模拟时，一些任务可能会报错，这可能是因为报错的任务在执行时需要依赖之前的其他任务的完成结果，但是因为是模拟执行，所以之前的任务并不会真正的执行，既然之前的任务没有真正的执行，自然不会产生对应的结果，所以后面的任务就报错了。也就是说，我们并不能完全以模拟的反馈结果作为playbook是否能够正常运行的判断依据，只能通过模拟大概的预估一下而已</p>
+<h1 id="使用playbook安装nginx"><a href="#使用playbook安装nginx" class="headerlink" title="使用playbook安装nginx"></a>使用playbook安装nginx</h1><h2 id="目录文件规划"><a href="#目录文件规划" class="headerlink" title="目录文件规划"></a>目录文件规划</h2><pre class="line-numbers language-bash"><code class="language-bash">tree /root/playbook/
+/root/playbook/
+├── index.html.j2
+├── nginx.conf
+└── nginx.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="编写playbook"><a href="#编写playbook" class="headerlink" title="编写playbook"></a>编写playbook</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
+  <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 定义变量，可以在nginx.conf文件中调用</span>
+    <span class="token key atrule">http_port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">max_clients</span><span class="token punctuation">:</span> <span class="token number">65535    </span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ensure nginx is at the latest version
+    <span class="token key atrule">yum</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">state</span><span class="token punctuation">:</span> installed
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> write the nginx config file
+    <span class="token key atrule">template</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 模板模块，将当前目录下的nginx.conf文件(文件里面定义的变量会自动赋值再拷贝)拷贝到管理节点</span>
+      <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx.conf
+      <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/nginx.conf
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> write the site file
+    <span class="token key atrule">template</span><span class="token punctuation">:</span>
+      <span class="token key atrule">src</span><span class="token punctuation">:</span> index.html.j2
+      <span class="token key atrule">dest</span><span class="token punctuation">:</span> /usr/share/nginx/html/index.html
+    <span class="token key atrule">notify</span><span class="token punctuation">:</span>    
+    <span class="token punctuation">-</span> restart nginx
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ensure nginx is running
+    <span class="token key atrule">service</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">state</span><span class="token punctuation">:</span> started
+  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart nginx
+      <span class="token key atrule">service</span><span class="token punctuation">:</span> name=nginx state=restarted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="编写nginx配置文件"><a href="#编写nginx配置文件" class="headerlink" title="编写nginx配置文件"></a>编写nginx配置文件</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#user  nobody;</span>
+worker_processes  auto<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">#error_log  logs/error.log;</span>
+<span class="token comment" spellcheck="true">#error_log  logs/error.log  notice;</span>
+<span class="token comment" spellcheck="true">#error_log  logs/error.log  info;</span>
+
+<span class="token comment" spellcheck="true">#pid        logs/nginx.pid;</span>
+
+events <span class="token punctuation">{</span>
+    worker_connections  <span class="token punctuation">{</span><span class="token punctuation">{</span> max_clients <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true"># 调用nginx.yaml中定义的变量</span>
+<span class="token punctuation">}</span>
+
+http <span class="token punctuation">{</span>
+    include       mime.types<span class="token punctuation">;</span>
+    default_type  application/octet-stream<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">#log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span>
+    <span class="token comment" spellcheck="true">#                  '$status $body_bytes_sent "$http_referer" '</span>
+    <span class="token comment" spellcheck="true">#                  '"$http_user_agent" "$http_x_forwarded_for"';</span>
+
+    <span class="token comment" spellcheck="true">#access_log  logs/access.log  main;</span>
+
+    sendfile        on<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">#tcp_nopush     on;</span>
+
+    <span class="token comment" spellcheck="true">#keepalive_timeout  0;</span>
+    keepalive_timeout  65<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">#gzip  on;</span>
+
+    server <span class="token punctuation">{</span>
+        listen       <span class="token punctuation">{</span><span class="token punctuation">{</span> http_port <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        server_name  localhost<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">#charset koi8-r;</span>
+
+        <span class="token comment" spellcheck="true">#access_log  logs/host.access.log  main;</span>
+
+        location / <span class="token punctuation">{</span>
+            root   /usr/share/nginx/html/<span class="token punctuation">;</span>
+            index  index.html index.htm<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">#error_page  404              /404.html;</span>
+
+        <span class="token comment" spellcheck="true"># redirect server error pages to the static page /50x.html</span>
+        <span class="token comment" spellcheck="true">#</span>
+        error_page   500 502 503 504  /50x.html<span class="token punctuation">;</span>
+        location <span class="token operator">=</span> /50x.html <span class="token punctuation">{</span>
+            root   html<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true"># deny access to .htaccess files, if Apache's document root</span>
+        <span class="token comment" spellcheck="true"># concurs with nginx's one</span>
+        <span class="token comment" spellcheck="true">#</span>
+        <span class="token comment" spellcheck="true">#location ~ /\.ht {</span>
+        <span class="token comment" spellcheck="true">#    deny  all;</span>
+        <span class="token comment" spellcheck="true">#}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="编写index-html-j2文件"><a href="#编写index-html-j2文件" class="headerlink" title="编写index.html.j2文件"></a>编写index.html.j2文件</h2><pre class="line-numbers language-bash"><code class="language-bash">Hello Ansible<span class="token operator">!</span>
+This is <span class="token punctuation">{</span><span class="token punctuation">{</span>ansible_all_ipv4_addresses<span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="在ansible控制节点上查看"><a href="#在ansible控制节点上查看" class="headerlink" title="在ansible控制节点上查看"></a>在ansible控制节点上查看</h2><pre class="line-numbers language-bash"><code class="language-bash">curl 10.10.110.122
+Hello Ansible<span class="token operator">!</span>
+This is <span class="token punctuation">[</span>u<span class="token string">'10.10.110.122'</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 这个是可变变量</span>
+
+curl 10.10.110.123
+Hello Ansible<span class="token operator">!</span>
+This is <span class="token punctuation">[</span>u<span class="token string">'10.10.110.123'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-11T11:01:39.803Z" itemprop="dateUpdated">2020-09-11 19:01:39</time>
+</span><br>
+
+
+        
+        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，那就请我喝咖啡吧！
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/" rel="tag">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/cbb0a0c0.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
+        <h4 class="title">Ansible yaml基本语法(6).md</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/b39bea85.html" id="post-next" class="post-nav-link">
+        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Ansible handlers(8)</h4>
+      </a>
+    </div>
+  
+
+
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub & Coding Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                1.8k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

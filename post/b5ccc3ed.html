@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Ansible 介绍(1) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ansible,自动化运维">
+    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible 介绍(1)">
+<meta property="og:url" content="https://www.missf.top/post/b5ccc3ed.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5eb61cb0c2a9a83be555278f.png">
+<meta property="article:published_time" content="2020-05-07T08:12:59.000Z">
+<meta property="article:modified_time" content="2020-09-11T11:01:39.808Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="Ansible">
+<meta property="article:tag" content="自动化运维">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5eb61cb0c2a9a83be555278f.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Ansible 介绍(1)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Ansible 介绍(1)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-07T08:12:59.000Z" itemprop="datePublished" class="page-time">
+  2020-05-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Ansible/">Ansible</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible介绍</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的目标"><span class="post-toc-number">2.</span> <span class="post-toc-text">Ansible的目标</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的应用场景"><span class="post-toc-number">3.</span> <span class="post-toc-text">Ansible的应用场景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的工作原理"><span class="post-toc-number">4.</span> <span class="post-toc-text">Ansible的工作原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对节点主机的要求"><span class="post-toc-number">5.</span> <span class="post-toc-text">对节点主机的要求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的概念"><span class="post-toc-number">6.</span> <span class="post-toc-text">Ansible的概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制节点-Control-node"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">控制节点(Control node)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#管理节点-Managed-nodes"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">管理节点(Managed nodes)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主机清单-Inventory"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">主机清单(Inventory)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模块-Modules"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">模块(Modules)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务-Tasks"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">任务(Tasks)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#剧本-Playbooks"><span class="post-toc-number">6.6.</span> <span class="post-toc-text">剧本(Playbooks)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Ansible 介绍(1)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Ansible 介绍(1)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-07 16:12:59" datetime="2020-05-07T08:12:59.000Z"  itemprop="datePublished">2020-05-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Ansible/">Ansible</a></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
+<p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
+</blockquote>
+<h1 id="Ansible介绍"><a href="#Ansible介绍" class="headerlink" title="Ansible介绍"></a>Ansible介绍</h1><p>Ansible 是2012年推出的一种通用自动化工具，ansible也是我接触的第一个自动化运维工具，ansible可以帮助我们完成一些批量任务，或者完成一些经常性的重复工作，在服务器集群场景下，ansible是我们运维的利器，Ansible 在2015年时被Redhat公司收购。Ansible是用Python编写的，它使用SSH在不同的机器上执行命令。Ansible是无代理的，这使得入手更容易。您只需要在相关机器上安装SSH和Python。Ansible使用声明式YAML语言”playbook”将一组主机(“hosts”)映射到定义明确的角色</p>
+<p>也许你会说，我写个shell脚本不也一样能实现批量服务器的管理吗？这里我想说的是，ansible支持一些优秀的特性:</p>
+<p>支持幂等性</p>
+<p>No Agent</p>
+<p>支持palybook实现复杂的任务</p>
+<p>使用yaml语言</p>
+<p>先来说说什么是<strong>幂等性</strong>，假如我要在目标主机安装Nginx，但是我不确定这个主机是否已经安装了Nginx，当使用ansible完成这个任务时，问题就会变得简单，如果目标主机已经安装Nginx，则ansible不会进行任何操作，如果目标主机未安装Nginx，ansible才会开始工作，ansible是<strong>以导向为结果</strong>的，我们指定一个状态，ansible就会自动判断，把服务器的状态调整为我们指定的状态，我多次执行，结果都是一样的，这就是幂等性。</p>
+<p>使用zabbix监控一百台服务器，这一百台服务器都需要安装zabbix  agent，但是ansible是不需要在管理节点上安装客户端代理程序的，因为它基于ssh工作，只要Control node能通过ssh连接到Managed nodes就能通过ansible管理对应的管理节点了，还有就是ansible的控制节点不用单独启动服务，能直接运行命令。</p>
+<h1 id="Ansible的目标"><a href="#Ansible的目标" class="headerlink" title="Ansible的目标"></a>Ansible的目标</h1><p><strong>实现一切自动化</strong></p>
+<h1 id="Ansible的应用场景"><a href="#Ansible的应用场景" class="headerlink" title="Ansible的应用场景"></a>Ansible的应用场景</h1><p>自动化部署应用</p>
+<p>自动化管理配置</p>
+<p>自动化的持续交付</p>
+<p>自动化的云服务管理</p>
+<p>自动化网络设备管理</p>
+<h1 id="Ansible的工作原理"><a href="#Ansible的工作原理" class="headerlink" title="Ansible的工作原理"></a>Ansible的工作原理</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5eb61cb0c2a9a83be555278f.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>安装ansible到管理节点，定义好主机清单，编写好palybook，就能运行ansible批量管理管理节点。步骤如下:</p>
+<p>1.在控制节点上安装ansible</p>
+<p>2.配置主机清单: 将被控节点的连接信息配置到主机清单中</p>
+<p>3.定义playbook: 指定运行主机和执行任务</p>
+<h1 id="对节点主机的要求"><a href="#对节点主机的要求" class="headerlink" title="对节点主机的要求"></a>对节点主机的要求</h1><p>通常我们使用 ssh 与节点通信，默认使用 sftp. 如果 sftp 不可用，可在 ansible.cfg 配置文件中配置成 scp 的方式. 在节点上也需要安装Python 2（2.6或更高版本）或Python 3（3.5或更高版本）</p>
+<h1 id="Ansible的概念"><a href="#Ansible的概念" class="headerlink" title="Ansible的概念"></a>Ansible的概念</h1><h2 id="控制节点-Control-node"><a href="#控制节点-Control-node" class="headerlink" title="控制节点(Control node)"></a>控制节点(Control node)</h2><p>任何装有Ansible的机器可称为 <strong>控制节点</strong> 。 您可以从任何控制节点运行命令和剧本，并调用<code>/usr/bin/ansible</code>或<code>/usr/bin/ansible-playbook</code>命令，您可以将任何安装了Python的计算机用作控制节点,笔记本电脑,共享桌面和服务器都可以运行Ansible。 但是不能将Windows计算机用作控制节点。您也可以有多个控制节点</p>
+<h2 id="管理节点-Managed-nodes"><a href="#管理节点-Managed-nodes" class="headerlink" title="管理节点(Managed nodes)"></a>管理节点(Managed nodes)</h2><p>使用Ansible管理的网络设备或服务器可称为 <strong>管理节点</strong>。 受管节点有时也称为 <strong>主机</strong> 。 受管节点上是不需要安装Ansible的</p>
+<h2 id="主机清单-Inventory"><a href="#主机清单-Inventory" class="headerlink" title="主机清单(Inventory)"></a>主机清单(Inventory)</h2><p>托管节点的列表。库存文件有时也称为主机文件。您的目录可以为每个托管节点指定诸如IP地址之类的信息。库存还可以组织托管节点，创建和嵌套组，以便于扩展</p>
+<h2 id="模块-Modules"><a href="#模块-Modules" class="headerlink" title="模块(Modules)"></a>模块(Modules)</h2><p>Ansible执行的具体代码。每个模块都有特定的用途，从管理特定类型数据库的用户到管理特定类型网络设备上的VLAN接口。您可以使用任务调用单个模块，也可以调用剧本中的几个不同模块</p>
+<h2 id="任务-Tasks"><a href="#任务-Tasks" class="headerlink" title="任务(Tasks)"></a>任务(Tasks)</h2><p>Ansible的行动单位。tasks包含一组由module组成的任务列表, 您可以使用特别的命令一次性执行单个任务</p>
+<h2 id="剧本-Playbooks"><a href="#剧本-Playbooks" class="headerlink" title="剧本(Playbooks)"></a>剧本(Playbooks)</h2><p>保存了已排序的任务列表，因此可以按此顺序重复运行这些任务。剧本可以包括变量和任务。剧本是用 <strong>YAML</strong> 编写的，易于阅读、编写、共享和理解</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-11T11:01:39.808Z" itemprop="dateUpdated">2020-09-11 19:01:39</time>
+</span><br>
+
+
+        
+        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，那就请我喝咖啡吧！
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/" rel="tag">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag">自动化运维</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/44a3d96e.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
+        <h4 class="title">Python基础day07</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/4e2cec72.html" id="post-next" class="post-nav-link">
+        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Ansible 安装(2)</h4>
+      </a>
+    </div>
+  
+
+
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub & Coding Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                1.2k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
