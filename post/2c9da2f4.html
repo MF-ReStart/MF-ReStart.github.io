@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta name="chinaz-site-verification" content="EC6F7C888ADBF24B">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>MariaDB 主从复制和 Maxscale 中间件实现读写分离及故障切换 | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MariaDB,数据库,读写分离">
+    <meta name="description" content="环境准备system version: CentOS Linux release 7.7.1908 mariadb version: 10.5.2 maxscale version: 2.5.3 GA client: 10.10.110.84 mariadb master: 10.10.110.80 mariadb slave1: 10.10.110.81 mariadb slave2: 10.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MariaDB 主从复制和 Maxscale 中间件实现读写分离及故障切换">
+<meta property="og:url" content="https://www.missf.top/post/2c9da2f4.html">
+<meta property="og:site_name" content="荒原饮露">
+<meta property="og:description" content="环境准备system version: CentOS Linux release 7.7.1908 mariadb version: 10.5.2 maxscale version: 2.5.3 GA client: 10.10.110.84 mariadb master: 10.10.110.80 mariadb slave1: 10.10.110.81 mariadb slave2: 10.1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f602d67160a154a67163d5e.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f606ad0160a154a67249d5b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f697016160a154a670f066c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f69996e160a154a6728344b.jpg">
+<meta property="article:published_time" content="2020-09-14T03:20:58.000Z">
+<meta property="article:modified_time" content="2020-09-25T09:13:11.719Z">
+<meta property="article:author" content="荒原饮露">
+<meta property="article:tag" content="MariaDB">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="读写分离">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f602d67160a154a67163d5e.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="https://pic.imgdb.cn/item/5e9e7910c2a9a83be54641d1.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(https://pic.imgdb.cn/item/5e9e78fbc2a9a83be5463167.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">荒原饮露</h5>
+          <a href="mailto:mf_2013@163.com" title="mf_2013@163.com" class="mail">mf_2013@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/MF-ReStart" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MariaDB 主从复制和 Maxscale 中间件实现读写分离及故障切换</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入你要搜索的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MariaDB 主从复制和 Maxscale 中间件实现读写分离及故障切换</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-09-14T03:20:58.000Z" itemprop="datePublished" class="page-time">
+  2020-09-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MariaDB/">MariaDB</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MariaDB/Maxscale/">Maxscale</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境准备</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#主从复制原理"><span class="post-toc-number">2.</span> <span class="post-toc-text">主从复制原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#主从复制的前提条件"><span class="post-toc-number">3.</span> <span class="post-toc-text">主从复制的前提条件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置-MariaDB-Master-节点"><span class="post-toc-number">4.</span> <span class="post-toc-text">配置 MariaDB Master 节点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置-MariaDB-Slave-节点"><span class="post-toc-number">5.</span> <span class="post-toc-text">配置 MariaDB Slave 节点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#验证主从复制"><span class="post-toc-number">6.</span> <span class="post-toc-text">验证主从复制</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MariaDB-开启并行复制"><span class="post-toc-number">7.</span> <span class="post-toc-text">MariaDB 开启并行复制</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#判断主从复制延迟"><span class="post-toc-number">8.</span> <span class="post-toc-text">判断主从复制延迟</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#读写分离和故障切换的实现"><span class="post-toc-number">9.</span> <span class="post-toc-text">读写分离和故障切换的实现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maxscale-概述"><span class="post-toc-number">10.</span> <span class="post-toc-text">Maxscale 概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装-Maxscale"><span class="post-toc-number">11.</span> <span class="post-toc-text">安装 Maxscale</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MariaDB-Master-主库上创建相关的账户"><span class="post-toc-number">12.</span> <span class="post-toc-text">MariaDB Master 主库上创建相关的账户</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#配置加密密码"><span class="post-toc-number">13.</span> <span class="post-toc-text">配置加密密码</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maxscale-配置文件"><span class="post-toc-number">14.</span> <span class="post-toc-text">Maxscale 配置文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#启动-Maxscale-服务"><span class="post-toc-number">15.</span> <span class="post-toc-text">启动 Maxscale 服务</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maxctrl-管理工具的使用"><span class="post-toc-number">16.</span> <span class="post-toc-text">Maxctrl 管理工具的使用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#登录-Maxscale-仪表板"><span class="post-toc-number">17.</span> <span class="post-toc-text">登录 Maxscale 仪表板</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maxscale-测试读写分离"><span class="post-toc-number">18.</span> <span class="post-toc-text">Maxscale 测试读写分离</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Maxscale-配置故障切换"><span class="post-toc-number">19.</span> <span class="post-toc-text">Maxscale 配置故障切换</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-MariaDB 主从复制和 Maxscale 中间件实现读写分离及故障切换"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MariaDB 主从复制和 Maxscale 中间件实现读写分离及故障切换</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-09-14 11:20:58" datetime="2020-09-14T03:20:58.000Z"  itemprop="datePublished">2020-09-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MariaDB/">MariaDB</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MariaDB/Maxscale/">Maxscale</a></li></ul></li></ul>
+
+
+
+            
+<!--<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>-->
+<!--    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>-->
+<!--</span>-->
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><pre class="line-numbers language-bash"><code class="language-bash">system version: CentOS Linux release 7.7.1908
+mariadb version: 10.5.2
+maxscale version: 2.5.3 GA
+client: 10.10.110.84
+mariadb master: 10.10.110.80
+mariadb slave1: 10.10.110.81
+mariadb slave2: 10.10.110.82
+maxscale proxy: 10.10.110.83<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="主从复制原理"><a href="#主从复制原理" class="headerlink" title="主从复制原理"></a>主从复制原理</h1><p>当 mariadb master 服务器上的数据发生改变时(增、删、改)，则将其改变写入 binlog 二进制日志中。slave 服务器会在一定时间间隔内对 master 二进制日志进行探测其是否发生改变，如果发生改变，则开启一个 I/O 线程请求 master 二进制事件，同时主节点为每个 I/O 线程启动一个 dump 线程，用于向其发送二进制事件，并保存至从库本地的中继日志中，从库将启动 SQL 线程从中继日志中读取二进制日志，在本地回放，使得从库数据和主库的数据保持一致，最后 IO 线程和 SQL 线程将进入睡眠状态，等待下一次被唤醒</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f602d67160a154a67163d5e.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h1 id="主从复制的前提条件"><a href="#主从复制的前提条件" class="headerlink" title="主从复制的前提条件"></a>主从复制的前提条件</h1><blockquote>
+<p>master 一定要开启 binlog 二进制日志，并且授予 slave 远程连接的权限</p>
+</blockquote>
+<blockquote>
+<p>主从复制至少需要两个 mysql 实例，可以分布在不同服务器，也可以在同一台服务器</p>
+</blockquote>
+<blockquote>
+<p>master 实例和 slave 实例的 mysql 版本最好相同(如果不同，那么 master 实例版本需要低于 slave 实例)</p>
+</blockquote>
+<blockquote>
+<p>master 实例和 slave 实例之间时间同步</p>
+</blockquote>
+<h1 id="配置-MariaDB-Master-节点"><a href="#配置-MariaDB-Master-节点" class="headerlink" title="配置 MariaDB Master 节点"></a>配置 MariaDB Master 节点</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 安装MariaDB</span>
+<span class="token function">tee</span> /etc/yum.repos.d/Mariadb.repo <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+# mariadb 10.5 CentOS repository list - created 2020-09-14 10:57 UTC
+# http://downloads.mariadb.org/mariadb/repositories/
+[mariadb]
+name=mariadb
+baseurl=https://mirrors.aliyun.com/mariadb/yum/10.5/centos7-amd64/
+gpgkey=https://mirrors.aliyun.com/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF</span>
+
+yum clean all <span class="token operator">&amp;&amp;</span> yum makecache
+yum <span class="token function">install</span> -y MariaDB-server MariaDB-client
+
+<span class="token comment" spellcheck="true"># 配置文件</span>
+<span class="token function">cat</span> /etc/my.cnf.d/server.cnf
+<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
+log-bin<span class="token operator">=</span>mariadb-bin
+server_id<span class="token operator">=</span>180
+port<span class="token operator">=</span>53306
+<span class="token punctuation">..</span>.
+
+<span class="token comment" spellcheck="true"># 启动mariadb</span>
+systemctl start mariadb
+
+<span class="token comment" spellcheck="true"># 添加用户slave授予远程连接的权限,供从节点复制binlog</span>
+GRANT REPLICATION SLAVE ON *.* TO <span class="token string">'slave'</span>@<span class="token string">'10.10.110.%'</span> IDENTIFIED BY <span class="token string">'123456'</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true"># 查看主库的binlog记录日志信息偏移量position</span>
+mariadb <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> show master status<span class="token punctuation">;</span>
++--------------------+----------+--------------+------------------+
+<span class="token operator">|</span> File               <span class="token operator">|</span> Position <span class="token operator">|</span> Binlog_Do_DB <span class="token operator">|</span> Binlog_Ignore_DB <span class="token operator">|</span>
++--------------------+----------+--------------+------------------+
+<span class="token operator">|</span> mariadb-bin.000001 <span class="token operator">|</span>      529 <span class="token operator">|</span>              <span class="token operator">|</span>                  <span class="token operator">|</span>
++--------------------+----------+--------------+------------------+
+1 row <span class="token keyword">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span>0.000 sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="配置-MariaDB-Slave-节点"><a href="#配置-MariaDB-Slave-节点" class="headerlink" title="配置 MariaDB Slave 节点"></a>配置 MariaDB Slave 节点</h1><p>mariadb 10.0.2开始，GTID 是默认打开的。因为 maxscale 故障切换功能需要 mariadb 开启基于 GTID 的主从复制，而且是以  <code>master_use_gtid=current_pos</code> 的方式。因为 <code>master_use_gtid=slave_pos</code> 的方式，master 将从最后一个 GTID 开始给 slave 复制 binlog，通过 <code>@@gtid_slave_pos</code> 这个变量来查看目前最后一个 GTID 的位置，如果A节点 (master) 故障了之后由B节点成为了 master，当A节点以 slave 的身份加入到集群时，由于A节点之前从未成为过 slave，那么A节点的 <code>@@gtid_slave_pos</code> 是空的。为了能让故障的 master 节点故障之后能够重新以 slave 的身份加入到集群，我们需要使用 <code>master_use_gtid=current_pos</code> 的 GTID 方式开启主从复制</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql"># 指定主库信息(master信息会存到/var/lib/mysql/master.info文件)
+mariadb [(none)]> change master to master_host='10.10.110.80',
+    -> master_user='slave',
+    -> master_password='123456',
+    -> master_port=53306,
+    -> master_use_gtid=current_pos,
+    -> master_connect_retry=30;
+Query OK, 0 rows affected (0.017 sec)
+
+# 启动slave线程,若要更改指定的主库信息,需先执行stop slave,修改完成后执行start slave
+mariadb [(none)]> start slave;
+Query OK, 0 rows affected (0.003 sec)
+
+# 查看slave状态(slave_IO_Running和slave_SQL_Running都为Yes状态)
+mariadb [(none)]> show slave status\G
+*************************** 1. row ***************************
+                slave_IO_State: Waiting for master to send event
+                   master_Host: 10.10.110.80
+                   master_User: slave
+                   master_Port: 53306
+                 Connect_Retry: 30
+               master_Log_File: mariadb-bin.000001
+           Read_master_Log_Pos: 529
+                Relay_Log_File: localhost-relay-bin.000002
+                 Relay_Log_Pos: 830
+         Relay_master_Log_File: mariadb-bin.000001
+              slave_IO_Running: Yes
+             slave_SQL_Running: Yes
+               Replicate_Do_DB: 
+           Replicate_Ignore_DB: 
+            Replicate_Do_Table: 
+        Replicate_Ignore_Table: 
+       Replicate_Wild_Do_Table: 
+   Replicate_Wild_Ignore_Table: 
+                    Last_Errno: 0
+                    Last_Error: 
+                  Skip_Counter: 0
+           Exec_master_Log_Pos: 529
+               Relay_Log_Space: 1143
+               Until_Condition: None
+                Until_Log_File: 
+                 Until_Log_Pos: 0
+            master_SSL_Allowed: No
+            master_SSL_CA_File: 
+            master_SSL_CA_Path: 
+               master_SSL_Cert: 
+             master_SSL_Cipher: 
+                master_SSL_Key: 
+         Seconds_Behind_master: 0
+ master_SSL_Verify_Server_Cert: No
+                 Last_IO_Errno: 0
+                 Last_IO_Error: 
+                Last_SQL_Errno: 0
+                Last_SQL_Error: 
+   Replicate_Ignore_Server_Ids: 
+              master_Server_Id: 80
+                master_SSL_Crl: 
+            master_SSL_Crlpath: 
+                    Using_Gtid: Current_Pos
+                   Gtid_IO_Pos: 0-80-1
+       Replicate_Do_Domain_Ids: 
+   Replicate_Ignore_Domain_Ids: 
+                 Parallel_Mode: optimistic
+                     SQL_Delay: 0
+           SQL_Remaining_Delay: NULL
+       slave_SQL_Running_State: slave has read all relay log; waiting for more updates
+              slave_DDL_Groups: 1
+slave_Non_Transactional_Groups: 0
+    slave_Transactional_Groups: 0
+1 row in set (0.001 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="验证主从复制"><a href="#验证主从复制" class="headerlink" title="验证主从复制"></a>验证主从复制</h1><p>在 mariadb master上创建测试数据，然后在 mariadb slave 上查看数据是否已经同步过来</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">create database mariadb;
+use mariadb;
+create table mariadb(name varchar(25),city varchar(30),age int);
+insert into mariadb.mariadb values("mariadb","china",11);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="MariaDB-开启并行复制"><a href="#MariaDB-开启并行复制" class="headerlink" title="MariaDB 开启并行复制"></a>MariaDB 开启并行复制</h1><p>mariadb的复制通过三步完成:</p>
+<blockquote>
+<p>1.从库的IO线程去主库上读取binlog日志变更，并把读取的事件按顺序存放到relay log</p>
+</blockquote>
+<blockquote>
+<p>2.从库的SQL线程一次读取relay log中的一个事件</p>
+</blockquote>
+<blockquote>
+<p>3.SQL线程依次执行relay log中的事件</p>
+</blockquote>
+<p>mariadb 10之前的版本中，第三步是通过SQL线程来执行的，这意味着一次只能执行一个事件，复制本质上是单线程的。mariadb 10之后的版本中，第三步可以由一个单独的复制工作线程池执行，从而通过并行应用多个事件来提高复制性能</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /etc/my.cnf.d/server.cnf
+<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
+slave-parallel-threads<span class="token operator">=</span>8  <span class="token comment" spellcheck="true"># 在工作线程池中创建8个线程</span>
+<span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看工作线程的数量</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">MariaDB [(none)]> SHOW PROCESSLIST;
++----+-------------+-----------+------+--------------+------+--------------------------------------------------------+------------------+----------+
+| Id | User        | Host      | db   | Command      | Time | State                                                  | Info             | Progress |
++----+-------------+-----------+------+--------------+------+--------------------------------------------------------+------------------+----------+
+|  5 | system user |           | NULL | Slave_IO     |   27 | Waiting for master to send event                       | NULL             |    0.000 |
+|  7 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+|  8 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+|  9 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+| 10 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+| 11 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+| 12 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+| 13 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+| 14 | system user |           | NULL | Slave_worker |   27 | Waiting for work from SQL thread                       | NULL             |    0.000 |
+|  6 | system user |           | NULL | Slave_SQL    |   27 | Slave has read all relay log; waiting for more updates | NULL             |    0.000 |
+| 15 | root        | localhost | NULL | Query        |    0 | starting                                               | SHOW PROCESSLIST |    0.000 |
++----+-------------+-----------+------+--------------+------+--------------------------------------------------------+------------------+----------+
+11 rows in set (0.000 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="判断主从复制延迟"><a href="#判断主从复制延迟" class="headerlink" title="判断主从复制延迟"></a>判断主从复制延迟</h1><p>Seconds_Behind_Master 是通过 sql_thread 执行的事件的时间戳和 io_thread 复制好的事件的时间戳进行比较，而得到的一个差值</p>
+<blockquote>
+<p> NULL：表示 io_thread 或是 sql_thread 有任何一个发生故障，也就是该线程的 Running 状态是 No 而非 Yes</p>
+</blockquote>
+<blockquote>
+<p>0：该值为零，是我们极为渴望看到的情况，表示主从复制良好，可以认为 lag 不存在</p>
+</blockquote>
+<blockquote>
+<p>正值：表示主从已经出现延时，数字越大表示从库落后主库越多</p>
+</blockquote>
+<blockquote>
+<p>负值：几乎很少见，其实这是一个 BUG 值，该参数是不应该出现负值的</p>
+</blockquote>
+<p>仅仅依靠 Seconds_Behind_Master 的值来监测主从同步数据是否延迟是绝对不可靠的，如果网络存在延迟，即使我们看到 Seconds_Behind_Master 的值为零，也会存在很大的偏差。更加严谨的判断主从延时的做法是：</p>
+<blockquote>
+<p>对 master 和 slave 同时发起 SHOW BINARY LOGS 请求，判断二者 binlog 的差异</p>
+</blockquote>
+<blockquote>
+<p>对 slave 发起 SHOW slave STATUS\G 的请求，查看 Read_Master_Log_Pos 和 Exec_Master_Log_Pos 是否一致</p>
+</blockquote>
+<h1 id="读写分离和故障切换的实现"><a href="#读写分离和故障切换的实现" class="headerlink" title="读写分离和故障切换的实现"></a>读写分离和故障切换的实现</h1><p>数据写入操作在主库执行，数据读取操作在从库执行，在一定程度上减轻了数据库的压力，主从复制保证了数据的安全</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f606ad0160a154a67249d5b.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h1 id="Maxscale-概述"><a href="#Maxscale-概述" class="headerlink" title="Maxscale 概述"></a>Maxscale 概述</h1><p>maxscale 是由 mariadb 团队开发的一个数据库代理工具，将数据库语句转发到一个或多个数据库服务器，转发是使用基于对数据库语句的语义理解和后端数据库集群中服务器角色的规则来执行的，设计目的是为应用程序提供透明的负载平衡和高可用性功能。mariadb  maxscale 具有可扩展和灵活的架构，通过插件组件支持不同的协议和路由方法</p>
+<h1 id="安装-Maxscale"><a href="#安装-Maxscale" class="headerlink" title="安装 Maxscale"></a>安装 Maxscale</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> https://downloads.mariadb.com/MaxScale/2.5.3/rhel/7/x86_64/maxscale-2.5.3-2.rhel.7.x86_64.rpm
+
+yum -y <span class="token function">install</span> maxscale-2.5.3-2.rhel.7.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="MariaDB-Master-主库上创建相关的账户"><a href="#MariaDB-Master-主库上创建相关的账户" class="headerlink" title="MariaDB Master 主库上创建相关的账户"></a>MariaDB Master 主库上创建相关的账户</h1><p>在开始配置之前，需要在 mariadb master 中为 maxscale 创建两个用户，用于 maxscale 的监控模块和路由模块</p>
+<p>monitor_user：该账号监控集群状态，如果发现某个从服务器复制线程停掉了，那么就不向其转发请求了</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql"># 创建监控用户,用于[MariaDB-Monitor]配置
+CREATE USER 'monitor_user'@'%' IDENTIFIED BY '123456';
+GRANT REPLICATION CLIENT ON *.* TO 'monitor_user'@'%';
+# 如果使用 MariaDB Monitor 的自动故障转移，用户将需要额外的授权
+GRANT SUPER, RELOAD ON *.* TO 'monitor_user'@'%';<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>routing_user：该账号将不同的请求分发到不同的节点上，当客户端连接到 maxscale 这个节点上时，maxscale 节点会使用该账号去查后端数据库，检查客户端登陆的用户是否有权限或密码是否正确等等</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql"># 创建routing user,用于[Read-Write-Service]配置
+CREATE USER 'routing_user'@'%' IDENTIFIED BY '123456';
+GRANT SELECT ON mysql.user TO 'routing_user'@'%';
+GRANT SELECT ON mysql.db TO 'routing_user'@'%';
+GRANT SELECT ON mysql.tables_priv TO 'routing_user'@'%';
+GRANT SELECT ON mysql.columns_priv TO 'routing_user'@'%';
+GRANT SELECT ON mysql.proxies_priv TO 'routing_user'@'%';
+GRANT SELECT ON mysql.roles_mapping TO 'routing_user'@'%';
+GRANT SHOW DATABASES ON *.* TO 'routing_user'@'%';<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="配置加密密码"><a href="#配置加密密码" class="headerlink" title="配置加密密码"></a>配置加密密码</h1><p>我们创建的数据库用户信息需要填写到 maxscale 配置文件中，为了防止配置文件出现明文密码，我们可以使用秘钥为密码加密，然后将加密后的字符串填写在 maxscale 配置文件中</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 生成秘钥,密钥将保存到/var/lib/maxscale/.secrets</span>
+maxkeys    
+<span class="token comment" spellcheck="true"># 基于秘钥生成123456加密后的字符串(记录下来)</span>
+maxpasswd /var/lib/maxscale/ 123456<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Maxscale-配置文件"><a href="#Maxscale-配置文件" class="headerlink" title="Maxscale 配置文件"></a>Maxscale 配置文件</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># grep -v "^#" /etc/maxscale.cnf</span>
+<span class="token punctuation">[</span>maxscale<span class="token punctuation">]</span>
+threads<span class="token operator">=</span>auto
+admin_host<span class="token operator">=</span>0.0.0.0
+admin_port<span class="token operator">=</span>8080
+admin_secure_gui<span class="token operator">=</span>false    <span class="token comment" spellcheck="true"># 关闭GUI安全验证,不然需要配置ssl</span>
+
+<span class="token punctuation">[</span>server1<span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 不需要指定哪个是master和slave,maxscale会自动识别</span>
+type<span class="token operator">=</span>server
+address<span class="token operator">=</span>10.10.110.80
+port<span class="token operator">=</span>53306
+protocol<span class="token operator">=</span>MariaDBBackend
+
+<span class="token punctuation">[</span>server2<span class="token punctuation">]</span>
+type<span class="token operator">=</span>server
+address<span class="token operator">=</span>10.10.110.81
+port<span class="token operator">=</span>53306
+protocol<span class="token operator">=</span>MariaDBBackend
+
+<span class="token punctuation">[</span>server3<span class="token punctuation">]</span>
+type<span class="token operator">=</span>server
+address<span class="token operator">=</span>10.10.110.82
+port<span class="token operator">=</span>53306
+protocol<span class="token operator">=</span>MariaDBBackend
+
+<span class="token punctuation">[</span>MariaDB-Monitor<span class="token punctuation">]</span>
+type<span class="token operator">=</span>monitor
+module<span class="token operator">=</span>mariadbmon
+servers<span class="token operator">=</span>server1,server2,server3
+user<span class="token operator">=</span>monitor_user
+password<span class="token operator">=</span>EA25B20FBB2B3EF4562F9D585DE8826B64B328C08571D8F656424252F9560A62
+monitor_interval<span class="token operator">=</span>2000
+
+<span class="token punctuation">[</span>Read-Write-Service<span class="token punctuation">]</span>
+type<span class="token operator">=</span>service
+router<span class="token operator">=</span>readwritesplit    <span class="token comment" spellcheck="true"># 配置读写分离的路由</span>
+servers<span class="token operator">=</span>server1,server2,server3
+user<span class="token operator">=</span>routing_user
+password<span class="token operator">=</span>EA25B20FBB2B3EF4562F9D585DE8826B64B328C08571D8F656424252F9560A62
+
+<span class="token punctuation">[</span>Read-Write-Listener<span class="token punctuation">]</span>
+type<span class="token operator">=</span>listener
+service<span class="token operator">=</span>Read-Write-Service    <span class="token comment" spellcheck="true"># 监听读写分离的服务</span>
+protocol<span class="token operator">=</span>MariaDBClient
+port<span class="token operator">=</span>4006    <span class="token comment" spellcheck="true"># maxscale代理的端口</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="启动-Maxscale-服务"><a href="#启动-Maxscale-服务" class="headerlink" title="启动 Maxscale 服务"></a>启动 Maxscale 服务</h1><pre class="line-numbers language-bash"><code class="language-bash">systemctl start maxscale.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="Maxctrl-管理工具的使用"><a href="#Maxctrl-管理工具的使用" class="headerlink" title="Maxctrl 管理工具的使用"></a>Maxctrl 管理工具的使用</h1><p>maxctrl 如果不指定 COMMAND 将会进入交互式模式，在交互式中可以直接输入 COMMAND，以表格格式显示基础信息</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 显示所有后端服务器</span>
+maxctrl -h 10.10.110.83:8080 list servers
+┌─────────┬──────────────┬───────┬─────────────┬─────────────────┬─────────┐
+│ Server  │ Address      │ Port  │ Connections │ State           │ GTID    │
+├─────────┼──────────────┼───────┼─────────────┼─────────────────┼─────────┤
+│ server1 │ 10.10.110.80 │ 53306 │ 0           │ Master, Running │ 0-80-15 │
+├─────────┼──────────────┼───────┼─────────────┼─────────────────┼─────────┤
+│ server2 │ 10.10.110.81 │ 53306 │ 0           │ Slave, Running  │ 0-80-15 │
+├─────────┼──────────────┼───────┼─────────────┼─────────────────┼─────────┤
+│ server3 │ 10.10.110.82 │ 53306 │ 0           │ Slave, Running  │ 0-80-15 │
+└─────────┴──────────────┴───────┴─────────────┴─────────────────┴─────────┘
+
+list services <span class="token comment" spellcheck="true"># 显示所有服务，例如读写分离服务等</span>
+list monitors <span class="token comment" spellcheck="true"># 显示所有监控信息</span>
+list listeners <span class="token comment" spellcheck="true"># 显示监听信息</span>
+<span class="token comment" spellcheck="true"># 更多的命令可以去官网自行了解...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="登录-Maxscale-仪表板"><a href="#登录-Maxscale-仪表板" class="headerlink" title="登录 Maxscale 仪表板"></a>登录 Maxscale 仪表板</h1><p>默认情况下用户名是 admin，密码是 mariadb</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f697016160a154a670f066c.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>仪表板界面可以看到以下资源的概览信息：按 monitor 分组的所有服务器，当前会话和所有服务。这些资源的信息每10秒更新一次。监视器、服务器和服务资源都有自己的详细信息页面。可以通过单击仪表板页面上的资源名称来访问它，在详细信息页中，可以修改部分资源参数的值</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5f69996e160a154a6728344b.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h1 id="Maxscale-测试读写分离"><a href="#Maxscale-测试读写分离" class="headerlink" title="Maxscale 测试读写分离"></a>Maxscale 测试读写分离</h1><p>验证读写分离的 “读” 操作是否在从库上</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql"># 分别在两个从库上创建数据
+create database slave;
+use slave;
+create table info(name varchar(25),ip int);
+insert into slave.info values("slave",inet_aton('10.10.110.81'));
+
+create database slave;
+use slave;
+create table info(name varchar(25),ip int);
+insert into slave.info values("slave",inet_aton('10.10.110.82'));
+
+# 在主库上创建测试用户
+grant all on *.* to 'check'@'%' identified by '123456';
+
+# 连接maxscale查询数据验证读写分离(读操作自动负载均衡)
+mysql -ucheck -p123456 -P4006 -h 10.10.110.83
+
+MariaDB [(none)]> select name,inet_ntoa(ip) from slave.info;
++-------+---------------+
+| name  | inet_ntoa(ip) |
++-------+---------------+
+| slave | 10.10.110.82  |
++-------+---------------+
+1 row in set (0.002 sec)
+
+MariaDB [(none)]> select name,inet_ntoa(ip) from slave.info;
++-------+---------------+
+| name  | inet_ntoa(ip) |
++-------+---------------+
+| slave | 10.10.110.81  |
++-------+---------------+
+1 row in set (0.001 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>验证读写分离的 “写” 操作是否在主库上</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql"># 连接maxscale往里写数据,看slave上数据有没有同步过来
+create database test;
+use test;
+create table test(name varchar(25),city varchar(30),age int);
+insert into test.test values("mariadb","china",11);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Maxscale-配置故障切换"><a href="#Maxscale-配置故障切换" class="headerlink" title="Maxscale 配置故障切换"></a>Maxscale 配置故障切换</h1><p>编辑 maxscale 的配置文件，配置故障切换参数</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># grep -v "^#" /etc/maxscale.cnf</span>
+
+<span class="token punctuation">[</span>maxscale<span class="token punctuation">]</span>
+threads<span class="token operator">=</span>auto
+admin_host<span class="token operator">=</span>0.0.0.0
+admin_port<span class="token operator">=</span>8080
+admin_secure_gui<span class="token operator">=</span>false
+
+<span class="token punctuation">[</span>server1<span class="token punctuation">]</span>
+type<span class="token operator">=</span>server
+address<span class="token operator">=</span>10.10.110.80
+port<span class="token operator">=</span>53306
+protocol<span class="token operator">=</span>MariaDBBackend
+
+<span class="token punctuation">[</span>server2<span class="token punctuation">]</span>
+type<span class="token operator">=</span>server
+address<span class="token operator">=</span>10.10.110.81
+port<span class="token operator">=</span>53306
+protocol<span class="token operator">=</span>MariaDBBackend
+
+<span class="token punctuation">[</span>server3<span class="token punctuation">]</span>
+type<span class="token operator">=</span>server
+address<span class="token operator">=</span>10.10.110.82
+port<span class="token operator">=</span>53306
+protocol<span class="token operator">=</span>MariaDBBackend
+
+<span class="token punctuation">[</span>MariaDB-Monitor<span class="token punctuation">]</span>
+type<span class="token operator">=</span>monitor
+module<span class="token operator">=</span>mariadbmon
+servers<span class="token operator">=</span>server1,server2,server3
+user<span class="token operator">=</span>monitor_user
+password<span class="token operator">=</span>EA25B20FBB2B3EF4562F9D585DE8826B64B328C08571D8F656424252F9560A62
+monitor_interval<span class="token operator">=</span>2000
+
+replication_user<span class="token operator">=</span>slave    <span class="token comment" spellcheck="true"># 复制用户</span>
+replication_password<span class="token operator">=</span>EA25B20FBB2B3EF4562F9D585DE8826B64B328C08571D8F656424252F9560A62
+auto_failover<span class="token operator">=</span>true    <span class="token comment" spellcheck="true"># 开启自动故障转移</span>
+auto_rejoin<span class="token operator">=</span>true    <span class="token comment" spellcheck="true"># 自动重新连接</span>
+failcount<span class="token operator">=</span>3    <span class="token comment" spellcheck="true"># 故障次数</span>
+failover_timeout<span class="token operator">=</span>90    <span class="token comment" spellcheck="true"># 故障转移超时</span>
+switchover_timeout<span class="token operator">=</span>90    <span class="token comment" spellcheck="true"># 故障切换超时</span>
+verify_master_failure<span class="token operator">=</span>true    <span class="token comment" spellcheck="true"># 自动故障转移启用额外的主故障验证</span>
+master_failure_timeout<span class="token operator">=</span>10    <span class="token comment" spellcheck="true"># </span>
+
+<span class="token punctuation">[</span>Read-Write-Service<span class="token punctuation">]</span>
+type<span class="token operator">=</span>service
+router<span class="token operator">=</span>readwritesplit
+servers<span class="token operator">=</span>server1,server2,server3
+user<span class="token operator">=</span>routing_user
+password<span class="token operator">=</span>EA25B20FBB2B3EF4562F9D585DE8826B64B328C08571D8F656424252F9560A62
+
+<span class="token punctuation">[</span>Read-Write-Listener<span class="token punctuation">]</span>
+type<span class="token operator">=</span>listener
+service<span class="token operator">=</span>Read-Write-Service
+protocol<span class="token operator">=</span>MariaDBClient
+port<span class="token operator">=</span>4006<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>手动关闭 master 节点，使用 maxctrl 查看 master 状态，可以看到 master 节点会自动切换。当 master节点修复之后会自动重新加入集群</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">[root@localhost ~]# maxctrl -h 10.10.110.83:8080 list servers
+┌─────────┬──────────────┬───────┬─────────────┬────────────────┬─────────┐
+│ Server  │ Address      │ Port  │ Connections │ State          │ GTID    │
+├─────────┼──────────────┼───────┼─────────────┼────────────────┼─────────┤
+│ server1 │ 10.10.110.80 │ 53306 │ 0           │ Down           │ 0-80-26 │
+├─────────┼──────────────┼───────┼─────────────┼────────────────┼─────────┤
+│ server2 │ 10.10.110.81 │ 53306 │ 0           │ Slave, Running │ 0-81-27 │
+├─────────┼──────────────┼───────┼─────────────┼────────────────┼─────────┤
+│ server3 │ 10.10.110.82 │ 53306 │ 0           │ Slave, Running │ 0-82-27 │
+└─────────┴──────────────┴───────┴─────────────┴────────────────┴─────────┘
+[root@localhost ~]# maxctrl -h 10.10.110.83:8080 list servers
+┌─────────┬──────────────┬───────┬─────────────┬─────────────────┬─────────┐
+│ Server  │ Address      │ Port  │ Connections │ State           │ GTID    │
+├─────────┼──────────────┼───────┼─────────────┼─────────────────┼─────────┤
+│ server1 │ 10.10.110.80 │ 53306 │ 0           │ Down            │ 0-80-26 │
+├─────────┼──────────────┼───────┼─────────────┼─────────────────┼─────────┤
+│ server2 │ 10.10.110.81 │ 53306 │ 0           │ Master, Running │ 0-81-27 │
+├─────────┼──────────────┼───────┼─────────────┼─────────────────┼─────────┤
+│ server3 │ 10.10.110.82 │ 53306 │ 0           │ Slave, Running  │ 0-82-27 │
+└─────────┴──────────────┴───────┴─────────────┴─────────────────┴─────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-25T09:13:11.719Z" itemprop="dateUpdated">2020-09-25 17:13:11</time>
+</span><br>
+
+
+        
+        想给作者写留言，请在下面使用Github账号登录，留言支持Markdown语法。如果这篇文章对你有所帮助，那就请我喝咖啡吧！
+        
+    </div>
+    
+    <footer>
+        <a href="/">
+            <img src="https://pic.imgdb.cn/item/5e9e78b6c2a9a83be545fef2.jpg" alt="荒原饮露">
+            荒原饮露
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MariaDB/" rel="tag">MariaDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" rel="tag">读写分离</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/5a1ae96.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
+        <h4 class="title">Elastic 收集 Java 日志</h4>
+      </a>
+    </div>
+  
+
+  
+
+
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '23c466a5c9454511f778',
+          clientSecret: '0175fa1cbbd5ae44c3a5adcd4a6ce32c0011032b',
+          repo: 'mf-restart.github.io',
+          owner: 'MF-ReStart',
+          admin: ['MF-ReStart'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我喝咖啡吧~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="https://pic.imgdb.cn/item/5e9e7942c2a9a83be54666eb.jpg" data-alipay="https://pic.imgdb.cn/item/5e9e795ac2a9a83be54675ba.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="bottom">
+        <p><span>荒原饮露 &copy; 2019 - 2020</span>
+            <span id="alive"></span>
+            <script type="text/javascript">
+                function runtime(){
+                    // 初始时间，日/月/年 时:分:秒
+                    X = new Date("03/24/2019 9:30:00");
+                    Y = new Date();
+                    T = (Y.getTime()-X.getTime());
+                    M = 24*60*60*1000;
+                    a = T/M;
+                    A = Math.floor(a);
+                    b = (a-A)*24;
+                    B = Math.floor(b);
+                    c = (b-B)*60;
+                    C = Math.floor((b-B)*60);
+                    D = Math.floor((c-C)*60);
+                    //信息写入到DIV中
+                    var alive = document.getElementById("alive");
+                    alive.innerHTML = "本站勉强运行 : "+A+"天"+B+"小时"+C+"分"+D+"秒"
+                }
+                setInterval(runtime, 1000);
+            </script>
+            
+        </p>
+        <br>
+        <p>
+            <span>
+                
+                <div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://hexo.io/" target="_blank" title="由 Hexo 强力驱动">
+        <span class="badge-subject">Powered</span><span class="badge-value bg-blue">Hexo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/" target="_blank"
+       title="静态网页托管于 GitHub & Coding Pages">
+        <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding Pages</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://www.aliyun.com/" target="_blank" title="阿里云提供域名相关服务">
+        <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Aliyun</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://github.com/yscoder/hexo-theme-indigo" target="_blank"
+       title="站点使用 Indigo 主题">
+        <span class="badge-subject">Theme</span><span class="badge-value bg-blue">indigo</span></a>
+</div>
+<div class="github-badge">
+    <a style="color: #fff" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+       title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">
+        <span class="badge-subject"><i class="icon icon-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+</div>
+
+
+    <div class="github-badge">
+        <span class="badge-subject">UV</span><span class="badge-value bg-orange"
+                                                                                   id="busuanzi_value_site_uv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">PV</span><span class="badge-value bg-brightgreen"
+                                                                                   id="busuanzi_value_site_pv"></span>
+    </div>
+    <div class="github-badge">
+        <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
+            
+                3.3k
+            
+        </span>
+    </div>
+
+
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

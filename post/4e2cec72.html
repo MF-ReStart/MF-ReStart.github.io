@@ -15,22 +15,22 @@
     
     
     
-    <title>Ansible 安装(2) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Ansible 安装 | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Ansible,自动化运维">
-    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+    <meta name="description" content="安装 Ansible对控制节点的要求：  目前，只要机器上安装了 Python 2 (2.6或更高版本) 或 Python 3 (3.5或更高版本)，都可以运行 Ansible ，windows系统不可以做控制节点，控制节点的系统可以是 Red Hat、Debian、CentOS、macOS、BSD的各种版本  对管理节点的要求：  通常我们使用 ssh 与节点通信，默认使用 sftp. 如果 s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ansible 安装(2)">
+<meta property="og:title" content="Ansible 安装">
 <meta property="og:url" content="https://www.missf.top/post/4e2cec72.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克">
+<meta property="og:description" content="安装 Ansible对控制节点的要求：  目前，只要机器上安装了 Python 2 (2.6或更高版本) 或 Python 3 (3.5或更高版本)，都可以运行 Ansible ，windows系统不可以做控制节点，控制节点的系统可以是 Red Hat、Debian、CentOS、macOS、BSD的各种版本  对管理节点的要求：  通常我们使用 ssh 与节点通信，默认使用 sftp. 如果 s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-08T03:12:59.000Z">
-<meta property="article:modified_time" content="2020-09-11T11:01:39.810Z">
+<meta property="article:modified_time" content="2020-09-25T09:22:49.544Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Ansible">
 <meta property="article:tag" content="自动化运维">
@@ -116,7 +116,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Ansible 安装(2)</div>
+        <div class="flex-col header-title ellipsis">Ansible 安装</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -134,7 +134,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Ansible 安装(2)</h1>
+        <h1 class="title">Ansible 安装</h1>
         <h5 class="subtitle">
             
                 <time datetime="2020-05-08T03:12:59.000Z" itemprop="datePublished" class="page-time">
@@ -159,16 +159,16 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装-Ansible"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 Ansible</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在管理节点上安装Ansible"><span class="post-toc-number">2.</span> <span class="post-toc-text">在管理节点上安装Ansible</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Bash命令行自动补全"><span class="post-toc-number">3.</span> <span class="post-toc-text">Bash命令行自动补全</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#将补全加入环境变量"><span class="post-toc-number">4.</span> <span class="post-toc-text">将补全加入环境变量</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装-Ansible"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 Ansible</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#控制节点上安装-Ansible"><span class="post-toc-number">2.</span> <span class="post-toc-text">控制节点上安装 Ansible</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Bash命令行自动补全"><span class="post-toc-number">3.</span> <span class="post-toc-text">Bash命令行自动补全</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#将补全加入环境变量"><span class="post-toc-number">4.</span> <span class="post-toc-text">将补全加入环境变量</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Ansible 安装(2)"
+<article id="post-Ansible 安装"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Ansible 安装(2)</h1>
+        <h1 class="post-card-title">Ansible 安装</h1>
         <div class="post-meta">
             <time class="post-time" title="2020-05-08 11:12:59" datetime="2020-05-08T03:12:59.000Z"  itemprop="datePublished">2020-05-08</time>
 
@@ -185,20 +185,15 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <blockquote>
-<p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
-<p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
-</blockquote>
-<h1 id="安装-Ansible"><a href="#安装-Ansible" class="headerlink" title="安装 Ansible"></a>安装 Ansible</h1><blockquote>
-<p><strong>对管理主机的要求</strong></p>
-<p>目前,只要机器上安装了 Python 2（版本2.6或2.7）或Python 3（版本3.5及更高版本）都可以运行Ansible (windows系统不可以做管理主机) 管理主机的系统可以是 Red Hat, Debian, CentOS, macOS, BSD的各种版本。</p>
-</blockquote>
+            <h1 id="安装-Ansible"><a href="#安装-Ansible" class="headerlink" title="安装 Ansible"></a>安装 Ansible</h1><p>对控制节点的要求：</p>
 <blockquote>
-<p><strong>对节点主机的要求</strong></p>
-<p>通常我们使用 ssh 与节点通信，默认使用 sftp. 如果 sftp 不可用，可在 ansible.cfg 配置文件中配置成 scp 的方式. 在节点上也需要安装Python 2（2.6或更高版本）或Python 3（3.5或更高版本）</p>
-<p>如果节点启用了selinux, 在使用copy/file/template时需要安装libselinux-python包</p>
+<p>目前，只要机器上安装了 Python 2 (2.6或更高版本) 或 Python 3 (3.5或更高版本)，都可以运行 Ansible ，windows系统不可以做控制节点，控制节点的系统可以是 Red Hat、Debian、CentOS、macOS、BSD的各种版本</p>
 </blockquote>
-<h1 id="在管理节点上安装Ansible"><a href="#在管理节点上安装Ansible" class="headerlink" title="在管理节点上安装Ansible"></a>在管理节点上安装Ansible</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Centos/RHEL</span>
+<p>对管理节点的要求：</p>
+<blockquote>
+<p>通常我们使用 ssh 与节点通信，默认使用 sftp. 如果 sftp 不可用，可在 ansible.cfg 配置文件中配置成 scp 的方式. 在节点上也需要安装 Python 2 (2.6或更高版本) 或 Python 3 (3.5或更高版本)</p>
+</blockquote>
+<h1 id="控制节点上安装-Ansible"><a href="#控制节点上安装-Ansible" class="headerlink" title="控制节点上安装 Ansible"></a>控制节点上安装 Ansible</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Centos/RHEL</span>
 <span class="token function">wget</span> -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 <span class="token function">wget</span> -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 yum <span class="token function">install</span> -y ansible
@@ -224,7 +219,7 @@ yum <span class="token function">install</span> -y python-argcomplete<span aria-
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-11T11:01:39.810Z" itemprop="dateUpdated">2020-09-11 19:01:39</time>
+    最后更新时间：<time datetime="2020-09-25T09:22:49.544Z" itemprop="dateUpdated">2020-09-25 17:22:49</time>
 </span><br>
 
 
@@ -266,7 +261,7 @@ yum <span class="token function">install</span> -y python-argcomplete<span aria-
     <div class="waves-block waves-effect prev">
       <a href="/post/b5ccc3ed.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Ansible 介绍(1)</h4>
+        <h4 class="title">Ansible 介绍</h4>
       </a>
     </div>
   
@@ -275,7 +270,7 @@ yum <span class="token function">install</span> -y python-argcomplete<span aria-
     <div class="waves-block waves-effect next">
       <a href="/post/f57ff704.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Ansible 快速开始(3)</h4>
+        <h4 class="title">Ansible 快速开始</h4>
       </a>
     </div>
   
@@ -428,7 +423,7 @@ yum <span class="token function">install</span> -y python-argcomplete<span aria-
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                325
+                278
             
         </span>
     </div>

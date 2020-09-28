@@ -15,22 +15,22 @@
     
     
     
-    <title>Ansible jinja2模板(16) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Ansible jinja2 模板 | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Ansible,自动化运维">
-    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克 An">
+    <meta name="description" content="Ansible jinja2 模板我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的 IP 地址，这时候就需要使用到 Ansible 的 jinja2 模板去分发动态的配置文件。我们先创建一份模板文件，将 IP 配置部分使用 Ansible 变量进行替换，然后使用 template 模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点 下面我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ansible jinja2模板(16)">
+<meta property="og:title" content="Ansible jinja2 模板">
 <meta property="og:url" content="https://www.missf.top/post/347a3183.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克 An">
+<meta property="og:description" content="Ansible jinja2 模板我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的 IP 地址，这时候就需要使用到 Ansible 的 jinja2 模板去分发动态的配置文件。我们先创建一份模板文件，将 IP 配置部分使用 Ansible 变量进行替换，然后使用 template 模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点 下面我">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-10T12:56:59.000Z">
-<meta property="article:modified_time" content="2020-09-11T11:01:39.801Z">
+<meta property="article:published_time" content="2020-06-10T12:16:53.000Z">
+<meta property="article:modified_time" content="2020-09-26T09:38:42.712Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Ansible">
 <meta property="article:tag" content="自动化运维">
@@ -116,7 +116,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Ansible jinja2模板(16)</div>
+        <div class="flex-col header-title ellipsis">Ansible jinja2 模板</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -134,10 +134,10 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Ansible jinja2模板(16)</h1>
+        <h1 class="title">Ansible jinja2 模板</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-06-10T12:56:59.000Z" itemprop="datePublished" class="page-time">
+                <time datetime="2020-06-10T12:16:53.000Z" itemprop="datePublished" class="page-time">
   2020-06-10
 </time>
 
@@ -159,18 +159,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的jinja2模板"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible的jinja2模板</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#jinja2语法"><span class="post-toc-number">2.</span> <span class="post-toc-text">jinja2语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#变量-amp-表达式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">变量&amp;表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">控制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#执行命令时传入变量"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">执行命令时传入变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#if"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">if</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">for</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制空白"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">控制空白</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible-jinja2-模板"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible jinja2 模板</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#jinja2-语法"><span class="post-toc-number">2.</span> <span class="post-toc-text">jinja2 语法</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Ansible jinja2模板(16)"
+<article id="post-Ansible jinja2 模板"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Ansible jinja2模板(16)</h1>
+        <h1 class="post-card-title">Ansible jinja2 模板</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-06-10 20:56:59" datetime="2020-06-10T12:56:59.000Z"  itemprop="datePublished">2020-06-10</time>
+            <time class="post-time" title="2020-06-10 20:16:53" datetime="2020-06-10T12:16:53.000Z"  itemprop="datePublished">2020-06-10</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Ansible/">Ansible</a></li></ul>
@@ -185,13 +185,11 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
-<p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
-<h1 id="Ansible的jinja2模板"><a href="#Ansible的jinja2模板" class="headerlink" title="Ansible的jinja2模板"></a>Ansible的jinja2模板</h1><p>我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的IP地址，这时候就需要使用到ansible的jinja2模板去分发动态的配置文件。我们先创建一份模板文件，将IP配置部分使用ansible变量进行替换，然后使用template模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点</p>
-<p>下面我们以安装redis为示例，为不同的管理节点分发动态配置文件</p>
+            <h1 id="Ansible-jinja2-模板"><a href="#Ansible-jinja2-模板" class="headerlink" title="Ansible jinja2 模板"></a>Ansible jinja2 模板</h1><p>我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的 IP 地址，这时候就需要使用到 Ansible 的 jinja2 模板去分发动态的配置文件。我们先创建一份模板文件，将 IP 配置部分使用 Ansible 变量进行替换，然后使用 template 模块对模版文件进行渲染，将根据我们定义的变量而生成不同的配置文件发送到对应的管理节点</p>
+<p>下面我们以安装 redis 为示例，为不同的管理节点分发动态配置文件</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /etc/redis/conf/redis.conf
 bind <span class="token punctuation">{</span><span class="token punctuation">{</span> ansible_host <span class="token punctuation">}</span><span class="token punctuation">}</span>     <span class="token comment" spellcheck="true"># 将默认的127.0.0.1改为管理节点本机的IP，这样就能生成各自的管理节点的配置文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>准备模板配置文件之后，下面就来编写一个playbook，完成模板配置文件的渲染和分发</p>
+<p>准备模板配置文件之后，下面就来编写一个 Playbook，完成模板配置文件的渲染和分发</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> all
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -199,13 +197,14 @@ bind <span class="token punctuation">{</span><span class="token punctuation">{</
   <span class="token punctuation">-</span> <span class="token key atrule">template</span><span class="token punctuation">:</span>
       <span class="token key atrule">src</span><span class="token punctuation">:</span> /root/playbook/redis.conf    <span class="token comment" spellcheck="true"># 控制节点上的模板文件,定义好变量,通过template模块进行渲染</span>
       <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/redis.conf        <span class="token comment" spellcheck="true"># 管理节点上这个文件将被控制节点上的模板文件所替换</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="jinja2语法"><a href="#jinja2语法" class="headerlink" title="jinja2语法"></a>jinja2语法</h1><p>Ansible使用<a href="https://jinja.palletsprojects.com/" target="_blank" rel="noopener">Jinja2</a>模板来启用动态表达式和对变量的访问，就是说ansible使用Jinja模板对含有动态表达式和变量的文件进行解析个渲染</p>
-<h2 id="变量-amp-表达式"><a href="#变量-amp-表达式" class="headerlink" title="变量&amp;表达式"></a>变量&amp;表达式</h2><p>可以使用点.来访问变量的属性，也可以使用下标语法[]，下面2种方式效果是一样的</p>
+<h1 id="jinja2-语法"><a href="#jinja2-语法" class="headerlink" title="jinja2 语法"></a>jinja2 语法</h1><p>Ansible 使用 <a href="https://jinja.palletsprojects.com/" target="_blank" rel="noopener">Jinja2</a> 模板来启用动态表达式和对变量的访问，就是说 Ansible 使用 Jinja 模板对含有动态表达式和变量的文件进行解析个渲染</p>
+<p>变量&amp;表达式</p>
+<p>可以使用点.来访问变量的属性，也可以使用下标语法 []，下面 2 种方式效果是一样的</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> foo.bar <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
 <span class="token punctuation">{</span><span class="token punctuation">{</span> foo<span class="token punctuation">[</span><span class="token string">'bar'</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true"># 如果变量或属性不存在，会返回一个未定义值。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>除了变量， {{}} 中还可以包含一些表达式</p>
+<p>除了变量， {{}}  中还可以包含一些表达式</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> 1 == 1 <span class="token punctuation">}</span><span class="token punctuation">}</span>    
 <span class="token punctuation">{</span><span class="token punctuation">{</span> 2 <span class="token tag">!=</span> 3 <span class="token punctuation">}</span><span class="token punctuation">}</span>
 <span class="token punctuation">{</span><span class="token punctuation">{</span> 2 <span class="token punctuation">></span> 3 <span class="token punctuation">}</span><span class="token punctuation">}</span>
@@ -219,11 +218,12 @@ bind <span class="token punctuation">{</span><span class="token punctuation">{</
 <span class="token comment" spellcheck="true"># 根据算术运算返回结果</span>
 
 <span class="token comment" spellcheck="true"># 字符串、数值、列表、元组、字典、布尔值等数据类型均可在"{{  }}"使用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h2><p>用来装载控制语句，比如 if 控制结构，for循环控制结构</p>
+<p>控制</p>
+<p>用来装载控制语句，比如 if 控制结构，for循环控制结构</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% for item in seq %<span class="token punctuation">}</span>
 ```
 
-<span class="token comment" spellcheck="true">## 注释</span>
+注释
 
 要把模板中一行的部分注释掉
 
@@ -231,7 +231,7 @@ bind <span class="token punctuation">{</span><span class="token punctuation">{</
 <span class="token punctuation">{</span><span class="token comment" spellcheck="true"># 这是被注释的内容 #}</span>
 ```
 
-<span class="token comment" spellcheck="true">## 转义</span>
+转义
 
 简单的使用单引号('')进行转义，对于较大的段落，使用raw进行转义
 
@@ -243,28 +243,31 @@ bind <span class="token punctuation">{</span><span class="token punctuation">{</
      <span class="token punctuation">{</span>% endfor %<span class="token punctuation">}</span>
      &lt;/ul<span class="token punctuation">></span>
  <span class="token punctuation">{</span>% endraw %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="执行命令时传入变量"><a href="#执行命令时传入变量" class="headerlink" title="执行命令时传入变量"></a>执行命令时传入变量</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /root/test.j2
+<p>执行命令时传入变量</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> /root/test.j2
 my blog is <span class="token punctuation">{</span><span class="token punctuation">{</span> site <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
 ansible dbserver -m template -e <span class="token string">"site=missf.top"</span> -a <span class="token string">"src=/root/test.j2 dest=/opt/test"</span>
 
 <span class="token function">cat</span> /opt/test
 my blog is missf.top<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% if num <span class="token punctuation">></span> 3 %<span class="token punctuation">}</span>
+<p>if</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% if num <span class="token punctuation">></span> 3 %<span class="token punctuation">}</span>
 gtfr derew pllu
 <span class="token punctuation">{</span>% endif %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>使用template模板进行渲染</p>
+<p>使用 template 模板进行渲染</p>
 <pre class="line-numbers language-bash"><code class="language-bash">ansible dbserver -m template -e <span class="token string">"num=4"</span> -a <span class="token string">"src=/root/test.j2 dest=/opt/test"</span>
 
 <span class="token comment" spellcheck="true"># 渲染后的输出结果</span>
 <span class="token function">cat</span> /opt/test
 gtfr derew pllu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><p>jinja2模板的for语法示例</p>
+<p>for</p>
+<p>jinja2 模板的 for 语法示例</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% if num <span class="token punctuation">></span> 3 %<span class="token punctuation">}</span>
 <span class="token punctuation">{</span>% for i in <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">]</span> %<span class="token punctuation">}</span>
 <span class="token punctuation">{</span><span class="token punctuation">{</span> i <span class="token punctuation">}</span><span class="token punctuation">}</span>
 <span class="token punctuation">{</span>% endfor %<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>使用template模板进行渲染</p>
+<p>使用 template 模板进行渲染</p>
 <pre class="line-numbers language-bash"><code class="language-bash">ansible dbserver -m template -a <span class="token string">"src=/root/test.j2 dest=/opt/test"</span>
 
 <span class="token comment" spellcheck="true"># 渲染后的输出结果</span>
@@ -273,7 +276,8 @@ gtfr derew pllu<span aria-hidden="true" class="line-numbers-rows"><span></span><
 65
 7
 23<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="控制空白"><a href="#控制空白" class="headerlink" title="控制空白"></a>控制空白</h2><p>从for循环的结果看出，使用template模板进行渲染时不会去处理空格或者换行符，在开始或结束放置一个减号(-)，可以移除块前或块后的空白</p>
+<p>控制空白</p>
+<p>从 for 循环的结果看出，使用 template 模板进行渲染时不会去处理空格或者换行符，在开始或结束放置一个减号(-)，可以移除块前或块后的空白</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token punctuation">{</span>% for i in <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">]</span> <span class="token punctuation">-</span>%<span class="token punctuation">}</span>
 <span class="token punctuation">{</span><span class="token punctuation">{</span> i <span class="token punctuation">}</span><span class="token punctuation">}</span>        <span class="token comment" spellcheck="true"># 这里可以使用{{ i }}{{' '}}定义分割符</span>
 <span class="token punctuation">{</span>%<span class="token punctuation">-</span> endfor %<span class="token punctuation">}</span>
@@ -283,7 +287,7 @@ ansible dbserver <span class="token punctuation">-</span>m template <span class=
 cat /opt/test
 565723        <span class="token comment" spellcheck="true"># 将换行符和空白都移除了</span>
 5 65 7 23    <span class="token comment" spellcheck="true"># 定义分割符的效果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>​    我要去重新学习梳理Docker了，Ansible就先到这里吧！等到有空了，再重启吧</p>
+<p>​    我要去重新学习梳理 Docker了，Ansible 就先到这里吧！等到有空了，再重启吧</p>
 
         </div>
 
@@ -292,7 +296,7 @@ cat /opt/test
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-11T11:01:39.801Z" itemprop="dateUpdated">2020-09-11 19:01:39</time>
+    最后更新时间：<time datetime="2020-09-26T09:38:42.712Z" itemprop="dateUpdated">2020-09-26 17:38:42</time>
 </span><br>
 
 
@@ -334,16 +338,16 @@ cat /opt/test
     <div class="waves-block waves-effect prev">
       <a href="/post/f03bbd11.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Ansible include(15)</h4>
+        <h4 class="title">Ansible include</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/post/f7aff4ce.html" id="post-next" class="post-nav-link">
+      <a href="/post/1b979c3e.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Docker 核心概念与安装(1)</h4>
+        <h4 class="title">CODING 持续集成 Java 项目</h4>
       </a>
     </div>
   
@@ -496,7 +500,7 @@ cat /opt/test
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                909
+                892
             
         </span>
     </div>

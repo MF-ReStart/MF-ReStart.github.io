@@ -15,22 +15,22 @@
     
     
     
-    <title>Ansible include(15) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Ansible include | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Ansible,自动化运维">
-    <meta name="description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克 An">
+    <meta name="description" content="Ansible include在所有的编程语言中，在处理重复代码的时候，都会将重复的代码提取出来作为一个逻辑单元，这个逻辑单元通常被称为函数或者方法，这样可以让我们更加方便的、重复的调用这段代码。而且如果需要修改这段代码，只需要修改这段代码本身，那么在调用这段代码的地方的逻辑就会随之改变。同时，使用函数的方式编写代码，能让我们的逻辑更清晰，通过函数的名称，大概能推算出程序的主体作用和逻辑 在 An">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ansible include(15)">
+<meta property="og:title" content="Ansible include">
 <meta property="og:url" content="https://www.missf.top/post/f03bbd11.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="我曾踏足山巅，也曾进入低谷，二者都让我受益良多。 ​                                                                                                                                                                      ——塔里克 An">
+<meta property="og:description" content="Ansible include在所有的编程语言中，在处理重复代码的时候，都会将重复的代码提取出来作为一个逻辑单元，这个逻辑单元通常被称为函数或者方法，这样可以让我们更加方便的、重复的调用这段代码。而且如果需要修改这段代码，只需要修改这段代码本身，那么在调用这段代码的地方的逻辑就会随之改变。同时，使用函数的方式编写代码，能让我们的逻辑更清晰，通过函数的名称，大概能推算出程序的主体作用和逻辑 在 An">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-10T11:56:59.000Z">
-<meta property="article:modified_time" content="2020-09-11T11:01:39.798Z">
+<meta property="article:modified_time" content="2020-09-26T09:35:19.165Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Ansible">
 <meta property="article:tag" content="自动化运维">
@@ -116,7 +116,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Ansible include(15)</div>
+        <div class="flex-col header-title ellipsis">Ansible include</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -134,7 +134,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Ansible include(15)</h1>
+        <h1 class="title">Ansible include</h1>
         <h5 class="subtitle">
             
                 <time datetime="2020-06-10T11:56:59.000Z" itemprop="datePublished" class="page-time">
@@ -159,16 +159,16 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible的include"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible的include</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#给include文件传参"><span class="post-toc-number">2.</span> <span class="post-toc-text">给include文件传参</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Import-playbook"><span class="post-toc-number">3.</span> <span class="post-toc-text">Import_playbook</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Ansible-include"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ansible include</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#给-include-文件传参"><span class="post-toc-number">2.</span> <span class="post-toc-text">给 include 文件传参</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Import-playbook"><span class="post-toc-number">3.</span> <span class="post-toc-text">Import_playbook</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Ansible include(15)"
+<article id="post-Ansible include"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Ansible include(15)</h1>
+        <h1 class="post-card-title">Ansible include</h1>
         <div class="post-meta">
             <time class="post-time" title="2020-06-10 19:56:59" datetime="2020-06-10T11:56:59.000Z"  itemprop="datePublished">2020-06-10</time>
 
@@ -185,11 +185,9 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p><strong>我曾踏足山巅，也曾进入低谷，二者都让我受益良多。</strong></p>
-<p>​                                                                                                                                                                      <strong>——塔里克</strong></p>
-<h1 id="Ansible的include"><a href="#Ansible的include" class="headerlink" title="Ansible的include"></a>Ansible的include</h1><p>在所有的编程语言中，在处理重复代码的时候，都会将重复的代码提取出来作为一个逻辑单元，这个逻辑单元通常被称为函数或者方法，这样可以让我们更加方便的、重复的调用这段代码。而且如果需要修改这段代码，只需要修改这段代码本身，那么在调用这段代码的地方的逻辑就会随之改变。同时，使用函数的方式编写代码，能让我们的逻辑更清晰，通过函数的名称，大概能推算出程序的主体作用和逻辑</p>
-<p>在ansible中，其实也有类似的功能，这种功能被称之为include。通过include，我们可以在playbook中包含另一个文件，以便实现我们刚才所说的函数效果</p>
-<p>在配置环境的时候，我们经常会有一些需要重复使用的playbook，就像下面的LAMP环境和LNMP环境</p>
+            <h1 id="Ansible-include"><a href="#Ansible-include" class="headerlink" title="Ansible include"></a>Ansible include</h1><p>在所有的编程语言中，在处理重复代码的时候，都会将重复的代码提取出来作为一个逻辑单元，这个逻辑单元通常被称为函数或者方法，这样可以让我们更加方便的、重复的调用这段代码。而且如果需要修改这段代码，只需要修改这段代码本身，那么在调用这段代码的地方的逻辑就会随之改变。同时，使用函数的方式编写代码，能让我们的逻辑更清晰，通过函数的名称，大概能推算出程序的主体作用和逻辑</p>
+<p>在 Ansible 中，其实也有类似的功能，这种功能被称之为 include。通过 include，我们可以在 Playbook 中包含另一个文件，以便实现我们刚才所说的函数效果</p>
+<p>在配置环境的时候，我们经常会有一些需要重复使用的 Playbook，就像下面的 LAMP 环境和 LNMP 环境</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">cat lamp.yaml 
 <span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -215,7 +213,7 @@ cat lnmp.yaml
           <span class="token punctuation">-</span> php<span class="token punctuation">-</span>fpm
           <span class="token punctuation">-</span> nginx
         <span class="token key atrule">state</span><span class="token punctuation">:</span> present<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们可以把上面的两个playbook改写层下面这样，便于我们直接调用</p>
+<p>我们可以把上面的两个 Playbook 改写层下面这样，便于我们直接调用</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">cat lamp.yaml
 <span class="token punctuation">-</span> <span class="token key atrule">yum</span><span class="token punctuation">:</span>
     <span class="token key atrule">name</span><span class="token punctuation">:</span>
@@ -231,7 +229,7 @@ cat lnmp.yaml
       <span class="token punctuation">-</span> php<span class="token punctuation">-</span>fpm
       <span class="token punctuation">-</span> nginx
     <span class="token key atrule">state</span><span class="token punctuation">:</span> present<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>当我们需要执行这两个playbook时，直接使用include调用，playbook中的任务就会在被调用处执行</p>
+<p>当我们需要执行这两个 Playbook 时，直接使用 include 调用，Playbook 中的任务就会在被调用处执行</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">cat lamp_lnmp.yaml
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webserver
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> root
@@ -244,7 +242,7 @@ cat lnmp.yaml
   <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install lnmp
       <span class="token key atrule">include_tasks</span><span class="token punctuation">:</span> lnmp.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="给include文件传参"><a href="#给include文件传参" class="headerlink" title="给include文件传参"></a>给include文件传参</h1><pre class="line-numbers language-yaml"><code class="language-yaml">cat baidu.yaml 
+<h1 id="给-include-文件传参"><a href="#给-include-文件传参" class="headerlink" title="给 include 文件传参"></a>给 include 文件传参</h1><pre class="line-numbers language-yaml"><code class="language-yaml">cat baidu.yaml 
 <span class="token punctuation">-</span> <span class="token key atrule">shell</span><span class="token punctuation">:</span> ping <span class="token punctuation">-</span>c 3 "<span class="token punctuation">{</span><span class="token punctuation">{</span> baidu <span class="token punctuation">}</span><span class="token punctuation">}</span>"    <span class="token comment" spellcheck="true"># 在include文件使用变量</span>
 
 cat include_baidu.yaml 
@@ -256,7 +254,7 @@ cat include_baidu.yaml
   <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ping baidu
       <span class="token key atrule">include_tasks</span><span class="token punctuation">:</span> baidu.yaml        <span class="token comment" spellcheck="true"># 调用执行include文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Import-playbook"><a href="#Import-playbook" class="headerlink" title="Import_playbook"></a>Import_playbook</h1><p>我们使用include关键字可以调用任务列表，但如果想要调用整个playbook，则需要import_playbook模块代替include模块</p>
+<h1 id="Import-playbook"><a href="#Import-playbook" class="headerlink" title="Import_playbook"></a>Import_playbook</h1><p>我们使用 include 关键字可以调用任务列表，但如果想要调用整个 Playbook，则需要 import_playbook 模块代替 include 模块</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml">cat import_test.yaml
 <span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbserver
@@ -282,7 +280,7 @@ cat intest7.yaml
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-11T11:01:39.798Z" itemprop="dateUpdated">2020-09-11 19:01:39</time>
+    最后更新时间：<time datetime="2020-09-26T09:35:19.165Z" itemprop="dateUpdated">2020-09-26 17:35:19</time>
 </span><br>
 
 
@@ -324,7 +322,7 @@ cat intest7.yaml
     <div class="waves-block waves-effect prev">
       <a href="/post/8dfd5e56.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Ansible lookups插件(14)</h4>
+        <h4 class="title">Ansible lookups 插件</h4>
       </a>
     </div>
   
@@ -333,7 +331,7 @@ cat intest7.yaml
     <div class="waves-block waves-effect next">
       <a href="/post/347a3183.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Ansible jinja2模板(16)</h4>
+        <h4 class="title">Ansible jinja2 模板</h4>
       </a>
     </div>
   
@@ -486,7 +484,7 @@ cat intest7.yaml
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                569
+                549
             
         </span>
     </div>

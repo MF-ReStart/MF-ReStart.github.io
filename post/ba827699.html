@@ -15,20 +15,21 @@
     
     
     
-    <title>Prometheus 监控案例(5) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Prometheus 监控案例 | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="云计算,Prometheus,监控">
-    <meta name="description" content="监控Linux服务器部署node_exporterprometheus官方提供Node_exporter来让我们收集机器的系统数据，除node_exporter外，官方还提供consul、memcached、haproxy、mysqld等exporter。exporter类似于zabbix写好的监控模板，但是这些exporter都是需要在被监控节点安装 # 下载node_exporter wget">
+    <meta name="description" content="监控 Linux 服务器部署 node_exporter prometheus 官方提供 Node_exporter 来让我们收集机器的系统数据，除 node_exporter 外，官方还提供 consul、memcached、haproxy、mysqld 等 exporter。exporter类似于 zabbix 写好的监控模板，但是这些 exporter 都是需要在被监控节点安装 # 下载no">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Prometheus 监控案例(5)">
+<meta property="og:title" content="Prometheus 监控案例">
 <meta property="og:url" content="https://www.missf.top/post/ba827699.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="监控Linux服务器部署node_exporterprometheus官方提供Node_exporter来让我们收集机器的系统数据，除node_exporter外，官方还提供consul、memcached、haproxy、mysqld等exporter。exporter类似于zabbix写好的监控模板，但是这些exporter都是需要在被监控节点安装 # 下载node_exporter wget">
+<meta property="og:description" content="监控 Linux 服务器部署 node_exporter prometheus 官方提供 Node_exporter 来让我们收集机器的系统数据，除 node_exporter 外，官方还提供 consul、memcached、haproxy、mysqld 等 exporter。exporter类似于 zabbix 写好的监控模板，但是这些 exporter 都是需要在被监控节点安装 # 下载no">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f1fa26414195aa5947438c7.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f14fccb14195aa59415fa14.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f1515d514195aa5941cc06f.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f1518a914195aa5941d6c7f.jpg">
@@ -36,13 +37,13 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f17260614195aa59400404d.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f18f80f14195aa594e798e0.jpg">
 <meta property="article:published_time" content="2020-07-16T07:43:16.000Z">
-<meta property="article:modified_time" content="2020-09-11T11:23:43.745Z">
+<meta property="article:modified_time" content="2020-09-28T04:03:32.474Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="云计算">
 <meta property="article:tag" content="Prometheus">
 <meta property="article:tag" content="监控">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f14fccb14195aa59415fa14.jpg">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f1fa26414195aa5947438c7.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -124,7 +125,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Prometheus 监控案例(5)</div>
+        <div class="flex-col header-title ellipsis">Prometheus 监控案例</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -142,7 +143,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Prometheus 监控案例(5)</h1>
+        <h1 class="title">Prometheus 监控案例</h1>
         <h5 class="subtitle">
             
                 <time datetime="2020-07-16T07:43:16.000Z" itemprop="datePublished" class="page-time">
@@ -167,16 +168,16 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控Linux服务器"><span class="post-toc-number">1.</span> <span class="post-toc-text">监控Linux服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部署node-exporter"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">部署node_exporter</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置监控"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">配置监控</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#promSQL监控CPU、内存、硬盘"><span class="post-toc-number">2.</span> <span class="post-toc-text">promSQL监控CPU、内存、硬盘</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CPU监控"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">CPU监控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内存监控"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">内存监控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#硬盘监控"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">硬盘监控</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控系统服务状态"><span class="post-toc-number">3.</span> <span class="post-toc-text">监控系统服务状态</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改node-exporter的启动参数"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">修改node_exporter的启动参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重启node-exporter"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">重启node_exporter</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看监控服务的数据指标"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">查看监控服务的数据指标</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用Grafana图表展示监控数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用Grafana图表展示监控数据</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装Grafana"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">安装Grafana</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Grafana配置数据源"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Grafana配置数据源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Grafana导入仪表盘"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">Grafana导入仪表盘</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看仪表盘"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">查看仪表盘</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控Docker服务器"><span class="post-toc-number">5.</span> <span class="post-toc-text">监控Docker服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部署cadvisor"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">部署cadvisor</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置Prometheus监控cadvisor"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">配置Prometheus监控cadvisor</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Grafana导入仪表盘-1"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Grafana导入仪表盘</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看Docker主机仪表盘"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">查看Docker主机仪表盘</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控MySQL服务器"><span class="post-toc-number">6.</span> <span class="post-toc-text">监控MySQL服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL主机安装mysqld-exporter"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">MySQL主机安装mysqld_exporter</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置Prometheus监控mysqld-exporter"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">配置Prometheus监控mysqld_exporter</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#导入MySQL仪表盘"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">导入MySQL仪表盘</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控-Linux-服务器"><span class="post-toc-number">1.</span> <span class="post-toc-text">监控 Linux 服务器</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#promSQL监控CPU、内存、硬盘"><span class="post-toc-number">2.</span> <span class="post-toc-text">promSQL监控CPU、内存、硬盘</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控系统服务状态"><span class="post-toc-number">3.</span> <span class="post-toc-text">监控系统服务状态</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用-Grafana-图表展示监控数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用 Grafana 图表展示监控数据</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Grafana-导入仪表盘"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Grafana 导入仪表盘</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看仪表盘"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">查看仪表盘</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控-Docker-服务器"><span class="post-toc-number">5.</span> <span class="post-toc-text">监控 Docker 服务器</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#监控-MySQL-服务器"><span class="post-toc-number">6.</span> <span class="post-toc-text">监控 MySQL 服务器</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Prometheus 监控案例(5)"
+<article id="post-Prometheus 监控案例"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Prometheus 监控案例(5)</h1>
+        <h1 class="post-card-title">Prometheus 监控案例</h1>
         <div class="post-meta">
             <time class="post-time" title="2020-07-16 15:43:16" datetime="2020-07-16T07:43:16.000Z"  itemprop="datePublished">2020-07-16</time>
 
@@ -193,7 +194,8 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="监控Linux服务器"><a href="#监控Linux服务器" class="headerlink" title="监控Linux服务器"></a>监控Linux服务器</h1><h2 id="部署node-exporter"><a href="#部署node-exporter" class="headerlink" title="部署node_exporter"></a>部署node_exporter</h2><p>prometheus官方提供Node_exporter来让我们收集机器的系统数据，除node_exporter外，官方还提供consul、memcached、haproxy、mysqld等exporter。exporter类似于zabbix写好的监控模板，但是这些exporter都是需要在被监控节点安装</p>
+            <h1 id="监控-Linux-服务器"><a href="#监控-Linux-服务器" class="headerlink" title="监控 Linux 服务器"></a>监控 Linux 服务器</h1><p>部署 node_exporter</p>
+<p>prometheus 官方提供 Node_exporter 来让我们收集机器的系统数据，除 node_exporter 外，官方还提供 consul、memcached、haproxy、mysqld 等 exporter。exporter类似于 zabbix 写好的监控模板，但是这些 exporter 都是需要在被监控节点安装</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载node_exporter</span>
 <span class="token function">wget</span> https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
 
@@ -218,7 +220,8 @@ systemctl start node_exporter.service
 
 <span class="token comment" spellcheck="true"># 访问node_exporter的数据接口</span>
 http://10.10.110.23:9100/metrics    <span class="token comment" spellcheck="true"># 默认端口是9100,默认接口是metrics</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="配置监控"><a href="#配置监控" class="headerlink" title="配置监控"></a>配置监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 修改prometheus配置文件</span>
+<p>配置监控</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 修改prometheus配置文件</span>
 vim /usr/local/prometheus/prometheus.yml
   - job_name: <span class="token string">'node_exporter'</span>
     file_sd_configs:
@@ -229,13 +232,15 @@ vim /usr/local/prometheus/prometheus.yml
 vim /usr/local/prometheus/sd_config/node/*.yaml
 - targets:
   - <span class="token string">'10.10.110.23:9100'</span>        <span class="token comment" spellcheck="true"># 这个地址是被监控节点的IP地址</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="promSQL监控CPU、内存、硬盘"><a href="#promSQL监控CPU、内存、硬盘" class="headerlink" title="promSQL监控CPU、内存、硬盘"></a>promSQL监控CPU、内存、硬盘</h1><h2 id="CPU监控"><a href="#CPU监控" class="headerlink" title="CPU监控"></a>CPU监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算CPU五分钟内平均的使用率表达式</span>
+<h1 id="promSQL监控CPU、内存、硬盘"><a href="#promSQL监控CPU、内存、硬盘" class="headerlink" title="promSQL监控CPU、内存、硬盘"></a>promSQL监控CPU、内存、硬盘</h1><p>CPU监控</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算CPU五分钟内平均的使用率表达式</span>
 100 - irate<span class="token punctuation">(</span>node_cpu_seconds_total<span class="token punctuation">{</span>mode<span class="token operator">=</span><span class="token string">"idle"</span>,instance<span class="token operator">=</span><span class="token string">"10.10.110.23:9100"</span>,job<span class="token operator">=</span><span class="token string">"node_exporter"</span><span class="token punctuation">}</span><span class="token punctuation">[</span>5m<span class="token punctuation">]</span><span class="token punctuation">)</span> * 100
 
 <span class="token comment" spellcheck="true"># node_cpu_seconds_total{mode="idle",instance="10.10.110.23:9100",job="node_exporter"}[5m]:取CPU五分钟之内的空闲值</span>
 <span class="token comment" spellcheck="true"># irate函数:将会用于计算某个指标在一定时间间隔内的变化速率</span>
 <span class="token comment" spellcheck="true"># 将得到的空闲值乘以100再得到CPU百分比的空闲值,再以100减去CPU百分比的空闲值,就得到CPU五分钟内平均的使用率</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算内存使用率表达式</span>
+<p>内存监控</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算内存使用率表达式</span>
 100 - <span class="token punctuation">(</span>node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes<span class="token punctuation">)</span> / node_memory_MemTotal_bytes * 100
 
 <span class="token comment" spellcheck="true"># (node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes)是内存剩余的总量</span>
@@ -243,13 +248,15 @@ vim /usr/local/prometheus/sd_config/node/*.yaml
     在程序层面来考虑:buff和cache是剩余的内存
 
 <span class="token comment" spellcheck="true"># 内存剩余的总量除以内存总量得到内存剩余率,再以100减去内存剩余率得到内存使用率</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="硬盘监控"><a href="#硬盘监控" class="headerlink" title="硬盘监控"></a>硬盘监控</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算硬盘使用率表达式</span>
+<p>硬盘监控</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 计算硬盘使用率表达式</span>
 100 - node_filesystem_free_bytes<span class="token punctuation">{</span>mountpoint<span class="token operator">=</span><span class="token string">"/"</span>,fstype<span class="token operator">=</span>~<span class="token string">"ext4|xfs"</span><span class="token punctuation">}</span> / node_filesystem_size_bytes<span class="token punctuation">{</span>mountpoint<span class="token operator">=</span><span class="token string">"/"</span>,fstype<span class="token operator">=</span>~<span class="token string">"ext4|xfs"</span><span class="token punctuation">}</span> * 100
 
 <span class="token comment" spellcheck="true"># node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区硬盘剩余容量,只计算ext4|xfs类型的文件系统</span>
 <span class="token comment" spellcheck="true"># node_filesystem_size_bytes{mountpoint="/",fstype=~"ext4|xfs"}是根分区的硬盘总量</span>
 <span class="token comment" spellcheck="true"># 根分区硬盘剩余容量除以根分区的硬盘总量得到根分区硬盘的剩余率,再以100减去硬盘的剩余率得到硬盘使用率</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="监控系统服务状态"><a href="#监控系统服务状态" class="headerlink" title="监控系统服务状态"></a>监控系统服务状态</h1><h2 id="修改node-exporter的启动参数"><a href="#修改node-exporter的启动参数" class="headerlink" title="修改node_exporter的启动参数"></a>修改node_exporter的启动参数</h2><pre class="line-numbers language-bash"><code class="language-bash">vim /usr/lib/systemd/system/node_exporter.service
+<h1 id="监控系统服务状态"><a href="#监控系统服务状态" class="headerlink" title="监控系统服务状态"></a>监控系统服务状态</h1><p>修改 node_exporter 的启动参数</p>
+<pre class="line-numbers language-bash"><code class="language-bash">vim /usr/lib/systemd/system/node_exporter.service
 <span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
 Description<span class="token operator">=</span>prometheus
 
@@ -259,13 +266,15 @@ ExecStart<span class="token operator">=</span>/usr/local/node_exporter/node_expo
 <span class="token comment" spellcheck="true"># 利用正则匹配监控systemd的docker|sshd这三个服务</span>
 <span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
 WantedBy<span class="token operator">=</span>multi-user.target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="重启node-exporter"><a href="#重启node-exporter" class="headerlink" title="重启node_exporter"></a>重启node_exporter</h2><pre class="line-numbers language-bash"><code class="language-bash">systemctl daemon-reload
+<p>重启 node_exporter</p>
+<pre class="line-numbers language-bash"><code class="language-bash">systemctl daemon-reload
 systemctl restart node_exporter.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="查看监控服务的数据指标"><a href="#查看监控服务的数据指标" class="headerlink" title="查看监控服务的数据指标"></a>查看监控服务的数据指标</h2><pre class="line-numbers language-bash"><code class="language-bash">node_systemd_unit_state<span class="token punctuation">{</span>name<span class="token operator">=</span><span class="token string">"docker.service"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>在activating、active、deactivating、failed、inactive五个状态中value为1的状态，就是服务当前的状态</p>
-{% image https://pic.imgdb.cn/item/5f1fa26414195aa5947438c7.jpg '' '' %}
-
-<h1 id="使用Grafana图表展示监控数据"><a href="#使用Grafana图表展示监控数据" class="headerlink" title="使用Grafana图表展示监控数据"></a>使用Grafana图表展示监控数据</h1><h2 id="安装Grafana"><a href="#安装Grafana" class="headerlink" title="安装Grafana"></a>安装Grafana</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载软件包</span>
+<p>查看监控服务的数据指标</p>
+<pre class="line-numbers language-bash"><code class="language-bash">node_systemd_unit_state<span class="token punctuation">{</span>name<span class="token operator">=</span><span class="token string">"docker.service"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在 activating、active、deactivating、failed、inactive 五个状态中 value 为 1 的状态，就是服务当前的状态</p>
+<p><img src="https://pic.imgdb.cn/item/5f1fa26414195aa5947438c7.jpg" alt=""></p>
+<h1 id="使用-Grafana-图表展示监控数据"><a href="#使用-Grafana-图表展示监控数据" class="headerlink" title="使用 Grafana 图表展示监控数据"></a>使用 Grafana 图表展示监控数据</h1><p>安装 Grafana</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载软件包</span>
 <span class="token function">wget</span> https://dl.grafana.com/oss/release/grafana-7.1.0-1.x86_64.rpm
 
 <span class="token comment" spellcheck="true"># 安装</span>
@@ -276,16 +285,10 @@ systemctl <span class="token function">enable</span> grafana-server.service
 systemctl start grafana-server.service
 
 <span class="token comment" spellcheck="true"># Grafana默认端口为3000,账号密码都为admin,初次登录会提示需要修改密码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Grafana配置数据源"><a href="#Grafana配置数据源" class="headerlink" title="Grafana配置数据源"></a>Grafana配置数据源</h2><p>填写prometheus主机的地址，在配置数据源时我们还可以配置验证、定义HTTP头部、以及其他的一些信息</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://pic.imgdb.cn/item/5f14fccb14195aa59415fa14.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-<h2 id="Grafana导入仪表盘"><a href="#Grafana导入仪表盘" class="headerlink" title="Grafana导入仪表盘"></a>Grafana导入仪表盘</h2><p>我们可以自己编写仪表盘，也可以使用官方网站上别人已经写好的仪表盘模板直接导入使用，这里我们没有必要自己去编写(重复造轮子而且还没有人家专业…)。我们先去<a href="https://grafana.com/grafana/dashboards" target="_blank" rel="noopener">Grafana Labs</a>上找到监控Linux主机的仪表盘，然后将仪表盘的ID号导入到Grafana</p>
+<p>Grafana 配置数据源</p>
+<p>填写 prometheus 主机的地址，在配置数据源时我们还可以配置验证、定义 HTTP 头部、以及其他的一些信息</p>
+<p><img src="https://pic.imgdb.cn/item/5f14fccb14195aa59415fa14.jpg" alt=""></p>
+<h2 id="Grafana-导入仪表盘"><a href="#Grafana-导入仪表盘" class="headerlink" title="Grafana 导入仪表盘"></a>Grafana 导入仪表盘</h2><p>我们可以自己编写仪表盘，也可以使用官方网站上别人已经写好的仪表盘模板直接导入使用，这里我们没有必要自己去编写(重复造轮子而且还没有人家专业…)。我们先去<a href="https://grafana.com/grafana/dashboards" target="_blank" rel="noopener">Grafana Labs</a>上找到监控 Linux 主机的仪表盘，然后将仪表盘的 ID 号导入到 Grafana</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -294,7 +297,7 @@ systemctl start grafana-server.service
                 <div class="image-caption"></div>
             </figure>
 
-<h2 id="查看仪表盘"><a href="#查看仪表盘" class="headerlink" title="查看仪表盘"></a>查看仪表盘</h2><p>Grafana监控Linux主机的仪表盘数据是从prometheus的数据源获取的，就是被监控主机上的node_exporter获取到的数据</p>
+<h2 id="查看仪表盘"><a href="#查看仪表盘" class="headerlink" title="查看仪表盘"></a>查看仪表盘</h2><p>Grafana 监控 Linux 主机的仪表盘数据是从 prometheus 的数据源获取的，就是被监控主机上的 node_exporter 获取到的数据</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -303,7 +306,8 @@ systemctl start grafana-server.service
                 <div class="image-caption"></div>
             </figure>
 
-<h1 id="监控Docker服务器"><a href="#监控Docker服务器" class="headerlink" title="监控Docker服务器"></a>监控Docker服务器</h1><h2 id="部署cadvisor"><a href="#部署cadvisor" class="headerlink" title="部署cadvisor"></a>部署cadvisor</h2><p>想要监控Docker容器，需要在被监控主机安装cadvisor插件，暴露一个HTTP端口，为prometheus提供容器的监控数据</p>
+<h1 id="监控-Docker-服务器"><a href="#监控-Docker-服务器" class="headerlink" title="监控 Docker 服务器"></a>监控 Docker 服务器</h1><p>部署 cadvisor</p>
+<p>想要监控 Docker 容器，需要在被监控主机安装 cadvisor 插件，暴露一个 HTTP 端口，为 prometheus 提供容器的监控数据</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 由于国内无法连接到gcr.io,这里使用张馆长仓库的镜像地址</span>
 docker run \
 --volume<span class="token operator">=</span>/:/rootfs:ro \
@@ -317,7 +321,8 @@ docker run \
 --privileged \
 --device<span class="token operator">=</span>/dev/kmsg \
 registry.aliyuncs.com/k8sxio/cadvisor:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="配置Prometheus监控cadvisor"><a href="#配置Prometheus监控cadvisor" class="headerlink" title="配置Prometheus监控cadvisor"></a>配置Prometheus监控cadvisor</h2><p>cadvisor可以搜集一台机器上所有运行的容器信息，还提供基础查询界面和http接口，供其他组件如prometheus拉取数据</p>
+<p>配置 Prometheus 监控 cadvisor</p>
+<p>cadvisor 可以搜集一台机器上所有运行的容器信息，还提供基础查询界面和 http 接口，供其他组件如 prometheus 拉取数据</p>
 <pre class="line-numbers language-bash"><code class="language-bash">vim /usr/local/prometheus/prometheus.yml    <span class="token comment" spellcheck="true"># 在prometheus配置文件加入监控主机的cadvisor端口(拉取容器数据)</span>
   - job_name: <span class="token string">'docker'</span>
     static_configs:
@@ -325,7 +330,8 @@ registry.aliyuncs.com/k8sxio/cadvisor:latest<span aria-hidden="true" class="line
 
 systemctl daemon-reload
 systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Grafana导入仪表盘-1"><a href="#Grafana导入仪表盘-1" class="headerlink" title="Grafana导入仪表盘"></a>Grafana导入仪表盘</h2><p>我们去<a href="https://grafana.com/grafana/dashboards" target="_blank" rel="noopener">Grafana Labs</a>网站寻找一个监控Docker主机的仪表盘，在Grafana进行导入</p>
+<p>Grafana 导入仪表盘</p>
+<p>我们去 <a href="https://grafana.com/grafana/dashboards" target="_blank" rel="noopener">Grafana Labs</a> 网站寻找一个监控 Docker 主机的仪表盘，在 Grafana 进行导入</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -334,7 +340,8 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
                 <div class="image-caption"></div>
             </figure>
 
-<h2 id="查看Docker主机仪表盘"><a href="#查看Docker主机仪表盘" class="headerlink" title="查看Docker主机仪表盘"></a>查看Docker主机仪表盘</h2><figure class="image-bubble">
+<p>查看Docker主机仪表盘</p>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="https://pic.imgdb.cn/item/5f17260614195aa59400404d.jpg" alt="" title="">
@@ -342,8 +349,9 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
                 <div class="image-caption"></div>
             </figure>
 
-<h1 id="监控MySQL服务器"><a href="#监控MySQL服务器" class="headerlink" title="监控MySQL服务器"></a>监控MySQL服务器</h1><p>监控MySQL主机和监控Linux主机一样，都是需要导出器去获取数据，这里我们去prometheus官网下载mysqld_exporter，然后在mysql主机上安装(监控那台mysql主机就在那台主机安装mysqld_exporter)</p>
-<h2 id="MySQL主机安装mysqld-exporter"><a href="#MySQL主机安装mysqld-exporter" class="headerlink" title="MySQL主机安装mysqld_exporter"></a>MySQL主机安装mysqld_exporter</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载</span>
+<h1 id="监控-MySQL-服务器"><a href="#监控-MySQL-服务器" class="headerlink" title="监控 MySQL 服务器"></a>监控 MySQL 服务器</h1><p>监控 MySQL 主机和监控 Linux 主机一样，都是需要导出器去获取数据，这里我们去 prometheus 官网下载 mysqld_exporter，然后在 mysql 主机上安装(监控那台 mysql 主机就在那台主机安装mysqld_exporter)</p>
+<p>MySQL 主机安装 mysqld_exporter</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载</span>
 <span class="token function">wget</span> https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz
 
 <span class="token comment" spellcheck="true"># 解压</span>
@@ -372,14 +380,16 @@ systemctl start mysqld_exporter
 
 <span class="token comment" spellcheck="true"># 获取监控数据</span>
 curl <span class="token punctuation">[</span>IP<span class="token punctuation">]</span>:9104/metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="配置Prometheus监控mysqld-exporter"><a href="#配置Prometheus监控mysqld-exporter" class="headerlink" title="配置Prometheus监控mysqld_exporter"></a>配置Prometheus监控mysqld_exporter</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 修改配置文件</span>
+<p>配置Prometheus监控mysqld_exporter</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 修改配置文件</span>
 vim /usr/local/prometheus/prometheus.yml
   - job_name: <span class="token string">'mysqld_exporter'</span>        <span class="token comment" spellcheck="true"># 添加监控mysqld_exporter</span>
     static_configs:
     - targets: <span class="token punctuation">[</span><span class="token string">'47.100.107.121:9104'</span><span class="token punctuation">]</span>
 <span class="token comment" spellcheck="true"># 重启</span>
 systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="导入MySQL仪表盘"><a href="#导入MySQL仪表盘" class="headerlink" title="导入MySQL仪表盘"></a>导入MySQL仪表盘</h2><p>导入ID为7362的MySQL仪表盘，查看MySQL的监控数据</p>
+<p>导入 MySQL 仪表盘</p>
+<p>导入 ID 为 7362 的 MySQL 仪表盘，查看 MySQL 的监控数据</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -394,7 +404,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-11T11:23:43.745Z" itemprop="dateUpdated">2020-09-11 19:23:43</time>
+    最后更新时间：<time datetime="2020-09-28T04:03:32.474Z" itemprop="dateUpdated">2020-09-28 12:03:32</time>
 </span><br>
 
 
@@ -436,7 +446,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="waves-block waves-effect prev">
       <a href="/post/521f1005.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Prometheus 配置文件与核心功能(4)</h4>
+        <h4 class="title">Prometheus 配置文件与核心功能</h4>
       </a>
     </div>
   
@@ -445,7 +455,7 @@ systemctl restart prometheus.service<span aria-hidden="true" class="line-numbers
     <div class="waves-block waves-effect next">
       <a href="/post/615f0093.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Prometheus 告警(6)</h4>
+        <h4 class="title">Prometheus 告警</h4>
       </a>
     </div>
   

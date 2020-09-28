@@ -15,23 +15,24 @@
     
     
     
-    <title>Elastic 引入Redis(6) | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
+    <title>Elastic 引入 Redis | 荒原饮露 | 可能是未来的架构师，也可能送外卖。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="ELK,企业级日志系统,数据收集分析">
-    <meta name="description" content="引入Redis架构简介logstash分为shipper(负责收集日志数据)和indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用logstash去收集和处理数据，由于ES的HTTP API处理能力有限，在日志写入频繁的情况下可能会超时、丢失，所以用队列来做缓冲在两个logstash角色之间可以引入redis或者kafka。使用消息队列的方式可减少ES">
+    <meta name="description" content="引入 Redis 架构简介logstash 分为 shipper(负责收集日志数据)和 indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用 logstash 去收集和处理数据，由于 ES 的 HTTP API 处理能力有限，在日志写入频繁的情况下可能会超时、丢失，所以用队列来做缓冲在两个 logstash 角色之间可以引入 redis 或者 kafk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elastic 引入Redis(6)">
+<meta property="og:title" content="Elastic 引入 Redis">
 <meta property="og:url" content="https://www.missf.top/post/23bc2fbc.html">
 <meta property="og:site_name" content="荒原饮露">
-<meta property="og:description" content="引入Redis架构简介logstash分为shipper(负责收集日志数据)和indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用logstash去收集和处理数据，由于ES的HTTP API处理能力有限，在日志写入频繁的情况下可能会超时、丢失，所以用队列来做缓冲在两个logstash角色之间可以引入redis或者kafka。使用消息队列的方式可减少ES">
+<meta property="og:description" content="引入 Redis 架构简介logstash 分为 shipper(负责收集日志数据)和 indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用 logstash 去收集和处理数据，由于 ES 的 HTTP API 处理能力有限，在日志写入频繁的情况下可能会超时、丢失，所以用队列来做缓冲在两个 logstash 角色之间可以引入 redis 或者 kafk">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f51fb57160a154a6778fb68.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f55cd21160a154a674bc848.jpg">
 <meta property="article:published_time" content="2020-08-17T10:48:56.000Z">
-<meta property="article:modified_time" content="2020-09-07T10:45:28.472Z">
+<meta property="article:modified_time" content="2020-09-28T03:37:04.849Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
@@ -119,7 +120,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Elastic 引入Redis(6)</div>
+        <div class="flex-col header-title ellipsis">Elastic 引入 Redis</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -137,7 +138,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Elastic 引入Redis(6)</h1>
+        <h1 class="title">Elastic 引入 Redis</h1>
         <h5 class="subtitle">
             
                 <time datetime="2020-08-17T10:48:56.000Z" itemprop="datePublished" class="page-time">
@@ -162,16 +163,16 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#引入Redis架构简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">引入Redis架构简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">2.</span> <span class="post-toc-text">环境准备</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#生产日志数据"><span class="post-toc-number">3.</span> <span class="post-toc-text">生产日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis查看日志数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">Redis查看日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#消费日志数据"><span class="post-toc-number">5.</span> <span class="post-toc-text">消费日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis查看消费的数据"><span class="post-toc-number">6.</span> <span class="post-toc-text">Redis查看消费的数据</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#引入-Redis-架构简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">引入 Redis 架构简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">2.</span> <span class="post-toc-text">环境准备</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#生产日志数据"><span class="post-toc-number">3.</span> <span class="post-toc-text">生产日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis查看日志数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">Redis查看日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#消费日志数据"><span class="post-toc-number">5.</span> <span class="post-toc-text">消费日志数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis-查看消费的数据"><span class="post-toc-number">6.</span> <span class="post-toc-text">Redis 查看消费的数据</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Elastic 引入Redis(6)"
+<article id="post-Elastic 引入 Redis"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Elastic 引入Redis(6)</h1>
+        <h1 class="post-card-title">Elastic 引入 Redis</h1>
         <div class="post-meta">
             <time class="post-time" title="2020-08-17 18:48:56" datetime="2020-08-17T10:48:56.000Z"  itemprop="datePublished">2020-08-17</time>
 
@@ -188,7 +189,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="引入Redis架构简介"><a href="#引入Redis架构简介" class="headerlink" title="引入Redis架构简介"></a>引入Redis架构简介</h1><p>logstash分为shipper(负责收集日志数据)和indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用logstash去收集和处理数据，由于ES的HTTP API处理能力有限，在日志写入频繁的情况下可能会超时、丢失，所以用队列来做缓冲在两个logstash角色之间可以引入redis或者kafka。使用消息队列的方式可减少ES压力，队列起到缓冲作用，也可以一定程度保护数据不丢失。同时我们还能将所有收集到的日志统一在logstash indexer进行处理</p>
+            <h1 id="引入-Redis-架构简介"><a href="#引入-Redis-架构简介" class="headerlink" title="引入 Redis 架构简介"></a>引入 Redis 架构简介</h1><p>logstash 分为 shipper(负责收集日志数据)和 indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用 logstash 去收集和处理数据，由于 ES 的 HTTP API 处理能力有限，在日志写入频繁的情况下可能会超时、丢失，所以用队列来做缓冲在两个 logstash 角色之间可以引入 redis 或者 kafka。使用消息队列的方式可减少 ES 压力，队列起到缓冲作用，也可以一定程度保护数据不丢失。同时我们还能将所有收集到的日志统一在 logstash indexer 进行处理</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -199,7 +200,7 @@
 
 <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><pre class="line-numbers language-bash"><code class="language-bash">logstash 10.10.110.195    <span class="token comment" spellcheck="true"># logstash shipper生产数据,将获取到的数据存到redis</span>
 logstash + redis 10.10.110.194    <span class="token comment" spellcheck="true"># logstash indexer消费redis中的日志数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h1 id="生产日志数据"><a href="#生产日志数据" class="headerlink" title="生产日志数据"></a>生产日志数据</h1><p>编写logstash pipeline配置文件，将收集到的日志数据存储到redis</p>
+<h1 id="生产日志数据"><a href="#生产日志数据" class="headerlink" title="生产日志数据"></a>生产日志数据</h1><p>编写 logstash pipeline 配置文件，将收集到的日志数据存储到 redis</p>
 <pre class="line-numbers language-json"><code class="language-json">input <span class="token punctuation">{</span>
   file <span class="token punctuation">{</span>
     path => <span class="token punctuation">[</span><span class="token string">"/var/log/messages"</span><span class="token punctuation">]</span>
@@ -228,12 +229,11 @@ output <span class="token punctuation">{</span>
     key => <span class="token string">"logstash"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>启动logstash进行收集日志存储到redis</p>
+<p>启动 logstash 进行收集日志存储到 redis</p>
 <pre class="line-numbers language-bash"><code class="language-bash">/usr/share/logstash/bin/logstash -rf /etc/logstash/conf.d/syslog-toredis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="Redis查看日志数据"><a href="#Redis查看日志数据" class="headerlink" title="Redis查看日志数据"></a>Redis查看日志数据</h1><p>logstash在收集到日志数据并且添加上标签和类型然后存储到redis，我们可以返回列表的长度来得知日志数据是否被存储到redis</p>
-{% image https://pic.imgdb.cn/item/5f55cd21160a154a674bc848.jpg '' '' %}
-
-<h1 id="消费日志数据"><a href="#消费日志数据" class="headerlink" title="消费日志数据"></a>消费日志数据</h1><p>编写logstash pipeline配置文件，将redis中的日志数据存储到ES</p>
+<h1 id="Redis查看日志数据"><a href="#Redis查看日志数据" class="headerlink" title="Redis查看日志数据"></a>Redis查看日志数据</h1><p>logstash 在收集到日志数据并且添加上标签和类型然后存储到 redis，我们可以返回列表的长度来得知日志数据是否被存储到 redis</p>
+<p><img src="https://pic.imgdb.cn/item/5f55cd21160a154a674bc848.jpg" alt=""></p>
+<h1 id="消费日志数据"><a href="#消费日志数据" class="headerlink" title="消费日志数据"></a>消费日志数据</h1><p>编写 logstash pipeline 配置文件，将 redis 中的日志数据存储到 ES</p>
 <pre class="line-numbers language-json"><code class="language-json">input <span class="token punctuation">{</span>
   redis <span class="token punctuation">{</span>
     host => <span class="token string">"10.10.110.194"</span>
@@ -267,7 +267,7 @@ output <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Redis查看消费的数据"><a href="#Redis查看消费的数据" class="headerlink" title="Redis查看消费的数据"></a>Redis查看消费的数据</h1><p>日志数据被消费完之后就代表已经写入到ES</p>
+<h1 id="Redis-查看消费的数据"><a href="#Redis-查看消费的数据" class="headerlink" title="Redis 查看消费的数据"></a>Redis 查看消费的数据</h1><p>日志数据被消费完之后就代表已经写入到 ES</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># redis中的key会全部存到ES中(日志数据被消费完)</span>
 127.0.0.1:56379<span class="token operator">></span> llen logstash
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 7041
@@ -290,7 +290,7 @@ output <span class="token punctuation">{</span>
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-07T10:45:28.472Z" itemprop="dateUpdated">2020-09-07 18:45:28</time>
+    最后更新时间：<time datetime="2020-09-28T03:37:04.849Z" itemprop="dateUpdated">2020-09-28 11:37:04</time>
 </span><br>
 
 
@@ -332,7 +332,7 @@ output <span class="token punctuation">{</span>
     <div class="waves-block waves-effect prev">
       <a href="/post/c802a07c.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev </div>
-        <h4 class="title">Elastic Kibana展示系统日志(5)</h4>
+        <h4 class="title">Elastic Kibana 展示系统日志</h4>
       </a>
     </div>
   
@@ -341,7 +341,7 @@ output <span class="token punctuation">{</span>
     <div class="waves-block waves-effect next">
       <a href="/post/9482a90c.html" id="post-next" class="post-nav-link">
         <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Elastic 引入Filebeat(7)</h4>
+        <h4 class="title">Elastic 引入 Filebeat</h4>
       </a>
     </div>
   
@@ -494,7 +494,7 @@ output <span class="token punctuation">{</span>
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                596
+                597
             
         </span>
     </div>
