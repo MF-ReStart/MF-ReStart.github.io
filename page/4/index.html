@@ -174,7 +174,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible 的 lookups 插件过滤器其实是 Ansible 中的一种插件，除了过滤器之外，Ansible 中还有很多其他种类的插件。而且我们一直都在使用这些插件，比如我们在配置 Ans...
+        Ansible 的 lookups 插件过滤器其实是 Ansible 中的一种插件，除了过滤器之外，Ansible 中还有很多其他种类的插件。而且我们一直都在使用这些插件，比如我们在配置 Ansible 的主机清单时，就用到了 Inventory 种类的插件。lookups 其实也是插件的一种...
     
 
         <a href="/post/8dfd5e56.html" class="post-more waves-effect waves-button">
@@ -223,7 +223,7 @@
     
         
 我曾踏足山巅，也曾进入低谷，二者都让我受益良多。
-​                                                                      ...
+​                                                                                                                        ...
     
 
         <a href="/post/f254b261.html" class="post-more waves-effect waves-button">
@@ -271,7 +271,7 @@
 
     
         Ansible 的条件判断绝大数语言中，都使用 if 作为条件判断的方法，而在 Ansible 中，条件判断使用关键字 when
-简单示例使用 when 关键字指明条件是：ansible_dis...
+简单示例使用 when 关键字指明条件是：ansible_distribution == “CentOS”，这里的 ansible_distribution 是 f...
     
 
         <a href="/post/87ce98f8.html" class="post-more waves-effect waves-button">
@@ -318,7 +318,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible 的循环我们在编写 Playbook 的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。Ansible 一门简单的自动化语言，所...
+        Ansible 的循环我们在编写 Playbook 的时候，不可避免的要执行一些重复性操作，比如指定安装软件包，批量创建用户，操作某个目录下的所有文件等。Ansible 一门简单的自动化语言，所以流程控制、循环语句这些编程语言的基本元素它同样都具备。 Ansible 提供了两个用于创建循环的关...
     
 
         <a href="/post/b39a1b7d.html" class="post-more waves-effect waves-button">
@@ -374,7 +374,9 @@
 变量名需要以字母开头
 
 
-Ansible 内置的关键字不能...
+Ansible 内置的关键字不能作为变量名
+
+在 Playbook 中使用变量使用 vars 关键字定义名为 Package1 值为...
     
 
         <a href="/post/e2d2af3c.html" class="post-more waves-effect waves-button">
@@ -421,7 +423,7 @@ Ansible 内置的关键字不能...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible 的 tags 用法我们学习 Ansible，以后都是要编写各种各样的 Playbook 的。假如我们有一天，写了一个很长很长的 Playbook，其中包含了非常多的任务，这其实没...
+        Ansible 的 tags 用法我们学习 Ansible，以后都是要编写各种各样的 Playbook 的。假如我们有一天，写了一个很长很长的 Playbook，其中包含了非常多的任务，这其实没有什么问题，但是我有时候可能只是需要执行这个 Playbook 的一部分任务而已，而非每一次都执行 ...
     
 
         <a href="/post/8ecedcd4.html" class="post-more waves-effect waves-button">
@@ -468,7 +470,8 @@ Ansible 内置的关键字不能...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible 的 Handlers 用法许多的 Linux 服务在修改配置文件后都是需要重启服务的，以便能够重新读取配置文件，使新的配置能够生效。那怎么用 Playbook 实现这个简单的功能...
+        Ansible 的 Handlers 用法许多的 Linux 服务在修改配置文件后都是需要重启服务的，以便能够重新读取配置文件，使新的配置能够生效。那怎么用 Playbook 实现这个简单的功能呢？下面我们来编写一个修改 Nginx 端口的 Playbook，并且在修改完之后重启 Nginx
+...
     
 
         <a href="/post/b39bea85.html" class="post-more waves-effect waves-button">
@@ -515,7 +518,7 @@ Ansible 内置的关键字不能...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible Playbook 初识前一章我们学习了 Ansible 的模块，在控制节点上使用了很多 Ansible 的命令对管理节点进行配置和管理，但是在我们真正的工作场景中，如果需要配置一...
+        Ansible Playbook 初识前一章我们学习了 Ansible 的模块，在控制节点上使用了很多 Ansible 的命令对管理节点进行配置和管理，但是在我们真正的工作场景中，如果需要配置一个 Nginx 服务，其实并不是在控制节点执行 Ansible 命令去实现的，你可以想象一下，如果我...
     
 
         <a href="/post/11b6c727.html" class="post-more waves-effect waves-button">
@@ -566,7 +569,9 @@ Ansible 内置的关键字不能...
 使用缩进表示层级关系
 缩进时不允许使用 Tab 键，只允许使用空格
 缩进的空格数目不重要，只要相同层级的元素左侧对齐即可
-YAML 文件以 “-...
+YAML 文件以 “-“ 作为文档的开始，”…” 作为文档的结束
+# 表示注释，从这个字符一直到行尾，都会被解析器忽略
+相...
     
 
         <a href="/post/cbb0a0c0.html" class="post-more waves-effect waves-button">
@@ -620,7 +625,15 @@ filter：用于进行条件过滤，如果设置，仅返回匹配过滤条件�
 
 
 
-...
+关键字
+说明
+返回值例子
+
+
+
+ansible_nodename
+节点名
+“6-dns-1.hunk...
     
 
         <a href="/post/8704a1a2.html" class="post-more waves-effect waves-button">
@@ -764,6 +777,27 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
 <script src="/js/search.js" async></script>
 
 
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 

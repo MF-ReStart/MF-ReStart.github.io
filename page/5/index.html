@@ -174,7 +174,8 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        主机清单介绍Ansible 可同时操作属于一个组的多台主机， 组和主机之间的关系通过 inventory 文件配置. 默认的文件路径为 /etc/ansible/hosts，执行命令的时候使用 ...
+        主机清单介绍Ansible 可同时操作属于一个组的多台主机， 组和主机之间的关系通过 inventory 文件配置. 默认的文件路径为 /etc/ansible/hosts，执行命令的时候使用 “-i” 参数即可指定主机清单
+主机清单示例主机清单文件主要有 ini 和 yaml 格式两种语法格...
     
 
         <a href="/post/794bbd49.html" class="post-more waves-effect waves-button">
@@ -224,7 +225,9 @@
         Ansible 快速开始Control OS：CentOS 7.7 x64
 Ansible version：2.9.7
 Python version：2.7.5`
-任务Control node ...
+任务Control node 连接 Managed node
+定义主机清单定义一个简单的通过 SSH 认证的主机清单
+cat /e...
     
 
         <a href="/post/f57ff704.html" class="post-more waves-effect waves-button">
@@ -273,7 +276,7 @@ Python version：2.7.5`
     
         安装 Ansible对控制节点的要求：
 
-目前，只要机器上安装了 Python 2 (2.6或更高版本) 或 Python 3 (3.5或更高版本)，都可以运行 Ansible ，windows...
+目前，只要机器上安装了 Python 2 (2.6或更高版本) 或 Python 3 (3.5或更高版本)，都可以运行 Ansible ，windows系统不可以做控制节点，控制节点的系统可以是 Red Hat、Debian、CentOS、macOS、...
     
 
         <a href="/post/4e2cec72.html" class="post-more waves-effect waves-button">
@@ -320,7 +323,7 @@ Python version：2.7.5`
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible 介绍Ansible 是 2012 年推出的一种通用自动化工具，Ansible 也是我接触的第一个自动化运维工具，Ansible 可以帮助我们完成一些批量任务，或者完成一些经常性的...
+        Ansible 介绍Ansible 是 2012 年推出的一种通用自动化工具，Ansible 也是我接触的第一个自动化运维工具，Ansible 可以帮助我们完成一些批量任务，或者完成一些经常性的重复工作，在服务器集群场景下，Ansible 是我们运维的利器，Ansible 在2015年时被 R...
     
 
         <a href="/post/b5ccc3ed.html" class="post-more waves-effect waves-button">
@@ -421,6 +424,8 @@ Python version：2.7.5`
 
 你住的城市下雨了，想问你有没有带伞，可我不敢。因为我怕你说没带，而我又无能为力，就像是我爱你，却给不了你想要的。
 
+
+十年太长，什么都会变。一辈子太短，一件事也有可能做不完。回忆永远站在背后，你无法抛弃，只能拥抱。
 
 ...
     
@@ -566,6 +571,27 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
 <script src="/js/search.js" async></script>
 
 
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
