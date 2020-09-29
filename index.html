@@ -176,9 +176,7 @@
     
         环境准备system version: CentOS Linux release 7.7.1908
 mariadb version: 10.5.2
-maxscale version: 2.5.3 GA
-client: 10.10.110.84
-mariadb master: 10.10.110...
+maxscale version: 2.5.3...
     
 
         <a href="/post/2c9da2f4.html" class="post-more waves-effect waves-button">
@@ -227,7 +225,7 @@ mariadb master: 10.10.110...
     
         安装 TomcatTomcat 属于 Java 应用，这里收集 Tomcat 日志作为示例
 # 下载软件包
-wget -P /server/tools/https://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.53/bin/apache-tom...
+wget -P /server/tools/https://mirror.bit.ed...
     
 
         <a href="/post/5a1ae96.html" class="post-more waves-effect waves-button">
@@ -276,8 +274,7 @@ wget -P /server/tools/https://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.53/b
     
         Nginx 配置 Json 格式日志修改 Nginx 配置文件，定义输出 json 格式的日志，便于 filebeat 和 logstash 收集
 http {
-    log_format  main  '{"@timestamp": "$time_iso8601", '
-         ...
+    log_format  ...
     
 
         <a href="/post/baa98a96.html" class="post-more waves-effect waves-button">
@@ -324,7 +321,7 @@ http {
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        引入 Filebeat 架构简介filebeat 代替 logstash 去收集日志数据，然后将收集到的日志数据存储到 redis 或者 kafka，再由 logstash 去消费数据。filebeat 是非常轻量级单用途的日志采集器，属于Beats 家族。早期的 elk 架构使用 logst...
+        引入 Filebeat 架构简介filebeat 代替 logstash 去收集日志数据，然后将收集到的日志数据存储到 redis 或者 kafka，再由 logstash 去消费数据。file...
     
 
         <a href="/post/9482a90c.html" class="post-more waves-effect waves-button">
@@ -371,7 +368,7 @@ http {
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        引入 Redis 架构简介logstash 分为 shipper(负责收集日志数据)和 indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用 logstash 去收集和处理数据，由于 ES 的 HTTP API 处理能力有限，在日志写入频繁的情况下...
+        引入 Redis 架构简介logstash 分为 shipper(负责收集日志数据)和 indexer(负责对日志做过滤存储到ES)两个角色。当日志量达到一个量级之后，我们就不能继续使用 log...
     
 
         <a href="/post/23bc2fbc.html" class="post-more waves-effect waves-button">
@@ -422,9 +419,7 @@ http {
 input {
   file {
     path => ["/var/log/messages"]
-    type => "syslog"
-    tags => ["messages","log"]
-   ...
+    t...
     
 
         <a href="/post/c802a07c.html" class="post-more waves-effect waves-button">
@@ -471,7 +466,7 @@ input {
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Kibana 简述Kibana 是一个针对 Elasticsearch 的开源分析及可视化平台，用来搜索、查看交互存储在 Elasticsearch 索引中的数据。使用 Kibana，可以通过各种图表进行高级数据分析及展示。Kibana 让海量数据更容易理解，它操作简单，基于浏览器的用户界面可...
+        Kibana 简述Kibana 是一个针对 Elasticsearch 的开源分析及可视化平台，用来搜索、查看交互存储在 Elasticsearch 索引中的数据。使用 Kibana，可以通过各...
     
 
         <a href="/post/e26112db.html" class="post-more waves-effect waves-button">
@@ -518,7 +513,7 @@ input {
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Logstash 概述logstash 是 elasticsearch 的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出。其中 input(负责从数据源采集数据)和 output(将数据传输到目的地)是必要的，filter(将数据修改为你指定的格式或内容)是非必要的。logst...
+        Logstash 概述logstash 是 elasticsearch 的数据管道，负责对数据源进行处理。工作原理分别是输入、过滤、输出。其中 input(负责从数据源采集数据)和 output...
     
 
         <a href="/post/fe947601.html" class="post-more waves-effect waves-button">
@@ -565,7 +560,7 @@ input {
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Elasticsearch 简介Elasticsearch 是一个基于 Lucene 的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于 RESTful web 接口。Elasticsearch 是用 Java 语言开发，并作为 Apache 许可条款下的开放源代码发布，是当前流行...
+        Elasticsearch 简介Elasticsearch 是一个基于 Lucene 的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于 RESTful web 接口。Elastic...
     
 
         <a href="/post/1abc58c4.html" class="post-more waves-effect waves-button">
@@ -612,7 +607,7 @@ input {
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Elastic Stack 简介ELK 日志收集分析平台相信所有的运维工程师都听说过，实际上 ELK 不是一门技术，而是三个软件的简称。它们分别是由 Elasticsearch、Logstash、Kibana 组成，在ELK发展的过程中，又有新成员 Beats 的加入，所以就形成了 Elast...
+        Elastic Stack 简介ELK 日志收集分析平台相信所有的运维工程师都听说过，实际上 ELK 不是一门技术，而是三个软件的简称。它们分别是由 Elasticsearch、Logstash...
     
 
         <a href="/post/cb83e724.html" class="post-more waves-effect waves-button">
@@ -756,27 +751,6 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
 <script src="/js/search.js" async></script>
 
 
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 

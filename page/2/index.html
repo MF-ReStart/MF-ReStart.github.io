@@ -174,7 +174,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        PushGateway 部署prometheus 基于 http 的 pull 方式去采集时间序列数据，但是由于业务需求，prometheus 和 exporter 可能不在一个子网或者防火墙原因，导致 prometheus 无法直接拉取各个 target 数据，或者需要将不同的数据进行汇总，...
+        PushGateway 部署prometheus 基于 http 的 pull 方式去采集时间序列数据，但是由于业务需求，prometheus 和 exporter 可能不在一个子网或者防火墙原...
     
 
         <a href="/post/5cf39589.html" class="post-more waves-effect waves-button">
@@ -221,9 +221,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Blackbox_exporter 部署Blackbox_exporter 是 prometheus 官方提供的 exporter 之一，可以提供 http、dns、tcp、icmp 的监控数据采集
-# 下载
-wget https://github.com/prometheus/blackbo...
+        Blackbox_exporter 部署Blackbox_exporter 是 prometheus 官方提供的 exporter 之一，可以提供 http、dns、tcp、icmp 的监控数据...
     
 
         <a href="/post/f261c617.html" class="post-more waves-effect waves-button">
@@ -270,7 +268,7 @@ wget https://github.com/prometheus/blackbo...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Alertmanager 概述prometheus 发出告警时分为两部分，首先 prometheus 按告警规则(rule_files配置)向 alertmanager 发送告警，即告警规则是在 prometheus 上定义的，然后由 alertmanager 去管理这些告警，包括去重(ded...
+        Alertmanager 概述prometheus 发出告警时分为两部分，首先 prometheus 按告警规则(rule_files配置)向 alertmanager 发送告警，即告警规则是在...
     
 
         <a href="/post/615f0093.html" class="post-more waves-effect waves-button">
@@ -318,7 +316,7 @@ wget https://github.com/prometheus/blackbo...
 
     
         监控 Linux 服务器部署 node_exporter
-prometheus 官方提供 Node_exporter 来让我们收集机器的系统数据，除 node_exporter 外，官方还提供 consul、memcached、haproxy、mysqld 等 exporter。exporte...
+prometheus 官方提供 Node_exporter 来让我们收集机器的系统数据，除 node_exporter 外，官方还提供 ...
     
 
         <a href="/post/ba827699.html" class="post-more waves-effect waves-button">
@@ -367,10 +365,7 @@ prometheus 官方提供 Node_exporter 来让我们收集机器的系统数据，
     
         全局配置文件介绍global:
   # 全局默认的数据拉取间隔,默认每隔1m拉取一次监控数据
-  [ scrape_interval: &lt;duration> | default = 1m ]
-
-  # 全局默认的单次数据拉取超时
-  [ scrape_timeout: &lt;durat...
+  [ scrape_interval: &lt;duration> | default = 1m ...
     
 
         <a href="/post/521f1005.html" class="post-more waves-effect waves-button">
@@ -418,10 +413,7 @@ prometheus 官方提供 Node_exporter 来让我们收集机器的系统数据，
 
     
         Prometheus 二进制部署# 下载二进制安装包
-wget https://github.com/prometheus/prometheus/releases/download/v2.19.2/prometheus-2.19.2.linux-amd64.tar.gz
-
-# 解压
-tar x...
+wget https://github.com/prometheus/prometheus/releases/download/v2.19....
     
 
         <a href="/post/d26dfcbe.html" class="post-more waves-effect waves-button">
@@ -468,7 +460,7 @@ tar x...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Prometheus 简介Prometheus (普罗米修斯)是一个最初在 SoundCloud 上构建的监控系统。自2012年成为社区开源项目，拥有非常活跃的开发人员和用户社区。为强调开源及独立维护，Prometheus 于2016年加入云原生云计算基金会(CNCF)，成为继 Kuberne...
+        Prometheus 简介Prometheus (普罗米修斯)是一个最初在 SoundCloud 上构建的监控系统。自2012年成为社区开源项目，拥有非常活跃的开发人员和用户社区。为强调开源及独...
     
 
         <a href="/post/ef0b21f0.html" class="post-more waves-effect waves-button">
@@ -515,8 +507,7 @@ tar x...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        监控目的监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑盒监控: 监控系统或服务，在发生异常时做出相应的措施。prometheus 属于黑盒监控，是在服务发生异常时，我们通过告警信息得知，才去处理异常问题
-监控的目的主...
+        监控目的监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑盒监控: 监控系统或服务，在发生异常时做出相应的措施。prom...
     
 
         <a href="/post/ded057ed.html" class="post-more waves-effect waves-button">
@@ -563,7 +554,7 @@ tar x...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Docker Compose 概述Compose 是用于定义和运行多容器的工具，通过 Compose 可以使用 YAML 文件来配置容器。然后使用一个命令就可以从配置中创建并启动所有服务。其实在刚学习Docker 时我就想过，如果我是 LNMP 架构容器化项目，因为每次都要一个个容器的启动，是...
+        Docker Compose 概述Compose 是用于定义和运行多容器的工具，通过 Compose 可以使用 YAML 文件来配置容器。然后使用一个命令就可以从配置中创建并启动所有服务。其实在...
     
 
         <a href="/post/34699079.html" class="post-more waves-effect waves-button">
@@ -610,7 +601,7 @@ tar x...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Portainer 概述Portainer 是 Docker 的图形化管理工具，portainer 通过连接 /var/run/docker.sock 文件去管理容器，可让你轻松管理不同的 Docker 环境 (Docker主机或Swarm群集)。Portainer 提供状态显示面板、应用模板...
+        Portainer 概述Portainer 是 Docker 的图形化管理工具，portainer 通过连接 /var/run/docker.sock 文件去管理容器，可让你轻松管理不同的 Do...
     
 
         <a href="/post/92368be2.html" class="post-more waves-effect waves-button">
@@ -754,27 +745,6 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
 <script src="/js/search.js" async></script>
 
 
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 

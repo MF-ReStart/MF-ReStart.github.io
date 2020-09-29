@@ -174,7 +174,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Harbor 概述Harbor 是由 VMWare 公司开源的容器镜像仓库。事实上，Harbor 是在 Docker Registry 上进行了相应的企业级扩展，从而获得了更加广泛的应用，这些新的企业级特性包括：管理用户界面，基于角色的访问控制 ，AD/LDAP 集成以及审计日志等，足以满足基...
+        Harbor 概述Harbor 是由 VMWare 公司开源的容器镜像仓库。事实上，Harbor 是在 Docker Registry 上进行了相应的企业级扩展，从而获得了更加广泛的应用，这些新...
     
 
         <a href="/post/d46af348.html" class="post-more waves-effect waves-button">
@@ -221,17 +221,7 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Dockerfile 介绍Dockerfile 是由一行一行的命令语句组成，并且从上到下执行，支持以#注释行。一般 Dockerfile 的内容分为四个部分，基础镜像信息、维护者信息、镜像操作指令、容器启动时执行指令
-Dockerfile 常用指令
-
-
-指令
-描述
-
-
-
-FROM
-指定构建新镜...
+        Dockerfile 介绍Dockerfile 是由一行一行的命令语句组成，并且从上到下执行，支持以#注释行。一般 Dockerfile 的内容分为四个部分，基础镜像信息、维护者信息、镜像操作指...
     
 
         <a href="/post/44241b5a.html" class="post-more waves-effect waves-button">
@@ -278,7 +268,7 @@ FROM
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        bridge 模式当启动 Docker 进程之后，Docker 会默认创建一个名为 docker0 的虚拟网桥，创建容器时如果不指定网络，默认就是添加到这个网桥中。这样 Docker 主机上的所有容器都可以通过交换机的方式连接在一个二层网络中。创建容器时，Docker 会先创建容器的虚拟网卡，...
+        bridge 模式当启动 Docker 进程之后，Docker 会默认创建一个名为 docker0 的虚拟网桥，创建容器时如果不指定网络，默认就是添加到这个网桥中。这样 Docker 主机上的所...
     
 
         <a href="/post/bc1d2f66.html" class="post-more waves-effect waves-button">
@@ -325,7 +315,7 @@ FROM
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        容器数据持久化的三种方式由于容器的镜像分层机制，我们在容器里面创建文件或者修改文件，结果都会保存在容器的可读写层中，一旦容器被销毁，那么这个读写层也会随着容器销毁而消失。而且当一个容器需要和其他容器的读写层进行数据交互时，也会显得非常困难。于是在将容器数据持久化到宿主机方面，Docker 为我...
+        容器数据持久化的三种方式由于容器的镜像分层机制，我们在容器里面创建文件或者修改文件，结果都会保存在容器的可读写层中，一旦容器被销毁，那么这个读写层也会随着容器销毁而消失。而且当一个容器需要和其他...
     
 
         <a href="/post/a7b8d397.html" class="post-more waves-effect waves-button">
@@ -393,14 +383,7 @@ FROM
 
 
 -e, –env
-设置环境变量
-
-
--p, –publish list
-发布容器端口到主机
-
-
--P, –publish-al...
+设置环境...
     
 
         <a href="/post/39a5b294.html" class="post-more waves-effect waves-button">
@@ -460,9 +443,7 @@ FROM
 一个不包含 Linux 内核而又精简的 Linux 操作系统
 
 
-镜像是一种标准化的交付，镜像内包含代码以及软件的运行环境
-
-配置镜像加速阿里云为每一个开通容器镜像服务的用户免费提...
+镜像是一种标准...
     
 
         <a href="/post/ce2c2968.html" class="post-more waves-effect waves-button">
@@ -511,8 +492,7 @@ FROM
     
         为什么使用容器提供简单轻量的建模方式，非常容易上手，运行速度非常快
 使开发和运维的职责分离，开发只需要关心容器中的程序，运维只需要管理容器
-快速高效的开发生命周期，开发环境和生产环境一致，避免了额外的调试有效缩短上线时间
-鼓励使用面向服务的架构，Docker 推荐单个容器只运行一个应用程序，使...
+快速高效的开发生命周期，开发环境和生产环境一致，避免了...
     
 
         <a href="/post/f7aff4ce.html" class="post-more waves-effect waves-button">
@@ -559,7 +539,7 @@ FROM
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        CODING 介绍在说到持续集成这方面，相信所有做运维的小伙伴都知道 Jenkins，就是那个拿着托盘的老头子。但是说到 coding，可能很多人都没听说过。什么是 coding 呢？ coding 涵盖了软件开发从构想到交付的一切所需，使研发团队在云端高效协同，实践敏捷开发与 DevOps，...
+        CODING 介绍在说到持续集成这方面，相信所有做运维的小伙伴都知道 Jenkins，就是那个拿着托盘的老头子。但是说到 coding，可能很多人都没听说过。什么是 coding 呢？ codi...
     
 
         <a href="/post/1b979c3e.html" class="post-more waves-effect waves-button">
@@ -606,7 +586,7 @@ FROM
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible jinja2 模板我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的 IP 地址，这时候就需要使用到 Ansible 的 jinja2 模板去分发动态的配置文件。我们先创建一份模板文件，将 IP 配置部分使用 Ansible 变量进行替换，然后使用 te...
+        Ansible jinja2 模板我们在多个管理节点部署服务时，很多服务的配置文件都是需要监听服务所在主机的 IP 地址，这时候就需要使用到 Ansible 的 jinja2 模板去分发动态的配...
     
 
         <a href="/post/347a3183.html" class="post-more waves-effect waves-button">
@@ -653,7 +633,7 @@ FROM
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Ansible include在所有的编程语言中，在处理重复代码的时候，都会将重复的代码提取出来作为一个逻辑单元，这个逻辑单元通常被称为函数或者方法，这样可以让我们更加方便的、重复的调用这段代码。而且如果需要修改这段代码，只需要修改这段代码本身，那么在调用这段代码的地方的逻辑就会随之改变。同时...
+        Ansible include在所有的编程语言中，在处理重复代码的时候，都会将重复的代码提取出来作为一个逻辑单元，这个逻辑单元通常被称为函数或者方法，这样可以让我们更加方便的、重复的调用这段代码...
     
 
         <a href="/post/f03bbd11.html" class="post-more waves-effect waves-button">
@@ -797,27 +777,6 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
 <script src="/js/search.js" async></script>
 
 
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
