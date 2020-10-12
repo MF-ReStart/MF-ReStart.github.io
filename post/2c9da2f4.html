@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f697016160a154a670f066c.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f69996e160a154a6728344b.jpg">
 <meta property="article:published_time" content="2020-09-14T03:20:58.000Z">
-<meta property="article:modified_time" content="2020-09-25T09:13:11.719Z">
+<meta property="article:modified_time" content="2020-10-12T06:57:44.370Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="MariaDB">
 <meta property="article:tag" content="数据库">
@@ -257,7 +257,7 @@ mariadb <span class="token punctuation">[</span><span class="token punctuation">
 <span class="token operator">|</span> mariadb-bin.000001 <span class="token operator">|</span>      529 <span class="token operator">|</span>              <span class="token operator">|</span>                  <span class="token operator">|</span>
 +--------------------+----------+--------------+------------------+
 1 row <span class="token keyword">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span>0.000 sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="配置-MariaDB-Slave-节点"><a href="#配置-MariaDB-Slave-节点" class="headerlink" title="配置 MariaDB Slave 节点"></a>配置 MariaDB Slave 节点</h1><p>mariadb 10.0.2开始，GTID 是默认打开的。因为 maxscale 故障切换功能需要 mariadb 开启基于 GTID 的主从复制，而且是以  <code>master_use_gtid=current_pos</code> 的方式。因为 <code>master_use_gtid=slave_pos</code> 的方式，master 将从最后一个 GTID 开始给 slave 复制 binlog，通过 <code>@@gtid_slave_pos</code> 这个变量来查看目前最后一个 GTID 的位置，如果A节点 (master) 故障了之后由B节点成为了 master，当A节点以 slave 的身份加入到集群时，由于A节点之前从未成为过 slave，那么A节点的 <code>@@gtid_slave_pos</code> 是空的。为了能让故障的 master 节点故障之后能够重新以 slave 的身份加入到集群，我们需要使用 <code>master_use_gtid=current_pos</code> 的 GTID 方式开启主从复制</p>
+<h1 id="配置-MariaDB-Slave-节点"><a href="#配置-MariaDB-Slave-节点" class="headerlink" title="配置 MariaDB Slave 节点"></a>配置 MariaDB Slave 节点</h1><p>mariadb 10.0.2开始，GTID 是默认打开的。因为 maxscale 故障切换功能需要 mariadb 开启基于 GTID 的主从复制，而且是以  <code>master_use_gtid=current_pos</code> 的方式。因为 <code>master_use_gtid=slave_pos</code> 的方式，master 将从最后一个 GTID 开始给 slave 复制 binlog，通过 <code>@@gtid_slave_pos</code> 这个变量来查看目前最后一个 GTID 的位置，如果A节点 (master) 故障了之后由B节点成为了 master，当 A 节点以 slave 的身份加入到集群时，由于 A 节点之前从未成为过 slave，那么 A 节点的 <code>@@gtid_slave_pos</code> 是空的。为了能让故障的 master 节点故障之后能够重新以 slave 的身份加入到集群，我们需要使用 <code>master_use_gtid=current_pos</code> 的 GTID 方式开启主从复制</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql"># 指定主库信息(master信息会存到/var/lib/mysql/master.info文件)
 mariadb [(none)]> change master to master_host='10.10.110.80',
     -> master_user='slave',
@@ -328,7 +328,7 @@ mariadb [(none)]> show slave status\G
 slave_Non_Transactional_Groups: 0
     slave_Transactional_Groups: 0
 1 row in set (0.001 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="验证主从复制"><a href="#验证主从复制" class="headerlink" title="验证主从复制"></a>验证主从复制</h1><p>在 mariadb master上创建测试数据，然后在 mariadb slave 上查看数据是否已经同步过来</p>
+<h1 id="验证主从复制"><a href="#验证主从复制" class="headerlink" title="验证主从复制"></a>验证主从复制</h1><p>在 mariadb master 上创建测试数据，然后在 mariadb slave 上查看数据是否已经同步过来</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">create database mariadb;
 use mariadb;
 create table mariadb(name varchar(25),city varchar(30),age int);
@@ -628,7 +628,7 @@ port<span class="token operator">=</span>4006<span aria-hidden="true" class="lin
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-25T09:13:11.719Z" itemprop="dateUpdated">2020-09-25 17:13:11</time>
+    最后更新时间：<time datetime="2020-10-12T06:57:44.370Z" itemprop="dateUpdated">2020-10-12 14:57:44</time>
 </span><br>
 
 
@@ -664,7 +664,7 @@ port<span class="token operator">=</span>4006<span aria-hidden="true" class="lin
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
 
   
     <div class="waves-block waves-effect prev">
@@ -675,6 +675,13 @@ port<span class="token operator">=</span>4006<span aria-hidden="true" class="lin
     </div>
   
 
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/4fa06987.html" id="post-next" class="post-nav-link">
+        <div class="tips"> Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Xtrabackup 备份与恢复</h4>
+      </a>
+    </div>
   
 
 
