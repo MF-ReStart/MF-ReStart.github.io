@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5fb8cee7b18d6271134d01e7.png">
 <meta property="article:published_time" content="2020-11-20T07:47:02.000Z">
-<meta property="article:modified_time" content="2020-11-23T10:38:52.295Z">
+<meta property="article:modified_time" content="2020-11-24T10:14:41.872Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="k8s">
 <meta property="article:tag" content="Kubeadm">
@@ -162,7 +162,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kubeadm-简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">Kubeadm 简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装要求"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装要求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#准备环境"><span class="post-toc-number">3.</span> <span class="post-toc-text">准备环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装-docker-kubeadm-kubelet-kubectl"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装 docker kubeadm kubelet kubectl</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#初始化-kubernetes-master-节点"><span class="post-toc-number">5.</span> <span class="post-toc-text">初始化 kubernetes master 节点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#kubernetes-集群添加节点"><span class="post-toc-number">6.</span> <span class="post-toc-text">kubernetes 集群添加节点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装-Pod-网络插件"><span class="post-toc-number">7.</span> <span class="post-toc-text">安装 Pod 网络插件</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kubeadm-简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">Kubeadm 简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装要求"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装要求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#准备环境"><span class="post-toc-number">3.</span> <span class="post-toc-text">准备环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装-docker-kubeadm-kubelet-kubectl"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装 docker kubeadm kubelet kubectl</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#初始化-kubernetes-master-节点"><span class="post-toc-number">5.</span> <span class="post-toc-text">初始化 kubernetes master 节点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#kubernetes-集群添加节点"><span class="post-toc-number">6.</span> <span class="post-toc-text">kubernetes 集群添加节点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装-Pod-网络插件"><span class="post-toc-number">7.</span> <span class="post-toc-text">安装 Pod 网络插件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#测试-kubernetes-集群"><span class="post-toc-number">8.</span> <span class="post-toc-text">测试 kubernetes 集群</span></a></li></ol>
         </nav>
     </aside>
 
@@ -323,11 +323,14 @@ systemctl <span class="token function">enable</span> kubelet<span aria-hidden="t
 
 <span class="token comment" spellcheck="true"># 修改 calico 配置文件</span>
 - name: CALICO_IPV4POOL_CIDR
-  value: <span class="token string">"10.244.0.0/16"</span>    <span class="token comment" spellcheck="true"># 这个默认网段是192.168.0.0/16,修改为 kubeadm init 初始化时的 --pod-network-cidr</span>
+  value: <span class="token string">"10.244.0.0/16"</span>    <span class="token comment" spellcheck="true"># 这个默认网段是192.168.0.0/16,修改成前面 kubeadm init 指定的 --pod-network-cidr 一样</span>
 
 <span class="token comment" spellcheck="true"># 应用配置文件</span>
-kubectl apply -f calico.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+kubectl apply -f calico.yaml
 
+<span class="token comment" spellcheck="true"># 查看 pods 运行状态</span>
+kubectl get pods -n kube-system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="测试-kubernetes-集群"><a href="#测试-kubernetes-集群" class="headerlink" title="测试 kubernetes 集群"></a>测试 kubernetes 集群</h1>
         </div>
 
         <blockquote class="post-copyright">
@@ -335,7 +338,7 @@ kubectl apply -f calico.yaml<span aria-hidden="true" class="line-numbers-rows"><
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-11-23T10:38:52.295Z" itemprop="dateUpdated">2020-11-23 18:38:52</time>
+    最后更新时间：<time datetime="2020-11-24T10:14:41.872Z" itemprop="dateUpdated">2020-11-24 18:14:41</time>
 </span><br>
 
 
