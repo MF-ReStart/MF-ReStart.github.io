@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.missf.top/"/>
-  <updated>2020-12-09T07:04:45.073Z</updated>
+  <updated>2020-12-09T07:02:35.868Z</updated>
   <id>https://www.missf.top/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>测试</title>
-    <link href="https://www.missf.top/post/9daba997.html"/>
-    <id>https://www.missf.top/post/9daba997.html</id>
-    <published>2020-12-09T07:04:21.053Z</published>
-    <updated>2020-12-09T07:04:45.073Z</updated>
-    
-    <content type="html"><![CDATA[<p>dad</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;dad&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>Kubeadm 快速搭建 k8s 集群</title>
@@ -599,6 +576,36 @@
       
       
         &lt;h1 id=&quot;Prometheus-简介&quot;&gt;&lt;a href=&quot;#Prometheus-简介&quot; class=&quot;headerlink&quot; title=&quot;Prometheus 简介&quot;&gt;&lt;/a&gt;Prometheus 简介&lt;/h1&gt;&lt;p&gt;Prometheus (普罗米修斯)是一个最初在 S
+      
+    
+    </summary>
+    
+    
+      <category term="Prometheus" scheme="https://www.missf.top/categories/Prometheus/"/>
+    
+    
+      <category term="云计算" scheme="https://www.missf.top/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+      <category term="Prometheus" scheme="https://www.missf.top/tags/Prometheus/"/>
+    
+      <category term="监控" scheme="https://www.missf.top/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Prometheus 监控的意义</title>
+    <link href="https://www.missf.top/post/ded057ed.html"/>
+    <id>https://www.missf.top/post/ded057ed.html</id>
+    <published>2020-07-13T17:28:39.000Z</published>
+    <updated>2020-09-28T04:07:32.353Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="监控目的"><a href="#监控目的" class="headerlink" title="监控目的"></a>监控目的</h1><p>监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑盒监控: 监控系统或服务，在发生异常时做出相应的措施。prometheus 属于黑盒监控，是在服务发生异常时，我们通过告警信息得知，才去处理异常问题</p><p>监控的目的主要分为以下方面:</p><blockquote><p>根据历史监控数据，对未来做出预测</p></blockquote><blockquote><p>发生异常时即使告警，或做出相应措施</p></blockquote><blockquote><p>根据监控报警及时定位问题根源，记录问题出现的证据(记录网络波动)</p></blockquote><blockquote><p>通过可视化图表展示，便于直观获取信息</p></blockquote><blockquote><p>领导查看数据图表(PV、UV、订单趋势图)</p></blockquote><blockquote><p>运维人员能够提前预知风险，避免故障的产生或者在故障发生时能够迅速处理</p></blockquote><h1 id="怎么监控"><a href="#怎么监控" class="headerlink" title="怎么监控"></a>怎么监控</h1><p>使用传统监控工具，直接调用 Linux 系统命令去获取服务状态和信息</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># free </span><span class="token comment" spellcheck="true"># vmstat</span><span class="token comment" spellcheck="true"># df</span><span class="token comment" spellcheck="true"># top</span><span class="token comment" spellcheck="true"># ss</span><span class="token comment" spellcheck="true"># iftop</span><span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>使用监控系统去监控系统和服务，能够整体监控每一项数据</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># zabbix</span><span class="token comment" spellcheck="true"># nagios</span><span class="token comment" spellcheck="true"># prometheus</span><span class="token comment" spellcheck="true"># open-falcon</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h1 id="监控流程"><a href="#监控流程" class="headerlink" title="监控流程"></a>监控流程</h1><p>监控的大概流程分为：数据采集、数据存储、数据分析、以及展示和告警</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://pic.imgdb.cn/item/5f0d66c514195aa594d1f578.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h1 id="监控什么"><a href="#监控什么" class="headerlink" title="监控什么"></a>监控什么</h1><table><thead><tr><th>监控类型</th><th>具体参数</th></tr></thead><tbody><tr><td>硬件监控</td><td>硬件参数、温度、故障等</td></tr><tr><td>系统监控</td><td>CPU，内存，硬盘，网卡流量，TCP状态，进程数</td></tr><tr><td>应用监控</td><td>Nginx、Tomcat、PHP、MySQL、Redis等</td></tr><tr><td>日志监控</td><td>系统日志、服务日志、访问日志、错误日志</td></tr><tr><td>安全监控</td><td>WAF，敏感文件监控</td></tr><tr><td>API监控</td><td>可用性，接口请求，响应时间</td></tr><tr><td>业务监控</td><td>例如电商网站，每分钟产生多少订单、注册多少用户、多少活跃用户、推广活动效果</td></tr><tr><td>流量分析</td><td>根据流量获取用户相关信息，例如用户地理位置、某页面访问状况、页面停留时间等</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;监控目的&quot;&gt;&lt;a href=&quot;#监控目的&quot; class=&quot;headerlink&quot; title=&quot;监控目的&quot;&gt;&lt;/a&gt;监控目的&lt;/h1&gt;&lt;p&gt;监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑
       
     
     </summary>
