@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.missf.top/"/>
-  <updated>2020-12-09T07:02:35.868Z</updated>
+  <updated>2021-01-04T05:54:41.888Z</updated>
   <id>https://www.missf.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>wrk 性能测试工具</title>
+    <link href="https://www.missf.top/post/bcbad8d3.html"/>
+    <id>https://www.missf.top/post/bcbad8d3.html</id>
+    <published>2021-01-04T02:58:13.000Z</published>
+    <updated>2021-01-04T05:54:41.888Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="wrk-简介"><a href="#wrk-简介" class="headerlink" title="wrk 简介"></a>wrk 简介</h1><p>wrk 是一款针对 HTTP 协议的基准测试工具，它能够在单机多核 CPU 的条件下，使用系统自带的高性能 I/O 机制，如 epoll，kqueue 等，通过多线程和事件模式，对目标机器产生大量的负载。wrk 是复用了 redis 的 ae 异步事件驱动框架，准确来说 ae 事件驱动框架并不是 redis 发明的，它来至于 Tcl 的解释器 jim，这个小巧高效的框架，因为被 redis 采用而被大家所熟知</p><h1 id="wrk-安装"><a href="#wrk-安装" class="headerlink" title="wrk 安装"></a>wrk 安装</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Ubuntu/Debian</span><span class="token function">apt-get</span> <span class="token function">install</span> build-essential libssl-dev <span class="token function">git</span> -y<span class="token function">git</span> clone https://github.com/wg/wrk.git wrk<span class="token function">cd</span> wrk <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> -j4<span class="token function">cp</span> wrk /usr/local/bin<span class="token comment" spellcheck="true"># CentOS/RedHat</span>yum groupinstall <span class="token string">'Development Tools'</span>yum <span class="token function">install</span> -y openssl-devel <span class="token function">git</span><span class="token function">git</span> clone https://github.com/wg/wrk.git wrk<span class="token function">cd</span> wrk <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> -j4<span class="token function">cp</span> wrk /usr/local/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>验证安装是否成功</p><pre class="line-numbers language-bash"><code class="language-bash">wrk -v    <span class="token comment" spellcheck="true"># 查看版本</span>wrk  <span class="token punctuation">[</span>epoll<span class="token punctuation">]</span> Copyright <span class="token punctuation">(</span>C<span class="token punctuation">)</span> 2012 Will GlozerUsage: wrk <span class="token operator">&lt;</span>options<span class="token operator">></span> <span class="token operator">&lt;</span>url<span class="token operator">></span>                              Options:                                                -c, --connections <span class="token operator">&lt;</span>N<span class="token operator">></span>  Connections to keep <span class="token function">open</span> 跟服务器建立并保持的TCP连接数量    -d, --duration    <span class="token operator">&lt;</span>T<span class="token operator">></span>  Duration of <span class="token function">test</span> 压测时间               -t, --threads     <span class="token operator">&lt;</span>N<span class="token operator">></span>  Number of threads to use 使用多少个线程进行压测       -s, --script      <span class="token operator">&lt;</span>S<span class="token operator">></span>  Load Lua script <span class="token function">file</span> 指定Lua脚本路径           -H, --header      <span class="token operator">&lt;</span>H<span class="token operator">></span>  Add header to request 为每一个HTTP请求添加HTTP头              --latency          Print latency statistics 在压测结束后打印延迟统计信息           --timeout     <span class="token operator">&lt;</span>T<span class="token operator">></span>  Socket/request <span class="token function">timeout</span> 超时时间         -v, --version          Print version details 打印wrk的详细版本信息        Numeric arguments may include a SI unit <span class="token punctuation">(</span>1k, 1M, 1G<span class="token punctuation">)</span> 代表数字参数支持国际单位  Time arguments may include a <span class="token function">time</span> unit <span class="token punctuation">(</span>2s, 2m, 2h<span class="token punctuation">)</span> 代表时间参数支持时间单位<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>关于线程数：并不是设置得越大，压测效果越好，线程设置过大，反而会导致线程切换过于频繁，效果降低，一般来说，推荐设置成压测机器 CPU 核心数的 2 倍到 4 倍</p><h1 id="wrk-测试"><a href="#wrk-测试" class="headerlink" title="wrk 测试"></a>wrk 测试</h1><pre class="line-numbers language-bash"><code class="language-bash">wrk -t2 -c10 -d20s --latency http://10.244.169.184Running 20s <span class="token function">test</span> @ http://10.244.169.184  2 threads and 10 connections  Thread Stats   Avg<span class="token punctuation">(</span>平均值<span class="token punctuation">)</span>      Stdev<span class="token punctuation">(</span>标准差<span class="token punctuation">)</span>     Max<span class="token punctuation">(</span>最大值<span class="token punctuation">)</span>   +/- Stdev<span class="token punctuation">(</span>正负一个标准差所占比例<span class="token punctuation">)</span>    Latency<span class="token punctuation">(</span>延迟<span class="token punctuation">)</span>     7.08ms    9.11ms  85.30ms   88.17%    Req/Sec<span class="token punctuation">(</span>每秒请求数<span class="token punctuation">)</span>     1.08k   524.84     2.34k    59.13%  Latency Distribution <span class="token punctuation">(</span>延迟分布<span class="token punctuation">)</span>     50%    3.34ms<span class="token punctuation">(</span>50%的请求在3.34ms效应<span class="token punctuation">)</span>     75%    7.07ms     90%   18.22ms     99%   45.30ms  42574 requests <span class="token keyword">in</span> 20.10s, 34.51MB <span class="token function">read</span>Requests/sec:   2117.96<span class="token punctuation">(</span>QPS 即平均每秒处理请求数为 2117.96<span class="token punctuation">)</span>Transfer/sec:   1.72MB<span class="token punctuation">(</span>平均每秒流量<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>这仅仅是一个 get 请求的测试。如果想进行 POST 请求，或者每一次请求的参数都不一样，用来模拟用户使用的实际场景，可以使用 Lua 脚本来进行一系列更复杂的测试</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;wrk-简介&quot;&gt;&lt;a href=&quot;#wrk-简介&quot; class=&quot;headerlink&quot; title=&quot;wrk 简介&quot;&gt;&lt;/a&gt;wrk 简介&lt;/h1&gt;&lt;p&gt;wrk 是一款针对 HTTP 协议的基准测试工具，它能够在单机多核 CPU 的条件下，使用系统自带的高性能 
+      
+    
+    </summary>
+    
+    
+      <category term="性能测试" scheme="https://www.missf.top/categories/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="性能测试" scheme="https://www.missf.top/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="wrk" scheme="https://www.missf.top/tags/wrk/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubeadm 快速搭建 k8s 集群</title>
@@ -576,36 +604,6 @@
       
       
         &lt;h1 id=&quot;Prometheus-简介&quot;&gt;&lt;a href=&quot;#Prometheus-简介&quot; class=&quot;headerlink&quot; title=&quot;Prometheus 简介&quot;&gt;&lt;/a&gt;Prometheus 简介&lt;/h1&gt;&lt;p&gt;Prometheus (普罗米修斯)是一个最初在 S
-      
-    
-    </summary>
-    
-    
-      <category term="Prometheus" scheme="https://www.missf.top/categories/Prometheus/"/>
-    
-    
-      <category term="云计算" scheme="https://www.missf.top/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
-    
-      <category term="Prometheus" scheme="https://www.missf.top/tags/Prometheus/"/>
-    
-      <category term="监控" scheme="https://www.missf.top/tags/%E7%9B%91%E6%8E%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Prometheus 监控的意义</title>
-    <link href="https://www.missf.top/post/ded057ed.html"/>
-    <id>https://www.missf.top/post/ded057ed.html</id>
-    <published>2020-07-13T17:28:39.000Z</published>
-    <updated>2020-09-28T04:07:32.353Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="监控目的"><a href="#监控目的" class="headerlink" title="监控目的"></a>监控目的</h1><p>监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑盒监控: 监控系统或服务，在发生异常时做出相应的措施。prometheus 属于黑盒监控，是在服务发生异常时，我们通过告警信息得知，才去处理异常问题</p><p>监控的目的主要分为以下方面:</p><blockquote><p>根据历史监控数据，对未来做出预测</p></blockquote><blockquote><p>发生异常时即使告警，或做出相应措施</p></blockquote><blockquote><p>根据监控报警及时定位问题根源，记录问题出现的证据(记录网络波动)</p></blockquote><blockquote><p>通过可视化图表展示，便于直观获取信息</p></blockquote><blockquote><p>领导查看数据图表(PV、UV、订单趋势图)</p></blockquote><blockquote><p>运维人员能够提前预知风险，避免故障的产生或者在故障发生时能够迅速处理</p></blockquote><h1 id="怎么监控"><a href="#怎么监控" class="headerlink" title="怎么监控"></a>怎么监控</h1><p>使用传统监控工具，直接调用 Linux 系统命令去获取服务状态和信息</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># free </span><span class="token comment" spellcheck="true"># vmstat</span><span class="token comment" spellcheck="true"># df</span><span class="token comment" spellcheck="true"># top</span><span class="token comment" spellcheck="true"># ss</span><span class="token comment" spellcheck="true"># iftop</span><span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>使用监控系统去监控系统和服务，能够整体监控每一项数据</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># zabbix</span><span class="token comment" spellcheck="true"># nagios</span><span class="token comment" spellcheck="true"># prometheus</span><span class="token comment" spellcheck="true"># open-falcon</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h1 id="监控流程"><a href="#监控流程" class="headerlink" title="监控流程"></a>监控流程</h1><p>监控的大概流程分为：数据采集、数据存储、数据分析、以及展示和告警</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://pic.imgdb.cn/item/5f0d66c514195aa594d1f578.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h1 id="监控什么"><a href="#监控什么" class="headerlink" title="监控什么"></a>监控什么</h1><table><thead><tr><th>监控类型</th><th>具体参数</th></tr></thead><tbody><tr><td>硬件监控</td><td>硬件参数、温度、故障等</td></tr><tr><td>系统监控</td><td>CPU，内存，硬盘，网卡流量，TCP状态，进程数</td></tr><tr><td>应用监控</td><td>Nginx、Tomcat、PHP、MySQL、Redis等</td></tr><tr><td>日志监控</td><td>系统日志、服务日志、访问日志、错误日志</td></tr><tr><td>安全监控</td><td>WAF，敏感文件监控</td></tr><tr><td>API监控</td><td>可用性，接口请求，响应时间</td></tr><tr><td>业务监控</td><td>例如电商网站，每分钟产生多少订单、注册多少用户、多少活跃用户、推广活动效果</td></tr><tr><td>流量分析</td><td>根据流量获取用户相关信息，例如用户地理位置、某页面访问状况、页面停留时间等</td></tr></tbody></table>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;监控目的&quot;&gt;&lt;a href=&quot;#监控目的&quot; class=&quot;headerlink&quot; title=&quot;监控目的&quot;&gt;&lt;/a&gt;监控目的&lt;/h1&gt;&lt;p&gt;监控分为白盒监控和黑盒监控。白盒监控: 通过监控内部的运行状态及指标判断接下来可能会发生的问题，从而做出预判或应对的方法。黑
       
     
     </summary>
