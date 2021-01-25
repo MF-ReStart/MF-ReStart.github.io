@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f51fb57160a154a6778fb68.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f55cd21160a154a674bc848.jpg">
 <meta property="article:published_time" content="2020-08-17T10:48:56.000Z">
-<meta property="article:modified_time" content="2020-09-28T03:37:04.849Z">
+<meta property="article:modified_time" content="2021-01-20T10:13:09.025Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
@@ -198,8 +198,8 @@
                 <div class="image-caption"></div>
             </figure>
 
-<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><pre class="line-numbers language-bash"><code class="language-bash">logstash 10.10.110.195    <span class="token comment" spellcheck="true"># logstash shipper生产数据,将获取到的数据存到redis</span>
-logstash + redis 10.10.110.194    <span class="token comment" spellcheck="true"># logstash indexer消费redis中的日志数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><pre class="line-numbers language-bash"><code class="language-bash">logstash 10.10.110.195    <span class="token comment" spellcheck="true"># logstash shipper 生产数据,将获取到的数据存到 redis</span>
+logstash + redis 10.10.110.194    <span class="token comment" spellcheck="true"># logstash indexer 消费 redis 中的日志数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="生产日志数据"><a href="#生产日志数据" class="headerlink" title="生产日志数据"></a>生产日志数据</h1><p>编写 logstash pipeline 配置文件，将收集到的日志数据存储到 redis</p>
 <pre class="line-numbers language-json"><code class="language-json">input <span class="token punctuation">{</span>
   file <span class="token punctuation">{</span>
@@ -268,7 +268,7 @@ output <span class="token punctuation">{</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Redis-查看消费的数据"><a href="#Redis-查看消费的数据" class="headerlink" title="Redis 查看消费的数据"></a>Redis 查看消费的数据</h1><p>日志数据被消费完之后就代表已经写入到 ES</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># redis中的key会全部存到ES中(日志数据被消费完)</span>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># redis 中的 key 会全部存到 ES 中(日志数据被消费完)</span>
 127.0.0.1:56379<span class="token operator">></span> llen logstash
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 7041
 127.0.0.1:56379<span class="token operator">></span> llen logstash
@@ -290,7 +290,7 @@ output <span class="token punctuation">{</span>
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-28T03:37:04.849Z" itemprop="dateUpdated">2020-09-28 11:37:04</time>
+    最后更新时间：<time datetime="2021-01-20T10:13:09.025Z" itemprop="dateUpdated">2021-01-20 18:13:09</time>
 </span><br>
 
 
@@ -494,7 +494,7 @@ output <span class="token punctuation">{</span>
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                597
+                600
             
         </span>
     </div>

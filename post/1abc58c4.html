@@ -30,7 +30,7 @@
 <meta property="og:description" content="Elasticsearch 简介Elasticsearch 是一个基于 Lucene 的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于 RESTful web 接口。Elasticsearch 是用 Java 语言开发，并作为 Apache 许可条款下的开放源代码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索、稳定、可靠、快速、使用方便 我们建立一个网站或应用程">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-05T10:26:09.000Z">
-<meta property="article:modified_time" content="2020-09-28T03:49:11.115Z">
+<meta property="article:modified_time" content="2021-01-20T10:12:53.738Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
@@ -194,34 +194,34 @@ ES1 10.10.110.191
 ES2 10.10.110.192
 ES3 10.10.110.193
 
-<span class="token comment" spellcheck="true"># 下载elasticsearch和校验文件</span>
+<span class="token comment" spellcheck="true"># 下载 elasticsearch 和校验文件</span>
 <span class="token function">wget</span> https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.1-x86_64.rpm
 <span class="token function">wget</span> https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.1-x86_64.rpm.sha512
 
-<span class="token comment" spellcheck="true"># 安装elasticsearch</span>
+<span class="token comment" spellcheck="true"># 安装 elasticsearch</span>
 shasum -a 512 -c elasticsearch-7.8.1-x86_64.rpm.sha512
 yum <span class="token function">install</span> -y elasticsearch-7.8.1-x86_64.rpm
 
-<span class="token comment" spellcheck="true"># 修改jvm启动参数,根据自己机器决定</span>
+<span class="token comment" spellcheck="true"># 修改 jvm 启动参数,根据自己机器决定</span>
 vim /etc/elasticsearch/jvm.options
--Xms512m    <span class="token comment" spellcheck="true"># 确保Xmx和Xms的大小是相同的，其目的是为了能够在java垃圾回收机制清理完堆区后不需要重新分隔计算堆区的大小而浪费资源</span>
+-Xms512m    <span class="token comment" spellcheck="true"># 确保 Xmx 和 Xms 的大小是相同的，其目的是为了能够在 java 垃圾回收机制清理完堆区后不需要重新分隔计算堆区的大小而浪费资源</span>
 -Xmx512m
 
-<span class="token comment" spellcheck="true"># 修改进程在VMAs(虚拟内存区域)创建内存映射最大数量</span>
+<span class="token comment" spellcheck="true"># 修改进程在 VMAs(虚拟内存区域)创建内存映射最大数量</span>
 <span class="token keyword">echo</span> <span class="token string">"vm.max_map_count=655360"</span> <span class="token operator">>></span> /etc/sysctl.conf <span class="token operator">&amp;&amp;</span> sysctl -p
 
-<span class="token comment" spellcheck="true"># 修改elasticsearch配置文件</span>
+<span class="token comment" spellcheck="true"># 修改 elasticsearch 配置文件</span>
 <span class="token function">grep</span> -v <span class="token string">'^#'</span> /etc/elasticsearch/elasticsearch.yml
 cluster.name: elk-cluster    <span class="token comment" spellcheck="true"># 集群名称,所有节点一样</span>
-node.name: node-1    <span class="token comment" spellcheck="true"># 不同节点,分别用node-1/node-2/node-3...</span>
+node.name: node-1    <span class="token comment" spellcheck="true"># 不同节点,分别用 node-1/node-2/node-3...</span>
 path.data: /var/lib/elasticsearch    <span class="token comment" spellcheck="true"># 数据目录,如果加入集群失败可以清空数据目录再重启服务</span>
 path.logs: /var/log/elasticsearch    <span class="token comment" spellcheck="true"># 日志目录</span>
 network.host: 10.10.110.191        <span class="token comment" spellcheck="true"># 不同节点,分别用10.10.110......</span>
 http.port: 9200        <span class="token comment" spellcheck="true"># 监听端口</span>
-discovery.seed_hosts: <span class="token punctuation">[</span><span class="token string">"10.10.110.191"</span>, <span class="token string">"10.10.110.192"</span>, <span class="token string">"10.10.110.193"</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 集群发现,可以写成10.10.110.191:9200</span>
-cluster.initial_master_nodes: <span class="token punctuation">[</span><span class="token string">"node-1"</span>, <span class="token string">"node-2"</span>, <span class="token string">"node-3"</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 指定可以成为master的节点,此参数只有在初始化集群时生效</span>
+discovery.seed_hosts: <span class="token punctuation">[</span><span class="token string">"10.10.110.191"</span>, <span class="token string">"10.10.110.192"</span>, <span class="token string">"10.10.110.193"</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 集群发现,可以写成 10.10.110.191:9200</span>
+cluster.initial_master_nodes: <span class="token punctuation">[</span><span class="token string">"node-1"</span>, <span class="token string">"node-2"</span>, <span class="token string">"node-3"</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true"># 指定可以成为 master 的节点,此参数只有在初始化集群时生效</span>
 
-<span class="token comment" spellcheck="true"># 启动elasticsearch服务</span>
+<span class="token comment" spellcheck="true"># 启动 elasticsearch 服务</span>
 systemctl start elasticsearch.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Elasticsearch-集群常用查询"><a href="#Elasticsearch-集群常用查询" class="headerlink" title="Elasticsearch 集群常用查询"></a>Elasticsearch 集群常用查询</h1><p>查看集群状态</p>
 <pre class="line-numbers language-json"><code class="language-json">curl -X GET http<span class="token operator">:</span>//<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/_cluster/health?pretty
@@ -271,18 +271,18 @@ docker pull mobz/elasticsearch-head:5
 <span class="token comment" spellcheck="true"># 启动容器</span>
 docker run -itd --name <span class="token string">"elasticsearch-head"</span> -p 9100:9100 -v elasticsearch_head:/usr/src/app --restart always mobz/elasticsearch-head:5
 
-<span class="token comment" spellcheck="true"># 由于前后端分离开发,所以会存在跨域问题,需要在服务端做CORS的配置</span>
+<span class="token comment" spellcheck="true"># 由于前后端分离开发,所以会存在跨域问题,需要在服务端做 CORS 的配置</span>
 vim /etc/elasticsearch/elasticsearch.yml
 http.cors.enabled: <span class="token boolean">true</span>
 http.cors.allow-origin: <span class="token string">"*"</span>
 
-<span class="token comment" spellcheck="true"># Web访问</span>
+<span class="token comment" spellcheck="true"># Web 访问</span>
 http://10.10.110.191:9100/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Elasticsearch Head 数据浏览不显示数据，使用浏览器按 F12 查看发现 406 Not Acceptable 错误，出现这个错误是因为后台返回的数据是 json 格式前台无法解析，解决方法如下：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 找到docker数据卷在宿主机上的目录</span>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 找到 docker 数据卷在宿主机上的目录</span>
 docker volume inspect elasticsearch_head
 
-<span class="token comment" spellcheck="true"># 修改数据卷目录下_site/vendor.js文件</span>
+<span class="token comment" spellcheck="true"># 修改数据卷目录下 _site/vendor.js 文件</span>
 contentType: <span class="token string">"application/x-www-form-urlencoded"</span> 修改为 contentType: <span class="token string">"application/json;charset=UTF-8"</span>
 var inspectData <span class="token operator">=</span> s.contentType <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">"application/x-www-form-urlencoded"</span> <span class="token operator">&amp;&amp;</span> 修改为 var inspectData <span class="token operator">=</span> s.contentType <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">"application/json;charset=UTF-8"</span> <span class="token operator">&amp;&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Elasticsearch-基本概念"><a href="#Elasticsearch-基本概念" class="headerlink" title="Elasticsearch 基本概念"></a>Elasticsearch 基本概念</h1><p>索引(index)是 Elasticsearch 存放数据的地方，可以理解为关系型数据库的数据库。我们的数据被存储和索引在分片(shards)中，索引只是一个把一个或多个分片分组在一起的逻辑空间。索引的结构是为快速有效的全文索引准备的，索引名称必须是小写，并且不能用下划线开头</p>
@@ -315,7 +315,7 @@ var inspectData <span class="token operator">=</span> s.contentType <span class=
 </tr>
 </tbody></table>
 <h1 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a>RESTful API</h1><p>在 Elasticsearch 中，提供了功能丰富的 RESTful API 的操作，包括基本的 CRUD、创建索引、删除索引等操作。RESTful 是统一规范的 http 接口，任何语言都可以使用。我们可以直接使用 web 客户端(postman)来测试，甚至还可以使用 Linux 上的 curl 工具测试，不需要自己写程序来调用 Elasticsearch 服务</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Elasticsearch RESTful操作数据的风格</span>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Elasticsearch RESTful 操作数据的风格</span>
 curl -X <span class="token operator">&lt;</span>verb<span class="token operator">></span> <span class="token string">'&lt;protocol>://&lt;host>:&lt;port>/&lt;path>?&lt;query_string> -d &lt;body>'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
 <p>verb：HTTP 方法，如 GET、POST、PUT、HEAD、DELETE</p>
@@ -339,7 +339,7 @@ curl -X <span class="token operator">&lt;</span>verb<span class="token operator"
 <p>body：自己写的 JSON 格式的请求主体</p>
 </blockquote>
 <h1 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h1><p>在 Lucene 中创建索引是需要定义字段名称以及字段的类型，在 Elasticsearch 中提供了非结构化的索引，就是不需要创建索引结构，即可写入数据到索引中，实际上在 Elasticsearch 底层会进行结构化操作，此操作对用户是透明的</p>
-<pre class="line-numbers language-apl"><code class="language-apl"><span class="token comment" spellcheck="true"># 创建一个data的空索引</span>
+<pre class="line-numbers language-apl"><code class="language-apl"><span class="token comment" spellcheck="true"># 创建一个 data 的空索引</span>
 curl <span class="token function">-</span>X PUT <span class="token string">'10.10.110.191:9200/data'</span>
 
 <span class="token comment" spellcheck="true"># 删除索引</span>
@@ -446,7 +446,7 @@ curl -X DELETE 'http<span class="token operator">:</span>//<span class="token nu
 <p>搜索全部数据</p>
 <pre class="line-numbers language-bash"><code class="language-bash">curl -X GET <span class="token string">'10.10.110.191:9200/data/user/_search?pretty'</span>    <span class="token comment" spellcheck="true"># 响应默认只返回10条数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>关键字搜素数据</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 查询base等于sz的用户数据</span>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 查询 base 等于 sz 的用户数据</span>
 curl -X GET <span class="token string">'10.10.110.191:9200/data/user/_search?q=base:sz'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="DSL-搜索"><a href="#DSL-搜索" class="headerlink" title="DSL 搜索"></a>DSL 搜索</h1><p>Elasticsearch 提供基于 JSON 的完整查询语言 DSL(Query DSL) 来定义查询，它允许你构建更加复杂、强大的查询</p>
 <pre class="line-numbers language-json"><code class="language-json"># 查询base等于sz的用户
@@ -567,12 +567,12 @@ curl -X POST '<span class="token number">10.10</span>.<span class="token number"
 <p>_type(类型)，在关系型数据库中，我们经常将相同类的对象存储在一个表里，因为它们有着相同的结构。同理，在 Elasticsearch 中我们使用相同类型(type)的文档表示相同的 “事物”，因为他们的数据结构也是相同的</p>
 <p>id 仅仅是一个字符串，它与 _index 和 _type 组合时，就可以在 Elasticsearch 中唯一标识一个文档。当创建一个文档时你可以自定义 _id ，也可以让 Elasticsearch 帮你自动生成</p>
 <h1 id="响应查询"><a href="#响应查询" class="headerlink" title="响应查询"></a>响应查询</h1><p>指定响应字段</p>
-<pre class="line-numbers language-apl"><code class="language-apl"><span class="token comment" spellcheck="true"># 只响应_source下的name,job字段</span>
+<pre class="line-numbers language-apl"><code class="language-apl"><span class="token comment" spellcheck="true"># 只响应 _source 下的 name,job 字段</span>
 curl <span class="token function">-</span>X GET <span class="token string">'10.10.110.191:9200/data/user/001/?_source=name,job'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>不返回元数据，仅仅返回原始数据</p>
 <pre class="line-numbers language-apl"><code class="language-apl">curl <span class="token function">-</span>X GET <span class="token string">'10.10.110.191:9200/data/user/001/_source'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h1 id="判断文档存在"><a href="#判断文档存在" class="headerlink" title="判断文档存在"></a>判断文档存在</h1><p>如果我们只需要判断文档是否存在，而不查询文档内容</p>
-<pre class="line-numbers language-apl"><code class="language-apl"><span class="token comment" spellcheck="true"># 如果文档存在,Elasticsearch将返回HTTP/1.1 200 OK,如果不存在就返回HTTP/1.1 404 Not Found</span>
+<pre class="line-numbers language-apl"><code class="language-apl"><span class="token comment" spellcheck="true"># 如果文档存在,Elasticsearch 将返回 HTTP/1.1 200 OK,如果不存在就返回 HTTP/1.1 404 Not Found</span>
 curl <span class="token function">-</span>i <span class="token function">-</span>X HEAD <span class="token string">'http://10.10.110.191:9200/data/user/001'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>当然，这只表示你在查询的那一刻文档不存在，但并不表示几毫秒后依旧不存在，另一个进程在这期间可能创建新文档</p>
 <h1 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h1><p>有些情况下可以通过批量操作以减少网络请求，如：批量查询、批量插入数据</p>
@@ -800,7 +800,7 @@ curl -X POST '<span class="token number">10.10</span>.<span class="token number"
 <p>IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词工具包。从2006年12月推出1.0版开始，IKAnalyzer已经推出了3个大版本。最初，它是以开源项目Luence为应用主体的，结合词典分词和文法分析算法的中文分词组件。新版本的IK Analyzer 3.0则发展为面向Java的公用分词组件，独立于Lucene项目，同时提供了对Lucene的默认优化实现。采用了特有的”正向迭代最细粒度切分算法”，具有80万字/秒的高速处理能力 采用了多子处理器分析模式，支持：英文字母（IP地址、Email、URL）、数字（日期，常用中文数量词，罗马数字，科学计数法），中文词汇（姓名、地名处理）等分词处理。 优化的词典存储，更小的内存占用</p>
 </blockquote>
 <p>安装 ik 中文分词器</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载对应es版本的ik分词器</span>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载对应 es 版本的 ik 分词器</span>
 https://github.com/medcl/elasticsearch-analysis-ik
 
 <span class="token comment" spellcheck="true"># 创建目录</span>
@@ -809,7 +809,7 @@ https://github.com/medcl/elasticsearch-analysis-ik
 <span class="token comment" spellcheck="true"># 解压</span>
 unzip plugin to folder your-es-root/plugins/ik
 
-<span class="token comment" spellcheck="true"># 重启es(集群环境每一台都要配置)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true"># 重启 es(集群环境每一台都要配置)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>分词测试</p>
 <pre class="line-numbers language-json"><code class="language-json">curl -X POST '<span class="token number">10.10</span>.<span class="token number">110.191</span><span class="token operator">:</span><span class="token number">9200</span>/_analyze?pretty' -H <span class="token string">"Content-Type:application/json"</span> -d ' 
 <span class="token punctuation">{</span>
@@ -864,7 +864,7 @@ unzip plugin to folder your-es-root/plugins/ik
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-28T03:49:11.115Z" itemprop="dateUpdated">2020-09-28 11:49:11</time>
+    最后更新时间：<time datetime="2021-01-20T10:12:53.738Z" itemprop="dateUpdated">2021-01-20 18:12:53</time>
 </span><br>
 
 

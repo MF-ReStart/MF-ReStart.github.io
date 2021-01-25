@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f50a2a9160a154a672c41a2.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/5f50a1ee160a154a672c0902.jpg">
 <meta property="article:published_time" content="2020-08-14T07:56:54.000Z">
-<meta property="article:modified_time" content="2020-09-28T03:38:46.361Z">
+<meta property="article:modified_time" content="2021-01-20T10:10:42.712Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="ELK">
 <meta property="article:tag" content="企业级日志系统">
@@ -190,21 +190,21 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="Kibana-简述"><a href="#Kibana-简述" class="headerlink" title="Kibana 简述"></a>Kibana 简述</h1><p>Kibana 是一个针对 Elasticsearch 的开源分析及可视化平台，用来搜索、查看交互存储在 Elasticsearch 索引中的数据。使用 Kibana，可以通过各种图表进行高级数据分析及展示。Kibana 让海量数据更容易理解，它操作简单，基于浏览器的用户界面可以快速创建仪表板(dashboard)实时显示 Elasticsearch 查询动态。设置 Kibana 非常简单，无需编码或者额外的基础架构，就可以完成 Kibana 安装并启动 Elasticsearch 索引监测</p>
-<h1 id="Kibana-安装配置"><a href="#Kibana-安装配置" class="headerlink" title="Kibana 安装配置"></a>Kibana 安装配置</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载Kibana</span>
+<h1 id="Kibana-安装配置"><a href="#Kibana-安装配置" class="headerlink" title="Kibana 安装配置"></a>Kibana 安装配置</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载 Kibana</span>
 <span class="token function">wget</span> https://artifacts.elastic.co/downloads/kibana/kibana-7.8.1-x86_64.rpm
 
 <span class="token comment" spellcheck="true"># 安装</span>
 shasum -a 512 kibana-7.8.1-x86_64.rpm
 rpm --install kibana-7.8.1-x86_64.rpm
 
-<span class="token comment" spellcheck="true"># 修改Kibana配置文件</span>
+<span class="token comment" spellcheck="true"># 修改 Kibana 配置文件</span>
 <span class="token function">grep</span> -v <span class="token string">"^#"</span> /etc/kibana/kibana.yml
 server.port: 5601
 server.host: <span class="token string">"127.0.0.1"</span>
 elasticsearch.hosts: <span class="token punctuation">[</span><span class="token string">"http://10.10.110.191:9200"</span><span class="token punctuation">]</span>
 i18n.locale: <span class="token string">"zh-CN"</span>
 
-<span class="token comment" spellcheck="true"># 启动Kibana</span>
+<span class="token comment" spellcheck="true"># 启动 Kibana</span>
 systemctl start kibana.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="配置-Nginx-代理-Kibana"><a href="#配置-Nginx-代理-Kibana" class="headerlink" title="配置 Nginx 代理 Kibana"></a>配置 Nginx 代理 Kibana</h1><p>配置 Nginx 反向代理实现鉴权</p>
 <pre class="line-numbers language-bash"><code class="language-bash">vim /usr/local/nginx/conf/nginx.conf
@@ -220,10 +220,10 @@ server <span class="token punctuation">{</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>配置验证登录账号密码</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 需要安装httpd-tools工具,文件里的密码是密文的</span>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 需要安装 httpd-tools 工具,文件里的密码是密文的</span>
 htpasswd -c /usr/local/nginx/conf/passwd.db admin    <span class="token comment" spellcheck="true"># 连续输入两次密码</span>
 
-<span class="token comment" spellcheck="true"># 测试本机kibana能否连接,如果本机都不能连接,那么Nginx代理就没有意义</span>
+<span class="token comment" spellcheck="true"># 测试本机 kibana 能否连接,如果本机都不能连接,那么 Nginx 代理就没有意义</span>
 curl -L -u admin:12345678 http://127.0.0.1:5601<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="登录-Kibana"><a href="#登录-Kibana" class="headerlink" title="登录 Kibana"></a>登录 Kibana</h1><p>登录 kibana 的地址</p>
 <pre class="line-numbers language-bash"><code class="language-bash">http://10.10.110.194:9090/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -252,7 +252,7 @@ curl -L -u admin:12345678 http://127.0.0.1:5601<span aria-hidden="true" class="l
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-28T03:38:46.361Z" itemprop="dateUpdated">2020-09-28 11:38:46</time>
+    最后更新时间：<time datetime="2021-01-20T10:10:42.712Z" itemprop="dateUpdated">2021-01-20 18:10:42</time>
 </span><br>
 
 
