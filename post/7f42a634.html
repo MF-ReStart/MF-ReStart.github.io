@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://img.imgdb.cn/item/6061a5e08322e6675cdf26c6.jpg">
 <meta property="og:image" content="https://img.imgdb.cn/item/6061a7cf8322e6675ce18487.jpg">
 <meta property="article:published_time" content="2021-03-08T10:46:59.000Z">
-<meta property="article:modified_time" content="2021-03-29T10:13:45.884Z">
+<meta property="article:modified_time" content="2021-03-29T10:28:04.701Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Kubernetes">
 <meta name="twitter:card" content="summary">
@@ -951,11 +951,9 @@ kubectl explain pods.spec.containers<span aria-hidden="true" class="line-numbers
         <span class="token key atrule">ports</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>开始之前，请确保的 Kubernetes 集群已启动并运行。 按照以下步骤创建上述 Deployment ：</p>
-<ol>
-<li><p>通过运行以下命令创建 Deployment ：</p>
+<p>通过运行以下命令创建 Deployment ：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">kubectl apply -f nginx-deployment.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li><p>运行 <code>kubectl get deployments.apps -o wide</code> 检查 Deployment 是否已创建：</p>
+<p>运行 <code>kubectl get deployments.apps -o wide</code> 检查 Deployment 是否已创建：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">NAME                     READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS    IMAGES                 SELECTOR
 nginx-deployment         3/3     3            3           34s   nginx         nginx:1.14.2           app=nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>在检查集群中的 Deployment 时，所显示的字段有：</p>
@@ -967,22 +965,17 @@ nginx-deployment         3/3     3            3           34s   nginx         ng
 <li><code>AGE</code> 显示应用程序运行的时间。</li>
 </ul>
 <p>请注意期望副本数是根据 <code>.spec.replicas</code> 字段设置 3。</p>
-</li>
-<li><p>运行 <code>kubectl rollout status deployment nginx-deployment</code> 查看 Deployment 上线状态：</p>
+<p>运行 <code>kubectl rollout status deployment nginx-deployment</code> 查看 Deployment 上线状态：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">deployment "nginx-deployment" successfully rolled out<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li><p>要查看 Deployment 创建的 ReplicaSet（<code>rs</code>），运行 <code>kubectl get rs</code>。 输出类似于：</p>
+<p>要查看 Deployment 创建的 ReplicaSet（<code>rs</code>），运行 <code>kubectl get rs</code>。 输出类似于：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">NAME                                DESIRED   CURRENT   READY   AGE
 nginx-deployment-66b6c48dd5         3         3         3       5m5s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>要查看每个资源自动生成的标签，运行 <code>kubectl get pods --show-labels</code>。返回以下输出：</p>
+<p>要查看每个资源自动生成的标签，运行 <code>kubectl get pods --show-labels</code>。返回以下输出：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">NAME                                      READY   STATUS    RESTARTS   AGE     LABELS
 nginx-deployment-66b6c48dd5-5jd4w         1/1     Running   0          7m20s   app=nginx,pod-template-hash=66b6c48dd5
 nginx-deployment-66b6c48dd5-js2bx         1/1     Running   0          7m20s   app=nginx,pod-template-hash=66b6c48dd5
 nginx-deployment-66b6c48dd5-mqsnj         1/1     Running   0          7m20s   app=nginx,pod-template-hash=66b6c48dd5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>所创建的 ReplicaSet 确保总是存在三个 <code>nginx</code> Pod。</p>
-</li>
-</ol>
 <h2 id="ReplicaSet-1"><a href="#ReplicaSet-1" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h2><p>ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。</p>
 <p>ReplicaSet 确保任何时间都有指定数量的 Pod 副本在运行。 然而，Deployment 是一个更高级的概念，它管理 ReplicaSet，并向 Pod 提供声明式的更新以及许多其他有用的功能。 因此，我们建议使用 Deployment 而不是直接使用 ReplicaSet ，除非你需要自定义更新业务流程或根本不需要更新。</p>
 <p>这实际上意味着，你可能永远不需要操作 ReplicaSet 对象：而是使用 Deployment，并在 spec 部分定义 ReplicaSet 管理你的应用。</p>
@@ -1005,14 +998,12 @@ nginx-deployment-66b6c48dd5-mqsnj         1/1     Running   0          7m20s   a
       <span class="token key atrule">containers</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
         <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li><p>你可以看到当前被部署的 ReplicaSet：</p>
+<p>你可以看到当前被部署的 ReplicaSet：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">kubectl get rs nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>并看到你所创建的前端：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">NAME    DESIRED   CURRENT   READY   AGE
 nginx   3         3         2       11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>你也可以查看 ReplicaSet 的状态：</p>
+<p>你也可以查看 ReplicaSet 的状态：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">kubectl describe rs nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>你会看到类似如下的输出：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">Name:         nginx
@@ -1038,16 +1029,13 @@ Events:
   Normal  SuccessfulCreate  113s  replicaset-controller  Created pod: nginx-7hxhm
   Normal  SuccessfulCreate  113s  replicaset-controller  Created pod: nginx-mnq9v
   Normal  SuccessfulCreate  113s  replicaset-controller  Created pod: nginx-w9cfq<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>最后可以查看启动了的 Pods：</p>
+<p>最后可以查看启动了的 Pods：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">kubectl get pods<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>你会看到类似如下的 Pod 信息：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">NAME          READY   STATUS    RESTARTS   AGE
 nginx-7hxhm   1/1     Running   0          3m2s
 nginx-mnq9v   1/1     Running   0          3m2s
 nginx-w9cfq   1/1     Running   0          3m2s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
 <h2 id="StatefulSets-1"><a href="#StatefulSets-1" class="headerlink" title="StatefulSets"></a>StatefulSets</h2><h2 id="DaemonSet-1"><a href="#DaemonSet-1" class="headerlink" title="DaemonSet"></a>DaemonSet</h2><p>DaemonSet 确保全部（或者某些）节点上运行一个 Pod 的副本。 当有节点加入集群时， 也会为他们新增一个 Pod 。 当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。</p>
 <p>你可以在 YAML 文件中描述 DaemonSet。</p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
@@ -1190,7 +1178,7 @@ my-service   10.244.169.179:6379,10.244.169.180:6379,10.244.36.82:6379   6m3s<sp
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2021-03-29T10:13:45.884Z" itemprop="dateUpdated">2021-03-29 18:13:45</time>
+    最后更新时间：<time datetime="2021-03-29T10:28:04.701Z" itemprop="dateUpdated">2021-03-29 18:28:04</time>
 </span><br>
 
 
