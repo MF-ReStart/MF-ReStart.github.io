@@ -29,11 +29,16 @@
 <meta property="og:site_name" content="荒原饮露">
 <meta property="og:description" content="概述 此文档仅为个人的学习笔记，记录下来是为了以后遗忘时可以翻阅。最好的 Kubernetes 文档在 kubernetes.io，请大家去官网学习！  Kubernetes 是什么？Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5fb8cee7b18d6271134d01e7.png">
+<meta property="og:image" content="https://img.imgdb.cn/item/606199998322e6675cd1d76b.jpg">
+<meta property="og:image" content="https://img.imgdb.cn/item/6061a5e08322e6675cdf26c6.jpg">
+<meta property="og:image" content="https://img.imgdb.cn/item/6061a7cf8322e6675ce18487.jpg">
 <meta property="article:published_time" content="2021-03-08T10:46:59.000Z">
-<meta property="article:modified_time" content="2021-03-09T10:37:41.560Z">
+<meta property="article:modified_time" content="2021-03-29T10:13:45.884Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Kubernetes">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5fb8cee7b18d6271134d01e7.png">
     
         <link rel="alternate" type="application/atom+xml" title="荒原饮露" href="/atom.xml">
     
@@ -158,7 +163,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-是什么？"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Kubernetes 是什么？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#时光回溯"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">时光回溯</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kubernetes-能做什么？"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">Kubernetes 能做什么？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kubernetes-不是什么？"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">Kubernetes 不是什么？</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-组件"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Kubernetes 组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#控制平面组件（Control-Plane-Components）"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">控制平面组件（Control Plane Components）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-apiserver"><span class="post-toc-number">1.2.1.1.</span> <span class="post-toc-text">kube-apiserver</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#etcd"><span class="post-toc-number">1.2.1.2.</span> <span class="post-toc-text">etcd</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-scheduler"><span class="post-toc-number">1.2.1.3.</span> <span class="post-toc-text">kube-scheduler</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-controller-manager"><span class="post-toc-number">1.2.1.4.</span> <span class="post-toc-text">kube-controller-manager</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Node-组件"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">Node 组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kubelet"><span class="post-toc-number">1.2.2.1.</span> <span class="post-toc-text">kubelet</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-proxy"><span class="post-toc-number">1.2.2.2.</span> <span class="post-toc-text">kube-proxy</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#容器运行时（Container-Runtime）"><span class="post-toc-number">1.2.2.3.</span> <span class="post-toc-text">容器运行时（Container Runtime）</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插件（Addons）"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">插件（Addons）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DNS"><span class="post-toc-number">1.2.3.1.</span> <span class="post-toc-text">DNS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Web-界面（仪表盘）"><span class="post-toc-number">1.2.3.2.</span> <span class="post-toc-text">Web 界面（仪表盘）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Ingress-Controller"><span class="post-toc-number">1.2.3.3.</span> <span class="post-toc-text">Ingress Controller</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#容器资源监控"><span class="post-toc-number">1.2.3.4.</span> <span class="post-toc-text">容器资源监控</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#集群层面日志"><span class="post-toc-number">1.2.3.5.</span> <span class="post-toc-text">集群层面日志</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-API"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Kubernetes API</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-Kubernetes-对象"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">使用 Kubernetes 对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#理解-Kubernetes-对象"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">理解 Kubernetes 对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#理解-Kubernetes-对象-1"><span class="post-toc-number">1.4.1.1.</span> <span class="post-toc-text">理解 Kubernetes 对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象规约（Spec）与状态（Status）"><span class="post-toc-number">1.4.1.2.</span> <span class="post-toc-text">对象规约（Spec）与状态（Status）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#描述-Kubernetes-对象"><span class="post-toc-number">1.4.1.3.</span> <span class="post-toc-text">描述 Kubernetes 对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#必需字段"><span class="post-toc-number">1.4.1.4.</span> <span class="post-toc-text">必需字段</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kubernetes-对象管理"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">Kubernetes 对象管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令式命令"><span class="post-toc-number">1.4.2.1.</span> <span class="post-toc-text">命令式命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令式对象配置"><span class="post-toc-number">1.4.2.2.</span> <span class="post-toc-text">命令式对象配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象名称和-IDs"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">对象名称和 IDs</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#名字空间"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">名字空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#何时使用多个名字空间"><span class="post-toc-number">1.4.4.1.</span> <span class="post-toc-text">何时使用多个名字空间</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用名字空间"><span class="post-toc-number">1.4.4.2.</span> <span class="post-toc-text">使用名字空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#查看名字空间"><span class="post-toc-number">1.4.4.2.1.</span> <span class="post-toc-text">查看名字空间</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#为请求设置名字空间"><span class="post-toc-number">1.4.4.2.2.</span> <span class="post-toc-text">为请求设置名字空间</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#设置名字空间偏好"><span class="post-toc-number">1.4.4.2.3.</span> <span class="post-toc-text">设置名字空间偏好</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#名字空间和-DNS"><span class="post-toc-number">1.4.4.3.</span> <span class="post-toc-text">名字空间和 DNS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#并非所有对象都在名字空间中"><span class="post-toc-number">1.4.4.4.</span> <span class="post-toc-text">并非所有对象都在名字空间中</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#标签和选择算符"><span class="post-toc-number">1.4.5.</span> <span class="post-toc-text">标签和选择算符</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#动机"><span class="post-toc-number">1.4.5.1.</span> <span class="post-toc-text">动机</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#语法和字符集"><span class="post-toc-number">1.4.5.2.</span> <span class="post-toc-text">语法和字符集</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#标签选择算符"><span class="post-toc-number">1.4.5.3.</span> <span class="post-toc-text">标签选择算符</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#基于等值的需求"><span class="post-toc-number">1.4.5.3.1.</span> <span class="post-toc-text">基于等值的需求</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#基于集合的需求"><span class="post-toc-number">1.4.5.3.2.</span> <span class="post-toc-text">基于集合的需求</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注解"><span class="post-toc-number">1.4.6.</span> <span class="post-toc-text">注解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#为对象附加元数据"><span class="post-toc-number">1.4.6.0.1.</span> <span class="post-toc-text">为对象附加元数据</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#语法和字符集-1"><span class="post-toc-number">1.4.6.0.2.</span> <span class="post-toc-text">语法和字符集</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字段选择器"><span class="post-toc-number">1.4.7.</span> <span class="post-toc-text">字段选择器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#支持的字段"><span class="post-toc-number">1.4.7.0.1.</span> <span class="post-toc-text">支持的字段</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#链式选择器"><span class="post-toc-number">1.4.7.0.2.</span> <span class="post-toc-text">链式选择器</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#多种资源类型"><span class="post-toc-number">1.4.7.0.3.</span> <span class="post-toc-text">多种资源类型</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-架构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Kubernetes 架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#管理"><span class="post-toc-number">1.5.1.1.</span> <span class="post-toc-text">管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#控制面到节点通信"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">控制面到节点通信</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#节点到控制面"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">节点到控制面</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#控制面到节点"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">控制面到节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#API-服务器到-kubelet"><span class="post-toc-number">1.5.2.2.1.</span> <span class="post-toc-text">API 服务器到 kubelet</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#apiserver-到节点、Pod-和服务"><span class="post-toc-number">1.5.2.2.2.</span> <span class="post-toc-text">apiserver 到节点、Pod 和服务</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工作负载"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">工作负载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pods"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">pods</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作负载资源"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">工作负载资源</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-是什么？"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Kubernetes 是什么？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#时光回溯"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">时光回溯</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kubernetes-能做什么？"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">Kubernetes 能做什么？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kubernetes-不是什么？"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">Kubernetes 不是什么？</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-组件"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Kubernetes 组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#控制平面组件（Control-Plane-Components）"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">控制平面组件（Control Plane Components）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-apiserver"><span class="post-toc-number">1.2.1.1.</span> <span class="post-toc-text">kube-apiserver</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#etcd"><span class="post-toc-number">1.2.1.2.</span> <span class="post-toc-text">etcd</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-scheduler"><span class="post-toc-number">1.2.1.3.</span> <span class="post-toc-text">kube-scheduler</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-controller-manager"><span class="post-toc-number">1.2.1.4.</span> <span class="post-toc-text">kube-controller-manager</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Node-组件"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">Node 组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kubelet"><span class="post-toc-number">1.2.2.1.</span> <span class="post-toc-text">kubelet</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kube-proxy"><span class="post-toc-number">1.2.2.2.</span> <span class="post-toc-text">kube-proxy</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#容器运行时（Container-Runtime）"><span class="post-toc-number">1.2.2.3.</span> <span class="post-toc-text">容器运行时（Container Runtime）</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插件（Addons）"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">插件（Addons）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DNS"><span class="post-toc-number">1.2.3.1.</span> <span class="post-toc-text">DNS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Web-界面（仪表盘）"><span class="post-toc-number">1.2.3.2.</span> <span class="post-toc-text">Web 界面（仪表盘）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Ingress-Controller"><span class="post-toc-number">1.2.3.3.</span> <span class="post-toc-text">Ingress Controller</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#容器资源监控"><span class="post-toc-number">1.2.3.4.</span> <span class="post-toc-text">容器资源监控</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#集群层面日志"><span class="post-toc-number">1.2.3.5.</span> <span class="post-toc-text">集群层面日志</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-API"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Kubernetes API</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-Kubernetes-对象"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">使用 Kubernetes 对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#理解-Kubernetes-对象"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">理解 Kubernetes 对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#理解-Kubernetes-对象-1"><span class="post-toc-number">1.4.1.1.</span> <span class="post-toc-text">理解 Kubernetes 对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象规约（Spec）与状态（Status）"><span class="post-toc-number">1.4.1.2.</span> <span class="post-toc-text">对象规约（Spec）与状态（Status）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#描述-Kubernetes-对象"><span class="post-toc-number">1.4.1.3.</span> <span class="post-toc-text">描述 Kubernetes 对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#必需字段"><span class="post-toc-number">1.4.1.4.</span> <span class="post-toc-text">必需字段</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kubernetes-对象管理"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">Kubernetes 对象管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令式命令"><span class="post-toc-number">1.4.2.1.</span> <span class="post-toc-text">命令式命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令式对象配置"><span class="post-toc-number">1.4.2.2.</span> <span class="post-toc-text">命令式对象配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象名称和-IDs"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">对象名称和 IDs</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#名字空间"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">名字空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#何时使用多个名字空间"><span class="post-toc-number">1.4.4.1.</span> <span class="post-toc-text">何时使用多个名字空间</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用名字空间"><span class="post-toc-number">1.4.4.2.</span> <span class="post-toc-text">使用名字空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#查看名字空间"><span class="post-toc-number">1.4.4.2.1.</span> <span class="post-toc-text">查看名字空间</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#为请求设置名字空间"><span class="post-toc-number">1.4.4.2.2.</span> <span class="post-toc-text">为请求设置名字空间</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#设置名字空间偏好"><span class="post-toc-number">1.4.4.2.3.</span> <span class="post-toc-text">设置名字空间偏好</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#名字空间和-DNS"><span class="post-toc-number">1.4.4.3.</span> <span class="post-toc-text">名字空间和 DNS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#并非所有对象都在名字空间中"><span class="post-toc-number">1.4.4.4.</span> <span class="post-toc-text">并非所有对象都在名字空间中</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#标签和选择算符"><span class="post-toc-number">1.4.5.</span> <span class="post-toc-text">标签和选择算符</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#动机"><span class="post-toc-number">1.4.5.1.</span> <span class="post-toc-text">动机</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#语法和字符集"><span class="post-toc-number">1.4.5.2.</span> <span class="post-toc-text">语法和字符集</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#标签选择算符"><span class="post-toc-number">1.4.5.3.</span> <span class="post-toc-text">标签选择算符</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#基于等值的需求"><span class="post-toc-number">1.4.5.3.1.</span> <span class="post-toc-text">基于等值的需求</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#基于集合的需求"><span class="post-toc-number">1.4.5.3.2.</span> <span class="post-toc-text">基于集合的需求</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注解"><span class="post-toc-number">1.4.6.</span> <span class="post-toc-text">注解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#为对象附加元数据"><span class="post-toc-number">1.4.6.0.1.</span> <span class="post-toc-text">为对象附加元数据</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#语法和字符集-1"><span class="post-toc-number">1.4.6.0.2.</span> <span class="post-toc-text">语法和字符集</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字段选择器"><span class="post-toc-number">1.4.7.</span> <span class="post-toc-text">字段选择器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#支持的字段"><span class="post-toc-number">1.4.7.0.1.</span> <span class="post-toc-text">支持的字段</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#链式选择器"><span class="post-toc-number">1.4.7.0.2.</span> <span class="post-toc-text">链式选择器</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#多种资源类型"><span class="post-toc-number">1.4.7.0.3.</span> <span class="post-toc-text">多种资源类型</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-架构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Kubernetes 架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#管理"><span class="post-toc-number">1.5.1.1.</span> <span class="post-toc-text">管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#控制面到节点通信"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">控制面到节点通信</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#节点到控制面"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">节点到控制面</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#控制面到节点"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">控制面到节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#API-服务器到-kubelet"><span class="post-toc-number">1.5.2.2.1.</span> <span class="post-toc-text">API 服务器到 kubelet</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#apiserver-到节点、Pod-和服务"><span class="post-toc-number">1.5.2.2.2.</span> <span class="post-toc-text">apiserver 到节点、Pod 和服务</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工作负载"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">工作负载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pods"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">pods</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么是-Pod？"><span class="post-toc-number">1.6.1.1.</span> <span class="post-toc-text">什么是 Pod？</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用-Pod"><span class="post-toc-number">1.6.1.2.</span> <span class="post-toc-text">使用 Pod</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作负载资源"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">工作负载资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Deployments"><span class="post-toc-number">1.6.2.1.</span> <span class="post-toc-text">Deployments</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ReplicaSet"><span class="post-toc-number">1.6.2.2.</span> <span class="post-toc-text">ReplicaSet</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#StatefulSets"><span class="post-toc-number">1.6.2.3.</span> <span class="post-toc-text">StatefulSets</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DaemonSet"><span class="post-toc-number">1.6.2.4.</span> <span class="post-toc-text">DaemonSet</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Jobs"><span class="post-toc-number">1.6.2.5.</span> <span class="post-toc-text">Jobs</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#CronJob"><span class="post-toc-number">1.6.2.6.</span> <span class="post-toc-text">CronJob</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ReplicationController"><span class="post-toc-number">1.6.2.7.</span> <span class="post-toc-text">ReplicationController</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ReplicationController-的替代方案"><span class="post-toc-number">1.6.2.8.</span> <span class="post-toc-text">ReplicationController 的替代方案</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#部署-Kubernetes-集群"><span class="post-toc-number">2.</span> <span class="post-toc-text">部署 Kubernetes 集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备开始"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">准备开始</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境配置"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">环境配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-Container-Runtime"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">安装 Container Runtime</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-kubeadm、kubelet-和-kubectl"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">安装 kubeadm、kubelet 和 kubectl</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初始化控制平面节点"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">初始化控制平面节点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-Pod-网络附加组件"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">安装 Pod 网络附加组件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加入节点"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">加入节点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部署-Dashboard"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">部署 Dashboard</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置-k8s-命令自动补全"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">设置 k8s 命令自动补全</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kubelet-概述"><span class="post-toc-number">3.</span> <span class="post-toc-text">Kubelet 概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#支持多集群、用户和身份认证机制"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">支持多集群、用户和身份认证机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#上下文（Context）"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">上下文（Context）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#KUBECONFIG-环境变量"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">KUBECONFIG 环境变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#语法"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">语法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubectl-–help"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">Kubectl –help</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本指令-初级"><span class="post-toc-number">3.5.1.</span> <span class="post-toc-text">基本指令(初级)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本指令-中级"><span class="post-toc-number">3.5.2.</span> <span class="post-toc-text">基本指令(中级)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#部署命令"><span class="post-toc-number">3.5.3.</span> <span class="post-toc-text">部署命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#集群管理命令"><span class="post-toc-number">3.5.4.</span> <span class="post-toc-text">集群管理命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#疑难解答和调试命令"><span class="post-toc-number">3.5.5.</span> <span class="post-toc-text">疑难解答和调试命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#高级命令"><span class="post-toc-number">3.5.6.</span> <span class="post-toc-text">高级命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设置命令"><span class="post-toc-number">3.5.7.</span> <span class="post-toc-text">设置命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他命令"><span class="post-toc-number">3.5.8.</span> <span class="post-toc-text">其他命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubectl-管理应用生命周期"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">Kubectl 管理应用生命周期</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对象类资源格式"><span class="post-toc-number">4.</span> <span class="post-toc-text">对象类资源格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源配置清单"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">资源配置清单</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#工作负载资源使用"><span class="post-toc-number">5.</span> <span class="post-toc-text">工作负载资源使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Deployment"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Deployment</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReplicaSet-1"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">ReplicaSet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#StatefulSets-1"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">StatefulSets</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DaemonSet-1"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">DaemonSet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jobs-1"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">Jobs</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Service"><span class="post-toc-number">6.</span> <span class="post-toc-text">Service</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义-Service"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">定义 Service</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Service-虚拟-IP-和服务代理"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">Service 虚拟 IP 和服务代理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#userspace-代理模型"><span class="post-toc-number">6.2.1.</span> <span class="post-toc-text">userspace 代理模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iptables-代理模型"><span class="post-toc-number">6.2.2.</span> <span class="post-toc-text">iptables 代理模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ipvs-代理模型"><span class="post-toc-number">6.2.3.</span> <span class="post-toc-text">ipvs 代理模型</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Service-类型"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">Service 类型</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -261,7 +266,7 @@
 <h4 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h4><p>API 服务器是 Kubernetes 控制面的组件， 该组件公开了 Kubernetes API。 API 服务器是 Kubernetes 控制面的前端。</p>
 <p>Kubernetes API 服务器的主要实现是 kube-apiserver。 kube-apiserver 设计上考虑了水平伸缩，也就是说，它可通过部署多个实例进行伸缩。 你可以运行 kube-apiserver 的多个实例，并在这些实例之间平衡流量。</p>
 <h4 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h4><p>etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。</p>
-<p>您的 Kubernetes 集群的 etcd 数据库通常需要有个备份计划。</p>
+<p>你的 Kubernetes 集群的 etcd 数据库通常需要有个备份计划。</p>
 <p>要了解 etcd 更深层次的信息，请参考 <a href="https://etcd.io/docs/" target="_blank" rel="noopener">etcd 文档</a>。</p>
 <h4 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h4><p>控制平面组件，负责监视新创建的、未指定运行节点（node）的 Pods，选择节点让 Pod 在上面运行。</p>
 <p>调度决策考虑的因素包括单个 Pod 和 Pod 集合的资源需求、硬件/软件/策略约束、亲和性和反亲和性规范、数据位置、工作负载间的干扰和最后时限。</p>
@@ -279,7 +284,7 @@
 </li>
 </ul>
 <h3 id="Node-组件"><a href="#Node-组件" class="headerlink" title="Node 组件"></a>Node 组件</h3><p>节点组件在每个节点上运行，维护运行的 Pod 并提供 Kubernetes 运行环境。</p>
-<h4 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h4><p>一个在集群中每个节点（node）上运行的代理。 它保证容器（containers）都 运行在 Pod 中。</p>
+<h4 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h4><p>一个在集群中每个节点（node）上运行的代理。 它保证容器（containers）都运行在 Pod 中。</p>
 <p>kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。 kubelet 不会管理不是由 Kubernetes 创建的容器。</p>
 <h4 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h4><p>kube-proxy 是集群中每个节点上运行的网络代理， 实现 Kubernetes 服务（Service） 概念的一部分。</p>
 <p>kube-proxy 维护节点上的网络规则。这些网络规则允许从集群内部或外部的网络会话与 Pod 进行网络通信。</p>
@@ -293,7 +298,7 @@
 <h4 id="Web-界面（仪表盘）"><a href="#Web-界面（仪表盘）" class="headerlink" title="Web 界面（仪表盘）"></a>Web 界面（仪表盘）</h4><p><a href="https://kubernetes.io/zh/docs/tasks/access-application-cluster/web-ui-dashboard/" target="_blank" rel="noopener">Dashboard</a> 是Kubernetes 集群的通用、基于 Web 的用户界面。 它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。</p>
 <h4 id="Ingress-Controller"><a href="#Ingress-Controller" class="headerlink" title="Ingress Controller"></a>Ingress Controller</h4><p>为了让 Ingress 资源工作，集群必须有一个正在运行的 Ingress 控制器。</p>
 <h4 id="容器资源监控"><a href="#容器资源监控" class="headerlink" title="容器资源监控"></a>容器资源监控</h4><p>容器资源监控将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面，参考 <a href="https://prometheus.io/" target="_blank" rel="noopener">Prometheus 项目</a> 结合 <a href="https://grafana.com/" target="_blank" rel="noopener">Grafana 项目</a>。</p>
-<h4 id="集群层面日志"><a href="#集群层面日志" class="headerlink" title="集群层面日志"></a>集群层面日志</h4><p><a href="https://kubernetes.io/zh/docs/concepts/cluster-administration/logging/" target="_blank" rel="noopener">集群层面日志</a> 机制负责将容器的日志数据 保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。</p>
+<h4 id="集群层面日志"><a href="#集群层面日志" class="headerlink" title="集群层面日志"></a>集群层面日志</h4><p><a href="https://kubernetes.io/zh/docs/concepts/cluster-administration/logging/" target="_blank" rel="noopener">集群层面日志</a> 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。</p>
 <h2 id="Kubernetes-API"><a href="#Kubernetes-API" class="headerlink" title="Kubernetes API"></a>Kubernetes API</h2><p>Kubernetes 控制面的核心是 API 服务器。 API 服务器负责提供 HTTP API，以供用户、集群中的不同部分和集群外部组件相互通信。</p>
 <p>Kubernetes API 使你可以查询和操纵 Kubernetes API 中对象（例如：Pod、Namespace、ConfigMap 和 Event）的状态。</p>
 <p>大部分操作都可以通过 kubectl 命令行接口或类似 kubeadm 这类命令行工具来执行， 这些工具在背后也是调用 API。不过，你也可以使用 REST 调用来访问这些 API。</p>
@@ -306,8 +311,8 @@
 </ul>
 <p>Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。 通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的， 这就是 Kubernetes 集群的期望状态（Desired State）。</p>
 <p>操作 Kubernetes 对象 —— 无论是创建、修改，或者删除 —— 都需要使用 <a href="https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api" target="_blank" rel="noopener">Kubernetes API</a>。 比如，当使用 kubectl 命令行接口时，CLI 会执行必要的 Kubernetes API 调用， 也可以在程序中使用 <a href="https://kubernetes.io/zh/docs/reference/using-api/client-libraries/" target="_blank" rel="noopener">客户端库</a>直接调用 Kubernetes API。</p>
-<h4 id="对象规约（Spec）与状态（Status）"><a href="#对象规约（Spec）与状态（Status）" class="headerlink" title="对象规约（Spec）与状态（Status）"></a>对象规约（Spec）与状态（Status）</h4><p>几乎每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置： 对象 <code>spec</code>（规约）和对象 <code>status</code>（状态） 。 对于具有 <code>spec</code> 的对象，你必须在创建对象时设置其内容，描述你希望对象所具有的特征： <em>期望状态（Desired State）</em> 。</p>
-<p><code>status</code> 描述了对象的 <em>当前状态（Current State）</em>，它是由 Kubernetes 系统和组件设置并更新的。在任何时刻，Kubernetes <a href="https://kubernetes.io/zh/docs/reference/glossary/?all=true#term-control-plane" target="_blank" rel="noopener">控制平面</a> 都一直积极地管理着对象的实际状态，以使之与期望状态相匹配。</p>
+<h4 id="对象规约（Spec）与状态（Status）"><a href="#对象规约（Spec）与状态（Status）" class="headerlink" title="对象规约（Spec）与状态（Status）"></a>对象规约（Spec）与状态（Status）</h4><p>几乎每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置： 对象 <code>spec</code>（规约）和对象 <code>status</code>（状态） 。 对于具有 <code>spec</code> 的对象，你必须在创建对象时设置其内容，描述你希望对象所具有的特征： 期望状态（Desired State） 。</p>
+<p><code>status</code> 描述了对象的当前状态（Current State），它是由 Kubernetes 系统和组件设置并更新的。在任何时刻，Kubernetes <a href="https://kubernetes.io/zh/docs/reference/glossary/?all=true#term-control-plane" target="_blank" rel="noopener">控制平面</a> 都一直积极地管理着对象的实际状态，以使之与期望状态相匹配。</p>
 <h4 id="描述-Kubernetes-对象"><a href="#描述-Kubernetes-对象" class="headerlink" title="描述 Kubernetes 对象"></a>描述 Kubernetes 对象</h4><p>创建 Kubernetes 对象时，必须提供对象的规约，用来描述该对象的期望状态， 以及关于对象的一些基本信息（例如名称）。 当使用 Kubernetes API 创建对象时（或者直接创建，或者基于<code>kubectl</code>）， API 请求必须在请求体中包含 JSON 格式的信息。 大多数情况下，需要在 <code>.yaml</code> 文件中为 <code>kubectl</code> 提供这些信息。<code>kubectl</code> 在发起 API 请求时，会将这些信息转换成 JSON 格式。</p>
 <h4 id="必需字段"><a href="#必需字段" class="headerlink" title="必需字段"></a>必需字段</h4><p>在想要创建的 Kubernetes 对象对应的 <code>.yaml</code> 文件中，需要配置如下的字段：</p>
 <ul>
@@ -337,8 +342,8 @@
 <pre class="line-numbers language-bash"><code class="language-bash">kubectl get namespace<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Kubernetes 会创建四个初始名字空间：</p>
 <ul>
-<li><code>default</code> 没有指明使用其它名字空间的对象所使用的默认名字空间</li>
-<li><code>kube-system</code> Kubernetes 系统创建对象所使用的名字空间</li>
+<li><code>default</code> 没有指明使用其它名字空间的对象所使用的默认名字空间。</li>
+<li><code>kube-system</code> Kubernetes 系统创建对象所使用的名字空间。</li>
 <li><code>kube-public</code> 这个名字空间是自动创建的，所有用户（包括未经过身份验证的用户）都可以读取它。 这个名字空间主要用于集群使用，以防某些资源在整个集群中应该是可见和可读的。 这个名字空间的公共方面只是一种约定，而不是要求。</li>
 <li><code>kube-node-lease</code> 此名字空间用于与各个节点相关的租期（Lease）对象； 此对象的设计使得集群规模很大时节点心跳检测性能得到提升。</li>
 </ul>
@@ -435,7 +440,7 @@ partition
 <p>节点上的组件包括 kubelet、 容器运行时以及 kube-proxy。</p>
 <h4 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h4><p>向 API 服务器添加节点的方式主要有两种：</p>
 <ol>
-<li>节点上的 kubelet 向控制面执行自注册；</li>
+<li>节点上的 kubelet 向控制面执行自注册。</li>
 <li>你，或者别的什么人，手动添加一个 Node 对象。</li>
 </ol>
 <p>在你创建了 Node 对象或者节点上的 kubelet 执行了自注册操作之后， 控制面会检查新的 Node 对象是否合法。例如，如果你使用下面的 JSON 对象来创建 Node 对象：</p>
@@ -468,7 +473,716 @@ partition
 <p>如果无法实现这点，又要求避免在非受信网络或公共网络上进行连接，可在 apiserver 和 kubelet 之间使用 SSH 隧道。</p>
 <p>最后，应该启用 kubelet 用户认证和/或鉴权 来保护 kubelet API。</p>
 <h5 id="apiserver-到节点、Pod-和服务"><a href="#apiserver-到节点、Pod-和服务" class="headerlink" title="apiserver 到节点、Pod 和服务"></a>apiserver 到节点、Pod 和服务</h5><p>从 apiserver 到节点、Pod 或服务的连接默认为纯 HTTP 方式，因此既没有认证，也没有加密。 这些连接可通过给 API URL 中的节点、Pod 或服务名称添加前缀 <code>https:</code> 来运行在安全的 HTTPS 连接上。 不过这些连接既不会验证 HTTPS 末端提供的证书，也不会提供客户端证书。 因此，虽然连接是加密的，仍无法提供任何完整性保证。 这些连接目前还不能安全地在非受信网络或公共网络上运行。</p>
-<h2 id="工作负载"><a href="#工作负载" class="headerlink" title="工作负载"></a>工作负载</h2><h3 id="pods"><a href="#pods" class="headerlink" title="pods"></a>pods</h3><h3 id="工作负载资源"><a href="#工作负载资源" class="headerlink" title="工作负载资源"></a>工作负载资源</h3>
+<h2 id="工作负载"><a href="#工作负载" class="headerlink" title="工作负载"></a>工作负载</h2><p>工作负载是在 Kubernetes 上运行的应用程序。</p>
+<p>无论你的负载是单一组件还是由多个一同工作的组件构成，在 Kubernetes 中你可以在一组 Pods 中运行它。 在 Kubernetes 中，Pod 代表的是集群上处于运行状态的一组容器。</p>
+<p>Kubernetes Pods 有确定的生命周期。 例如，一旦某 Pod 在你的集群中运行，Pod 运行所在的节点出现致命错误时， 所有该节点上的 Pods 都会失败。Kubernetes 将这类失败视为最终状态：即使该节点后来恢复正常运行，你也需要创建新的 Pod 来恢复应用。</p>
+<p>不过，为了让用户的日子略微好过一些，你并不需要直接管理每个 Pod。 相反，你可以使用负载资源来替你管理一组 Pods。 这些资源配置控制器来确保合适类型的、处于运行状态的 Pod 个数是正确的，与你所指定的状态相一致。</p>
+<p>Kubernetes 提供若干种内置的工作负载资源：</p>
+<ul>
+<li>Deployment 和 ReplicaSet （替换原来的资源 ReplicationController）。 Deployment 很适合用来管理你的集群上的无状态应用，Deployment 中的所有 Pod 都是相互等价的，并且在需要的时候被换掉。</li>
+<li>StatefulSet 让你能够运行一个或者多个以某种方式跟踪应用状态的 Pods。 例如，如果你的负载会将数据作持久存储，你可以运行一个 StatefulSet，将每个 Pod 与某个 PersistentVolume 对应起来。你在 StatefulSet 中各个 Pod 内运行的代码可以将数据复制到同一 StatefulSet 中的其它 Pod 中以提高整体的服务可靠性。</li>
+<li>DaemonSet 定义提供节点本地支撑设施的 Pods。这些 Pods 可能对于你的集群的运维是非常重要的，例如作为网络链接的辅助工具或者作为网络插件的一部分等等。每次你向集群中添加一个新节点时，如果该节点与某 DaemonSet 的规约匹配，则控制面会为该 DaemonSet 调度一个 Pod 到该新节点上运行。</li>
+<li>Job 和 CronJob。 定义一些一直运行到结束并停止的任务。Job 用来表达的是一次性的任务，而 CronJob 会根据其时间规划反复运行。</li>
+</ul>
+<h3 id="pods"><a href="#pods" class="headerlink" title="pods"></a>pods</h3><p>Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。</p>
+<p>Pod（就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个） 容器； 这些容器共享存储、网络、以及怎样运行这些容器的声明。 Pod 中的内容总是并置（colocated）的并且一同调度，在共享的上下文中运行。 Pod 所建模的是特定于应用的“逻辑主机”，其中包含一个或多个应用容器， 这些容器是相对紧密的耦合在一起的。 在非云环境中，在相同的物理机或虚拟机上运行的应用类似于在同一逻辑主机上运行的云应用。</p>
+<p>除了应用容器，Pod 还可以包含在 Pod 启动期间运行的 Init 容器。 你也可以在集群中支持临时性容器 的情况外，为调试的目的注入临时性容器。</p>
+<h4 id="什么是-Pod？"><a href="#什么是-Pod？" class="headerlink" title="什么是 Pod？"></a>什么是 Pod？</h4><p>说明： 除了 Docker 之外，Kubernetes 支持很多其他容器运行时（容器运行时是负责运行容器的软件）， Docker 是最有名的运行时， 使用 Docker 的术语来描述 Pod 会很有帮助。</p>
+<p>Pod 的共享上下文包括一组 Linux 名字空间、控制组（cgroup）和可能一些其他的隔离方面，即用来隔离 Docker 容器的技术。 在 Pod 的上下文中，每个独立的应用可能会进一步实施隔离。</p>
+<p>就 Docker 概念的术语而言，Pod 类似于共享名字空间和文件系统卷的一组 Docker 容器。</p>
+<h4 id="使用-Pod"><a href="#使用-Pod" class="headerlink" title="使用 Pod"></a>使用 Pod</h4><p>通常你不需要直接创建 Pod，甚至单实例 Pod。 相反，你会使用诸如 Deployment 或 Job 这类工作负载资源来创建 Pod。如果 Pod 需要跟踪状态， 可以考虑 StatefulSet 资源。</p>
+<p>Kubernetes 集群中的 Pod 主要有两种用法：</p>
+<ul>
+<li>运行单个容器的 Pod。“每个 Pod 一个容器” 模型是最常见的 Kubernetes 用例； 在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。</li>
+<li>运行多个协同工作的容器的 Pod。 Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。 这些位于同一位置的容器可能形成单个内聚的服务单元 —— 一个容器将文件从共享卷提供给公众， 而另一个单独的 “挂斗”（sidecar）容器则刷新或更新这些文件。 Pod 将这些容器和存储资源打包为一个可管理的实体。</li>
+</ul>
+<p>说明： 将多个并置、同管的容器组织到一个 Pod 中是一种相对高级的使用场景。 只有在一些场景中，容器之间紧密关联时你才应该使用这种模式。</p>
+<p>每个 Pod 都旨在运行给定应用程序的单个实例。如果希望横向扩展应用程序（例如，运行多个实例以提供更多的资源），则应该使用多个 Pod，每个实例使用一个 Pod。 在 Kubernetes 中，这通常被称为副本（Replication）。 通常使用一种工作负载资源及其控制器来创建和管理一组 Pod 副本。</p>
+<h3 id="工作负载资源"><a href="#工作负载资源" class="headerlink" title="工作负载资源"></a>工作负载资源</h3><p>工作负载是指在 Kubernetes 上运行的应用程序，一个 pod 可以运行一个或多个工作负载。工作负载资源是用来管理一组 pod 的，确保这些被管理的 pod ，处于我们期望的运行状态。</p>
+<h4 id="Deployments"><a href="#Deployments" class="headerlink" title="Deployments"></a>Deployments</h4><p>一个 Deployment 为 Pods （pod 表示集群上正在运行的一组容器） 和 ReplicaSets （下一代副本控制器）提供声明式的更新能力。</p>
+<p>你负责描述 Deployment 中的目标状态，而 Deployment 控制器（Controller）以受控速率更改实际状态， 使其变为期望状态。你可以定义 Deployment 以创建新的 ReplicaSet，或删除现有 Deployment， 并通过新的 Deployment 收养其资源。</p>
+<h4 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h4><p>ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。</p>
+<h4 id="StatefulSets"><a href="#StatefulSets" class="headerlink" title="StatefulSets"></a>StatefulSets</h4><p>StatefulSet 是用来管理有状态应用的工作负载 API 对象。</p>
+<p>StatefulSet 用来管理某 Pod 集合的部署和扩缩， 并为这些 Pod 提供持久存储和持久标识符。</p>
+<p>和 Deployment 类似， StatefulSet 管理基于相同容器规约的一组 Pod。但和 Deployment 不同的是， StatefulSet 为它们的每个 Pod 维护了一个有粘性的 ID。这些 Pod 是基于相同的规约来创建的， 但是不能相互替换：无论怎么调度，每个 Pod 都有一个永久不变的 ID。</p>
+<h4 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h4><p>DaemonSet 确保全部（或者某些）节点上运行一个 Pod 的副本。 当有节点加入集群时， 也会为他们新增一个 Pod 。 当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。</p>
+<p>DaemonSet 的一些典型用法：</p>
+<ul>
+<li>在每个节点上运行集群守护进程</li>
+<li>在每个节点上运行日志收集守护进程</li>
+<li>在每个节点上运行监控守护进程</li>
+</ul>
+<p>一种简单的用法是为每种类型的守护进程在所有的节点上都启动一个 DaemonSet。 一个稍微复杂的用法是为同一种守护进程部署多个 DaemonSet；每个具有不同的标志， 并且对不同硬件类型具有不同的内存、CPU 要求。</p>
+<h4 id="Jobs"><a href="#Jobs" class="headerlink" title="Jobs"></a>Jobs</h4><p>Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定数量的 Pods 成功终止。 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。 当数量达到指定的成功个数阈值时，任务（即 Job）结束。 删除 Job 的操作会清除所创建的全部 Pods。</p>
+<p>一种简单的使用场景下，你会创建一个 Job 对象以便以一种可靠的方式运行某 Pod 直到完成。 当第一个 Pod 失败或者被删除（比如因为节点硬件失效或者重启）时，Job 对象会启动一个新的 Pod。</p>
+<h4 id="CronJob"><a href="#CronJob" class="headerlink" title="CronJob"></a>CronJob</h4><p>CronJob 创建基于时间调度的 Jobs。</p>
+<p>一个 CronJob 对象就像 crontab (cron table) 文件中的一行。 它用 Cron 格式进行编写， 并周期性地在给定的调度时间执行 Job。</p>
+<h4 id="ReplicationController"><a href="#ReplicationController" class="headerlink" title="ReplicationController"></a>ReplicationController</h4><p>ReplicationController 确保在任何时候都有特定数量的 Pod 副本处于运行状态。 换句话说，ReplicationController 确保一个 Pod 或一组同类的 Pod 总是可用的</p>
+<h4 id="ReplicationController-的替代方案"><a href="#ReplicationController-的替代方案" class="headerlink" title="ReplicationController 的替代方案"></a>ReplicationController 的替代方案</h4><p><strong>ReplicaSet</strong><br>ReplicaSet 是下一代 ReplicationController， 支持新的基于集合的标签选择算符。 它主要被 Deployment 用来作为一种编排 Pod 创建、删除及更新的机制。 请注意，我们推荐使用 Deployment 而不是直接使用 ReplicaSet，除非 你需要自定义更新编排或根本不需要更新。</p>
+<p><strong>Deployment （推荐）</strong></p>
+<p>Deployment 是一种更高级别的 API 对象， 它以类似于 kubectl rolling-update 的方式更新其底层 ReplicaSet 及其 Pod。 如果你想要这种滚动更新功能，那么推荐使用 Deployment，因为与 kubectl rolling-update 不同， 它们是声明式的、服务端的，并且具有其它特性。</p>
+<h1 id="部署-Kubernetes-集群"><a href="#部署-Kubernetes-集群" class="headerlink" title="部署 Kubernetes 集群"></a>部署 Kubernetes 集群</h1><p>Kubernetes 官方提供多种部署方式：</p>
+<ul>
+<li>云解决方案</li>
+<li>使用部署工具安装 Kubernetes</li>
+<li>Windows Kubernetes</li>
+</ul>
+<p>我们这里使用部署工具来安装 Kubernetes，官方提供的工具主要有以下几个：</p>
+<ul>
+<li><p>Kubeadm：官方维护的为了给创建 Kubernetes 集群提供最佳实践的一个工具，涉及集群生命周期管理等知识。</p>
+</li>
+<li><p>Kops ：在 AWS 上安装 Kubernetes 集群。</p>
+</li>
+<li><p>Kubespray：Ansible 部署，OS 级别通用的部署方式，可以是裸机和云的环境。</p>
+</li>
+</ul>
+<p>这里我们使用 Kubeadm 部署，这是官方推荐的部署方式，Kubeadm 可用于生产级别的集群部署。</p>
+<h2 id="准备开始"><a href="#准备开始" class="headerlink" title="准备开始"></a>准备开始</h2><ul>
+<li><p>一台或多台运行着下列系统的机器：</p>
+<ul>
+<li>Ubuntu 16.04+</li>
+<li>Debian 9+</li>
+<li>CentOS 7+</li>
+<li>Red Hat Enterprise Linux (RHEL) 7+</li>
+<li>Fedora 25+</li>
+<li>HypriotOS v1.0.1+</li>
+<li>Flatcar Container Linux （使用 2512.3.0 版本测试通过）</li>
+</ul>
+</li>
+<li><p>每台机器 2 GB 或更多的 RAM （如果少于这个数字将会影响你应用的运行内存)</p>
+</li>
+<li><p>2 CPU 核或更多</p>
+</li>
+<li><p>集群中的所有机器的网络彼此均能相互连接(公网和内网都可以)</p>
+</li>
+<li><p>节点之中不可以有重复的主机名、MAC 地址或 product_uuid。</p>
+</li>
+<li><p>开启机器上的某些端口（Kubernetes 服务所占用的端口必须开启）</p>
+</li>
+<li><p>禁用交换分区。为了保证 kubelet 正常工作，你必须禁用交换分区。</p>
+</li>
+</ul>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>节点准备</p>
+<pre class="line-numbers language-shell"><code class="language-shell">k8s-master 10.10.110.190
+k8s-ndoe1  10.10.110.191
+k8s-node2  10.10.110.192
+Operating System: Ubuntu 18.04.5 LTS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结构图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://pic.imgdb.cn/item/5fb8cee7b18d6271134d01e7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>配置节点</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 关闭防火墙
+systemctl stop ufw
+ufw disable
+
+# 检查所有节点网络接口的mac地址和product_uuid唯一性
+ip link
+cat /sys/class/dmi/id/product_uuid
+
+# 禁用swap分区
+swapoff -a
+
+# 设置主机名
+hostnamectl set-hostname [hostname]
+
+# 配置hosts解析
+cat >> /etc/hosts << EOF
+10.10.110.190 k8s-master
+10.10.110.191 k8s-node1
+10.10.110.192 k8s-node2
+EOF
+
+# 允许iptables检查桥接流量
+    modprobe br_netfilter
+lsmod | grep br_netfilter
+
+cat <<EOF | tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+cat <<EOF | tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sysctl --system
+
+# 节点时间同步
+timedatectl set-local-rtc 1
+timedatectl set-timezone Asia/Shanghai
+echo "*/5 *  *  *  * /usr/sbin/ntpdate ntp.aliyun.com &>/dev/null" | crontab<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="安装-Container-Runtime"><a href="#安装-Container-Runtime" class="headerlink" title="安装 Container Runtime"></a>安装 Container Runtime</h2><p>为了在 Pod 中运行容器，Kubernetes 需要使用容器运行时。</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 卸载旧版本
+apt-get remove docker docker-engine docker.io containerd runc
+
+# 更新apt包索引和安装包
+apt-get update
+apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+# 添加Docker的官方GPG密钥
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# 设置稳定存储库
+echo \
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# 安装Docker引擎
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io
+
+# 配置docker镜像加速,kubernetes官方建议docker驱动采用systemd,如果不修改kubeadm init时会有warning提示
+cat <<EOF | tee /etc/docker/daemon.json
+{
+  "registry-mirrors": ["https://265wemgl.mirror.aliyuncs.com"], 
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+
+systemctl daemon-reload
+systemctl restart docker.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="安装-kubeadm、kubelet-和-kubectl"><a href="#安装-kubeadm、kubelet-和-kubectl" class="headerlink" title="安装 kubeadm、kubelet 和 kubectl"></a>安装 kubeadm、kubelet 和 kubectl</h2><p>你需要在每台机器上安装以下的软件包：</p>
+<ul>
+<li><code>kubeadm</code>：用来初始化集群的指令。</li>
+<li><code>kubelet</code>：在集群中的每个节点上用来启动 Pod 和容器等。</li>
+<li><code>kubectl</code>：用来与集群通信的命令行工具。</li>
+</ul>
+<p>kubeadm 不能帮你安装或者管理 kubelet 或 kubectl，所以你需要确保它们与通过 kubeadm 安装的控制平面的版本相匹配。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">apt-get update && apt-get install -y apt-transport-https curl
+
+curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
+
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
+EOF
+
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+apt-mark hold kubelet kubeadm kubectl # 阻止软件自动更新<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="初始化控制平面节点"><a href="#初始化控制平面节点" class="headerlink" title="初始化控制平面节点"></a>初始化控制平面节点</h2><p>控制平面节点是运行控制平面组件的机器， 包括 etcd （集群数据库） 和 API Server（命令行工具 kubectl 与之通信）。</p>
+<p>在所有 master 节点执行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubeadm init \
+  --apiserver-advertise-address=10.10.110.190 \
+  --image-repository registry.aliyuncs.com/google_containers \
+  --kubernetes-version v1.20.4 \
+  --service-cidr=10.96.0.0/12 \
+  --pod-network-cidr=10.244.0.0/16 \
+  --ignore-preflight-errors=all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>–apiserver-advertise-address 服务器所公布的其正在监听的 IP 地址</li>
+<li>–image-repository 默认拉取镜像地址为 k8s.gcr.io（国内网络无法拉取），这里指定阿里云镜像仓库地址</li>
+<li>–kubernetes-version 指定 k8s 安装版本</li>
+<li>–service-cidr 集群内部虚拟网络，pod 统一访问入口</li>
+<li>–pod-network-cidr 指明 pod 网络可以使用的 IP 地址段</li>
+</ul>
+<p>拷贝 kubectl 连接 k8s 所使用的认证文件到当前用户的默认路径</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="安装-Pod-网络附加组件"><a href="#安装-Pod-网络附加组件" class="headerlink" title="安装 Pod 网络附加组件"></a>安装 Pod 网络附加组件</h2><p>你必须部署一个基于 Pod 网络插件的容器网络接口 (CNI)，以便你的 Pod 可以相互通信。 在安装网络之前，集群 DNS (CoreDNS) 将不会启动。这也是为什么 node 的状态其实是 NotReady 的原因。Kubernetes 常用的网络插件包括 Calico、Flannel、Canal 和 Weave，这里我们使用 Calico 来为 Kubernetes 集群提供网络策略支持</p>
+<p>你可以使用以下命令在控制平面节点或具有 kubeconfig 凭据的节点上安装 Pod 网络附加组件：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 下载 calico 官方配置文件(国内网络可能会下载失败)
+wget https://docs.projectcalico.org/manifests/calico.yaml
+
+# 修改 calico 配置文件
+- name: CALICO_IPV4POOL_CIDR
+  value: "10.244.0.0/16"    # 修改为kubeadm init时指定的--pod-network-cidr网段
+
+# 应用配置文件
+kubectl apply -f calico.yaml
+
+# 查看 pods 运行状态
+kubectl get pods -n kube-system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="加入节点"><a href="#加入节点" class="headerlink" title="加入节点"></a>加入节点</h2><p>节点是你的工作负载（容器和 Pod 等）运行的地方。要将新节点添加到集群，请对每台计算机执行以下操作：</p>
+<ul>
+<li>SSH 到机器</li>
+<li>成为 root （例如 <code>sudo su -</code>）</li>
+<li>运行 <code>kubeadm init</code> 输出的命令。例如：</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">kubeadm join 10.10.110.190:6443 --token 54sx6k.gi533yr3f4yimvky \
+    --discovery-token-ca-cert-hash sha256:3f16fb0f5c1ed611af164b8f5df6891ee60bba760286b860d125d08a304ed4b0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>执行 kubeadm init 之后，默认生成的 token 有效期为 24 小时，过期之后就需要重新创建 token，操作如下：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 列出token列表
+kubeadm token list
+
+# 创建token
+kubeadm token create
+bvw33z.dd7p7h2t151vc6ej  # 这里是新生成的token
+
+# 获取CA证书公钥哈希值
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+3f16fb0f5c1ed611af164b8f5df6891ee60bba760286b860d125d08a304ed4b0
+
+# 使用新的token和公钥哈希值加入节点
+kubeadm join 10.10.110.190:6443 --token $(新生成的token) \
+    --discovery-token-ca-cert-hash sha256:$(新生成的公钥哈希值)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="部署-Dashboard"><a href="#部署-Dashboard" class="headerlink" title="部署 Dashboard"></a>部署 Dashboard</h2><p>Dashboard 是基于网页的 Kubernetes 用户界面。 你可以使用 Dashboard 将容器应用部署到 Kubernetes 集群中，也可以对容器应用排错，还能管理集群资源。 你可以使用 Dashboard 获取运行在集群中的应用的概览信息，也可以创建或者修改 Kubernetes 资源 （如 Deployment，Job，DaemonSet 等等）。 例如，你可以对 Deployment 实现弹性伸缩、发起滚动升级、重启 Pod 或者使用向导创建新的应用。</p>
+<p>默认情况下不会部署 Dashboard。可以通过以下命令部署：</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 下载dashboard配置清单文件</span>
+wget https<span class="token punctuation">:</span>//raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+
+<span class="token comment" spellcheck="true"># dashboard默认的service是ClusterIP类型,我们需要修改为NodePort类型,才能让外部访问到我们的dashboard</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">443</span>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">8443</span>
+      <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">30023</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+<span class="token punctuation">---</span>
+
+<span class="token comment" spellcheck="true"># 访问地址</span>
+https<span class="token punctuation">:</span>//nodeip<span class="token punctuation">:</span><span class="token number">30023</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>访问 Dashboard 管理页面所需的 token，可以通过以下命令创建：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 我们首先在kubernetes-dashboard命名空间中创建名为admin-user的service account
+kubectl create serviceaccount admin-user -n kubernetes-dashboard
+kubectl get serviceaccounts -n kubernetes-dashboard
+
+# 创建集群角色绑定,给admin-user用户授权
+kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:admin-user
+
+# 获取kubernetes-dashboard命名空间下admin-user用户的登录token
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="设置-k8s-命令自动补全"><a href="#设置-k8s-命令自动补全" class="headerlink" title="设置 k8s 命令自动补全"></a>设置 k8s 命令自动补全</h2><pre class="line-numbers language-shell"><code class="language-shell">apt-get install -y bash-completion
+locate bash_completion
+source /usr/share/bash-completion/bash_completion
+source <(kubectl completion bash)
+echo "source <(kubectl completion bash)" >> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Kubelet-概述"><a href="#Kubelet-概述" class="headerlink" title="Kubelet 概述"></a>Kubelet 概述</h1><p>我们可以使用 Kubectl 命令行工具管理 Kubernetes 集群。默认情况下，<code>kubectl</code> 在 <code>$HOME/.kube</code> 目录下查找名为 <code>config</code> 的文件。 你可以通过设置 <code>KUBECONFIG</code> 环境变量或者设置 <a href="https://kubernetes.io/docs/reference/generated/kubectl/kubectl/" target="_blank" rel="noopener"><code>--kubeconfig</code></a>参数来指定其他 kubeconfig 文件。使用 kubeconfig 文件来组织有关集群、用户、命名空间和身份认证机制的信息。<code>kubectl</code> 命令行工具使用 kubeconfig 文件来查找选择集群所需的信息，并与集群的 API 服务器进行通信。</p>
+<p>说明：用于配置集群访问的文件称为 <em>kubeconfig 文件</em>。这是引用配置文件的通用方法。这并不意味着有一个名为 <code>kubeconfig</code> 的文件。</p>
+<h2 id="支持多集群、用户和身份认证机制"><a href="#支持多集群、用户和身份认证机制" class="headerlink" title="支持多集群、用户和身份认证机制 "></a><a href="">支持多集群</a>、用户和身份认证机制<a href="https://kubernetes.io/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/#支持多集群-用户和身份认证机制"> </a></h2><p>假设您有多个集群，并且您的用户和组件以多种方式进行身份认证。比如：</p>
+<ul>
+<li>正在运行的 kubelet 可能使用证书在进行认证。</li>
+<li>用户可能通过令牌进行认证。</li>
+<li>管理员可能拥有多个证书集合提供给各用户。</li>
+</ul>
+<p>使用 kubeconfig 文件，您可以组织集群、用户和命名空间。您还可以定义上下文，以便在集群和命名空间之间快速轻松地切换。</p>
+<h2 id="上下文（Context）"><a href="#上下文（Context）" class="headerlink" title="上下文（Context）"></a>上下文（Context）</h2><p>通过 kubeconfig 文件中的 context 元素，使用简便的名称来对访问参数进行分组。每个上下文都有三个参数：cluster、namespace 和 user。默认情况下，kubectl 命令行工具使用当前上下文中的参数与集群进行通信。</p>
+<p>选择当前上下文</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl config use-context<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="KUBECONFIG-环境变量"><a href="#KUBECONFIG-环境变量" class="headerlink" title="KUBECONFIG 环境变量"></a>KUBECONFIG 环境变量</h2><p><code>KUBECONFIG</code> 环境变量包含一个 kubeconfig 文件列表。 对于 Linux 和 Mac，列表以冒号分隔。对于 Windows，列表以分号分隔。 <code>KUBECONFIG</code> 环境变量不是必要的。 如果 <code>KUBECONFIG</code> 环境变量不存在，<code>kubectl</code> 使用默认的 kubeconfig 文件，<code>$HOME/.kube/config</code>。</p>
+<p>如果 <code>KUBECONFIG</code> 环境变量存在，<code>kubectl</code> 使用 <code>KUBECONFIG</code> 环境变量中列举的文件合并后的有效配置。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>使用以下语法 <code>kubectl</code> 从终端窗口运行命令：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl [command] [TYPE] [NAME] [flags]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><code>command</code>：指定要对一个或多个资源执行的操作，例如 <code>create</code>、<code>get</code>、<code>describe</code>、<code>delete</code>。</li>
+<li><code>TYPE</code>：指定资源类型。资源类型不区分大小写， 可以指定单数、复数或缩写形式。</li>
+<li><code>NAME</code>：指定资源的名称。名称区分大小写。 如果省略名称，则显示所有资源的详细信息 <code>kubectl get pods</code>。</li>
+<li><code>flags</code>: 指定可选的参数。</li>
+</ul>
+<h2 id="Kubectl-–help"><a href="#Kubectl-–help" class="headerlink" title="Kubectl –help"></a>Kubectl –help</h2><h3 id="基本指令-初级"><a href="#基本指令-初级" class="headerlink" title="基本指令(初级)"></a>基本指令(初级)</h3><ul>
+<li>create：从文件或标准输入创建资源。</li>
+<li>expose：将资源作为新的 Kubernetes 服务公开。</li>
+<li>run：在集群上运行指定的镜像。</li>
+<li>set：设置对象的特定功能。</li>
+</ul>
+<h3 id="基本指令-中级"><a href="#基本指令-中级" class="headerlink" title="基本指令(中级)"></a>基本指令(中级)</h3><ul>
+<li>explain：解释文档参考资料。</li>
+<li>get：显示一个或多个资源。</li>
+<li>edit：编辑服务器上的资源。</li>
+<li>delete：通过文件名、标准输入、资源和名称或通过资源和标签选择器删除资源。</li>
+</ul>
+<h3 id="部署命令"><a href="#部署命令" class="headerlink" title="部署命令"></a>部署命令</h3><ul>
+<li>rollout：管理资源的发布。</li>
+<li>scale：对 deployment、ReplicaSet、Replication Controller 或 StatefulSet 扩容缩容。</li>
+<li>autoscale：自动扩容缩容。</li>
+</ul>
+<h3 id="集群管理命令"><a href="#集群管理命令" class="headerlink" title="集群管理命令"></a>集群管理命令</h3><ul>
+<li>certificate：修改证书资源。</li>
+<li>cluster-info：显示集群信息。</li>
+<li>top：显示资源(CPU/内存/存储)使用情况。</li>
+<li>cordon：将节点标记为不可调度。</li>
+<li>uncordon：将节点标记为可调度的。</li>
+<li>drain：更新一个或多个节点上的污点。</li>
+<li>taint：驱逐节点上的应用准备下线维护。</li>
+</ul>
+<h3 id="疑难解答和调试命令"><a href="#疑难解答和调试命令" class="headerlink" title="疑难解答和调试命令"></a>疑难解答和调试命令</h3><ul>
+<li>describe：描述显示特定资源或资源组的详细信息。</li>
+<li>logs：打印一个容器的日志。</li>
+<li>attach：连接到正在运行的容器上。</li>
+<li>exec：在容器中执行命令。</li>
+<li>port-forward：转发一个或多个本地端口到一个 pod。</li>
+<li>proxy：运行到 Kubernetes API 服务器的代理。</li>
+<li>cp：在容器和容器之间复制文件和目录。</li>
+<li>auth：授权检查。</li>
+<li>debug：使用交互式调试容器调试群集资源。</li>
+</ul>
+<h3 id="高级命令"><a href="#高级命令" class="headerlink" title="高级命令"></a>高级命令</h3><ul>
+<li>diff：由文件名或标准输入指定当前联机配置和应用时的配置差异。</li>
+<li>apply：通过文件名或标准输入对资源应用配置。</li>
+<li>patch：使用补丁更新资源的字段。</li>
+<li>replace：用文件名或标准输入替换资源。</li>
+<li>wait：等待一个或多个资源的特定条件。</li>
+<li>kustomize：从 kustomization.yaml 文件中的指令生成一组 API 资源。</li>
+</ul>
+<h3 id="设置命令"><a href="#设置命令" class="headerlink" title="设置命令"></a>设置命令</h3><ul>
+<li>label：更新资源上的标签。</li>
+<li>annotate：更新一个或多个资源上的注解。</li>
+<li>completion：kubectl 命令自动补全。</li>
+</ul>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><ul>
+<li>api-resources：打印受支持的 API 资源。</li>
+<li>api-versions：打印受支持的 API 版本。</li>
+<li>config：修改 Kubeconfig 文件。</li>
+<li>plugin：提供与插件交互的实用程序。</li>
+<li>version：打印当前上下文客户端和服务版本信息。</li>
+</ul>
+<h2 id="Kubectl-管理应用生命周期"><a href="#Kubectl-管理应用生命周期" class="headerlink" title="Kubectl 管理应用生命周期"></a>Kubectl 管理应用生命周期</h2><p>创建</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl create deployment myapp-deployment --image=ikubernetes/myapp:v1 --replicas=3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>发布</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl expose deployment myapp-deployment --name=myapp-service --type=NodePort --port=8000 --target-port=80 --protocol=TCP<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>升级</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl set image deployment/myapp-deployment myapp=ikubernetes/myapp:v2
+kubectl rollout status deployment myapp-deployment # 查看升级状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>回滚</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl rollout history deployment myapp-deployment # 查看版本发布历史记录
+kubectl rollout history deployment myapp-deployment --revision=3 # 查看指定版本发布的详细信息
+kubectl rollout undo deployment myapp-deployment # 回滚到上一个版本
+kubectl rollout undo deployment myapp-deployment --to-revision=2 # 回滚到指定的版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>删除</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl delete deployments.apps myapp-deployment
+kubectl delete service myapp-service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="对象类资源格式"><a href="#对象类资源格式" class="headerlink" title="对象类资源格式"></a>对象类资源格式</h1><p>Kubernetes API 仅支持接受及响应 JSON 格式的数据（JSON 对象），同时，为了便于使用，它也允许用户提供 YAML 格式的 POST 对象，但 API Server 接受和返回的所有 JSON 对象都遵循同一个模式，它们都具有 kind 和 apiVersion 字段，用于表示对象所属的资源类型、API 群组及相关版本。</p>
+<p>大多数的对象或列表类型的资源还需要具有三个嵌套型的字段 metadata、spec、status。其中 metadata 字段为资源提供元数据信息，如名称、资源隶属的名称空间和标签等。spec 则用于定义用户期望的状态，不同的资源类型，其状态的意义也各不相同。status 则记录着活动对象的当前状态信息，它由 Kubernetes 系统自行维护，对用户来说为只读状态。</p>
+<p>Kubectl 的命令可以分为三类：陈述式命令（Imperative commands）、陈述式对象配置（Imperative object configuration）和声明式对象配置（Declarative object configuration）。</p>
+<p>陈述式命令就是此前管理应用生命周期用到的 run、expose 和 delete 等命令，它们直接作用于 Kubernetes 系统上的活动对象，简单易用，但是不支持代码复用、修改复审及审计日志的功能。对于新手来说，更容易上手学习。</p>
+<p>陈述式对象配置管理方式支持使用 create、delete、get 和 replace 等命令，与陈述式命令不同之处在于，它通过资源配置清单读取需要管理的目标资源对象。陈述式对象配置管理操作同样直接作用于 Kubernetes 系统上的活动对象，即便修改配置清单中极小的一部分内容，使用 replace 命令进行的对象更新也会导致整个对象被替换。</p>
+<p>声明式对象配置并不直接指明要进行的对象管理操作，而是提供配置清单文件给 Kubernetes 系统，并委托系统跟踪活动对象的状态变动。资源对象的创建、删除及修改操作可全部通过唯一的 apply 命令来完成。并且每次操作时，提供给命令的配置信息都存放于对象的注解信息中，并通过比对检查活动对象的当前状态、注解中的配置信息及资源清单中的配置信息三方进行变更合并，从而实现仅修改变动字段的高级补丁机制。</p>
+<h2 id="资源配置清单"><a href="#资源配置清单" class="headerlink" title="资源配置清单"></a>资源配置清单</h2><p>我们前面使用 Kubectl 管理应用生命周期，使用的是陈述式命令。下面我们将以资源配置清单的格式来创建活动对象。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ikubernetes<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> ikubernetes<span class="token punctuation">-</span>deployment
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> ikubernetes
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> ikubernetes
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ikubernetes
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> ikubernetes/myapp<span class="token punctuation">:</span>v1
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在该活动对象实例中：</p>
+<ul>
+<li><p>创建名为 ikubernetes-deployment （由 <code>.metadata.name</code> 字段标明）的 Deployment</p>
+</li>
+<li><p>该 Deployment 创建三个（由 <code>replicas</code> 字段标明） Pod 副本</p>
+</li>
+<li><p><code>selector</code> 字段定义 Deployment 如何查找要管理的 Pods。这里只需选择在 Pod 模板中定义的标签（app: ikubernetes）</p>
+</li>
+<li><p><code>template</code> 字段包含以下子字段：</p>
+<ul>
+<li>Pod 被使用 <code>labels</code> 字段打上 app: ikubernetes 标签</li>
+<li>Pod 模板规约 （即 .<code>template.spec</code> 字段）指示 Pods 运行一个 ikubernetes 容器，并指定容器运行版本的镜像</li>
+</ul>
+<p>Kubernetes API 标准的资源组织格式由五个核心字段组成：</p>
+</li>
+<li><p>apiVersion：定义这个资源使用的 API 版本</p>
+</li>
+<li><p>kind：定义这个资源的类型</p>
+</li>
+<li><p>metadata：资源的元数据</p>
+</li>
+<li><p>spec：资源的规约，描述所期望的对象应有的状态</p>
+</li>
+<li><p>status：记录对象在系统上的当前状态</p>
+</li>
+</ul>
+<p>在编写资源配置清单时如果对资源的字段不确定，可以使用 Kubernetes 内置的 explain 命令列出受支持资源的字段：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 获取资源及其字段的文档
+kubectl explain pods
+
+# 获取资源的特定字段
+kubectl explain pods.spec.containers<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="工作负载资源使用"><a href="#工作负载资源使用" class="headerlink" title="工作负载资源使用"></a>工作负载资源使用</h1><h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><p>一个 Deployment 为 <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/" target="_blank" rel="noopener">Pods</a> 和 <a href="https://kubernetes.io/zh/docs/concepts/workloads/controllers/replicaset/" target="_blank" rel="noopener">ReplicaSets</a> 提供声明式的更新能力。</p>
+<p>下面是 Deployment 示例。其中创建了一个 ReplicaSet，负责启动三个 <code>nginx</code> Pods：</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.14.2
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>开始之前，请确保的 Kubernetes 集群已启动并运行。 按照以下步骤创建上述 Deployment ：</p>
+<ol>
+<li><p>通过运行以下命令创建 Deployment ：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl apply -f nginx-deployment.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>运行 <code>kubectl get deployments.apps -o wide</code> 检查 Deployment 是否已创建：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">NAME                     READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS    IMAGES                 SELECTOR
+nginx-deployment         3/3     3            3           34s   nginx         nginx:1.14.2           app=nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>在检查集群中的 Deployment 时，所显示的字段有：</p>
+<ul>
+<li><code>NAME</code> 列出了集群中 Deployment 的名称。</li>
+<li><code>READY</code> 显示应用程序的可用的副本数，显示的模式是“就绪个数/期望个数”。</li>
+<li><code>UP-TO-DATE</code> 显示为了达到期望状态已经更新的副本数。</li>
+<li><code>AVAILABLE</code> 显示应用可供用户使用的副本数。</li>
+<li><code>AGE</code> 显示应用程序运行的时间。</li>
+</ul>
+<p>请注意期望副本数是根据 <code>.spec.replicas</code> 字段设置 3。</p>
+</li>
+<li><p>运行 <code>kubectl rollout status deployment nginx-deployment</code> 查看 Deployment 上线状态：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">deployment "nginx-deployment" successfully rolled out<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>要查看 Deployment 创建的 ReplicaSet（<code>rs</code>），运行 <code>kubectl get rs</code>。 输出类似于：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">NAME                                DESIRED   CURRENT   READY   AGE
+nginx-deployment-66b6c48dd5         3         3         3       5m5s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>要查看每个资源自动生成的标签，运行 <code>kubectl get pods --show-labels</code>。返回以下输出：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">NAME                                      READY   STATUS    RESTARTS   AGE     LABELS
+nginx-deployment-66b6c48dd5-5jd4w         1/1     Running   0          7m20s   app=nginx,pod-template-hash=66b6c48dd5
+nginx-deployment-66b6c48dd5-js2bx         1/1     Running   0          7m20s   app=nginx,pod-template-hash=66b6c48dd5
+nginx-deployment-66b6c48dd5-mqsnj         1/1     Running   0          7m20s   app=nginx,pod-template-hash=66b6c48dd5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>所创建的 ReplicaSet 确保总是存在三个 <code>nginx</code> Pod。</p>
+</li>
+</ol>
+<h2 id="ReplicaSet-1"><a href="#ReplicaSet-1" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h2><p>ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。</p>
+<p>ReplicaSet 确保任何时间都有指定数量的 Pod 副本在运行。 然而，Deployment 是一个更高级的概念，它管理 ReplicaSet，并向 Pod 提供声明式的更新以及许多其他有用的功能。 因此，我们建议使用 Deployment 而不是直接使用 ReplicaSet ，除非你需要自定义更新业务流程或根本不需要更新。</p>
+<p>这实际上意味着，你可能永远不需要操作 ReplicaSet 对象：而是使用 Deployment，并在 spec 部分定义 ReplicaSet 管理你的应用。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ReplicaSet
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ti</span><span class="token punctuation">:</span> fr
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">ti</span><span class="token punctuation">:</span> fr
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><p>你可以看到当前被部署的 ReplicaSet：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl get rs nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>并看到你所创建的前端：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">NAME    DESIRED   CURRENT   READY   AGE
+nginx   3         3         2       11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>你也可以查看 ReplicaSet 的状态：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl describe rs nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>你会看到类似如下的输出：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">Name:         nginx
+Namespace:    default
+Selector:     ti=fr
+Labels:       app=nginx
+Annotations:  <none>
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  ti=fr
+  Containers:
+   nginx:
+    Image:        nginx
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  113s  replicaset-controller  Created pod: nginx-7hxhm
+  Normal  SuccessfulCreate  113s  replicaset-controller  Created pod: nginx-mnq9v
+  Normal  SuccessfulCreate  113s  replicaset-controller  Created pod: nginx-w9cfq<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>最后可以查看启动了的 Pods：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl get pods<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>你会看到类似如下的 Pod 信息：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">NAME          READY   STATUS    RESTARTS   AGE
+nginx-7hxhm   1/1     Running   0          3m2s
+nginx-mnq9v   1/1     Running   0          3m2s
+nginx-w9cfq   1/1     Running   0          3m2s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="StatefulSets-1"><a href="#StatefulSets-1" class="headerlink" title="StatefulSets"></a>StatefulSets</h2><h2 id="DaemonSet-1"><a href="#DaemonSet-1" class="headerlink" title="DaemonSet"></a>DaemonSet</h2><p>DaemonSet 确保全部（或者某些）节点上运行一个 Pod 的副本。 当有节点加入集群时， 也会为他们新增一个 Pod 。 当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。</p>
+<p>你可以在 YAML 文件中描述 DaemonSet。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> DaemonSet
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> fluentd
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> fluentd<span class="token punctuation">-</span>logging
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> fluentd<span class="token punctuation">-</span>elasticsearch
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> fluentd<span class="token punctuation">-</span>elasticsearch
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> fluentd<span class="token punctuation">-</span>elasticsearch
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> quay.io/fluentd_elasticsearch/fluentd<span class="token punctuation">:</span>v2.5.2
+      <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+        <span class="token key atrule">type</span><span class="token punctuation">:</span> ssd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果指定了 <code>.spec.template.spec.nodeSelector</code>，DaemonSet 控制器将在能够与 Node 选择算符匹配的节点上创建 Pod。类似这种情况，可以指定 <code>.spec.template.spec.affinity</code>，之后 DaemonSet 控制器将在能够与节点亲和性匹配的节点上创建 Pod。 如果根本就没有指定，则 DaemonSet Controller 将在所有节点上创建 Pod。</p>
+<h2 id="Jobs-1"><a href="#Jobs-1" class="headerlink" title="Jobs"></a>Jobs</h2><p>下面是一个 Job 配置示例。它负责计算 π 到小数点后 2000 位，并将结果打印出来。 此计算大约需要 10 秒钟完成。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> batch/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Job
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> pi
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> pi
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> perl
+        <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"perl"</span><span class="token punctuation">,</span>  <span class="token string">"-Mbignum=bpi"</span><span class="token punctuation">,</span> <span class="token string">"-wle"</span><span class="token punctuation">,</span> <span class="token string">"print bpi(2000)"</span><span class="token punctuation">]</span>
+      <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> Never
+  <span class="token key atrule">backoffLimit</span><span class="token punctuation">:</span> <span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>要查看 Job 对应的已完成的 Pods，可以执行 <code>kubectl get pods</code>。</p>
+<p>要以机器可读的方式列举隶属于某 Job 的全部 Pods，你可以使用类似下面这条命令：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
+echo $pods<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>输出类似于：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">pi-ntb4l<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里，选择算符与 Job 的选择算符相同。<code>--output=jsonpath</code> 选项给出了一个表达式， 用来从返回的列表中提取每个 Pod 的 name 字段。</p>
+<p>查看其中一个 Pod 的标准输出：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">kubectl logs $pods<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>类似于：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275901<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>创建和销毁 Kubernetes Pod 以匹配集群状态。 Pod 是非永久性资源。 如果你使用 Deployment 来运行你的应用程序，则它可以动态创建和销毁 Pod。</p>
+<p>每个 Pod 都有自己的 IP 地址，但是在 Deployment 中，在同一时刻运行的 Pod 集合可能与稍后运行该应用程序的 Pod 集合不同。</p>
+<p>这导致了一个问题： 如果一组 Pod（称为“后端”）为集群内的其他 Pod（称为“前端”）提供功能， 那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用提供工作负载的后端部分？</p>
+<p>于是就有了 Services。</p>
+<h2 id="定义-Service"><a href="#定义-Service" class="headerlink" title="定义 Service"></a>定义 Service</h2><p>例如，假定有一组 Pod，它们对外暴露了 6379 端口，同时还被打上 <code>app=redis</code> 标签：</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> redis<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> redis<span class="token punctuation">-</span>deployment
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> redis
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> redis
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> redis
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> redis
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">6379</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们创建名称为 “my-service” 的 Service 对象，它会将请求代理到使用 TCP 端口 6379，并且具有标签 <code>app=redis</code> 的 Pod 上：</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> redis
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">6379</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过执行 <code>kubectl get endpoints my-service</code> 命令可以看到 Service 后端所代理的 Pod：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">NAME         ENDPOINTS                                                   AGE
+my-service   10.244.169.179:6379,10.244.169.180:6379,10.244.36.82:6379   6m3s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Service-虚拟-IP-和服务代理"><a href="#Service-虚拟-IP-和服务代理" class="headerlink" title="Service 虚拟 IP 和服务代理"></a>Service 虚拟 IP 和服务代理</h2><p>在 Kubernetes 集群中，每个 Node 运行一个 kube-proxy 进程。 kube-proxy 负责为 Service 实现了一种 VIP（虚拟 IP）的形式，而不是 ExternalName 的形式。简单来讲，一个 Service 对象就是工作节点上的一些 iptables 或 ipvs 规则，用于将到达 Service 对象 IP 地址的流量调度转发至相应的 Endpoint 对象指向的 IP 地址和端口之上。</p>
+<h3 id="userspace-代理模型"><a href="#userspace-代理模型" class="headerlink" title="userspace 代理模型"></a>userspace 代理模型</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.imgdb.cn/item/606199998322e6675cd1d76b.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>这种模式，kube-proxy 会监视 Kubernetes 控制平面对 Service 对象和 Endpoints 对象的添加和移除操作。 对每个 Service，它会在本地 Node 上打开一个端口（随机选择）。 任何连接到“代理端口”的请求，都会被代理到 Service 的后端 <code>Pods</code> 中的某个上面（如 <code>Endpoints</code> 所报告的一样）。 使用哪个后端 Pod，是 kube-proxy 基于 <code>SessionAffinity</code> 来确定的。</p>
+<p>最后，它配置 iptables 规则，捕获到达该 Service 的 <code>clusterIP</code>（是虚拟 IP） 和 <code>Port</code> 的请求，并重定向到代理端口，代理端口再代理请求到后端Pod。</p>
+<p>默认情况下，用户空间模式下的 kube-proxy 通过轮转算法选择后端。</p>
+<h3 id="iptables-代理模型"><a href="#iptables-代理模型" class="headerlink" title="iptables 代理模型"></a>iptables 代理模型</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.imgdb.cn/item/6061a5e08322e6675cdf26c6.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>这种模式，kube-proxy 会监视 Kubernetes 控制节点对 Service 对象和 Endpoints 对象的添加和移除。 对每个 Service，它会配置 iptables 规则，从而捕获到达该 Service 的 clusterIP 和端口的请求，进而将请求重定向到 Service 的一组后端中的某个 Pod 上面。 对于每个 Endpoints 对象，它也会配置 iptables 规则，这个规则会选择一个后端组合。</p>
+<p>默认的策略是，kube-proxy 在 iptables 模式下随机选择一个后端。</p>
+<p>使用 iptables 处理流量具有较低的系统开销，因为流量由 Linux netfilter 处理， 而无需在用户空间和内核空间之间切换。 这种方法也可能更可靠。</p>
+<p>如果 kube-proxy 在 iptables 模式下运行，并且所选的第一个 Pod 没有响应， 则连接失败。 这与用户空间模式不同：在这种情况下，kube-proxy 将检测到与第一个 Pod 的连接已失败， 并会自动使用其他后端 Pod 重试。</p>
+<p>你可以使用 Pod 就绪探测器 验证后端 Pod 可以正常工作，以便 iptables 模式下的 kube-proxy 仅看到测试正常的后端。 这样做意味着你避免将流量通过 kube-proxy 发送到已知已失败的 Pod。</p>
+<h3 id="ipvs-代理模型"><a href="#ipvs-代理模型" class="headerlink" title="ipvs 代理模型"></a>ipvs 代理模型</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.imgdb.cn/item/6061a7cf8322e6675ce18487.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>在 <code>ipvs</code> 模式下，kube-proxy 监视 Kubernetes 服务和端点，调用 <code>netlink</code> 接口相应地创建 IPVS 规则， 并定期将 IPVS 规则与 Kubernetes 服务和端点同步。 该控制循环可确保IPVS 状态与所需状态匹配。访问服务时，IPVS 将流量定向到后端 Pod 之一。</p>
+<p>IPVS代理模式基于类似于 iptables 模式的 netfilter 挂钩函数， 但是使用哈希表作为基础数据结构，并且在内核空间中工作。 这意味着，与 iptables 模式下的 kube-proxy 相比，IPVS 模式下的 kube-proxy 重定向通信的延迟要短，并且在同步代理规则时具有更好的性能。 与其他代理模式相比，IPVS 模式还支持更高的网络流量吞吐量。</p>
+<p>IPVS 提供了更多选项来平衡后端 Pod 的流量。 这些是：</p>
+<ul>
+<li><code>rr</code>：轮替（Round-Robin）</li>
+<li><code>lc</code>：最少链接（Least Connection），即打开链接数量最少者优先</li>
+<li><code>dh</code>：目标地址哈希（Destination Hashing）</li>
+<li><code>sh</code>：源地址哈希（Source Hashing）</li>
+<li><code>sed</code>：最短预期延迟（Shortest Expected Delay）</li>
+<li><code>nq</code>：从不排队（Never Queue）</li>
+</ul>
+<h2 id="Service-类型"><a href="#Service-类型" class="headerlink" title="Service 类型"></a>Service 类型</h2>
         </div>
 
         <blockquote class="post-copyright">
@@ -476,7 +1190,7 @@ partition
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2021-03-09T10:37:41.560Z" itemprop="dateUpdated">2021-03-09 18:37:41</time>
+    最后更新时间：<time datetime="2021-03-29T10:13:45.884Z" itemprop="dateUpdated">2021-03-29 18:13:45</time>
 </span><br>
 
 
@@ -673,7 +1387,7 @@ partition
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                8.9k
+                11.8k
             
         </span>
     </div>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="Ubuntu 18.04 系统初始化#!&#x2F;bin&#x2F;bash #Author: Created by MoWenJie #Function: Ubuntu 18.04 Server System initialization  kernel_optimize() { cat &gt;&#x2F;etc&#x2F;sysctl.conf&lt;&lt;EOF fs.file-max &#x3D; 10000000 fs.nr_open">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-02T05:26:52.000Z">
-<meta property="article:modified_time" content="2021-03-04T07:13:53.266Z">
+<meta property="article:modified_time" content="2021-03-18T09:53:32.506Z">
 <meta property="article:author" content="荒原饮露">
 <meta property="article:tag" content="Ubuntu">
 <meta name="twitter:card" content="summary">
@@ -268,15 +268,20 @@ apt <span class="token function">install</span> -y tcpdump bash-completion tcptr
 apt clean <span class="token operator">&amp;&amp;</span> apt autoremove
 <span class="token punctuation">}</span>
 
+command_line<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token keyword">echo</span> <span class="token string">'PS1="\[\e[0m\][\[\e[32;40m\]\u\[\e[33;40m\]@\[\e[34;40m\]\h \[\e[36;40m\]\w\[\e[0m\]]\\$ "'</span> <span class="token operator">>></span> /root/.bashrc <span class="token operator">&amp;&amp;</span> <span class="token function">bash</span>
+<span class="token punctuation">}</span>
+
 main<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 kernel_optimize
 limits_process
 time_sync
 sshd_permitrootlogin
 install_soft
+command_line
 <span class="token punctuation">}</span>
 
-main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
         </div>
 
@@ -285,7 +290,7 @@ main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2021-03-04T07:13:53.266Z" itemprop="dateUpdated">2021-03-04 15:13:53</time>
+    最后更新时间：<time datetime="2021-03-18T09:53:32.506Z" itemprop="dateUpdated">2021-03-18 17:53:32</time>
 </span><br>
 
 
@@ -489,7 +494,7 @@ main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
     <div class="github-badge">
         <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet">
             
-                345
+                373
             
         </span>
     </div>
